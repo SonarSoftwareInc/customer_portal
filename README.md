@@ -63,3 +63,7 @@ Upgrades for the customer portal are done automatically and require no interacti
 ## Troubleshooting
 
 If you get the error `[/var/www/html/storage]:rw': invalid mount config for type "volume": invalid mount path: '[/var/www/html/storage]' mount path must be absolute` during setup, try removing the created storage volume by executing `sudo docker volume rm customerportal_storage` and rerunning the installation script.
+
+## Customizing the portal
+
+This portal is built using [Laravel](https://laravel.com/). You are welcome to fork and modify this repository for your own needs! Do not attempt to customize the files inside the existing Docker container, as they will be automatically overwritten during upgrade. If you need help customizing this portal beyond what is currently available, we recommend [Solutions4Ebiz](https://www.solutions4ebiz.com/) as an experienced third party developer.
