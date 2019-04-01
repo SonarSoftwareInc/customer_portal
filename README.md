@@ -50,9 +50,11 @@ Viewing the logs:
 
 ## Commands you can use after setup
 
-* `php /usr/share/sonar/artisan sonar:settingskey` will generate a new key for the `/settings` page if you forget the one you had.
-* `php /usr/share/sonar/artisan sonar:test:smtp {email}` will test your email configuration. Replace `{email}` with your email address, and the portal will attempt to send you a test email.
-* `php /usr/share/sonar/artisan sonar:test:paypal` will test your PayPal configuration, if it is enabled.
+From the `customer_portal` directory, you can execute `docker-compose exec app "cmd"` to access the docker container that the portal is running in. After doing this, you can execute the commands below.
+
+* `php /var/www/html/artisan sonar:settingskey` will generate a new key for the `/settings` page if you forget the one you had.
+* `php /var/www/html/artisan sonar:test:smtp {email}` will test your email configuration. Replace `{email}` with your email address, and the portal will attempt to send you a test email.
+* `php /var/www/html/artisan sonar:test:paypal` will test your PayPal configuration, if it is enabled.
 
 ## Upgrading
 
@@ -60,4 +62,4 @@ Upgrades for the customer portal are done automatically and require no interacti
 
 ## Troubleshooting
 
-If you get the error `[/var/www/html/storage]:rw': invalid mount config for type "volume": invalid mount path: '[/var/www/html/storage]' mount path must be absolute` during setup, try removing the created storage volume and `sudo docker volume rm customerportal_storage` and rerunning the installation script.
+If you get the error `[/var/www/html/storage]:rw': invalid mount config for type "volume": invalid mount path: '[/var/www/html/storage]' mount path must be absolute` during setup, try removing the created storage volume by executing `sudo docker volume rm customerportal_storage` and rerunning the installation script.
