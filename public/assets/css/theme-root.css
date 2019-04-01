@@ -1,0 +1,487 @@
+/* customer portal, root views _ css by alec armbruster for sonar's customer portal 2019, made with <3 in california */
+ @import 'circular-std.css';
+ * {
+     margin: 0;
+     padding: 0;
+     border: none;
+     outline: none;
+     list-style: none;
+     box-sizing: border-box;
+     text-decoration: none;
+     font-size: 100%;
+     vertical-align: baseline;
+     font-family: 'CircularStd', sans-serif;
+     font-smooth: always;
+}
+ @keyframes fadeInUp {
+     0% {
+         opacity: 0;
+         transform: translateY(24px);
+    }
+     100% {
+         opacity: 1;
+         transform: translateY(0);
+    }
+}
+ @keyframes fadeOutUp {
+     0% {
+         opacity: 1;
+         transform: translateY(0);
+    }
+     100% {
+         opacity: 0;
+         transform: translateY(24px);
+    }
+}
+
+
+ @keyframes fadeInDown {
+     0% {
+         opacity: 0;
+         transform: translateY(-24px);
+    }
+     100% {
+         opacity: 1;
+         transform: translateY(0);
+    }
+}
+ @keyframes errorDown {
+     0% {
+         opacity: 0;
+         transform: translateY(-24px);
+    }
+     100% {
+         opacity: .8;
+         transform: translateY(0);
+    }
+}
+
+ @keyframes fadeOutUp {
+     0% {
+         opacity: 1;
+         transform: translateY(0);
+    }
+     100% {
+         opacity: 0;
+         transform: translateY(24px);
+    }
+}
+
+
+ .animated {
+     animation-duration: .4s;
+     animation-fill-mode: both;
+}
+ .delayed_01s {
+     animation-delay: .1s;
+}
+ .delayed_02s {
+     animation-delay: .2s;
+}
+ .delayed_03s {
+     animation-delay: .3s;
+}
+ .delayed_04s {
+     animation-delay: .4s;
+}
+ .delayed_05s {
+     animation-delay: .5s;
+}
+ .delayed_06s {
+     animation-delay: .6s;
+}
+ .fadeInUp {
+     animation-name: fadeInUp;
+}
+ .fadeInDown {
+     animation-name: fadeInDown;
+}
+ .fadeOutUp {
+     animation-name: fadeOutUp;
+}
+ html, body {
+     background: #fff;
+}
+ body {
+     color: #2b2d2f;
+     font: 400 16px/1.4 'Circular-Std', sans-serif;
+     text-align: center;
+     padding: 16px;
+     -webkit-font-smoothing: antialiased;
+     -moz-osx-font-smoothing: grayscale;
+}
+ .wrapper {
+     margin-top: 50px !important;
+     max-width: 576px;
+     margin: 0 auto;
+     text-align: left;
+     background: #fff;
+}
+ .header, .content, .footer {
+     margin-bottom: 32px;
+}
+ .content {
+     margin-bottom: 128px;
+}
+ .footer {
+     font-size: 13px;
+     color: #98a0a6;
+}
+ .half {
+     margin-bottom: 32px;
+}
+ form .half {
+     margin: 0;
+}
+ .subscriptions, .table {
+     overflow: hidden;
+     border-top: 1px solid #e1e5e7;
+     margin-bottom: 32px;
+}
+ .subscription, .row {
+     border-bottom: 1px solid #e1e5e7;
+     padding: 16px 0;
+}
+ .subscription a, .row a {
+     color: #533feb;
+     font-weight: 500;
+}
+ .head {
+     font-size: 13px;
+     color: #98a0a6;
+     background: #f5f7fa;
+}
+ .head {
+     display: none;
+}
+ .site a {
+     background: url("sign-in-alt-solid.svg") right center no-repeat;
+     background-size: 16px auto;
+     padding-right: 24px;
+     transition: ease all .2s;
+}
+ .site a:hover {
+     padding-right: 20px;
+}
+ .alert, .notice {
+     background: #f5f7fa;
+     border-radius: 4px;
+     padding: 8px 16px;
+     margin-bottom: 32px;
+     font-size: 13px;
+}
+ .success {
+     color: #533feb;
+}
+ .error, #card-errors, .notice-warning {
+     color: #eb4093;
+}
+ #card-errors {
+     margin: 16px 0;
+     font-size: 13px;
+}
+ .server-undeployed {
+     color: #98a0a6;
+}
+ .server-down {
+     color: #eb4093;
+}
+ .server-up {
+     color: #56e3a0;
+}
+ .nav {
+     margin-left: -8px;
+     position: relative;
+}
+ .nav li {
+     display: inline-block;
+     margin-right: 4px;
+     font-size: 13px;
+}
+ .nav li a {
+     padding: 8px;
+     color: #98a0a6;
+     transition: ease color .2s;
+}
+ .nav li.logo {
+     display: block;
+     width: 20px;
+     height: 20px;
+     text-indent: -9999px;
+     position: absolute;
+     top: 0;
+     right: 0;
+}
+ .nav li a:hover {
+     color: #533feb;
+}
+ .nav li.active a {
+     color: #533feb;
+     text-decoration: underline;
+}
+ .logo-form {
+     max-width: 185px;
+     margin-bottom: 32px;
+}
+ .highlight {
+     background: #88ffc6;
+     padding: 0 4px;
+     display: inline-block;
+     color: #2b2d2f !important;
+}
+ h1, h2, h3 {
+     font-weight: 400;
+     font-size: 25px;
+     letter-spacing: -0.025em;
+}
+ h1.fake-half {
+     margin-bottom: 32px;
+}
+ p, small {
+     margin-bottom: 32px;
+}
+ p a {
+     color: #533feb;
+     text-decoration: underline;
+}
+ .right small {
+     margin: 0;
+}
+ small {
+     font-size: 13px;
+     color: #98a0a6;
+     display: block;
+}
+ small a, .forgot {
+     color: #98a0a6;
+     text-decoration: underline;
+     font-size: 13px;
+}
+ .page-login small {
+     margin-top: 64px;
+}
+ pre {
+     background: #f5f7fa;
+     padding: 16px;
+     font-family: monospace;
+     font-size: 12px;
+     display: block;
+     width: 100%;
+     height: auto;
+     white-space: pre-wrap;
+     border-radius: 4px;
+}
+ form {
+     margin-bottom: 32px;
+}
+ .req {
+     color: #eb4093;
+}
+ .label {
+     margin-bottom: 16px;
+     position: relative;
+}
+ label {
+     font-size: 14px;
+     letter-spacing: .2px;
+     color: #98a0a6;
+     margin: 8px 0;
+     display: block;
+}
+ label.label-large {
+     font-size: 13px;
+     text-transform: none;
+}
+ .inline-error {
+     color: #eb4093;
+     position: absolute;
+     top: 0;
+     right: 0;
+     font-size: 13px;
+}
+ input, select {
+     display: block;
+     width: 100%;
+     padding: 16px;
+     border-radius: 4px;
+     transition: ease border-color .2s;
+     background: #eff0f1;
+     color: #2b2d2f;
+}
+ input:focus, select:focus {
+     border: none;
+}
+ select {
+     -moz-appearance: none;
+     -webkit-appearance: none;
+     border-radius: 4px;
+     appearance: none;
+     border: 1px solid #e1e5e7;
+     background: #fff;
+     width: 100%;
+     padding: 16px 24px 16px 16px;
+     box-sizing: border-box;
+     background-image: linear-gradient(45deg, transparent 50%, #e1e5e7 50%), linear-gradient(135deg, #e1e5e7 50%, transparent 50%), linear-gradient(to right, #e1e5e7, #e1e5e7);
+     background-position: calc(100% - 20px) calc(23px), calc(100% - 15px) calc(23px), calc(100% - 2.5em) 0.5em;
+     background-size: 5px 5px, 5px 5px, 1px 34px;
+     background-repeat: no-repeat;
+}
+ #card-element {
+     border: 1px solid #e1e5e7;
+     padding: 16px;
+     border-radius: 4px;
+     width: 100%;
+}
+ button, .button {
+     margin-bottom: 10px;
+     cursor: pointer;
+     background: #0dbdff;
+     border-radius: 4px;
+     color: #fff;
+     letter-spacing: .3px;
+     padding: 8px 16px;
+     font-size: 14px;
+     font-weight: 400;
+     transition: ease background .2s;
+     display: inline-block;
+}
+ button:hover, .button:hover {
+     background: #009cd6;
+}
+ .remember {
+     margin: 8px 0 32px 0;
+     cursor: pointer;
+}
+ .remember input {
+     display: none;
+     -moz-appearance: none;
+     -webkit-appearance: none;
+}
+ .remember input+label:before {
+     content: "";
+     background: url("toggle-off-regular.svg") top left no-repeat;
+     width: 32px;
+     height: 20px;
+     display: inline-block;
+     cursor: pointer;
+     vertical-align: middle;
+}
+ .remember input:checked+label:before {
+     content: "";
+     background: url("toggle-on-regular.svg") top left no-repeat;
+     width: 32px;
+     height: 20px;
+     display: inline-block;
+}
+ .medium-margin {
+     margin-top: 40px;
+     margin-bottom: 40px;
+}
+ table {
+     border-spacing: 0;
+}
+ table th, table td {
+     padding: 2px 12px 2px 0;
+}
+ select:disabled {
+     background: rgb(218, 218, 218);
+}
+ .alerts {
+     position: absolute;
+     cursor: pointer;
+     z-index: 101;
+     top: 0;
+     left: 0;
+     right: 0;
+     background: #ff5050;
+     color: #fff;
+     font-family: 'CircularStd', sans-serif;
+     font-weight: 400;
+     text-align: center;
+     line-height: 2.5;
+     overflow: hidden;
+     opacity: .8;
+     animation: errorDown .8;
+     animation-duration: .8s;
+     transition: opacity .8s ease-out;
+}
+ @media screen and (min-width: 720px) {
+     body {
+         padding: 0;
+    }
+     .wrapper {
+         margin: 32px auto;
+    }
+     .header {
+         margin-bottom: 64px;
+    }
+     .page-account-password-reset-token, .page-404, .page-login, .page-register-1, .page-register-2, .page-register-3 {
+         align-items: center;
+         display: grid;
+         grid-template-columns: 1fr;
+         min-height: 100vh;
+    }
+     .page-account-password-reset-token section, .page-404 section, .page-login section, .page-register-1 section, .page-register-2 section, .page-register-3 section {
+         width: 576px;
+    }
+     .subscriptions, .table {
+         border: 1px solid #e1e5e7;
+         border-radius: 4px;
+    }
+     .subscription:last-child, .row:last-child {
+         border: none;
+    }
+     .subscription, .row {
+         align-items: center;
+         display: grid;
+         grid-template-columns: 2fr 1fr 1fr;
+         grid-column-gap: 12px;
+         padding: 16px;
+    }
+     .right {
+         text-align: right;
+    }
+     .vcenter {
+         align-items: center;
+    }
+     .subscription span, .row span {
+         display: none;
+    }
+     .head div {
+         display: inline-block;
+    }
+     .payment {
+         grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+     .refund .amount {
+         color: #AAA;
+    }
+     .half {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         grid-column-gap: 12px;
+         align-items: center;
+    }
+     .nav li.fathom {
+         float: right;
+    }
+     .alerts {
+         position: absolute;
+         z-index: 101;
+         top: 0;
+         left: 0;
+         right: 0;
+         background: #ff5050;
+         color: #fff;
+         font-family: 'CircularStd', sans-serif;
+         font-weight: 400;
+         text-align: center;
+         line-height: 2.5;
+	     cursor: pointer;
+         overflow: hidden;
+	     opacity: .8;
+     	 transition: opacity .3s ease-out;
+         animation: errorDown .8;
+         animation-duration: .8s;
+    }
+}

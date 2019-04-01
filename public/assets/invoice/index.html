@@ -1,0 +1,317 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_o5hd5vvqpoqiwwmi.css">
+      <style>
+         body {
+         -webkit-print-color-adjust: exact !important;
+         }
+         .invoice-box {
+         max-width: 800px;
+         margin: auto;
+         padding: 30px;
+         font-size: 16px;
+         line-height: 24px;
+         font-family: 'Open Sans', sans-serif;
+         color: #111
+         }
+         .invoice-box table {
+         width: 100%;
+         line-height: inherit;
+         text-align: left;
+         }
+         .invoice-box table td {
+         padding: 5px;
+         vertical-align: top;
+         }
+         .invoice-box table tr td:nth-child(2) {
+         text-align: right;
+         }
+         .invoice-box table tr.top table td {
+         padding-bottom: 10px;
+         }
+         .invoice-box table tr.top table td.title {
+         font-size: 45px;
+         line-height: 45px;
+         color: #333;
+         }
+         .invoice-box table tr.information table td {
+         padding-bottom: 20px;
+         }
+         .invoice-box table tr.heading td {
+         margin-top: 10px;
+         opacity: .7;
+         border-bottom: 1px solid #ddd;
+         font-weight: bold;
+         }
+         .invoice-box table tr.details td {
+         padding: 5px;
+         }
+         .invoice-box table tr.item td{
+         border-bottom: 1px solid #eee;
+         }
+         .invoice-box table tr.item.last td {
+         border-bottom: none;
+         }
+         .invoice-box table tr.total tr:nth-child(2) {
+         border-top: 2px solid #eee;
+         font-weight: bold;
+         }
+         tr.total td:nth-child(1) {
+         width: 70%;
+         }
+         tr.total td:nth-child(2) {
+         }
+         @media only screen and (max-width: 600px) {
+         .invoice-box table tr.top table td {
+         width: 100%;
+         display: block;
+         text-align: center;
+         }
+         .invoice-box table tr.information table td {
+         width: 100%;
+         display: block;
+         text-align: center;
+         }
+         }
+         .invoice-box .top-right span {
+         display: block;
+         line-height: 2em;
+         }
+         .invoice-box .top-right-bottom span {
+         display: block;
+         line-height: 2em;
+         margin-top: 0px;
+         }
+         .value {
+         display: block;
+         font-smooth: always;
+         line-height: 2.0em;
+         font-size: 14px;
+         letter-spacing: .5px;
+         color: #222;
+         margin-bottom: 10px;
+         margin-top: -5px;
+         }
+         .key {
+         display: block;
+         opacity: .4;
+         font-smooth: always;
+         font-weight: bold;
+         line-height: 2.3em;
+         font-size: 12.5px !important;
+         text-transform: uppercase !important;
+         }
+         .sm {
+         font-size: 11px;
+         position: relative;
+         top: -1px;
+         right: -14px;
+         margin-left: -8px;
+         }
+         .md {
+         font-size: 13px;
+         padding-right: 3.5px;
+         position: relative;
+         left: -1px;
+         top: 1px;
+         }
+         .support {
+         opacity: .7;
+         border-top: dashed #fbfbfb 3px;
+         font-size: 13px;
+         padding-top: 2px;
+         margin-top: 8px;
+         margin-bottom: 30px;
+         }
+         .support > p {
+         line-height: .7em;
+         }
+         @media only print {
+         body, .invoice-box {
+         width: auto;
+         height: auto;
+         overflow: visible;
+         }
+         }
+         .bottom-address {
+         width: 400px;
+         margin-top: -80px;
+         font-size: 13.5px;
+         }
+         .tax-id {
+         opacity: .7;
+         font-size: 10px;
+         margin-top: 40px;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="invoice-box">
+         <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+               <td colspan="2">
+                  <table>
+                     <tr>
+                        <td class="title">
+                           <img src="https://45.79.106.98/assets/img/logo.png" style="width:100%; max-width:150px;">
+                        </td>
+                        <td class="top-right">
+                           <span class="key">Service Period<i class="feather sm icon-clock"></i></span>
+                           <span class="value">Feb 1, 2019 - March 1, 2019</span>
+                           <span class="key">Due<i class="feather sm icon-bell"></i></span>
+                           <span class="value">March 7, 2019</span>
+                           <span class="key">Statement<i class="feather sm icon-layers"></i></span>
+                           <span class="value">#12843</span>
+                        </td>
+                     </tr>
+                  </table>
+               </td>
+            </tr>
+            <tr class="information">
+               <td colspan="2">
+                  <table>
+                     <tr>
+                        <td>
+                           IWantWireless, LTD.<br>
+                           5504 Brayan Road<br>
+                           Port Natalie, AB 74205
+                        </td>
+                        <td>
+                           Dr. Troy Block, I<br>
+                           61119 Lynn Valley<br>
+                           Robbfurt, AB 68295
+                        </td>
+                     </tr>
+                  </table>
+               </td>
+            </tr>
+            <tr class="heading">
+               <td>
+                  Details
+               </td>
+               <td>
+               </td>
+            </tr>
+            <tr class="details">
+               <td>
+                  Account Number
+               </td>
+               <td>
+                  #722
+               </td>
+            </tr>
+            <tr class="details">
+               <td>
+                  Data Usage
+               </td>
+               <td>
+                  500GB / 1000GB
+               </td>
+            </tr>
+            <tr class="details">
+               <td>
+               </td>
+               <td>
+               </td>
+            </tr>
+            <tr class="heading">
+               <td>
+                  Billing
+               </td>
+               <td>
+                  Price
+               </td>
+            </tr>
+            <tr class="item">
+               <td>
+                  Current Charges
+               </td>
+               <td>
+                  $129.95
+               </td>
+            </tr>
+            <tr class="item">
+               <td>
+                  Previous Balance
+               </td>
+               <td>
+                  $0.00
+               </td>
+            </tr>
+            <tr class="item">
+               <td>
+                  Credits
+               </td>
+               <td>
+                  $0.00
+               </td>
+            </tr>
+            <tr class="item">
+               <td>
+                  Payments Applied
+               </td>
+               <td>
+                  $0.00
+               </td>
+            </tr>
+            <tr class="item last">
+               <td>
+                  Taxes/Fees
+               </td>
+               <td>
+                  $6.50
+               </td>
+            </tr>
+            <tr class="total">
+               <td>Total due on March 7, 2019</td>
+               <td>
+                  <b>$136.45</b>
+               </td>
+            </tr>
+         </table>
+         <div class="support">
+            <p><i class="feather md icon-life-buoy"></i>Questions about your bill? Contact us at (555) 594-4855, or visit us online at iwantwireless.tld</p>
+            <p><i class="feather md icon-mail"></i> Please make out checks to iwantwireless.ca Ltd.</p>
+         </div>
+         <table style="margin-top: -5px;">
+            <tr>
+               <td class="title">
+                  <img src="https://45.79.106.98/assets/img/logo.png" style="width:100%; max-width:100px; margin-top: 10px; padding-bottom: 50px;">
+               </td>
+               <td class="top-right-bottom">
+                  <span class="key">Total Amount Due<i class="feather sm icon-alert-triangle"></i></span>
+                  <span class="value">$136.45</span>
+                  <span class="key">Amount Enclosed<i class="feather sm icon-inbox"></i></span>
+
+                  <span class="value" style="float: right; width: 9.1em; margin-top: 7px; background: #fbfbfb; line-height: 1.2em; border-radius: 5px;">
+                     <p style="opacity:0;">hidden</p>
+                  </span>
+               </td>
+            </tr>
+            </td>
+         </table>
+         <div class="bottom-address">
+            <table>
+               <tr>
+                  <td>
+                     IWantWireless, LTD.<br>
+                     5504 Brayan Road<br>
+                     Port Natalie, AB 74205
+                  </td>
+                  <td>
+                     Dr. Troy Block, I<br>
+                     61119 Lynn Valley<br>
+                     Robbfurt, AB 68295
+                  </td>
+               </tr>
+            </table>
+         </div>
+         <div class="tax-id">
+            Tax ID: GST # 840408124 RT0001
+         </div>
+      </div>
+   </body>
+</html>

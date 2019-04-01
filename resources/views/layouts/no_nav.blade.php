@@ -1,0 +1,9 @@
+@include("layouts.partials.head")
+<body>
+@include('layouts.partials.root-errors')
+@include("layouts.partials.prebody")
+@include('layouts.partials.success')
+@yield('content')
+@include('layouts.partials.js')
+</body>
+</html>

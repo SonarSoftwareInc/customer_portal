@@ -1,0 +1,371 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <!-- feather icons css -->
+    <link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_o5hd5vvqpoqiwwmi.css">
+    <!-- invoice stylesheet -->
+    <style>
+        body {
+            -webkit-print-color-adjust: exact !important;
+        }
+        
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Open Sans', sans-serif;
+            color: #111
+        }
+        
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+        
+        .invoice-box table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+        
+        .invoice-box table tr td:nth-child(2) {
+            text-align: right;
+        }
+        
+        .invoice-box table tr.top table td {
+            padding-bottom: 10px;
+        }
+        
+        .invoice-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+        
+        .invoice-box table tr.information table td {
+            padding-bottom: 20px;
+        }
+        
+        .invoice-box table tr.heading td {
+            margin-top: 10px;
+            opacity: .7;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+        }
+        
+        .invoice-box table tr.details td {
+            padding: 5px;
+        }
+        
+        .invoice-box table tr.item td {
+            border-bottom: 1px solid #eee;
+        }
+        
+        .invoice-box table tr.item.last td {
+            border-bottom: none;
+        }
+        
+        .invoice-box table tr.total tr:nth-child(2) {
+            border-top: 2px solid #eee;
+            font-weight: bold;
+        }
+        
+        tr.total td:nth-child(1) {
+            width: 70%;
+        }
+        
+        tr.total td:nth-child(2) {}
+        
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+        
+        .invoice-box .top-right span {
+            display: block;
+            line-height: 2em;
+        }
+        
+        .invoice-box .top-right-bottom span {
+            display: block;
+            line-height: 2em;
+            margin-top: 0px;
+        }
+        
+        .value {
+            display: block;
+            font-smooth: always;
+            line-height: 2.0em;
+            font-size: 14px;
+            letter-spacing: .5px;
+            color: #222;
+            margin-bottom: 10px;
+            margin-top: -5px;
+        }
+        
+        .key {
+            display: block;
+            opacity: .4;
+            font-smooth: always;
+            font-weight: bold;
+            line-height: 2.3em;
+            font-size: 12.5px !important;
+            text-transform: uppercase !important;
+        }
+        
+        .sm {
+            font-size: 11px;
+            position: relative;
+            top: -1px;
+            right: -14px;
+            margin-left: -8px;
+        }
+        
+        .md {
+            font-size: 13px;
+            padding-right: 3.5px;
+            position: relative;
+            left: -1px;
+            top: 1px;
+        }
+        
+        .support {
+            opacity: .7;
+            border-top: dashed #fbfbfb 3px;
+            font-size: 13px;
+            padding-top: 2px;
+            margin-top: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .support > p {
+            line-height: .7em;
+        }
+        
+        @media only print {
+            body,
+            .invoice-box {
+                width: auto;
+                height: auto;
+                overflow: visible;
+            }
+        }
+        
+        .bottom-address {
+            width: 400px;
+            margin-top: -80px;
+            font-size: 13.5px;
+        }
+        
+        .tax-id {
+            opacity: .7;
+            font-size: 10px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<!-- content -->
+<body>
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                @if(file_exists(storage_path("logos/companyLogo.png")))
+                                <img src="https://45.79.106.98/assets/img/logo.png" style="width:100%; max-width:150px;"> @endif
+                            </td>
+                            <td class="top-right">
+                                <span class="key">{{trans("invoice.servicePeriod",[],$locale)}}<i class="feather sm icon-clock"></i></span>
+                                <span class="value">{{trans("invoice.serviceBetween",['start_date' => Formatter::nonUtcDate($invoice->date), 'end_date' => Formatter::nonUtcDate(Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $invoice->date . " 00:00:00")->addMonths($invoice->number_of_months)->subDay()->toDateString())],$locale)}}</span> @if($isPastDue == true && $totalRemainingDue > 0 && $showPastDueStamp == 1)
+                                <span class="key" style="color: red">{{trans("invoice.pastDue")}}<i class="feather sm icon-bell"></i></span> @else
+                                <span class="key">{{trans("invoice.dueDate",[],$locale)}}<i class="feather sm icon-bell"></i></span> @endif
+                                <span class="value">{{Formatter::nonUtcDate($invoice->due_date)}}</span>
+                                <span class="key">@if($mode == \Sonar\Generators\InvoiceGenerator::INVOICE){{trans("invoice.invoiceNumber",[],$locale)}}@else{{trans("invoice.statementNumber",[],$locale)}}@endif<i class="feather sm icon-layers"></i></span>
+                                <span class="value">{{$invoice->id}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                {{ strtoupper($company->company_name) }}
+                                <br> {!! strtoupper(Formatter::address($company->remittanceAddress[0])) !!}
+                            </td>
+                            <td>
+                                {{ strtoupper($account->name) }}
+                                <br> {!! strtoupper(Formatter::address($address)) !!}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+				<i class="feather md icon-message-circle"></i> {!! nl2br($invoice->message) !!}
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
+            <tr class="heading">
+                <td>
+                    {{trans("invoice.details",[],$locale)}}
+                </td>
+                <td>
+                </td>
+            </tr>
+            @if(SonarSystem::get("Show Account ID On Invoice") == 1)
+            <tr class="details">
+                <td>
+                    {{trans("invoice.accountNumber",[],$locale)}}
+                </td>
+                <td>
+                    {{$account->id}}
+                </td>
+            </tr>
+            @endif @if($totalUsed != null)
+            <tr class="details">
+                <td>
+                    {{trans("invoice.dataUsage",[],$locale)}}
+                </td>
+                <td>
+                    {{$totalUsed}}@if($cap != null) / {{$cap}}@endif
+                </td>
+            </tr>
+            @endif
+            <tr class="details">
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr class="heading">
+                <td>
+                    {{trans("invoice.billing",[],$locale)}}
+                </td>
+                <td>
+                    {{trans("invoice.price",[],$locale)}}
+                </td>
+            </tr>
+            <tr class="item">
+                <td>
+                    {{utrans("invoice.charges")}}
+                </td>
+                <td>
+                    {{Formatter::currency($totalCharges)}}
+                </td>
+            </tr>
+            @if($mode == "statement")
+            <tr class="item">
+                <td>
+                    {{utrans("invoice.priorBalance")}}
+                </td>
+                <td>
+                    {{Formatter::currency($previousBalance)}}
+                </td>
+            </tr>
+            @endif
+            <tr class="item">
+                <td>
+                    {{utrans("invoice.credits")}}
+                </td>
+                <td>
+                    {{Formatter::currency($totalCredits)}}
+                </td>
+            </tr>
+            <tr class="item">
+                <td>
+                    {{utrans("invoice.payments")}}
+                </td>
+                <td>
+                    {{Formatter::currency($totalPayments)}}
+                </td>
+            </tr>
+            <tr class="item last">
+                <td>
+                    {{utrans("invoice.taxes")}}
+                </td>
+                <td>
+                    {{Formatter::currency($totalTaxes)}}
+                </td>
+            </tr>
+            <tr class="total">
+                <td>{{trans("invoice.totalDue",['date' => Formatter::nonUtcDate($invoice->due_date)],$locale)}}</td>
+                <td>
+                    <b>{{Formatter::currency($totalRemainingDue)}}</b>
+                </td>
+            </tr>
+        </table>
+        @if($showRemittanceSlip === 1)
+        <div class="support">
+            <p><i class="feather md icon-edit"></i>{{trans("invoice.checksPayableTo",['name' => SonarSystem::get("Invoice Checks Payable To")],$locale)}}</p>
+            @if($customerPortalEnabled === 1)
+            <p><i class="feather md icon-credit-card"></i>{!! utrans("invoice.payOnline",['portal' => $customerPortalURL]) !!}</p>
+            @endif
+            <p><i class="feather md icon-printer"></i> @if($lockboxService) LCC 21 @else {{trans("invoice.pleaseDetachAndReturn",[],$locale)}}
+            </p>
+        </div>
+        <table style="margin-top: -5px;">
+            <tr>
+                <td class="title">
+                    @if(file_exists(storage_path("logos/companyLogo.png")))
+                    <img src="https://45.79.106.98/assets/img/logo.png" style="width:100%; max-width:100px; margin-top: 10px; padding-bottom: 50px;"> @endif
+                </td>
+                <td class="top-right-bottom">
+                    <span class="key">{{trans("invoice.amountDue",[],$locale)}}<i class="feather sm icon-alert-triangle"></i></span>
+                    <span class="value">{{Formatter::currency($totalRemainingDue)}}</span> @if($invoice->auto_pay !== null && $invoice->auto_pay_attempts === 0) @if(Carbon\Carbon::createFromFormat("Y-m-d",$invoice->auto_pay)->gte(Carbon\Carbon::now(SonarSystem::get("Timezone"))) && $autoMethod === true && $totalRemainingDue > 0)
+                    <span class="key">{{trans("invoice.autopayScheduled",[],$locale)}}<i class="feather sm icon-inbox"></i></span> @else
+                    <span class="key">{{trans("invoice.amountEnclosed",[],$locale)}}<i class="feather sm icon-inbox"></i></span>
+                    <span class="value" style="float: right; width: 9.1em; margin-top: 7px; background: #fbfbfb; line-height: 1.2em; border-radius: 5px;">
+                     <p style="opacity:0;">hidden</p>
+                  </span> @endif
+                </td>
+            </tr>
+            </td>
+        </table>
+        <div class="bottom-address">
+            <table>
+                <tr>
+                    <td>
+                        {{ strtoupper($company->company_name) }}
+                        <br> {!! strtoupper(Formatter::address($company->remittanceAddress[0])) !!}
+                    </td>
+                    <td>
+                        {{ strtoupper($account->name) }}
+                        <br> {!! strtoupper(Formatter::address($address)) !!}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        @if(SonarSystem::get("Invoice Tax Identification Number"))
+        <div class="tax-id">
+            {{trans("invoice.taxIdentificationNumber",['number' => SonarSystem::get("Invoice Tax Identification Number")])}}
+            <br> {{trans("invoice.invoiceIDWithNumber",['id' => $invoice->id])}} @endif
+            <br> @if($lockboxService)
+            <div id="lockboxArea">
+                {{$ocrScanline}}
+            </div>
+            @endif
+        </div>
+        @endif
+</body>
+</html>

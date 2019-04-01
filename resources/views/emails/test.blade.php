@@ -1,0 +1,1 @@
+This is a test email from the Sonar customer portal. If you received this, your portal email is working correctly!

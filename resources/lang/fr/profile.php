@@ -1,0 +1,21 @@
+<?php
+return [
+    'changeYourDetails' => 'Changer vos coordonnees',
+    'name' => 'Nom',
+    'role' => 'Role',
+    'emailAddress' => 'Adresse e-mail',
+    'updateProfile' => 'Mise à jour de profil',
+    'homePhone' => 'Numéro de téléphone résidentiel',
+    'mobilePhone' => 'Numéro de téléphone mobile',
+    'workPhone' => 'Numéro de téléphone professionnel',
+    'fax' => 'Numéro de Fax',
+    'profileUpdated' => 'Profil mis à jour.',
+    'currentPassword' => 'Mot de passe actuel',
+    'newPassword' => 'Nouveau de mot passe',
+    'newPasswordConfirmed' => 'Confirmer mot de passe',
+    'changePassword' => 'Changer mot de passe',
+    'passwordUpdated' => 'Mot de passe mis à jour.',
+    'failedToUpdatePassword' => 'Impossible de mettre à jour le mot de passe. Veuillez réessayer ultérieurement.',
+    'emailUsedFor' => 'Ce courrier electronique sera utilise pour envoyer des alertes de facturation, des notifications de service et des reinitialisations de mot de passe.',
+    'updateDetails' => 'Mettre a jour les details',
+];
