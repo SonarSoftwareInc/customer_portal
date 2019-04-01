@@ -41,6 +41,7 @@ read -ep "Enter Your Instance URL (e.g. https://portal.example.com): " -i "${SON
 read -ep "Enter your email address: "  -i "${EMAIL_ADDRESS:-}" EMAIL_ADDRESS
 
 cat <<- EOF > ".env"
+	APP_KEY=$APP_KEY
 	NGINX_HOST=$NGINX_HOST
 	API_USERNAME=$API_USERNAME
 	API_PASSWORD=$API_PASSWORD
