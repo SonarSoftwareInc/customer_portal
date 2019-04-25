@@ -133,7 +133,8 @@
                   <div class="col-auto ">
                      <!-- Toggle -->
                      <div class="custom-control custom-checkbox-toggle mt-1">
-                        {!! Form::checkbox("mail_encryption",1,false,['id' => 'mail_encryption', 'class' => 'custom-control-input', 'data-toggle' => 'tooltip', 'data-trigger' => 'hover','data-placement' => 'left','data-offset' => '3','data-original-title' => 'If your mail server utilizes TLS encryption, then leave this enabled']) !!}
+                        {{ Form::hidden('mail_encryption',0) }}
+                        {!! Form::checkbox("mail_encryption",1,$systemSetting->mail_encryption,['id' => 'mail_encryption', 'class' => 'custom-control-input', 'data-toggle' => 'tooltip', 'data-trigger' => 'hover','data-placement' => 'left','data-offset' => '3','data-original-title' => 'If your mail server utilizes TLS encryption, then leave this enabled']) !!}
                         <label class="custom-control-label" for="mail_encryption"></label>
                      </div>
                   </div>
