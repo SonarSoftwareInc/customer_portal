@@ -53,7 +53,7 @@ class AppServiceProvider extends ServiceProvider
                 'mail.port' => $systemSetting->mail_port,
                 'mail.username' => $systemSetting->mail_username,
                 'mail.password' => $systemSetting->mail_password,
-                'mail.encryption' => $systemSetting->mail_encryption,
+                'mail.encryption' => $systemSetting->mail_encryption ? 'tls' : null,
                 'mail.from' => [
                     'address' => $systemSetting->mail_from_address,
                     'name' => $systemSetting->mail_from_name,
