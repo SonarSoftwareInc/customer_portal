@@ -30,6 +30,9 @@ if [ -f .env ]; then
     echo
     [[ ! $REPLY =~ ^[Yy]$ ]] && exit 1;
 
+    docker-compose stop
+    sed -i '/API_PASSWORD=/d' .env
+
     source .env
 fi
 
