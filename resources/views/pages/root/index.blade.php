@@ -47,5 +47,6 @@ window.onbeforeunload = function(e){
 </script>
 @endsection
 @section('additionalJS')
+<script type="text/javascript" src="/assets/js-validation/jsvalidation.min.js"></script>
 {!! JsValidator::formRequest('App\Http\Requests\AuthenticationRequest') !!}
 @endsection
