@@ -67,7 +67,8 @@
    </div>
 @endsection
 @section('additionalJS')
-   <script src="/assets/js/vendor/jquery.payment/jquery.payment.min.js"></script>
+   <script src="/assets/libs/jquery-payment-plugin/jquery.payment.min.js"></script>
    <script src="/assets/js/pages/billing/payment/page.js"></script>
+   <script type="text/javascript" src="/assets/libs/js-validation/jsvalidation.min.js"></script>
    {!! JsValidator::formRequest('App\Http\Requests\CreateBankAccountRequest','#createPaymentMethodForm') !!}
 @endsection

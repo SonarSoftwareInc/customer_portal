@@ -75,5 +75,6 @@
 @section('additionalCSS')
 @endsection
 @section('additionalJS')
+<script type="text/javascript" src="/assets/libs/js-validation/jsvalidation.min.js"></script>
 {!! JsValidator::formRequest('App\Http\Requests\TicketReplyRequest','#replyForm') !!}
 @endsection

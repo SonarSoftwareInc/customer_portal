@@ -28,5 +28,6 @@ window.onbeforeunload = function(e){
 </script>
 @endsection
 @section('additionalJS')
+<script type="text/javascript" src="/assets/libs/js-validation/jsvalidation.min.js"></script>
 {!! JsValidator::formRequest('App\Http\Requests\SendPasswordResetRequest','#passwordResetForm') !!}
 @endsection

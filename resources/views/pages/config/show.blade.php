@@ -549,8 +549,8 @@
 </div>
 @endsection
 @section('additionalJS')
-<script src="/assets/js/vendor/jquery.payment/jquery.payment.min.js"></script>
-<script src="/assets/js/vendor/jquery/bootstrap-colorpicker.min.js"></script>
+<script src="/assets/libs/jquery-payment-plugin/jquery.payment.min.js"></script>
+<script src="/assets/libs/bootstrap-colorpicker-plugin/bootstrap-colorpicker.min.js"></script>
 <script src="/assets/js/pages/billing/payment/page.js"></script>
 
 <script>
