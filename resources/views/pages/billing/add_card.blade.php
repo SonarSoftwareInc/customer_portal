@@ -123,5 +123,6 @@
 @section('additionalJS')
 <script src="/assets/libs/jquery-payment-plugin/jquery.payment.min.js"></script>
 <script src="/assets/js/pages/billing/payment/page.js"></script>
+<script type="text/javascript" src="/assets/libs/js-validation/jsvalidation.min.js"></script>
 {!! JsValidator::formRequest('App\Http\Requests\CreateCreditCardRequest','#createPaymentMethodForm') !!}
 @endsection
