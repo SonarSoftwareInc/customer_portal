@@ -41,7 +41,7 @@ window.onbeforeunload = function(e){
 }
 var passwordStrength = {{Config::get("customer_portal.password_strength_required")}};
 </script>
-<script type="text/javascript" src="/assets/js/zxcvbn.js"></script>
 <script type="text/javascript" src="/assets/js/pages/register/register.js"></script>
+<script type="text/javascript" src="/assets/libs/js-validation/jsvalidation.min.js"></script>
 {!! JsValidator::formRequest('App\Http\Requests\AccountCreationRequest','#createForm') !!}
 @endsection
