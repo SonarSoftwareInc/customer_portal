@@ -17,7 +17,6 @@ close=document.getElementById("close");close.addEventListener('click',function()
 <script src="/assets/libs/select2/select2.min.js"></script>
 <script src="/assets/libs/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
 <script src="/assets/libs/jquery-payment-plugin/jquery.payment.min.js"></script>
-<script src="/assets/libs/jquery-validate-plugin/jquery.validate.min.js"></script>
 <script src="/assets/libs/moment/moment.min.js"></script>
 <script>
    moment.locale('{{Config::get("app.locale")}}');
