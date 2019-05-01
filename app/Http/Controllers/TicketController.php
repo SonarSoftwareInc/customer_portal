@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use SonarSoftware\CustomerPortalFramework\Controllers\AccountTicketController;
+use SonarSoftware\CustomerPortalFramework\Exceptions\ApiException;
 use SonarSoftware\CustomerPortalFramework\Models\Ticket;
 
 class TicketController extends Controller
@@ -44,9 +45,10 @@ class TicketController extends Controller
                     $this->clearTicketCache();
                     return view("pages.tickets.show", compact('replies', 'ticket'));
                 }
-            }catch (Exception $e) {
+            } catch (ApiException $e) {
                 Log::error($e->getMessage());
                 $this->clearTicketCache();
+                return redirect()->action("TicketController@index")->withErrors(utrans("errors.ticketNotFound"));
             }
 
         }
