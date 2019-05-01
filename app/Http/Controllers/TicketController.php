@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use SonarSoftware\CustomerPortalFramework\Controllers\AccountTicketController;
+use SonarSoftware\CustomerPortalFramework\Exceptions\ApiException;
 use SonarSoftware\CustomerPortalFramework\Models\Ticket;
 
 class TicketController extends Controller
@@ -36,13 +37,20 @@ class TicketController extends Controller
         //We need to ensure that this ticket belongs to this user
         $tickets = $this->getTickets();
         foreach ($tickets as $ticket) {
-            if ($ticket->getTicketID() == $id) {
-                $accountTicketController = new AccountTicketController();
-                $replies = array_reverse($accountTicketController->getReplies($ticket, 1));
-                //Clear the cache here, because you may see a ticket with ISP responses but the list may not show it yet
+            try {
+                if ($ticket->getTicketID() == $id) {
+                    $accountTicketController = new AccountTicketController();
+                    $replies = array_reverse($accountTicketController->getReplies($ticket, 1));
+                    //Clear the cache here, because you may see a ticket with ISP responses but the list may not show it yet
+                    $this->clearTicketCache();
+                    return view("pages.tickets.show", compact('replies', 'ticket'));
+                }
+            } catch (ApiException $e) {
+                Log::error($e->getMessage());
                 $this->clearTicketCache();
-                return view("pages.tickets.show", compact('replies', 'ticket'));
+                return redirect()->action("TicketController@index")->withErrors(utrans("errors.ticketNotFound"));
             }
+
         }
 
         return redirect()->action("TicketController@index")->withErrors(utrans("errors.invalidTicketID"));

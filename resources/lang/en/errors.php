@@ -12,6 +12,7 @@ return [
     'sectionDisabled' => 'That section is disabled.',
     'failedToCreateTicket' => 'Failed to create ticket. Please try again later.',
     'invalidTicketID' => 'That is not a valid ticket ID.',
+    'ticketNotFound' => 'That ticket ID was not found.',
     'tooManyFailedAuthenticationAttempts' => 'You\'ve had too many failed authentication attempts. Please wait a few minutes and try again.',
     'emailLookupFailed' => 'That email was either not found, or already has an account associated with it. Try the forgot username or password link.',
     'emailSendFailed' => 'Failed to send email. Please try again later.',
