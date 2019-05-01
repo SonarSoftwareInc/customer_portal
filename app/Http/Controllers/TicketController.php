@@ -36,13 +36,19 @@ class TicketController extends Controller
         //We need to ensure that this ticket belongs to this user
         $tickets = $this->getTickets();
         foreach ($tickets as $ticket) {
-            if ($ticket->getTicketID() == $id) {
-                $accountTicketController = new AccountTicketController();
-                $replies = array_reverse($accountTicketController->getReplies($ticket, 1));
-                //Clear the cache here, because you may see a ticket with ISP responses but the list may not show it yet
+            try {
+                if ($ticket->getTicketID() == $id) {
+                    $accountTicketController = new AccountTicketController();
+                    $replies = array_reverse($accountTicketController->getReplies($ticket, 1));
+                    //Clear the cache here, because you may see a ticket with ISP responses but the list may not show it yet
+                    $this->clearTicketCache();
+                    return view("pages.tickets.show", compact('replies', 'ticket'));
+                }
+            }catch (Exception $e) {
+                Log::error($e->getMessage());
                 $this->clearTicketCache();
-                return view("pages.tickets.show", compact('replies', 'ticket'));
             }
+
         }
 
         return redirect()->action("TicketController@index")->withErrors(utrans("errors.invalidTicketID"));
