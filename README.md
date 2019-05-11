@@ -1,6 +1,8 @@
+![Screenshot](https://i.imgur.com/diICO0D.jpg)
+
 # Sonar Customer Portal
 
-This provides a prebuilt customer portal for [Sonar](https://sonar.software).
+This is a prebuilt and self-hosted customer portal for [Sonar](https://sonar.software).
 
 ## Quick start
 
@@ -8,10 +10,10 @@ These instructions will get you set up and running with SSL through [LetsEncrypt
 
 If you are a current Sonar customer, and you need assistance with any part of this process, feel free to contact us at support@sonar.software.
 
-You'll need a machine running Ubuntu 16.04 x64 or newer. The installation script currently assumes a Debian based distro.
+You'll need a machine running Ubuntu 16.04 x64 or newer. The installation script currently assumes a Debian-based distro.
 We recommend a minimum of 2 vCPUs and at least 2GB of RAM.
 
-It will need a public facing IP address and a valid domain name pointing to it (e.g. portal.myisp.com.)
+It will need a public facing IP address and a valid domain name pointing to it (e.g. portal.myisp.com).
 
 **_If you get stuck, please don't hesitate to reach out to support@sonar.software for help. We are more than happy to help you get your portal setup!_**
 
