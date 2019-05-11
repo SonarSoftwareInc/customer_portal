@@ -1,4 +1,4 @@
-![Screenshot](https://i.imgur.com/diICO0D.jpg)
+![Screenshot](https://i.imgur.com/vNF0sKE.png)
 
 # Sonar Customer Portal
 
