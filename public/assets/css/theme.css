@@ -1,6 +1,6 @@
 * {
-	--primary: #2c7be5;
-    --font: 'CircularStd', sans-serif;
+--primary: #2c7be5;
+--font: 'CircularStd', sans-serif;
 }
 
 *,
@@ -11624,6 +11624,22 @@ button:focus {
 	animation-duration: 1s;
     transition: opacity .3s ease-out;
 }
+
+.error-help-block {
+    color: #ff7574;
+    line-height: 2em;
+    animation: validateFade 240ms ease-in-out;
+    transition: all 240ms ease-in-out;
+}
+
+@keyframes validateFade {
+	0% {
+		opacity: 0
+	}
+	100% {
+		opacity: 1
+	}
+
 @keyframes errorDown {
 	0% {
 		opacity: 0;
