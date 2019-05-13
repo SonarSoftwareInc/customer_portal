@@ -13,6 +13,16 @@
      font-family: 'CircularStd', sans-serif;
      font-smooth: always;
 }
+
+ @keyframes fadeIn {
+     0% {
+         opacity: 0;
+    }
+     100% {
+         opacity: 1;
+    }
+}
+
  @keyframes fadeInUp {
      0% {
          opacity: 0;
@@ -405,6 +415,14 @@
      animation-duration: .8s;
      transition: opacity .8s ease-out;
 }
+
+.error-help-block {
+    color: #ff7574;
+    line-height: 2em;
+    animation: fade-in 240ms ease-in-out;
+    transition: all 240ms ease-in-out;
+}
+
  @media screen and (min-width: 720px) {
      body {
          padding: 0;
