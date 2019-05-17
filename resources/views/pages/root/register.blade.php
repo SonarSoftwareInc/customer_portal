@@ -4,7 +4,7 @@
    <div class="wrapper">
       <section id="main" class="section content animated fadeInDown delayed_02s">
          <a>
-         <img class="logo-form" src="/assets/img/logo.png">
+         <img class="logo-form" src="{{ url('uploads/logo.png') }}">
          </a>
          <h1 class="fake-half">{{trans('actions.linkMessage', ['ispName' => config("customer_portal.company_name")],$language)}}</h1>
          {!! Form::open(['action' => 'AuthenticationController@lookupEmail', 'id' => 'emailLookupForm', 'method' => 'post']) !!}

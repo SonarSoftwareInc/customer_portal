@@ -4,7 +4,7 @@
       <span class="navbar-toggler-icon"></span>
       </button>
       <a class="navbar-brand" href="{{action("BillingController@index")}}">
-      <img src="/assets/img/logo.png" class="navbar-brand-img mx-auto" alt="Back to dashboard...">
+      <img src="{{ url('uploads/logo.png') }}" class="navbar-brand-img mx-auto" alt="Back to dashboard...">
       </a>
       <div class="navbar-user d-md-none">
          <div class="dropdown">

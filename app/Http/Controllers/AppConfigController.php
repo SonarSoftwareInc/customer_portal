@@ -7,8 +7,9 @@ use App\SystemSetting;
 use App\Traits\Throttles;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 use SonarSoftware\CustomerPortalFramework\Helpers\HttpHelper;
-use View;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
@@ -80,7 +81,7 @@ class AppConfigController extends Controller
              */
             if ($request->hasFile('image')) {
                 $request->file('image');
-                $request->file('image')->move(base_path('public/assets/img/'), 'logo.png');
+                $request->file('image')->move(base_path('public/uploads'), 'logo.png');
             }
 
             /**

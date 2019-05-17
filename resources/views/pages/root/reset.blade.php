@@ -4,7 +4,7 @@
    <div class="wrapper">
       <section id="main" class="section content animated fadeInDown delayed_02s">
          <a>
-         <img class="logo-form" src="/assets/img/logo.png">
+         <img class="logo-form" src="{{ url('uploads/logo.png') }}">
          </a>
          <h1 class="fake-half">{{trans("headers.forgotUsernameOrPassword",[],$language)}}</h1>
          <p>{{trans("register.forgotDescription",[],$language)}}</p>

@@ -3,7 +3,7 @@
 <body class="page-login">
    <div class="wrapper">
       <section id="main" class="section content animated fadeInDown delayed_02s">
-         <img class="logo-form" src="/assets/img/logo.png">
+         <img class="logo-form" src="{{ url('uploads/logo.png') }}">
          @if($systemSetting->login_page_message)
             <p>
                {{$systemSetting->login_page_message}}
