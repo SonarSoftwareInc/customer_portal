@@ -15,6 +15,7 @@
  * Admin routes
  */
 Route::get("/settings", "AppConfigController@show");
+Route::get("/settings/subdivisions/{country}", "SubdivisionController@authenticate");
 Route::post("/settings", "AppConfigController@save");
 Route::post("/settings/auth", "AppConfigController@authenticate");
 
