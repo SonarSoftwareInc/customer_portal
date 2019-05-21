@@ -1,56 +1,46 @@
-FROM php:7.3.3-apache-stretch as base
+FROM phusion/baseimage:0.11 as base
 
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+ENV LC_ALL C.UTF-8
 
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
- && sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
- && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf \
- && a2enmod \
-      rewrite \
-      headers \
-      actions
+RUN add-apt-repository ppa:ondrej/php \
+ && add-apt-repository ppa:ondrej/nginx-mainline \
+ && install_clean \
+      gettext \
+      nginx \
+      php7.3-fpm \
+      php-bcmath \
+      php-curl \
+      php-gmp \
+      php-mbstring \
+      php-sqlite3 \
+      php-zip \
+      unzip
 
-RUN apt-get update && apt-get install -y \
-      libgmp-dev \
-      libpq-dev \
-      libzip-dev \
-      zlib1g-dev \
-  && docker-php-ext-install -j$(nproc) \
-      bcmath \
-      gmp \
-      pgsql \
-      zip \
-  && rm -rf /var/lib/apt/lists/*
-
-# install vendor packages
-FROM composer:1.8.4 as backend_dependencies
-COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-interaction --no-scripts --no-autoloader
-
-# build the frontend - currently unused?
-# FROM node:8 as frontend_builder
-# WORKDIR /home/node/app
-
-# COPY package.json yarn.lock ./
-# RUN yarn install --frozen-lockfile
-
-# COPY webpack.mix.js .
-# COPY resources/assets resources/assets
-# RUN yarn run production
-
-FROM base
 WORKDIR /var/www/html
 
+COPY --chown=www-data --from=composer:1.8.4 /usr/bin/composer /tmp/composer
+COPY composer.json composer.lock ./
+RUN mkdir -p vendor \
+ && chown www-data:www-data vendor \
+ && COMPOSER_CACHE_DIR=/dev/null setuser www-data /tmp/composer install --no-dev --no-interaction --no-scripts --no-autoloader
+
 COPY --chown=www-data . .
-COPY --chown=www-data --from=backend_dependencies /app/vendor vendor
 
-USER www-data
-
-# generate autoloader
-COPY --chown=www-data --from=backend_dependencies /usr/bin/composer /tmp/composer
-RUN COMPOSER_CACHE_DIR=/dev/null /tmp/composer install --no-dev --no-interaction --no-scripts --classmap-authoritative \
+RUN COMPOSER_CACHE_DIR=/dev/null setuser www-data /tmp/composer install --no-dev --no-interaction --no-scripts --classmap-authoritative \
  && rm -rf /tmp/composer
 
+COPY deploy/conf/php-fpm/ /etc/php/7.3/fpm/
+
+COPY deploy/conf/cron.d/* /etc/cron.d/
+
+RUN mkdir -p /etc/my_init.d
+COPY deploy/*.sh /etc/my_init.d/
+
+RUN mkdir /etc/service/php-fpm
+COPY deploy/services/php-fpm.sh /etc/service/php-fpm/run
+
+RUN mkdir /etc/service/nginx
+COPY deploy/services/nginx.sh /etc/service/nginx/run
+
 VOLUME ['/var/www/html/storage']
-USER root
-EXPOSE 80
+EXPOSE 80 443
