@@ -4,15 +4,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: sonarsoftware/customerportal
-    command: 
-      - "bash"
-      - "-c"
-      - '/var/www/html/deploy/init.sh && exec apache2-foreground | tail -f /var/www/html/storage/logs/laravel.log'
+    image: sonarsoftware/customerportal:stable
     container_name: sonar-customerportal
     restart: always
     tty: true
+    ports:
+      - "80:80"
+      - "443:443"
     volumes:
+      - ./deploy/conf/nginx/sonar-customerportal.template:/etc/nginx/conf.d/sonar-customerportal.template
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+      - ./public/assets/img/logo.png:/var/www/html/public/assets/img/logo.png
       - storage:/var/www/html/storage
     env_file:
      - .env
@@ -24,22 +27,6 @@ services:
   redis:
     image: redis:5.0.4-alpine 
     restart: always
-
-  nginx:
-    image: nginx:1.15-alpine
-    restart: always
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./deploy/conf/nginx/sonar-customerportal.template:/etc/nginx/conf.d/sonar-customerportal.template
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    command: "/bin/sh -c 'envsubst \\$$NGINX_HOST < /etc/nginx/conf.d/sonar-customerportal.template > /etc/nginx/conf.d/default.conf; while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-    env_file:
-     - .env
-    depends_on:
-      - app
 
   certbot:
     image: certbot/certbot

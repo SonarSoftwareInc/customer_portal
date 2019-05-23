@@ -59,7 +59,7 @@ export API_PASSWORD
 export SONAR_URL
 export EMAIL_ADDRESS
 
-docker pull sonarsoftware/customerportal:latest
+docker pull sonarsoftware/customerportal:stable
 
 echo "### Deleting old certificate for $NGINX_HOST ..."
 rm -rf ./data/certbot/conf/live/$NGINX_HOST && \
@@ -94,5 +94,5 @@ done;
 
 echo "### The app key is: $APP_KEY";
 echo "### Back this up somewhere in case you need it."
-docker exec sonar-customerportal php artisan sonar:settingskey
+docker exec sonar-customerportal sh -c "/etc/my_init.d/99_init_laravel.sh && cd /var/www/html && setuser www-data php artisan sonar:settingskey"
 echo "### Navigate to https://$NGINX_HOST/settings and use the above settings key configure your portal."

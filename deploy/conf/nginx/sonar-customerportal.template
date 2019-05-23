@@ -23,10 +23,18 @@ server {
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
+    add_header Content-Security-Policy "frame-src 'self'; frame-ancestors 'none'; form-action 'self' https://www.paypal.com; upgrade-insecure-requests;";
+
+    root /var/www/html/public;
+    index index.php;
+
     location / {
-        proxy_pass http://app;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-Proto https;
+        try_files $uri $uri/ /index.php?q=$uri&$args;
+    }
+
+    location ~ ^/.+\.php(/|$) {
+        fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     }
 }

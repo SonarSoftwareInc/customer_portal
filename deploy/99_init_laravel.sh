@@ -1,4 +1,8 @@
 #!/bin/bash
+set -euf -o pipefail
+
+chown -R www-data:www-data /var/www/html
+
 su www-data -s /bin/bash <<EOSU
 cd /var/www/html
 rm -f bootstrap/cache/*
