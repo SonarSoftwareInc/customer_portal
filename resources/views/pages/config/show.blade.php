@@ -61,6 +61,16 @@
                   </div>
                </div>
             </div>
+            <div class="row mt-1">
+               <div class="col-12 ">
+                  <div class="form-group">
+                     <label>
+                     Branding Cover
+                     </label> <br>
+                    {!! Form::file('cover', null, ['class' => 'form-control']) !!}
+                  </div>
+               </div>
+            </div>
             {{--<div class="row mt-1">--}}
                {{--<div class="col-12 mb--3 ">--}}
                   {{--<div class="form-group">--}}

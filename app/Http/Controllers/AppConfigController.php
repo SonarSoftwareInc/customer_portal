@@ -82,6 +82,11 @@ class AppConfigController extends Controller
                 $request->file('image');
                 $request->file('image')->move(base_path('public/assets/img/'), 'logo.png');
             }
+		
+	    if ($request->hasFile('cover')) {
+                $request->file('cover');
+                $request->file('cover')->move(base_path('public/assets/img/'), 'cover.png');
+            }
 
             /**
              * System Settings

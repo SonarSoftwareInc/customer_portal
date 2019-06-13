@@ -5450,7 +5450,7 @@ button.bg-light:focus {
 	position: relative;
 	width: 100%;
 	height: 100%;
-	background: url('/assets/img/brand-image.jpg') center 30% no-repeat;
+	background: url('/assets/img/cover.png') center 30% no-repeat;
 	background-size: cover;
 	animation: dropdownMenu 1s;
 }
