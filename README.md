@@ -1,4 +1,4 @@
-[![Customer Portal](https://i.imgur.com/4GPjOHG.png)](https://github.com/SonarSoftwareInc/customer_portal)
+[![Customer Portal](https://i.imgur.com/5YZUofH.png)](https://github.com/SonarSoftwareInc/customer_portal)
 
 # Sonar Customer Portal
 
