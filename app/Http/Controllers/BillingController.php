@@ -215,7 +215,7 @@ class BillingController extends Controller
                 return view("pages.billing.add_card");
                 break;
             case "bank":
-                if (config("customer_portal.enable_gocardless") === true)
+                if (config("customer_portal.enable_gocardless") == 1)
                 {
                     $gocardless = new GoCardless();
                     return Redirect::away($gocardless->createRedirect());
@@ -477,21 +477,20 @@ class BillingController extends Controller
         $validAccountMethods = $this->getPaymentMethods();
         foreach ($validAccountMethods as $validAccountMethod)
         {
-            if ($validAccountMethod->type == "credit card" && config("customer_portal.enable_credit_card_payments") == true)
+            if ($validAccountMethod->type == "credit card" && config("customer_portal.enable_credit_card_payments") == 1)
             {
                 $paymentMethods[$validAccountMethod->id] = utrans("billing.payUsingExistingCard", ['card' => "****" . $validAccountMethod->identifier . " (" . sprintf("%02d", $validAccountMethod->expiration_month) . " / " . $validAccountMethod->expiration_year . ")"]);
             }
-            elseif ((config("customer_portal.enable_bank_payments") == true || config("customer_portal.enable_gocardless") == true) && $validAccountMethod->type != "credit card")
+            elseif ((config("customer_portal.enable_bank_payments") == 1 || config("customer_portal.enable_gocardless") == 1) && $validAccountMethod->type != "credit card")
             {
                 $paymentMethods[$validAccountMethod->id] = utrans("billing.payUsingExistingBankAccount", ['accountNumber' => "**" . $validAccountMethod->identifier]);
             }
         }
 
-        if (config("customer_portal.paypal_enabled") === true) {
+        if (config("customer_portal.paypal_enabled") === 1) {
             $paymentMethods['paypal'] = utrans("billing.payWithPaypal");
         }
-
-        if (config("customer_portal.enable_credit_card_payments") == true)
+        if (config("customer_portal.enable_credit_card_payments") == 1)
         {
             $paymentMethods['new_card'] = utrans("billing.payWithNewCard");
         }

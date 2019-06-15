@@ -68,4 +68,6 @@ return [
     'saveAsAutoPayMethodBank' => 'Automatically charge this bank account for all future invoices',
     'bankAccountAdded' => 'Bank account added successfully.',
     'cvc' => 'CVC',
+    'addNewGoCardless' => 'Add New GoCardless',
+    'noGoCardless' => 'No GoCardless on file.',
 ];
