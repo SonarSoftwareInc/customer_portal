@@ -67,6 +67,4 @@ return [
     'accountType' => 'Type de compte',
     'saveAsAutoPayMethodBank' => 'Charge automatiquement ce compte bancaire pour toutes les factures futures',
     'bankAccountAdded' => 'Compte bancaire ajouté avec succès.',
-    'addNewGoCardless' => 'ajouter un nouveau sans gocard',
-    'noGoCardless' => 'Pas de gocardless au dossier',
 ];

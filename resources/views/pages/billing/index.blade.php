@@ -335,15 +335,6 @@
             @if(config("customer_portal.enable_bank_payments") == 1 || config("customer_portal.enable_gocardless") == 1)
             <div class="col-12 col-md-12 col-xl-12">
                <div class="card">
-                  @if(config("customer_portal.enable_gocardless") == 1)
-                  <div class="card-header">
-                     <h4 class="card-header-title text-muted"><i class="fe fe-dollar-sign mr-3"></i> {{utrans("headers.goCardLess")}}</h4>
-                     <p class="text-right mt-3">
-                        <a class="btn btn-secondary btn-sm" href="{{action("BillingController@createPaymentMethod",['type' => 'bank'])}}" role="button">
-                        <i class="fe fe-plus"></i> {{utrans("billing.addNewGoCardless")}}</a>
-                     </p>
-                  </div>
-                  @else
                      <div class="card-header">
                         <h4 class="card-header-title text-muted"><i class="fe fe-dollar-sign mr-3"></i> {{utrans("headers.bankAccounts")}}</h4>
                         <p class="text-right mt-3">
@@ -351,7 +342,6 @@
                               <i class="fe fe-plus"></i> {{utrans("billing.addNewBankAccount")}}</a>
                         </p>
                      </div>
-                  @endif
                   <div class="table-responsive">
                      <table class="table table-sm card-table">
                         <thead>
