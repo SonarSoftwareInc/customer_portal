@@ -31,5 +31,5 @@ return [
     'allPaid' => 'All paid!',
     'currentDataUsage' => 'Current Data Usage',
     'autopay' => 'Autopay',
-    'invoices' => 'Invoices',
+    'goCardLess' => 'GoCardless',
 ];

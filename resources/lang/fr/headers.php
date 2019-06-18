@@ -22,7 +22,7 @@ return [
     'cancelled' => 'Annulé',
     'dataUsage' => 'Données utilisées',
     'currentUsage' => 'Usage de données utilisées',
-    'currentDataUsage' => 'Utilisation actuelle des donn�es',
+    'currentDataUsage' => 'Utilisation actuelle des données',
     'allPaid' => 'Tous payes!',
     'dashboard' => 'Tableau de bord',
     'summary' => 'Sommaire',
@@ -30,4 +30,5 @@ return [
     'contracts' => 'Contrats',
     'error' => 'Erreur!',
     'bankAccounts' => 'Comptes bancaires',
+    'goCardLess' => 'sans gocard',
 ];

@@ -257,6 +257,7 @@
       </div>
       @endif
       <div class="col-12 col-md-12 col-xl-6">
+         @if(config("customer_portal.enable_credit_card_payments") == 1)
          <div class="card">
             <div class="card-header">
                <h4 class="card-header-title text-muted">
@@ -329,17 +330,18 @@
                </table>
             </div>
          </div>
+         @endif
          <div class="row">
-            @if(config("customer_portal.enable_bank_payments") == true || config("customer_portal.enable_gocardless") == true)
+            @if(config("customer_portal.enable_bank_payments") == 1 || config("customer_portal.enable_gocardless") == 1)
             <div class="col-12 col-md-12 col-xl-12">
                <div class="card">
-                  <div class="card-header">
-                     <h4 class="card-header-title text-muted"><i class="fe fe-dollar-sign mr-3"></i> {{utrans("headers.bankAccounts")}}</h4>
-                     <p class="text-right mt-3">
-                        <a class="btn btn-secondary btn-sm" href="{{action("BillingController@createPaymentMethod",['type' => 'bank'])}}" role="button">
-                        <i class="fe fe-plus"></i> {{utrans("billing.addNewBankAccount")}}</a>
-                     </p>
-                  </div>
+                     <div class="card-header">
+                        <h4 class="card-header-title text-muted"><i class="fe fe-dollar-sign mr-3"></i> {{utrans("headers.bankAccounts")}}</h4>
+                        <p class="text-right mt-3">
+                           <a class="btn btn-secondary btn-sm" href="{{action("BillingController@createPaymentMethod",['type' => 'bank'])}}" role="button">
+                              <i class="fe fe-plus"></i> {{utrans("billing.addNewBankAccount")}}</a>
+                        </p>
+                     </div>
                   <div class="table-responsive">
                      <table class="table table-sm card-table">
                         <thead>
@@ -350,9 +352,13 @@
                         </thead>
                         <tbody>
                            @if(count($paymentMethods) === 0)
-                           <TR>
-                              <TD colspan="2">{{utrans("billing.noBankAccounts")}}</TD>
-                           </TR>
+                              <TR>
+                              @if(config("customer_portal.enable_gocardless") == 1)
+                                    <TD colspan="2">{{utrans("billing.noGoCardless")}}</TD>
+                              @else
+                                    <TD colspan="2">{{utrans("billing.noBankAccounts")}}</TD>
+                              @endif
+                              </TR>
                            @else
                            @foreach($paymentMethods as $paymentMethod)
                            @if ($paymentMethod->type == "echeck" || $paymentMethod->type == "ach")
