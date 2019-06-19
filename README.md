@@ -39,7 +39,13 @@ You can view the installation log by running
 
 ### A note on initial setup
 
-The API username and API password you are prompted for are credentials for your Sonar instance. You should create a dedicated user to utilize for the customer portal - **do not use your admin username/password!** The user requires account create, read, update, and delete permissions, ticket create, read, and update permissions, ticket super user permissions, and financial read permissions.
+The API username and API password you are prompted for are credentials for your Sonar instance. You should create a dedicated user to utilize for the customer portal - **do not use your admin username/password!** 
+
+**These permissions are different than v1 portal permissions**
+
+* Account create, read, update, and delete permissions
+* Ticket create, read, and update permissions, **ticket super user permissions**
+* Financial read permissions.
 
 After the setup process is complete, your instance should be up and running. You can navigate to the settings URL (which is `/settings` on the domain you setup, e.g. `https://portal.myisp.com/settings`) and use the settings key that should have been generated for you with the installation script.
 
