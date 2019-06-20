@@ -1,0 +1,91 @@
+version: 2.1
+
+references:
+  workspace_root: &workspace_root
+    /tmp/workspace
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
+jobs:
+  build:
+    docker:
+      - image: circleci/buildpack-deps:18.10-scm
+
+    working_directory: *workspace_root
+
+    steps:
+      - restore_cache:
+          keys:
+            - source-v1-{{ .Branch }}-{{ .Revision }}
+            - source-v1-{{ .Branch }}-
+            - source-v1-
+
+      - checkout:
+          path: *workspace_root
+
+      - save_cache:
+          key: source-v1-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - "/tmp/workspace/.git"
+
+      - setup_remote_docker
+
+      - run:
+          name: Build portal image
+          command: |
+            GIT_SHA=$(git rev-parse HEAD)
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker build -t sonarsoftware/customerportal:$GIT_SHA .
+            docker push sonarsoftware/customerportal:$GIT_SHA
+            docker save -o customerportal.tar sonarsoftware/customerportal:$GIT_SHA
+
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - customerportal.tar
+
+      - run:
+          name: Tag latest if building on master
+          command: |
+            GIT_SHA=$(git rev-parse HEAD)
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker tag sonarsoftware/customerportal:$GIT_SHA sonarsoftware/customerportal:latest
+              docker push sonarsoftware/customerportal:latest
+            fi
+
+  deploy_to_production:
+    docker:
+      - image: circleci/buildpack-deps:18.10-scm
+
+    working_directory: *workspace_root
+
+    steps:
+      - setup_remote_docker
+
+      - attach_workspace:
+          at: *workspace_root
+
+      - run:
+          name: Deploy portal image
+          command: |
+            GIT_SHA=$(git rev-parse HEAD)
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker load -i customerportal.tar
+            docker tag sonarsoftware/customerportal:$GIT_SHA sonarsoftware/customerportal:stable
+            docker push sonarsoftware/customerportal:stable
+
+workflows:
+  build_and_deploy_master:
+    jobs:
+      - build
+      - hold:
+          type: approval
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - deploy_to_production:
+          requires:
+            - hold
