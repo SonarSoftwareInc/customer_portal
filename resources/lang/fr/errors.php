@@ -44,4 +44,6 @@ return [
     'failedToCreateBankAccount' => 'Impossible d\'ajouter un compte bancaire. Vérifiez les informations et réessayez.',
     'creditCardPaymentsDisabled' => 'Les paiements par carte de crédit ne sont actuellement pas autorisés.',
     'addAPaymentMethod' => 'Veuillez ajouter un mode de paiement à votre compte pour effectuer un paiement.',
+    '500error' => '500 Erreur',
+    'apiPermissionsFailure' => 'Votre utilisateur d\'API n\'est pas configuré avec les autorisations appropriées. Vérifiez que les autorisations sont configurées par le <a href="https://github.com/SonarSoftwareInc/customer_portal/blob/master/README.md#a-note-on-initial-setup">lisez-moi le document.</a>'
 ];
