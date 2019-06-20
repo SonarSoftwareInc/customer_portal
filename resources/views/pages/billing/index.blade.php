@@ -353,11 +353,7 @@
                         <tbody>
                            @if(count($paymentMethods) === 0)
                               <TR>
-                              @if(config("customer_portal.enable_gocardless") == 1)
-                                    <TD colspan="2">{{utrans("billing.noGoCardless")}}</TD>
-                              @else
-                                    <TD colspan="2">{{utrans("billing.noBankAccounts")}}</TD>
-                              @endif
+                                 <TD colspan="2">{{utrans("billing.noBankAccounts")}}</TD>
                               </TR>
                            @else
                            @foreach($paymentMethods as $paymentMethod)
