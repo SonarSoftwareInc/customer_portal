@@ -288,7 +288,7 @@
                      @foreach($paymentMethods as $paymentMethod)
                      @if($paymentMethod->type == "credit card")
                      <TR>
-                        <TD><span class="blurry-text">123</span>{{$paymentMethod->identifier}}
+                        <TD>{{$paymentMethod->identifier}}
                            @if($paymentMethod->auto == 1)
                            <span class="badge badge-soft-success ml-3"><i class="fe fe-check-circle text-success mr-1"></i> {{utrans("headers.autopay")}} </span>
                            @endif
@@ -360,7 +360,7 @@
                            @if ($paymentMethod->type == "echeck" || $paymentMethod->type == "ach")
                            <TR>
                               <TD>
-                                 <span class="blurry-text">000</span>{{$paymentMethod->identifier}}@if($paymentMethod->auto == 1)<span class="badge badge-soft-success ml-3"><i class="fe fe-check-circle text-success mr-1"></i>{{utrans("headers.autopay")}}</span>@endif
+                                 {{$paymentMethod->identifier}}@if($paymentMethod->auto == 1)<span class="badge badge-soft-success ml-3"><i class="fe fe-check-circle text-success mr-1"></i>{{utrans("headers.autopay")}}</span>@endif
                               </TD>
                               <TD class="text-right">
                                  <div class="dropdown position-static">
