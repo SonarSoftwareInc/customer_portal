@@ -126,6 +126,7 @@ class BillingController extends Controller
                 try {
                     $redirectLink = $paypalController->generateApprovalLink($request->input('amount'));
                 } catch (Exception $e) {
+                    Log::error($e->getMessage());
                     return redirect()->back()->withErrors(utrans("errors.paypalFailed"));
                 }
                 return redirect()->to($redirectLink);
@@ -487,7 +488,7 @@ class BillingController extends Controller
             }
         }
 
-        if (config("customer_portal.paypal_enabled") === 1) {
+        if (config("customer_portal.paypal_enabled") == 1) {
             $paymentMethods['paypal'] = utrans("billing.payWithPaypal");
         }
         if (config("customer_portal.enable_credit_card_payments") == 1)

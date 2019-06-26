@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 use PayPal\Api\Amount;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
