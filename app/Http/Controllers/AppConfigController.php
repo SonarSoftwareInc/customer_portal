@@ -57,19 +57,22 @@ class AppConfigController extends Controller
                 'id' => 1
             ]);
 
+            $paypalCurrency = $this->paypalCurrency();
+
             return view("pages.config.show", compact(
                     'inboundEmailAccounts',
                     'ticketGroups',
-                    'systemSetting'
+                    'systemSetting',
+                    'paypalCurrency'
                 )
             );
         }
 
         return view("pages.config.auth");
     }
-	
-	public function save(AppConfigRequest $request)
-	{
+
+    public function save(AppConfigRequest $request)
+    {
         if ($request->session()->get('settings_authenticated') === 1) {
             $systemSetting = SystemSetting::firstOrNew([
                 'id' => 1
@@ -82,8 +85,8 @@ class AppConfigController extends Controller
                 $request->file('image');
                 $request->file('image')->move(base_path('public/assets/img/'), 'logo.png');
             }
-		
-	    if ($request->hasFile('cover')) {
+
+            if ($request->hasFile('cover')) {
                 $request->file('cover');
                 $request->file('cover')->move(base_path('public/assets/img/'), 'cover.png');
             }
@@ -137,5 +140,35 @@ class AppConfigController extends Controller
         }
 
         abort(401);
-	}
+    }
+
+    private function paypalCurrency():array
+    {
+        return [
+            'USD' => 'USD',
+            'BRL' => 'BRL',
+            'CAD' => 'CAD',
+            'CZK' => 'CZK',
+            'DKK' => 'DKK',
+            'EUR' => 'EUR',
+            'HKD' => 'HKD',
+            'HUF' => 'HUF',
+            'INR' => 'INR',
+            'ILS' => 'ILS',
+            'JPY' => 'JPY',
+            'MYR' => 'MYR',
+            'MXN' => 'MXN',
+            'TWD' => 'TWD',
+            'NZD' => 'NZD',
+            'NOK' => 'NOK',
+            'PHP' => 'PHP',
+            'PLN' => 'PLN',
+            'GBP' => 'GBP',
+            'RUB' => 'RUB',
+            'SGD' => 'SGD',
+            'SEK' => 'SEK',
+            'CHF' => 'CHF',
+            'THB' => 'THB',
+        ];
+    }
 }
