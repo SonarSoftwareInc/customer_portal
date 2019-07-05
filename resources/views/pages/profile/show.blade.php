@@ -27,7 +27,7 @@
          {!! Form::open(['action' => 'ProfileController@update', 'id' => 'profileForm', 'method' => 'PATCH']) !!}
          <form class="mb-4">
             <div class="row">
-               <div class="col-12 col-md-6">
+               <div class="col-12">
                   <!-- First name -->
                   <div class="form-group">
                      <!-- Label -->
@@ -36,17 +36,6 @@
                      </label>
                      <!-- Input -->
                      {!! Form::text("name",$contact->getName(),['id' => 'name', 'class' => 'form-control', 'placeholder' => utrans("profile.name")]) !!}
-                  </div>
-               </div>
-               <div class="col-12 col-md-6">
-                  <!-- Last name -->
-                  <div class="form-group">
-                     <!-- Label -->
-                     <label>
-                     {{utrans("profile.role")}}
-                     </label>
-                     <!-- Input -->
-                     {!! Form::text("role",$contact->getRole(),['id' => 'role', 'class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => utrans("profile.role")]) !!}
                   </div>
                </div>
                <div class="col-12">
