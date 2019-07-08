@@ -34,11 +34,10 @@ jobs:
       - run:
           name: Build portal image
           command: |
-            GIT_SHA=$(git rev-parse HEAD)
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker build -t sonarsoftware/customerportal:$GIT_SHA .
-            docker push sonarsoftware/customerportal:$GIT_SHA
-            docker save -o customerportal.tar sonarsoftware/customerportal:$GIT_SHA
+            docker build -t sonarsoftware/customerportal:$CIRCLE_SHA1 .
+            docker push sonarsoftware/customerportal:$CIRCLE_SHA1
+            docker save -o customerportal.tar sonarsoftware/customerportal:$CIRCLE_SHA1
 
       - persist_to_workspace:
           root: *workspace_root
@@ -48,9 +47,8 @@ jobs:
       - run:
           name: Tag latest if building on master
           command: |
-            GIT_SHA=$(git rev-parse HEAD)
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker tag sonarsoftware/customerportal:$GIT_SHA sonarsoftware/customerportal:latest
+              docker tag sonarsoftware/customerportal:$CIRCLE_SHA1 sonarsoftware/customerportal:latest
               docker push sonarsoftware/customerportal:latest
             fi
 
@@ -69,10 +67,9 @@ jobs:
       - run:
           name: Deploy portal image
           command: |
-            GIT_SHA=$(git rev-parse HEAD)
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker load -i customerportal.tar
-            docker tag sonarsoftware/customerportal:$GIT_SHA sonarsoftware/customerportal:stable
+            docker tag sonarsoftware/customerportal:$CIRCLE_SHA1 sonarsoftware/customerportal:stable
             docker push sonarsoftware/customerportal:stable
 
 workflows:
