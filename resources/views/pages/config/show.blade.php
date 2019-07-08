@@ -460,32 +460,7 @@
                      <label>
                      PayPal Currency
                      </label>
-                     {!! Form::select('paypal_currency_code', [
-                        'USD',
-                        'BRL',
-                        'CAD',
-                        'CZK',
-                        'DKK',
-                        'EUR',
-                        'HKD',
-                        'HUF',
-                        'INR',
-                        'ILS',
-                        'JPY',
-                        'MYR',
-                        'MXN',
-                        'TWD',
-                        'NZD',
-                        'NOK',
-                        'PHP',
-                        'PLN',
-                        'GBP',
-                        'RUB',
-                        'SGD',
-                        'SEK',
-                        'CHF',
-                        'THB',
-                     ], $systemSetting->paypal_currency_code,['id' => 'paypal_currency_code', 'class' => 'form-control', 'data-toggle' => 'select', 'data-toggle' => 'tooltip', 'data-trigger' => 'hover','data-placement' => 'left','data-offset' => '3','data-html' => 'true', 'data-original-title' => 'The currency mode your PayPal account is configured for']); !!}
+                     {!! Form::select('paypal_currency_code', $paypalCurrency, $systemSetting->paypal_currency_code,['id' => 'paypal_currency_code', 'class' => 'form-control', 'data-toggle' => 'select', 'data-toggle' => 'tooltip', 'data-trigger' => 'hover','data-placement' => 'left','data-offset' => '3','data-html' => 'true', 'data-original-title' => 'The currency mode your PayPal account is configured for']); !!}
                   </div>
                </div>
             </div>
