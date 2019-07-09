@@ -67,10 +67,9 @@ jobs:
       - run:
           name: Deploy portal image
           command: |
-            GIT_SHA=$(git rev-parse HEAD)
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker load -i customerportal.tar
-            docker tag sonarsoftware/customerportal:$GIT_SHA sonarsoftware/customerportal:stable
+            docker tag sonarsoftware/customerportal:$CIRCLE_SHA1 sonarsoftware/customerportal:stable
             docker push sonarsoftware/customerportal:stable
 
 workflows:
