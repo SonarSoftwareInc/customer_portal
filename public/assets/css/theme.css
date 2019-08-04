@@ -122,6 +122,27 @@ sub {
 sup {
 	top: -.5em;
 }
+.arrow {
+    color: rgb(72, 154, 237);
+    padding: 8px 16px;
+}
+.round {
+    border-radius: 25%;
+    padding: 8px 10px;
+}
+.current{
+    background-color: rgb(72, 154, 237);
+    color: white;
+}
+.paginator-number {
+    background-color: rgb(205, 231, 254);
+    color: rgb(72, 154, 237);
+    margin: 2px 2px;
+}
+.paginator-number:hover {
+    background-color: rgb(72, 154, 237);
+    color: white;
+}
 a {
 	text-decoration: none;
 	color: var(--primary);;
