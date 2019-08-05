@@ -83,6 +83,10 @@
                      <h2 class="mb-4 mt-4">
                       {{utrans("headers.allPaid")}}
                      </h2>
+                      <!-- Button -->
+                      <a href="{{action("BillingController@makePayment")}}" class="btn btn-white">
+                          {{utrans("billing.makePayment")}}
+                      </a>
                   </div>
                </div>
                <!-- / .row -->
