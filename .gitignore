@@ -6,4 +6,4 @@ data
 Homestead.json
 Homestead.yaml
 storage/database.sqlite
-vendor
+/vendor
