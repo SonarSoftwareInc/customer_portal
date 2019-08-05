@@ -675,7 +675,7 @@ class BillingController extends Controller
 
         $requestUrl = $this->cleanUrl(request()->url());
 
-        if (isset($options['path']) && env('NGINX_HOST') . $options['path'] == $requestUrl) {
+        if (isset($options['path']) && $_SERVER['HTTP_HOST'] . $options['path'] == $requestUrl) {
             $page = Input::get('page', 1); // Get the current page or default to 1
         } else {
             $page = 1; // Get the current page or default to 1
