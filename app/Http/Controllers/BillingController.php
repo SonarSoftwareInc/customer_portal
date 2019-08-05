@@ -15,9 +15,12 @@ use Exception;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -45,7 +48,9 @@ class BillingController extends Controller
     {
         $billingDetails = $this->getAccountBillingDetails();
         $invoices = $this->getInvoices();
+        $invoices = $this->paginate($invoices, 5, false, ['path' => '/portal/billing/invoices']);
         $transactions = $this->getTransactions();
+        $transactions = $this->paginate($transactions, 5, false, ['path' => '/portal/billing/transaction']);
         $paymentMethods = $this->getPaymentMethods();
 
 	    $historicalUsage = $this->getHistoricalUsage();
@@ -660,6 +665,31 @@ class BillingController extends Controller
             ]);
         }
         return $formattedData;
+    }
+
+    private function paginate($items, $perPage, $setDefaultOption = true, $options = [])
+    {
+        if($setDefaultOption){
+            $options = ['path' => request()->url(), 'query' => request()->query()];
+        }
+
+        $requestUrl = $this->cleanUrl(request()->url());
+
+        if (isset($options['path']) && $_SERVER['HTTP_HOST'] . $options['path'] == $requestUrl) {
+            $page = Input::get('page', 1); // Get the current page or default to 1
+        } else {
+            $page = 1; // Get the current page or default to 1
+        }
+
+
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    }
+
+    private function cleanUrl($url)
+    {
+        return str_replace('https://', '', str_replace('http://', '', $url));
     }
 
 }

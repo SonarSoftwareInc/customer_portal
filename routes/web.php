@@ -43,6 +43,8 @@ Route::group(['middleware' => ['language']], function () {
          */
         Route::group(['prefix' => 'billing'], function () {
             Route::get('/', 'BillingController@index');
+            Route::get('/transaction', 'BillingController@index');
+            Route::get('/invoices', 'BillingController@index');
             Route::get('/invoices/{invoices}', 'BillingController@getInvoicePdf');
             Route::get('/payment_methods/{type}/create', 'BillingController@createPaymentMethod');
             Route::post('/payment_methods/card', 'BillingController@storeCard');

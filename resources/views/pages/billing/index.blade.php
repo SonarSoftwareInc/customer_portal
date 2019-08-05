@@ -256,6 +256,7 @@
                      @endforeach
                      @endif
                </table>
+                {{ $transactions->links() }}
             </div>
          </div>
       </div>
@@ -447,6 +448,7 @@
                            @endif
                         </tbody>
                      </table>
+                      {{ $invoices->links() }}
                   </div>
                </div>
             </div>
