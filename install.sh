@@ -92,6 +92,16 @@ until [ "`docker inspect -f {{.State.Running}} sonar-customerportal`"=="true" ];
     sleep 0.1;
 done;
 
+echo "### Reconfiguring renewal method to webroot..."
+
+docker-compose run --rm \
+    --entrypoint "\
+      certbot certonly --webroot \
+        -d $NGINX_HOST \
+        -w /var/www/certbot \
+        --force-renewal" certbot
+echo
+
 echo "### The app key is: $APP_KEY";
 echo "### Back this up somewhere in case you need it."
 docker exec sonar-customerportal sh -c "/etc/my_init.d/99_init_laravel.sh && cd /var/www/html && setuser www-data php artisan sonar:settingskey"
