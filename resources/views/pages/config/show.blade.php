@@ -404,7 +404,7 @@
                      <label>
                      Currency Mode
                      </label>
-                     {!! Form::select('go_cardless_currency_code', array('EUR' => 'EUR', 'GDP' => 'GDP', 'SEK' => 'SEK'), $systemSetting->go_cardless_currency_code,['id' => 'go_cardless_currency_code', 'class' => 'form-control', 'data-toggle' => 'select']); !!}
+                     {!! Form::select('go_cardless_currency_code', array('AUD' => 'AUD', 'CAD' => 'CAD', 'DKK' => 'DKK', 'EUR' => 'EUR', 'GBP' => 'GBP', 'NZD' => 'NZD', 'SEK' => 'SEK', 'USD' => 'USD'), $systemSetting->go_cardless_currency_code,['id' => 'go_cardless_currency_code', 'class' => 'form-control', 'data-toggle' => 'select']); !!}
                   </div>
                </div>
             </div>
