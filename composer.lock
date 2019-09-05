@@ -1954,16 +1954,16 @@
         },
         {
             "name": "sonarsoftware/customer_portal_framework",
-            "version": "1.0.13",
+            "version": "1.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SonarSoftware/customer_portal_framework.git",
-                "reference": "02b51e441d0583c1da8a567acfc7365005a0f41a"
+                "reference": "42eb06d14d89b1f2f7e0ad9719638e2418795cd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SonarSoftware/customer_portal_framework/zipball/02b51e441d0583c1da8a567acfc7365005a0f41a",
-                "reference": "02b51e441d0583c1da8a567acfc7365005a0f41a",
+                "url": "https://api.github.com/repos/SonarSoftware/customer_portal_framework/zipball/42eb06d14d89b1f2f7e0ad9719638e2418795cd5",
+                "reference": "42eb06d14d89b1f2f7e0ad9719638e2418795cd5",
                 "shasum": ""
             },
             "require": {
@@ -2009,7 +2009,7 @@
                 "sonar software",
                 "sonar software api"
             ],
-            "time": "2019-05-07T15:47:07+00:00"
+            "time": "2019-08-16T20:31:33+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
