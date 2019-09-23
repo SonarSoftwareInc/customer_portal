@@ -16,8 +16,8 @@
             <div class="row">
                <div class="col ml-n2">
                   @if($reply->incoming == true)
-                  <div class="comment-left mb-4">
-                     <div class="comment-body">
+                  <div class="comment-right mb-4">
+                     <div class="comment-body-sent">
                         <div class="row">
                            <div class="col">
                               <h5 class="comment-title">
@@ -25,14 +25,14 @@
                               </h5>
                            </div>
                            <div class="col-auto">
-                              <time class="comment-time-dark">
+                              <time class="comment-time-light">
                               {{Formatter::datetime($reply->created_at, true)}} <i class="fe fe-clock ml-1"></i>
                               </time>
                            </div>
                         </div>
                         @else
-                        <div class="comment-right mb-4">
-                           <div class="comment-body-sent">
+                        <div class="comment-left mb-4">
+                           <div class="comment-body">
                               <div class="row">
                                  <div class="col">
                                     <h5 class="comment-title">
@@ -40,7 +40,7 @@
                                     </h5>
                                  </div>
                                  <div class="col-auto">
-                                    <time class="comment-time-light">
+                                    <time class="comment-time-dark">
                                     {{Formatter::datetime($reply->created_at, true)}} <i class="fe fe-clock ml-1"></i>
                                     </time>
                                  </div>
