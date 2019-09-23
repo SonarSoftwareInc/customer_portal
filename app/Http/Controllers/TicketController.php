@@ -40,7 +40,7 @@ class TicketController extends Controller
             try {
                 if ($ticket->getTicketID() == $id) {
                     $accountTicketController = new AccountTicketController();
-                    $replies = array_reverse($accountTicketController->getReplies($ticket, 1));
+                    $replies = $accountTicketController->getReplies($ticket, 1);
                     //Clear the cache here, because you may see a ticket with ISP responses but the list may not show it yet
                     $this->clearTicketCache();
                     return view("pages.tickets.show", compact('replies', 'ticket'));
