@@ -1954,7 +1954,7 @@
         },
         {
             "name": "sonarsoftware/customer_portal_framework",
-            "version": "1.0.14",
+            "version": "1.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SonarSoftware/customer_portal_framework.git",
