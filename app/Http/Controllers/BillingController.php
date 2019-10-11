@@ -316,6 +316,7 @@ class BillingController extends Controller
         }
 
         if ($result->success !== true) {
+            Log::error($result);
             throw new Exception(utrans("billing.paymentFailedTryAnother"));
         }
 
