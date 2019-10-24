@@ -61,7 +61,11 @@
                      {{utrans("profile.homePhone")}}
                      </label>
                      <!-- Input -->
-                     {!! Form::tel("home_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::HOME],['id' => 'home_phone', 'class' => 'form-control mb-3', 'data-mask' => '(000) 000-0000', 'placeholder' => utrans("profile.homePhone")]) !!}
+                      @if($country === 'US')
+                          {!! Form::tel("home_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::HOME],['id' => 'home_phone', 'class' => 'form-control mb-3', 'data-mask' => '(000) 000-0000', 'placeholder' => utrans("profile.homePhone")]) !!}
+                      @else
+                          {!! Form::tel("home_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::HOME],['id' => 'home_phone', 'class' => 'form-control mb-3', 'placeholder' => utrans("profile.homePhone")]) !!}
+                      @endif
                   </div>
                </div>
                <div class="col-12 col-md-6">
@@ -72,7 +76,11 @@
                      {{utrans("profile.mobilePhone")}}
                      </label>
                      <!-- Input -->
-                     {!! Form::tel("mobile_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::MOBILE],['id' => 'mobile_phone', 'class' => 'form-control mb-3','data-mask' => '(000) 000-0000', 'placeholder' => utrans("profile.mobilePhone")]) !!}                  
+                      @if($country === 'US')
+                          {!! Form::tel("mobile_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::MOBILE],['id' => 'mobile_phone', 'class' => 'form-control mb-3','data-mask' => '(000) 000-0000', 'placeholder' => utrans("profile.mobilePhone")]) !!}
+                      @else
+                          {!! Form::tel("mobile_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::MOBILE],['id' => 'mobile_phone', 'class' => 'form-control mb-3','placeholder' => utrans("profile.mobilePhone")]) !!}
+                      @endif
                   </div>
                </div>
                <div class="col-12 col-md-6">
@@ -83,7 +91,11 @@
                      {{utrans("profile.workPhone")}}
                      </label>
                      <!-- Input -->
-                     {!! Form::tel("work_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::WORK],['id' => 'work_phone', 'class' => 'form-control mb-3', 'data-mask' => '(000) 000-0000', 'placeholder' => utrans("profile.workPhone")]) !!}
+                      @if($country === 'US')
+                          {!! Form::tel("work_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::WORK],['id' => 'work_phone', 'class' => 'form-control mb-3', 'data-mask' => '(000) 000-0000', 'placeholder' => utrans("profile.workPhone")]) !!}
+                      @else
+                          {!! Form::tel("work_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::WORK],['id' => 'work_phone', 'class' => 'form-control mb-3', 'placeholder' => utrans("profile.workPhone")]) !!}
+                      @endif
                   </div>
                </div>
                <div class="col-12 col-md-6">
@@ -94,7 +106,11 @@
                      {{utrans("profile.fax")}}
                      </label>
                      <!-- Input -->
-                     {!! Form::tel("fax",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::FAX],['id' => 'fax', 'class' => 'form-control mb-3','data-mask' => '(000) 000-0000', 'placeholder' => utrans("profile.fax")]) !!}                  
+                      @if($country === 'US')
+                          {!! Form::tel("fax",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::FAX],['id' => 'fax', 'class' => 'form-control mb-3','data-mask' => '(000) 000-0000', 'placeholder' => utrans("profile.fax")]) !!}
+                      @else
+                          {!! Form::tel("fax",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::FAX],['id' => 'fax', 'class' => 'form-control mb-3','placeholder' => utrans("profile.fax")]) !!}
+                      @endif
                   </div>
                </div>
                <div class="col-12 com-md-12">
