@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\UpdatePasswordRequest;
+use App\SystemSetting;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -37,8 +38,9 @@ class ProfileController extends Controller
                 $phoneNumbers[$phoneNumber->getType()] = $phoneNumber->getNumber();
             }
         }
+        $country = SystemSetting::first()->country;
 
-        return view("pages.profile.show", compact('user', 'contact', 'phoneNumbers'));
+        return view("pages.profile.show", compact('user', 'contact', 'phoneNumbers', 'country'));
     }
 
     /**
