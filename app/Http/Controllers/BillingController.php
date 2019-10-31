@@ -316,9 +316,11 @@ class BillingController extends Controller
         }
 
         if ($result->success !== true) {
-            Log::error($result);
+            Log::error(json_encode($result));
             throw new Exception(utrans("billing.paymentFailedTryAnother"));
         }
+
+        Log::info(json_encode($result));
 
         return $result;
     }
@@ -340,10 +342,12 @@ class BillingController extends Controller
         try {
             $result = $this->accountBillingController->makeCreditCardPayment(get_user()->account_id, $creditCard, $request->input('amount'), (boolean)$request->input('makeAuto'));
         } catch (Exception $e) {
+            Log::error("Failed pay with new cc. " . $e);
             throw new InvalidArgumentException(utrans("billing.errorSubmittingPayment"));
         }
 
         if ($result->success !== true) {
+            Log::error("Failed pay with new cc. Success failure. " . $result);
             throw new InvalidArgumentException(utrans("errors.paymentFailed"));
         }
 
