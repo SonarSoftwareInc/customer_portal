@@ -160,7 +160,7 @@
                </small>
             </div>
             <div class="col-12 col-md-12 mt-5">
-               <button type="submit" class="btn btn-primary">{{utrans("billing.submitPayment")}}</button>
+               <button id="submit" type="submit" class="btn btn-primary">{{utrans("billing.submitPayment")}}</button>
             </div>
             {!! Form::close() !!}
          </div>
