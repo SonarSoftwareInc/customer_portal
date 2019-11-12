@@ -3,6 +3,7 @@ $(document).ready(function(){
     var expirationField = $("#expirationDate");
     var makeAuto = $("#makeAuto");
     var ccIcon = $("#ccIcon");
+    var submitted = false;
 
     ccNumberField.payment('formatCardNumber');
     expirationField.payment('formatCardExpiry');
@@ -54,6 +55,17 @@ $(document).ready(function(){
     $("#payment_method").change(function(){
         updatePaymentForm();
     });
+
+    $("#paymentForm").submit(function () {
+        submitted = true;
+        $("span:contains(error)").after(
+            submitted = false
+        );
+        if(submitted === true) {
+            $("#submit").prop('disabled', true);
+        }
+    });
+
 });
 
 function updateSubdivisions()
