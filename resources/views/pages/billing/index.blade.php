@@ -365,7 +365,7 @@
                            @if ($paymentMethod->type == "echeck" || $paymentMethod->type == "ach")
                            <TR>
                               <TD>
-                                  {{$paymentMethod->identifier}}@if($paymentMethod->auto == 1)<span class="badge badge-soft-success ml-3"><i class="fe fe-check-circle text-success mr-1"></i>{{utrans("headers.autopay")}}</span>@endif
+                                  ****{{$paymentMethod->identifier}}@if($paymentMethod->auto == 1)<span class="badge badge-soft-success ml-3"><i class="fe fe-check-circle text-success mr-1"></i>{{utrans("headers.autopay")}}</span>@endif
                               </TD>
                               <TD class="text-right">
                                  <div class="dropdown position-static">
