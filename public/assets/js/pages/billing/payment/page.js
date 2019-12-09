@@ -56,12 +56,15 @@ $(document).ready(function(){
     });
 
     $("#paymentForm").submit(function () {
-        var el = $('.has-error');
-        if(el.length > 0) {
-            $("#submit").prop('disabled', false);
-        } else {
-            $("#submit").prop('disabled', true);
+        var allClear = true;
+        var elements = document.querySelectorAll("#paymentForm input");
+        for (var i = 0, element; element = elements[i++];) {
+            if (element.value === "") {
+                allClear = false;
+                break;
+            }
         }
+        $("#submit").prop('disabled', allClear);
     });
 
 });
