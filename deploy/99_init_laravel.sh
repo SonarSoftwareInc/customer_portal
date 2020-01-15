@@ -11,6 +11,10 @@ touch storage/database.sqlite
 php artisan migrate --force
 php artisan cache:clear
 php artisan view:clear
-php artisan route:cache
 php artisan config:cache
+
+if [ $DEV != true ]; then
+  php artisan route:cache
+fi
+
 EOSU

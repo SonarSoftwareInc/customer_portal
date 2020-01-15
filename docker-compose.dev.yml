@@ -1,0 +1,7 @@
+version: '3.6'
+services:
+  app:
+    volumes:
+      - ./data/certs/nginx-selfsigned.crt:/etc/letsencrypt/live/${NGINX_HOST}/fullchain.pem
+      - ./data/certs/nginx-selfsigned.key:/etc/letsencrypt/live/${NGINX_HOST}/privkey.pem
+      - ./:/var/www/html

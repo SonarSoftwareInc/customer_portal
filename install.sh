@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+DEV=false
+if [ ${1-""} == "dev" ]; then
+  DEV=true
+fi
+
 if ! [ -x "$(command -v docker)" ]; then
     echo "### docker is not installed, installing it now..."
     apt-get update
@@ -50,6 +55,7 @@ cat <<- EOF > ".env"
 	API_PASSWORD=$API_PASSWORD
 	SONAR_URL=$SONAR_URL
 	EMAIL_ADDRESS=$EMAIL_ADDRESS
+  DEV=$DEV
 EOF
 
 export APP_KEY
@@ -58,49 +64,85 @@ export API_USERNAME
 export API_PASSWORD
 export SONAR_URL
 export EMAIL_ADDRESS
+export DEV
 
-docker pull sonarsoftware/customerportal:stable
+if [ $DEV == true ]; then
+  echo "### Deleting old self-signed certificate for $NGINX_HOST ..."
+  rm -rf ./data/certs/*
+  echo
 
-echo "### Deleting old certificate for $NGINX_HOST ..."
-rm -rf ./data/certbot/conf/live/$NGINX_HOST && \
-rm -rf ./data/certbot/conf/archive/$NGINX_HOST && \
-rm -rf ./data/certbot/conf/renewal/$NGINX_HOST.conf
-echo
+  echo "### Creating self-signed certificate for $NGINX_HOST ..."
+  mkdir -p ./data/certs
 
-echo "### Requesting Let's Encrypt certificate for $NGINX_HOST ..."
+cat > ./data/certs/server-config <<EOF
+  # OpenSSL configuration file.
+  [ req ]
+  prompt = no
+  distinguished_name          = req_distinguished_name
+  [ req_distinguished_name ]
+  C=UA
+  ST=Kyiv
+  L=Kyiv
+  CN=$NGINX_HOST
+  O=TheOrganization
+  OU=TheOrgUnit
+  emailAddress=$EMAIL_ADDRESS
+  [ req_ext ]
+  subjectAltName = @alt_names
+  [alt_names]
+  DNS.1   = localhost
+EOF
 
-case "$EMAIL_ADDRESS" in
-  "") email_arg="--register-unsafely-without-email" ;;
-  *) email_arg="--email $EMAIL_ADDRESS" ;;
-esac
+  openssl genrsa -out ./data/certs/nginx-selfsigned.key  2048
+  openssl req -sha256 -new -key ./data/certs/nginx-selfsigned.key -out ./data/certs/nginx-selfsigned.csr -config ./data/certs/server-config
+  openssl x509 -req -days 825 -in ./data/certs/nginx-selfsigned.csr -signkey ./data/certs/nginx-selfsigned.key -out ./data/certs/nginx-selfsigned.crt -passin "pass:pass"
+  rm ./data/certs/nginx-selfsigned.csr
+  rm ./data/certs/server-config
+  echo
 
-docker-compose run --rm \
-    -p 80:80 \
-    -p 443:443 \
-    --entrypoint "\
-      certbot certonly --standalone \
-        $email_arg \
-        -d $NGINX_HOST \
-        --rsa-key-size 4096 \
-        --agree-tos \
-        --force-renewal" certbot
-echo
+  docker run --rm --interactive --tty --volume $PWD:/app composer:1.8.4 install
+  docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+else
+  echo "### Deleting old certificate for $NGINX_HOST ..."
+  rm -rf ./data/certbot/conf/live/$NGINX_HOST && \
+  rm -rf ./data/certbot/conf/archive/$NGINX_HOST && \
+  rm -rf ./data/certbot/conf/renewal/$NGINX_HOST.conf
+  echo
 
-docker-compose up -d
+  echo "### Requesting Let's Encrypt certificate for $NGINX_HOST ..."
 
-until [ "`docker inspect -f {{.State.Running}} sonar-customerportal`"=="true" ]; do
+  case "$EMAIL_ADDRESS" in
+    "") email_arg="--register-unsafely-without-email" ;;
+    *) email_arg="--email $EMAIL_ADDRESS" ;;
+  esac
+
+  docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm \
+      -p 80:80 \
+      -p 443:443 \
+      --entrypoint "\
+        certbot certonly --standalone \
+          $email_arg \
+          -d $NGINX_HOST \
+          --rsa-key-size 4096 \
+          --agree-tos \
+          --force-renewal" certbot
+  echo
+  docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+
+  until [ "`docker inspect -f {{.State.Running}} sonar-customerportal`"=="true" ]; do
     sleep 0.1;
-done;
+  done;
 
-echo "### Reconfiguring renewal method to webroot..."
+  echo "### Reconfiguring renewal method to webroot..."
 
-docker-compose run --rm \
-    --entrypoint "\
-      certbot certonly --webroot \
-        -d $NGINX_HOST \
-        -w /var/www/certbot \
-        --force-renewal" certbot
-echo
+  docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm \
+      --entrypoint "\
+        certbot certonly --webroot \
+          -d $NGINX_HOST \
+          -w /var/www/certbot \
+          --force-renewal" certbot
+  echo
+fi
 
 echo "### The app key is: $APP_KEY";
 echo "### Back this up somewhere in case you need it."
