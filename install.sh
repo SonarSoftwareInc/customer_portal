@@ -37,6 +37,7 @@ if [ -f .env ]; then
 
     docker-compose stop
     sed -i '/API_PASSWORD=/d' .env
+    sed -i '/DEV=/d' .env
 
     source .env
 fi
@@ -55,7 +56,7 @@ cat <<- EOF > ".env"
 	API_PASSWORD=$API_PASSWORD
 	SONAR_URL=$SONAR_URL
 	EMAIL_ADDRESS=$EMAIL_ADDRESS
-	DEV=$DEV
+  DEV=$DEV
 EOF
 
 export APP_KEY
@@ -64,6 +65,7 @@ export API_USERNAME
 export API_PASSWORD
 export SONAR_URL
 export EMAIL_ADDRESS
+export DEV
 
 if [ $DEV == true ]; then
   echo "### Deleting old self-signed certificate for $NGINX_HOST ..."
