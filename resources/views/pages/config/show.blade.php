@@ -198,7 +198,7 @@
                <div class="col-12 ">
                   <div class="form-group">
                      <label>
-                     Decimal Seperator
+                     Decimal Separator
                      </label>
                      {!! Form::text("decimal_separator",$systemSetting->decimal_separator,['id' => 'decimal_separator', 'class' => 'form-control', 'placeholder' => ".", 'data-toggle' => 'tooltip', 'data-trigger' => 'hover','data-placement' => 'left','data-offset' => '3','data-html' => 'true', 'data-original-title' => 'The symbol to be used as a decimal, eg $34<strong>.</strong>95']) !!}
                   </div>
@@ -208,7 +208,7 @@
                <div class="col-12 ">
                   <div class="form-group">
                      <label>
-                     Thousands Seperator
+                     Thousands Separator
                      </label>
                      <div class="input-group mb-3">
                         {!! Form::text("thousands_separator",$systemSetting->thousands_separator,['id' => 'thousands_separator', 'class' => 'form-control', 'placeholder' => ",", 'data-toggle' => 'tooltip', 'data-trigger' => 'hover','data-placement' => 'left','data-offset' => '3','data-html' => 'true', 'data-original-title' => 'The symbol to be used as a comma, eg $3<strong>,</strong>953']) !!}
