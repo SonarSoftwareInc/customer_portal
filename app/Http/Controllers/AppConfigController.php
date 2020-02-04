@@ -132,7 +132,10 @@ class AppConfigController extends Controller
                 'ticket_priority',
             ]));
 
-
+            /**
+             * CHANGE LOGIN MESSAGE TO HTMLENTITIES
+             */
+            $systemSetting->login_page_message = htmlentities($request->input('login_page_message'), ENT_QUOTES);
 
             $systemSetting->save();
 

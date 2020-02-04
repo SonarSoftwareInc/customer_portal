@@ -5,9 +5,9 @@
       <section id="main" class="section content animated fadeInDown delayed_02s">
          <img class="logo-form" src="/assets/img/logo.png">
          @if($systemSetting->login_page_message)
-            <p>
-               {{$systemSetting->login_page_message}}
-            </p>
+            <div>
+               {!! html_entity_decode($systemSetting->login_page_message) !!}
+            </div>
          @endif
          <h1 class="fake-half">{{trans('actions.loginMessage', ['ispName' => config("customer_portal.company_name")],$language)}}</h1>
          {!! Form::open(['action' => 'AuthenticationController@authenticate']) !!}

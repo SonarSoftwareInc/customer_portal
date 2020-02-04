@@ -248,16 +248,7 @@
                </div>
             </div>
 			@endif
-            <div class="row mt-1">
-               <div class="col-12 ">
-                  <div class="form-group">
-                     <label>
-                     Login Page Message
-                     </label>
-                     {!! Form::text("login_page_message",$systemSetting->login_page_message,['id' => 'login_page_message', 'class' => 'form-control', 'placeholder' => "", 'data-toggle' => 'tooltip', 'data-trigger' => 'hover','data-placement' => 'left','data-offset' => '3','data-html' => 'true', 'data-original-title' => 'The message shown to customers on the login page']) !!}
-                  </div>
-               </div>
-            </div>
+
             <div class="row mt-1">
                <div class="form-group">
                   <div class="col-auto ">
@@ -299,6 +290,16 @@
                      Required Password Strength
                      </label>
                      {!! Form::select('password_strength_required', array('1' => 'Minimal', '2' => 'Low', '3' => 'Moderate', '4' => 'High', '5' => 'Maximum'), $systemSetting->password_strength_required,['id' => 'password_strength_required', 'class' => 'form-control', 'data-toggle' => 'select', 'data-toggle' => 'tooltip', 'data-trigger' => 'hover','data-placement' => 'left','data-offset' => '3','data-html' => 'true', 'data-original-title' => 'The password strength standard required for new users and password resets']); !!}
+                  </div>
+               </div>
+            </div>
+            <div class="row mt-1">
+               <div class="col-12 ">
+                  <div class="form-group">
+                     <label>
+                     Login Page Message
+                     </label>
+                     {!! Form::textarea("login_page_message",$systemSetting->login_page_message,['id' => 'login_page_message', 'class' => 'form-control', 'placeholder' => "", 'data-toggle' => 'tooltip', 'data-trigger' => 'hover','data-placement' => 'left','data-offset' => '3','data-html' => 'true', 'data-original-title' => 'The message shown to customers on the login page']) !!}
                   </div>
                </div>
             </div>
@@ -537,12 +538,25 @@
 <script src="/assets/libs/jquery-payment-plugin/jquery.payment.min.js"></script>
 <script src="/assets/libs/bootstrap-colorpicker-plugin/bootstrap-colorpicker.min.js"></script>
 <script src="/assets/js/pages/settings/settings.js"></script>
+<script src="/assets/libs/tinymce/tinymce.min.js"></script>
+<script src="/assets/libs/tinymce/jquery.tinymce.min.js"></script>
 
 <script>
    $(function () {
      $('[data-toggle="tooltip"]').tooltip()
    })
     $(function() {
+
+      $('textarea#login_page_message').tinymce({
+         height: 300,
+         menubar: false,
+         plugins: [
+            'advlist autolink lists link anchor',
+            'searchreplace visualblocks code paste'
+         ],
+         toolbar: 'undo redo | formatselect | bold italic underline link | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat'
+      });
+
         $('#primaryColor').colorpicker({
             customClass: 'colorpicker-2x',
             sliders: {

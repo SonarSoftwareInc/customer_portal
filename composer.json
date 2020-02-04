@@ -19,7 +19,8 @@
         "mariuzzo/laravel-js-localization": "dev-master",
         "laravel/tinker": "^1.0",
         "gocardless/gocardless-pro": "^1.5",
-        "fideloper/proxy": "~3.0"
+        "fideloper/proxy": "~3.0",
+        "doctrine/dbal": "^2.10"
     },
     "repositories": [
         {
