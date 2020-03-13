@@ -56,6 +56,27 @@ $(document).ready(function(){
     });
 
     $("#paymentForm").submit(function () {
+        var selectedPaymentMethod = $("#payment_method").val();
+        switch (selectedPaymentMethod) {
+            case "new_card":
+                $(".new_card").show();
+                $(".non_paypal").show();
+                $(".paypal").remove();
+                break;
+            case "paypal":
+                $(".new_card").remove();
+                $(".non_paypal").remove();
+                $(".paypal").show();
+                break;
+            default:
+                //Existing card
+                $(".new_card").remove();
+                $(".non_paypal").show();
+                $(".paypal").remove();
+                break;
+        }
+
+
         var allClear = true;
         var elements = document.querySelectorAll("#paymentForm input");
         for (var i = 0, element; element = elements[i++];) {
