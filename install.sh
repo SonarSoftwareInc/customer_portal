@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [ $UID != 0 ]; then
+    echo This must be run as root.
+    exit 1
+fi
+
+netstat -pant | gawk '/:(80|443)[^0-9].*LISTEN/ {gsub(/:/,""); print "Process " $7 " already listening on port " $4}' | grep '^Process'
+if [ $? == 0 ]; then
+    echo Please correct and try again.
+    exit 1
+fi
+
 if ! [ -x "$(command -v docker)" ]; then
     echo "### docker is not installed, installing it now..."
     apt-get update
