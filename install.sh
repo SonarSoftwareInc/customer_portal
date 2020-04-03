@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [ $UID != 0 ]; then
+    echo This must be run as root.
+    exit 1
+fi
+
 if ! [ -x "$(command -v docker)" ]; then
     echo "### docker is not installed, installing it now..."
     apt-get update
@@ -36,20 +41,29 @@ if [ -f .env ]; then
     source .env
 fi
 
+netstat -pant | gawk '/:(80|443)[^0-9].*LISTEN/ {gsub(/:/,""); print "Process " $7 " already listening on port " $4}' | grep '^Process'
+if [ $? == 0 ]; then
+    read -p "Continue anyway? [y/N] " -i n -n 1 -r
+    echo
+    [[ ! $REPLY =~ ^[Yy]$ ]] && exit 1;
+fi
+
 APP_KEY="base64:$(head -c32 /dev/urandom | base64)";
 read -ep "Enter your portal domain name (such as portal.example.com): " -i "${NGINX_HOST:-}" NGINX_HOST
 read -ep "Enter Your API Username: " -i "${API_USERNAME:-}" API_USERNAME
-read -ep "Enter Your API Password: " -i "${API_PASSWORD:-}" API_PASSWORD
+read -esp "Enter Your API Password (output will not be displayed): " -i "${API_PASSWORD:-}" API_PASSWORD
+echo $API_PASSWORD
+exit
 read -ep "Enter Your Instance URL (e.g. https://example.sonar.software): " -i "${SONAR_URL:-}" SONAR_URL
 read -ep "Enter your email address: "  -i "${EMAIL_ADDRESS:-}" EMAIL_ADDRESS
 
 cat <<- EOF > ".env"
-	APP_KEY=$APP_KEY
-	NGINX_HOST=$NGINX_HOST
-	API_USERNAME=$API_USERNAME
-	API_PASSWORD=$API_PASSWORD
-	SONAR_URL=$SONAR_URL
-	EMAIL_ADDRESS=$EMAIL_ADDRESS
+        APP_KEY=$APP_KEY
+        NGINX_HOST=$NGINX_HOST
+        API_USERNAME=$API_USERNAME
+        API_PASSWORD=$API_PASSWORD
+        SONAR_URL=$SONAR_URL
+        EMAIL_ADDRESS=$EMAIL_ADDRESS
 EOF
 
 export APP_KEY

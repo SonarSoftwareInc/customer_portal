@@ -39,13 +39,87 @@ You can view the installation log by running
 
 ### A note on initial setup
 
-The API username and API password you are prompted for are credentials for your Sonar instance. You should create a dedicated user to utilize for the customer portal - **do not use your admin username/password!** 
+The API username and API password you are prompted for are credentials for your Sonar instance. You should create a dedicated user to utilize for the customer portal - **do not use your admin username/password!**
 
-**These permissions are different than v1 portal permissions**
+**These permissions are different than customer_portal v1 permissions**
 
-* Account create, read, update, and delete permissions
-* Ticket create, read, and update permissions, **ticket super user permissions**
-* Financial read permissions.
+#### SonarV1 Instructions ####
+1. Go to System > Roles
+1. Create a new role called Customer Portal
+1. Assign the following permissions:
+   * Accounts: Read, Create, Update, Delete
+   * Financial: Read
+   * Ticketing: Read, Create, Update, Delete
+   * Ticket Super User: Enabled
+
+#### SonarV2 Instructions ####
+Run the following in GraphQL at your Sonar V2 instance (e.g., `yourname.sonar.software/graphiql`)
+1. First create a variable (drag the lower-left window upwards to reveal the screen)
+```javascript
+{
+"customer_portal":
+  {
+    "name": "Customer Portal",
+    "applied_permissions": [
+            "CREATE_ACCOUNT_TRANSACTIONS",
+            "READ_ACCOUNT_TRANSACTIONS",
+            "UPDATE_ACCOUNT_TRANSACTIONS",
+            "CREATE_ACCOUNT",
+            "READ_ACCOUNT",
+            "UPDATE_ACCOUNT",
+            "READ_ACCOUNT_GROUP",
+            "UPDATE_ACCOUNT_GROUP",
+            "READ_ACCOUNT_STATUS",
+            "UPDATE_ACCOUNT_STATUS",
+            "READ_ACCOUNT_TYPE",
+            "UPDATE_ACCOUNT_TYPE",
+            "READ_DATA_USAGE_HISTORY",
+            "READ_INVOICE_ATTACHMENT",
+            "READ_INVOICE_MESSAGE",
+            "READ_TICKET",
+            "CREATE_TICKET",
+            "UPDATE_TICKET",
+            "UPDATE_TICKET_GROUP",
+            "CREATE_TICKET_GROUP",
+            "READ_TICKET_GROUP",
+            "UPDATE_TICKET_CATEGORY",
+            "CREATE_TICKET_CATEGORY",
+            "READ_TICKET_CATEGORY",
+            "READ_PAYMENT_METHOD",
+            "CREATE_PAYMENT_METHOD",
+            "UPDATE_PAYMENT_METHOD",
+            "DELETE_PAYMENT_METHOD",
+            "CREATE_PAYMENT",
+            "READ_SERVICEABLE_ADDRESS",
+            "READ_CANNED_REPLY",
+            "CREATE_CONTACT",
+            "UPDATE_CONTACT",
+            "DELETE_CONTACT",
+            "READ_CONTRACT",
+            "READ_CUSTOM_FIELD",
+            "READ_DELINQUENCY_EXCLUSION",
+            "READ_EMAIL_CATEGORY",
+            "READ_EMAIL_MESSAGE",
+            "READ_PACKAGE"
+    ],
+    "note": {
+      "message": "Customer Portal",
+      "priority": "NORMAL"
+    }
+    
+  }
+}
+```
+2. Then run this mutation in the top-left panel:
+```javascript
+mutation createRole($customer_portal: CreateRoleMutationInput) {
+  createRole(input: $customer_portal) {
+    name
+  }
+}
+```
+
+Create the user as instructed above and assign to this "Customer Portal" role.
 
 After the setup process is complete, your instance should be up and running. You can navigate to the settings URL (which is `/settings` on the domain you setup, e.g. `https://portal.myisp.com/settings`) and use the settings key that should have been generated for you with the installation script.
 
