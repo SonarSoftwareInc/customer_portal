@@ -41,9 +41,8 @@ if [ -f .env ]; then
     source .env
 fi
 
-netstat -pant | gawk '/:(80|443)[^0-9].*LISTEN/ {gsub(/:/,""); print "Process " $7 " already listening on port " $4}' | grep '^Process'
-if [ $? == 0 ]; then
-    read -p "Continue anyway? [y/N] " -i n -n 1 -r
+if lsof -Pi -sTCP:LISTEN | grep ':80\|:443' >/dev/null ; then
+    read -p "Port 80 and/or 443 is currently in use. Do you wish to continue anyway? [y/N] " -i n -n 1 -r
     echo
     [[ ! $REPLY =~ ^[Yy]$ ]] && exit 1;
 fi
