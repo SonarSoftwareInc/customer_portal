@@ -51,7 +51,6 @@ APP_KEY="base64:$(head -c32 /dev/urandom | base64)";
 read -ep "Enter your portal domain name (such as portal.example.com): " -i "${NGINX_HOST:-}" NGINX_HOST
 read -ep "Enter Your API Username: " -i "${API_USERNAME:-}" API_USERNAME
 read -esp "Enter Your API Password (output will not be displayed): " -i "${API_PASSWORD:-}" API_PASSWORD
-echo $API_PASSWORD
 read -ep "Enter Your Instance URL (e.g. https://example.sonar.software): " -i "${SONAR_URL:-}" SONAR_URL
 read -ep "Enter your email address: "  -i "${EMAIL_ADDRESS:-}" EMAIL_ADDRESS
 
