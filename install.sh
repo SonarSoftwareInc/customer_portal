@@ -41,7 +41,7 @@ if [ -f .env ]; then
     source .env
 fi
 
-if lsof -Pi -sTCP:LISTEN | grep ':80\|:443' >/dev/null ; then
+if lsof -Pi -sTCP:LISTEN | grep -P ':(80|443)[^0-9]' >/dev/null ; then
     read -p "Port 80 and/or 443 is currently in use. Do you wish to continue anyway? [y/N] " -i n -n 1 -r
     echo
     [[ ! $REPLY =~ ^[Yy]$ ]] && exit 1;
