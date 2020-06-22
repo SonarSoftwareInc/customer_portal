@@ -415,6 +415,25 @@
      animation-duration: .8s;
      transition: opacity .8s ease-out;
 }
+.alerts-success {
+     position: absolute;
+     z-index: 9999;
+     cursor: pointer;
+     top: 0;
+     left: 0;
+     right: 0;
+     background: #15d676;
+     color: #fff;
+     font-family: var(--font);
+     font-weight: 400;
+     text-align: center;
+     line-height: 2.5;
+     overflow: hidden;
+     opacity: .88;
+     animation: errorDown 1;
+     animation-duration: 1s;
+     transition: opacity .3s ease-out;
+}
 
 .error-help-block {
     color: #ff7574;
@@ -502,4 +521,24 @@
          animation: errorDown .8;
          animation-duration: .8s;
     }
+
+    .alerts-success {
+          position: absolute;
+          z-index: 9999;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          background: #15d676;
+          color: #fff;
+          font-family: var(--font);
+          font-weight: 400;
+          text-align: center;
+          line-height: 2.5;
+          overflow: hidden;
+          opacity: .88;
+          animation: errorDown 1;
+          animation-duration: 1s;
+          transition: opacity .3s ease-out;
+     }
 }
