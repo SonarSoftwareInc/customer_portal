@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec0fde65c0466f08a4b901c98196b9f9",
+    "content-hash": "e2a3822811c341e19c95da9abcd3b5bb",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2208,16 +2208,16 @@
         },
         {
             "name": "sonarsoftware/customer_portal_framework",
-            "version": "1.0.16",
+            "version": "1.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SonarSoftware/customer_portal_framework.git",
-                "reference": "961394d083f5de0550f61b3ef24d0159b8789dcf"
+                "reference": "ef48e3aef7dd4266683b6f04a50b96f706702d04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SonarSoftware/customer_portal_framework/zipball/961394d083f5de0550f61b3ef24d0159b8789dcf",
-                "reference": "961394d083f5de0550f61b3ef24d0159b8789dcf",
+                "url": "https://api.github.com/repos/SonarSoftware/customer_portal_framework/zipball/ef48e3aef7dd4266683b6f04a50b96f706702d04",
+                "reference": "ef48e3aef7dd4266683b6f04a50b96f706702d04",
                 "shasum": ""
             },
             "require": {
@@ -2263,7 +2263,7 @@
                 "sonar software",
                 "sonar software api"
             ],
-            "time": "2020-06-18T22:10:00+00:00"
+            "time": "2020-07-16T15:19:50+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
