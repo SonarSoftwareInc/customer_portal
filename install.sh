@@ -54,6 +54,9 @@ read -esp "Enter Your API Password (output will not be displayed): " -i "${API_P
 read -ep "Enter Your Instance URL (e.g. https://example.sonar.software): " -i "${SONAR_URL:-}" SONAR_URL
 read -ep "Enter your email address: "  -i "${EMAIL_ADDRESS:-}" EMAIL_ADDRESS
 
+
+SONAR_IP=$(dig "${SONAR_URL}" a +short | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
+
 cat <<- EOF > ".env"
         APP_KEY=$APP_KEY
         NGINX_HOST=$NGINX_HOST
@@ -61,6 +64,7 @@ cat <<- EOF > ".env"
         API_PASSWORD=$API_PASSWORD
         SONAR_URL=$SONAR_URL
         EMAIL_ADDRESS=$EMAIL_ADDRESS
+	SONAR_IP=$SONAR_IP
 EOF
 
 export APP_KEY
@@ -69,6 +73,7 @@ export API_USERNAME
 export API_PASSWORD
 export SONAR_URL
 export EMAIL_ADDRESS
+export SONAR_IP
 
 docker pull sonarsoftware/customerportal:stable
 
