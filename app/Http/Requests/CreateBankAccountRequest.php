@@ -27,7 +27,13 @@ class CreateBankAccountRequest extends FormRequest
             'name' => 'required|string',
             'account_number' => 'required|numeric',
             'routing_number' => 'required|numeric|digits:9',
-            'account_type' => 'required|string|in:checking,savings'
+            'account_type' => 'required|string|in:checking,savings',
+            'country' => 'required|string',
+            'line1' => 'required|string',
+            'city' => 'required|string',
+            'state' => 'string',
+            'zip' => 'required|string',
+
         ];
     }
 }

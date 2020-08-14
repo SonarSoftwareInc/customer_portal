@@ -287,8 +287,16 @@ class BillingController extends Controller
         }
 
         try {
-            $this->accountBillingController->createBankAccount(get_user()->account_id, $bankAccount, (bool)$request->input('auto'));
+            $address = [
+                'line1' => $request->input('line1'),
+                'city' => $request->input('city'),
+                'state' => $request->input('state'),
+                'zip' => $request->input('zip'),
+                'country' => $request->input('country'),
+            ];
+            $this->accountBillingController->createBankAccount(get_user()->account_id, $bankAccount, (bool)$request->input('auto'), $address);
         } catch (Exception $e) {
+            Log::error($e);
             return redirect()->back()->withErrors(utrans("errors.failedToCreateBankAccount"))->withInput();
         }
 

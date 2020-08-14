@@ -13,7 +13,7 @@
         "predis/predis": "^1.0",
         "laravelcollective/html": "^5.5",
         "proengsoft/laravel-jsvalidation": "^1.6.0-dev",
-        "sonarsoftware/customer_portal_framework": ">=1.0.15",
+        "sonarsoftware/customer_portal_framework": ">=1.0.18",
         "inacho/php-credit-card-validator": "^1.0",
         "paypal/rest-api-sdk-php": "^1.7",
         "mariuzzo/laravel-js-localization": "dev-master",

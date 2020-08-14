@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec0fde65c0466f08a4b901c98196b9f9",
+    "content-hash": "6615240314ef687d97fa9908bfac8a94",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -896,6 +896,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -942,6 +943,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
@@ -1700,6 +1702,7 @@
                 "rest",
                 "sdk"
             ],
+            "abandoned": true,
             "time": "2019-01-04T20:04:25+00:00"
         },
         {
@@ -2181,17 +2184,17 @@
             ],
             "authors": [
                 {
-                    "name": "Ben Ramsey",
-                    "email": "ben@benramsey.com",
-                    "homepage": "https://benramsey.com"
-                },
-                {
                     "name": "Marijn Huizendveld",
                     "email": "marijn.huizendveld@gmail.com"
                 },
                 {
                     "name": "Thibaud Fabre",
                     "email": "thibaud@aztech.io"
+                },
+                {
+                    "name": "Ben Ramsey",
+                    "email": "ben@benramsey.com",
+                    "homepage": "https://benramsey.com"
                 }
             ],
             "description": "Formerly rhumsaa/uuid. A PHP 5.4+ library for generating RFC 4122 version 1, 3, 4, and 5 universally unique identifiers (UUID).",
@@ -2205,16 +2208,16 @@
         },
         {
             "name": "sonarsoftware/customer_portal_framework",
-            "version": "1.0.15",
+            "version": "1.0.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SonarSoftware/customer_portal_framework.git",
-                "reference": "41f2045905b493c2a49fb34ebba91eaaa86dfcd5"
+                "reference": "2dcd10abe5026af51db9a5a8f0019ff05c12aa97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SonarSoftware/customer_portal_framework/zipball/41f2045905b493c2a49fb34ebba91eaaa86dfcd5",
-                "reference": "41f2045905b493c2a49fb34ebba91eaaa86dfcd5",
+                "url": "https://api.github.com/repos/SonarSoftware/customer_portal_framework/zipball/2dcd10abe5026af51db9a5a8f0019ff05c12aa97",
+                "reference": "2dcd10abe5026af51db9a5a8f0019ff05c12aa97",
                 "shasum": ""
             },
             "require": {
@@ -2260,7 +2263,7 @@
                 "sonar software",
                 "sonar software api"
             ],
-            "time": "2019-10-11T15:43:57+00:00"
+            "time": "2020-07-17T19:53:53+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
