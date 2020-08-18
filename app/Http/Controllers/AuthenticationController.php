@@ -127,6 +127,7 @@ class AuthenticationController extends Controller
             Mail::send('emails.basic', [
                 'greeting' => trans("emails.greeting",[],$language),
                 'body' => trans("emails.accountCreateBody", [
+                    'isp_name' => config("app.name"),
                     'portal_url' => config("app.url"),
                     'creation_link' => config("app.url") . "/create/" . $creationToken->token,
                 ],$language),
@@ -252,6 +253,7 @@ class AuthenticationController extends Controller
             Mail::send('emails.basic', [
                 'greeting' => trans("emails.greeting",[],$language),
                 'body' => trans("emails.passwordResetBody", [
+                    'isp_name' => config("app.name"),
                     'portal_url' => config("app.url"),
                     'reset_link' => config("app.url") . "/reset/" . $passwordReset->token,
                     'username' => $result->username,

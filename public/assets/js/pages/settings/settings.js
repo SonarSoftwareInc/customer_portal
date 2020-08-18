@@ -2,6 +2,8 @@ $(document).ready(function(){
     $("#country").change(function(){
         updateSubdivisions();
     });
+    $("#mail_password")[0].type = "password";
+    $("#mail_password")[0].autocomplete = "current-password";
 });
 
 function updateSubdivisions()
