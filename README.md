@@ -80,7 +80,13 @@ Upgrades for the customer portal are done automatically and require no interacti
 
 ## Troubleshooting
 
-If you get the error `[/var/www/html/storage]:rw': invalid mount config for type "volume": invalid mount path: '[/var/www/html/storage]' mount path must be absolute` during setup, try removing the created storage volume by executing `sudo docker volume rm customer_portal_storage` and rerunning the installation script.
+If you get the following error during setup:
+
+```
+[/var/www/html/storage]:rw': invalid mount config for type "volume": invalid mount path: '[/var/www/html/storage]' mount path must be absolute
+```
+
+Try removing the created storage volume by executing `sudo docker volume rm customer_portal_storage` and rerunning the installation script.
 
 ## Customizing the portal
 
