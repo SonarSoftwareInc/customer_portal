@@ -129,12 +129,23 @@
                </div>
             </div>
             <div class="row mt-1">
-               <div class="col-12 ">
+               <div class="col-8 ">
                   <div class="form-group">
                      <label>
                      Mail Password
                      </label>
                      {!! Form::text("mail_password",$systemSetting->mail_password, ['id' => 'mail_password', 'class' => 'form-control', 'placeholder' => "", 'data-toggle' => 'tooltip', 'data-trigger' => 'hover','data-placement' => 'left','data-offset' => '3','data-original-title' => 'The administrative password for your mail server']) !!}
+                  </div>
+               </div>
+               <div class="col-auto ">
+                  <div class="form-group">
+                     <label>
+                     Reveal
+                     </label>
+                     <div class="custom-control custom-checkbox-toggle mt-1">
+                       <input id="passwd-reveal" class="custom-control-input" data-toggle="tooltip" data-trigger="hover" data-placement="left" data-offset="3" name="passwd-reveal" type="checkbox" value="1">
+                       <label class="custom-control-label" for="passwd-reveal"></label>
+                     </div>
                   </div>
                </div>
             </div>
