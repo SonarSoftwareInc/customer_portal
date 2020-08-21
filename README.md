@@ -36,7 +36,7 @@ You can view the installation log by running
 
 ### Define a Role
 
-#### SonarV1 Instructions ####
+#### SonarV1 Role Instructions ####
 1. Go to System > Roles
 1. Create a new role called Customer Portal
 1. Assign the following permissions:
@@ -45,13 +45,15 @@ You can view the installation log by running
    * Ticketing: Read, Create, Update, Delete
    * Ticket Super User: Enabled
 
-#### SonarV2 Instructions ####
+#### SonarV2 Role Instructions ####
 
 The Sonar version 2 instructions have been moved to the [Sonar Knowledge Base](https://docs.sonar.expert/baseline-config/customer-portal-configuration-checklist#api_user_permissions).
 
 ### Define a Username
 
 The API username and API password you are prompted for are credentials for your Sonar instance. You should create a dedicated user to utilize for the customer portal - **do not use your admin username/password!** Create the user as instructed above and assign to this "Customer Portal" role.
+
+## Post-Installation Setup
 
 After the setup process is complete, your instance should be up and running. You can navigate to the settings URL (which is `/settings` on the domain you setup, e.g. `https://portal.myisp.com/settings`) and use the settings key that should have been generated for you with the installation script.
 
