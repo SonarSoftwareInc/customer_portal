@@ -14,7 +14,7 @@ return [
     'postAnUpdate' => 'Post a Ticket Update',
     'registerYourAccount' => 'Register Your Account',
     'createYourAccount' => 'Create Your Account',
-    'forgotUsernameOrPassword' => 'Forgot your username or password?',
+    'forgotUsernameOrPassword' => 'Recover username or reset password',
     'newPassword' => 'Setup New Password',
     'creditCards' => 'Credit Cards',
     'success' => 'Success',

@@ -8,14 +8,11 @@ This is a prebuilt and self-hosted customer portal for [Sonar](https://sonar.sof
 
 These instructions will get you set up and running with SSL through [LetsEncrypt](https://letsencrypt.org) as well as automatic updates provided by [Watchtower](https://github.com/v2tec/watchtower).
 
-If you are a current Sonar customer, and you need assistance with any part of this process, feel free to contact us at support@sonar.software.
+**_If you are a current Sonar customer, and you need assistance with any part of this process, please don't hesitate to reach out to support@sonar.software for help. We are more than happy to help you get your portal setup!_**
 
-You'll need a machine running Ubuntu 16 or 18 x64. **Please note that the customer portal will not work Ubuntu 19, as Docker is currently unsupported.** The installation script currently assumes a Debian-based distro.
-We recommend a minimum of 2 vCPUs and at least 2GB of RAM.
+You'll need a machine running Ubuntu 16 or 18 x64. **Please note that the customer portal will not work Ubuntu 19, as Docker is currently unsupported.** The installation script currently assumes a Debian-based distro. We recommend a minimum of 2 vCPUs and at least 2GB of RAM.
 
 It will need a public facing IP address and a valid domain name pointing to it (e.g. portal.myisp.com).
-
-**_If you get stuck, please don't hesitate to reach out to support@sonar.software for help. We are more than happy to help you get your portal setup!_**
 
 ## Getting started
 
@@ -37,13 +34,9 @@ Follow the instructions as prompted by the installation script.
 You can view the installation log by running
 `cat customerportal-install.log`
 
-### A note on initial setup
+### Define a Role
 
-The API username and API password you are prompted for are credentials for your Sonar instance. You should create a dedicated user to utilize for the customer portal - **do not use your admin username/password!**
-
-**These permissions are different than customer_portal v1 permissions**
-
-#### SonarV1 Instructions ####
+#### SonarV1 Role Instructions ####
 1. Go to System > Roles
 1. Create a new role called Customer Portal
 1. Assign the following permissions:
@@ -52,78 +45,15 @@ The API username and API password you are prompted for are credentials for your 
    * Ticketing: Read, Create, Update, Delete
    * Ticket Super User: Enabled
 
-#### SonarV2 Instructions ####
-Run the following in GraphQL at your Sonar V2 instance (e.g., `yourname.sonar.software/graphiql`)
-1. First create a variable (drag the lower-left window upwards to reveal the screen)
-```javascript
-{
-"customer_portal":
-  {
-    "name": "Customer Portal",
-    "applied_permissions": [
-            "READ_FILE",
-            "CREATE_FILE",
-            "UPDATE_FILE",
-            "READ_TIMESERIES_DATA",
-            "READ_DATA_USAGE_HISTORY",
-            "CREATE_DATA_USAGE",
-            "MODIFY_ACCOUNT_SERVICES",
-            "CREATE_PAYMENT_METHOD",
-            "CREATE_ACCOUNT_TRANSACTIONS",
-            "CREATE_PAYMENT",
-            "ASSIGN_ACCOUNT_INVENTORY",
-            "CREATE_RADIUS_ACCOUNT",
-            "READ_ACCOUNT",
-            "READ_PAYMENT_METHOD",
-            "READ_ACCOUNT_TRANSACTIONS",
-            "READ_ALL_INVENTORY",
-            "READ_IP_ASSIGNMENT",
-            "READ_RADIUS_ACCOUNT",
-            "READ_CONTRACT",
-            "UPDATE_ACCOUNT",
-            "UPDATE_PAYMENT_METHOD",
-            "UPDATE_ACCOUNT_TRANSACTIONS",
-            "UPDATE_CONTACT",
-            "UPDATE_RADIUS_ACCOUNT",
-            "DELETE_PAYMENT_METHOD",
-            "DELETE_RADIUS_ACCOUNT",
-            "READ_TICKET",
-            "READ_TICKET_GROUP",
-            "READ_TICKET_CATEGORY",
-            "READ_INBOUND_MAILBOX",
-            "READ_SERVICE",
-            "READ_TAX",
-            "READ_BILLING_DEFAULT",
-            "READ_PAYMENT_PROCESSOR",
-            "READ_DELINQUENCY_EXCLUSION",
-            "READ_CONTRACT_TEMPLATE",
-            "READ_INVOICE_MESSAGE",
-            "READ_INVOICE_ATTACHMENT",
-            "READ_PACKAGE",
-            "CREATE_TICKET",
-            "UPDATE_TICKET",
-            "READ_SERVICEABLE_ADDRESS",
-            "UPDATE_CONTRACT",
-            "READ_CUSTOM_FIELD"
-    ],
-    "note": {
-      "message": "Customer Portal",
-      "priority": "NORMAL"
-    }
-    
-  }
-}
-```
-2. Then run this mutation in the top-left panel:
-```javascript
-mutation createRole($customer_portal: CreateRoleMutationInput) {
-  createRole(input: $customer_portal) {
-    name
-  }
-}
-```
+#### SonarV2 Role Instructions ####
 
-Create the user as instructed above and assign to this "Customer Portal" role.
+The Sonar version 2 instructions have been moved to the [Sonar Knowledge Base](https://docs.sonar.expert/baseline-config/customer-portal-configuration-checklist#api_user_permissions).
+
+### Define a Username
+
+The API username and API password you are prompted for are credentials for your Sonar instance. You should create a dedicated user to utilize for the customer portal - **do not use your admin username/password!** Create the user as instructed above and assign to this "Customer Portal" role.
+
+## Post-Installation Setup
 
 After the setup process is complete, your instance should be up and running. You can navigate to the settings URL (which is `/settings` on the domain you setup, e.g. `https://portal.myisp.com/settings`) and use the settings key that should have been generated for you with the installation script.
 
@@ -152,7 +82,13 @@ Upgrades for the customer portal are done automatically and require no interacti
 
 ## Troubleshooting
 
-If you get the error `[/var/www/html/storage]:rw': invalid mount config for type "volume": invalid mount path: '[/var/www/html/storage]' mount path must be absolute` during setup, try removing the created storage volume by executing `sudo docker volume rm customer_portal_storage` and rerunning the installation script.
+If you get the following error during setup:
+
+```
+[/var/www/html/storage]:rw': invalid mount config for type "volume": invalid mount path: '[/var/www/html/storage]' mount path must be absolute
+```
+
+Try removing the created storage volume by executing `sudo docker volume rm customer_portal_storage` and rerunning the installation script.
 
 ## Customizing the portal
 

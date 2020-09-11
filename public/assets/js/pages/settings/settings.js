@@ -2,6 +2,11 @@ $(document).ready(function(){
     $("#country").change(function(){
         updateSubdivisions();
     });
+    $("#mail_password")[0].type = "password";
+    $("#mail_password")[0].autocomplete = "current-password";
+    $("#passwd-reveal").change(function() {
+      $("#mail_password")[0].type = ($(this).prop("checked")) ? "text" : "password";
+    });
 });
 
 function updateSubdivisions()
