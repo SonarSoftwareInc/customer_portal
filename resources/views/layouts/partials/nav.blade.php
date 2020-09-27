@@ -24,7 +24,7 @@
          <!-- Customer Portal Sidebar-->
          <!-- Heading -->
          <h6 class="navbar-heading text-muted mt-4">
-            My Service
+            {{utrans("nav.myService")}}
          </h6>
          <ul class="navbar-nav">
             <li class="nav-item">
@@ -51,7 +51,7 @@
             @endif
          </ul>
          <h6 class="navbar-heading text-muted mt-4">
-            My Account
+            {{utrans("nav.myAccount")}}
          </h6>
          <ul class="navbar-nav">
             <li class="nav-item">
@@ -80,7 +80,7 @@
                <div class="dropdown-menu" aria-labelledby="sidebarIconCopy">
                   <a href="/portal/profile" class="dropdown-item">Settings</a>
                   <hr class="dropdown-divider">
-                  <a href="/logout" class="dropdown-item">Logout</a>
+                  <a href="/logout" class="dropdown-item">{{utrans("nav.logOut")}}</a>
                </div>
             </div>
          </div>
