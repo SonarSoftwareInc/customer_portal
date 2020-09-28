@@ -14,7 +14,7 @@
                </div>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="sidebarIcon">
-               <a href="/portal/profile" class="dropdown-item">utrans{{("nav.profile")}}</a>
+               <a href="/portal/profile" class="dropdown-item">{{utrans("nav.profile")}}</a>
                <hr class="dropdown-divider">
                <a href="/logout" class="dropdown-item">{{utrans("nav.logOut")}}</a>
             </div>
