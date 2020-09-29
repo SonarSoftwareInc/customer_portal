@@ -1,2 +1,2 @@
 #!/bin/sh
-exec /usr/sbin/php-fpm7.3 -F
+exec /usr/sbin/php-fpm7.4 -F
