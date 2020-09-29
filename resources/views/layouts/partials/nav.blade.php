@@ -14,9 +14,9 @@
                </div>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="sidebarIcon">
-               <a href="/portal/profile" class="dropdown-item">Settings</a>
+               <a href="/portal/profile" class="dropdown-item">{{utrans("nav.profile")}}</a>
                <hr class="dropdown-divider">
-               <a href="/logout" class="dropdown-item">Logout</a>
+               <a href="/logout" class="dropdown-item">{{utrans("nav.logOut")}}</a>
             </div>
          </div>
       </div>
@@ -56,11 +56,11 @@
          <ul class="navbar-nav">
             <li class="nav-item">
                <a @if(str_contains(Route::getCurrentRoute()->uri(),"profile")) class="nav-link selected" @else class="nav-link" @endif href="{{action("ProfileController@show")}}">
-               <i class="fe fe-users"></i> {{utrans("nav.profile")}}</a>
+               <i class="fe fe-users"></i> utrans{{("nav.profile")}}</a>
             </li>
             <li class="nav-item">
                <a class="nav-link" href="/logout">
-               <i class="fe fe-log-out"></i> Logout</a>
+               <i class="fe fe-log-out"></i> {{utrans("nav.logOut")}}</a>
             </li>
 @if(str_contains(Route::getCurrentRoute()->uri(),"settings"))
             <li class="nav-item">
@@ -78,7 +78,7 @@
                   </div>
                </a>
                <div class="dropdown-menu" aria-labelledby="sidebarIconCopy">
-                  <a href="/portal/profile" class="dropdown-item">Settings</a>
+                  <a href="/portal/profile" class="dropdown-item">utrans{{("nav.profile")}}</a>
                   <hr class="dropdown-divider">
                   <a href="/logout" class="dropdown-item">{{utrans("nav.logOut")}}</a>
                </div>
