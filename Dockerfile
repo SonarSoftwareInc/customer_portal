@@ -29,6 +29,8 @@ COPY --chown=www-data . .
 RUN COMPOSER_CACHE_DIR=/dev/null setuser www-data /tmp/composer install --no-dev --no-interaction --no-scripts --classmap-authoritative \
  && rm -rf /tmp/composer
 
+COPY deploy/conf/nginx/sonar-customerportal.template /etc/nginx/conf.d/customerportal.template
+
 COPY deploy/conf/php-fpm/ /etc/php/7.4/fpm/
 
 COPY deploy/conf/cron.d/* /etc/cron.d/

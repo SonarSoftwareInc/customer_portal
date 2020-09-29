@@ -12,7 +12,6 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./deploy/conf/nginx/sonar-customerportal.template:/etc/nginx/conf.d/sonar-customerportal.template
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
       - ./public/assets/img/logo.png:/var/www/html/public/assets/img/logo.png
