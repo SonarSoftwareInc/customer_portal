@@ -1,3 +1,7 @@
+<?php
+if ($_SERVER['HTTP_HOST'] != $_SERVER['SERVER_NAME'])
+  header("Location: https://{$_SERVER['SERVER_NAME']}");
+?>
 <!DOCTYPE html>
 <html lang="{{$language}}">
    <head>
