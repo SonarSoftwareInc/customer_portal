@@ -1,11 +1,27 @@
 server {
+    # Temporary redirect if HTTP_HOST besides ${NGINX_HOST} is used.
+    # This is to ensure if they are redirected here via captive setup,
+    # that they will be able to get to their actual destination after
+    # they have paid their bill.
     listen 80;
-    listen [::]:80; 
+    listen [::]:80;
+
+    server_tokens off;
+    location / {
+        return 302 https://${NGINX_HOST}$request_uri;
+    }
+}
+
+server {
+    # Permanent redirect or allow Let's Encrypt if
+    # ${NGINX_HOST} is the HTTP_HOST
+    listen 80;
+    listen [::]:80;
 
     server_name ${NGINX_HOST};
     server_tokens off;
     location / {
-        return 301 https://$host$request_uri;
+        return 301 https://${NGINX_HOST}$request_uri;
     }
 
     location /.well-known/acme-challenge/ {
@@ -14,8 +30,29 @@ server {
 }
 
 server {
+    # Temporary redirect if HTTP_HOST besides ${NGINX_HOST} is used.
+    # This is to ensure if they are redirected here via captive setup,
+    # that they will be able to get to their actual destination after
+    # they have paid their bill.
     listen 443 ssl;
-    listen [::]:443 ssl; 
+    listen [::]:443 ssl;
+
+    server_tokens off;
+    ssl_certificate /etc/letsencrypt/live/${NGINX_HOST}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${NGINX_HOST}/privkey.pem;
+
+    location / {
+        return 302 https://customerportal.jemnetworks.com$request_uri;
+    }
+
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+}
+
+server {
+    # serve up the portal
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name ${NGINX_HOST};
     server_tokens off;
