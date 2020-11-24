@@ -61,7 +61,7 @@ return [
     'numeric'              => 'Le :attribute\ doit être un numéro.',
     'present'              => 'Le :attribute domaine doit être présent.',
     'regex'                => 'Le :attribute format n’est pas valide.',
-    'required'             => 'Le :attribute  le champ est requis.',
+    'required'             => 'Champ requis',
     'required_if'          => 'Le :attribute le champ est requis :other est :value.',
     'required_unless'      => 'Le :attribute le champ est requis à moins que :other est en :values.',
     'required_with'        => 'Le :attribute le champ est requis quand :values is present.',
