@@ -3,7 +3,7 @@ return [
     'changeYourDetails' => 'CHANGER VOS COORDONNÉES',
     'name' => 'Nom',
     'role' => 'Role',
-    'emailAddress' => 'Adresse de Courriel',
+    'emailAddress' => 'Adresse de courriel',
     'updateProfile' => 'Mise à jour de profil',
     'homePhone' => 'Numéro de téléphone résidentiel',
     'mobilePhone' => 'Numéro de téléphone mobile',
@@ -16,6 +16,6 @@ return [
     'changePassword' => 'Changer le mot de passe',
     'passwordUpdated' => 'Mot de passe mis à jour.',
     'failedToUpdatePassword' => 'Impossible de mettre à jour le mot de passe. Veuillez réessayer ultérieurement.',
-    'emailUsedFor' => 'Cette adresse de courriel sera utiséc sera utilise pour envoyer des alertes de facturation, des avis de service et pour réinitialiser le mot de passe.',
-    'updateDetails' => 'Mettre à jour les détails',
+    'emailUsedFor' => 'Cette adresse de courriel sera utilisée pour envoyer des alertes de facturation, des avis de service et pour réinitialiser le mot de passe.',
+    'updateDetails' => 'Mettre à jour les données',
 ];

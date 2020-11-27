@@ -6,7 +6,7 @@ return [
     'invoices' => 'Factures',
     'makeAPayment' => 'Faire un Paiement',
     'paymentSucceeded' => 'Paiement Reussi!',
-    'myDetails' => 'Mes détails',
+    'myDetails' => 'Mes coordonnées',
     'changePassword' => 'Changer Votre Mot de Passe',
     'tickets' => 'Billets',
     'createTicket' => 'Créer un billet ',
