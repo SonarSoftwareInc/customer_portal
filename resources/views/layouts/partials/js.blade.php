@@ -18,6 +18,7 @@ close=document.getElementById("close");close.addEventListener('click',function()
 <script src="/assets/libs/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
 <script src="/assets/libs/jquery-payment-plugin/jquery.payment.min.js"></script>
 <script src="/assets/libs/moment/moment.min.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
 <script>
    moment.locale('{{Config::get("app.locale")}}');
    $(document).ready(function(){

@@ -29,6 +29,7 @@ class SystemSetting extends Model
         'password_strength_required' => 1,
         'go_cardless_currency_code' => 'EUR',
         'paypal_currency_code' => 'USD',
+        'stripe_enabled' => false,
     ];
 
     protected $casts = [
@@ -40,5 +41,6 @@ class SystemSetting extends Model
         'ticketing_enabled' => 'boolean',
         'data_usage_enabled' => 'boolean',
         'contracts_enabled' => 'boolean',
+        'stripe_enabled' => 'boolean',
     ];
 }

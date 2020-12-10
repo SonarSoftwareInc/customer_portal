@@ -25,7 +25,7 @@ server {
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
-    add_header Content-Security-Policy "frame-src 'self'; frame-ancestors 'none'; form-action 'self' https://www.paypal.com; upgrade-insecure-requests;";
+    add_header Content-Security-Policy "frame-src 'self' https://js.stripe.com; frame-ancestors 'none'; form-action 'self' https://www.paypal.com; upgrade-insecure-requests; script-src 'self' https://js.stripe.com; connect-src 'self' https://api.stripe.com;";
 
     root /var/www/html/public;
     index index.php;

@@ -13,19 +13,24 @@
         "predis/predis": "^1.0",
         "laravelcollective/html": "^5.5",
         "proengsoft/laravel-jsvalidation": "^1.6.0-dev",
-        "sonarsoftware/customer_portal_framework": ">=1.0.18",
         "inacho/php-credit-card-validator": "^1.0",
         "paypal/rest-api-sdk-php": "^1.7",
         "mariuzzo/laravel-js-localization": "dev-master",
         "laravel/tinker": "^1.0",
         "gocardless/gocardless-pro": "^1.5",
         "fideloper/proxy": "~3.0",
-        "doctrine/dbal": "^2.10"
+        "doctrine/dbal": "^2.10",
+        "stripe/stripe-php": "^7",
+        "sonarsoftwareinc/customer_portal_framework": ">=1.0.20"
     },
     "repositories": [
         {
             "type": "vcs",
             "url": "https://github.com/reganjohnson/laravel-jsvalidation"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sonarsoftwareinc/customer_portal_framework"
         }
     ],
     "require-dev": {
