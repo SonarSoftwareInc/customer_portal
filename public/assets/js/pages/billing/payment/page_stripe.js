@@ -7,9 +7,6 @@ $(document).ready(function(){
 
     var clientSecret = cardContainer.dataset.secret; // SetupIntent client secret
     var key = cardContainer.dataset.key; // Publishable Stripe API key
-    console.log("hi gideon");
-    console.log(key);
-
 
     var stripe = Stripe(key);
     var elements = stripe.elements();
@@ -25,10 +22,6 @@ $(document).ready(function(){
 
         event.preventDefault();
         const paymentForm = event.target;
-
-        console.log(paymentForm, paymentForm.submit);
-
-        console.log(paymentMethod.value);
 
         /** Confirm the Card prior to Payment */
         let result = await stripe.confirmCardSetup(
@@ -49,11 +42,8 @@ $(document).ready(function(){
             $('#stripe_errors').text(result.error.message);
 
         } else {
-            console.log(result);
-
             //Grab the card details with our payment method ID
             let cardDetails = await $.get('/portal/billing/stripe/' + result.setupIntent.payment_method);
-            console.log(cardDetails, cardDetails.billing_details.address.postal_code);
 
             //Add hidden fields to form
             $('<input>').attr({
@@ -129,10 +119,7 @@ $(document).ready(function(){
             $('#stripe_errors').text(result.error.message);
 
         } else {
-            console.log(result);
-
             let cardDetails = await $.get('/portal/billing/stripe/' + result.setupIntent.payment_method);
-            console.log(cardDetails);
 
             //cardDetails
 
