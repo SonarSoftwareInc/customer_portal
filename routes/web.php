@@ -48,15 +48,20 @@ Route::group(['middleware' => ['language']], function () {
             Route::get('/invoices/{invoices}', 'BillingController@getInvoicePdf');
             Route::get('/payment_methods/{type}/create', 'BillingController@createPaymentMethod');
             Route::post('/payment_methods/card', 'BillingController@storeCard');
+            Route::post('/payment_methods/tokenized_card/', 'BillingController@storeTokenizedCard');
             Route::post('/payment_methods/bank', 'BillingController@storeBank');
             Route::delete('/payment_methods/{payment_methods}', 'BillingController@deletePaymentMethod');
             Route::patch('/payment_methods/{payment_methods}/toggle_auto', 'BillingController@toggleAutoPay');
             Route::get('/payment', 'BillingController@makePayment');
             Route::post('/payment', 'BillingController@submitPayment');
+            Route::post('/tokenized_payment', 'BillingController@submitTokenizedPayment');
 
             /** Paypal Routes */
             Route::get('/paypal/{temporary_token}/complete', 'PayPalController@completePayment');
             Route::get('/paypal/{temporary_token}/cancel', 'PayPalController@cancelPayment');
+
+            /** Stripe Routes */
+            Route::get('/stripe/{id}', 'StripeController@paymentMethod');
 
             /** Subdivisions for cards */
             Route::get("subdivisions/{country}", "SubdivisionController@show");

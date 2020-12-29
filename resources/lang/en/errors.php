@@ -49,5 +49,6 @@ return [
     'noKeyFound' => 'No settings key found. Please run the settings key generation script and try again.',
     'invalidSettingsKey' => 'Invalid settings key.',
     '500error' => '500 Error',
-    'apiPermissionsFailure' => 'Your API user is not setup with the correct permissions. Verify the permissions are setup per the <a href="https://github.com/SonarSoftwareInc/customer_portal/blob/master/README.md#a-note-on-initial-setup">readme</a> document.'
+    'apiPermissionsFailure' => 'Your API user is not setup with the correct permissions. Verify the permissions are setup per the <a href="https://github.com/SonarSoftwareInc/customer_portal/blob/master/README.md#a-note-on-initial-setup">readme</a> document.',
+    'stripePaymentMethodNotFound' => 'No Stripe PaymentMethod found with that ID'
 ];

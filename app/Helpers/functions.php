@@ -1,6 +1,7 @@
 <?php
 
 use App\Services\LanguageService;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 
@@ -59,4 +60,25 @@ function utrans(string $string, array $variables = [], $request = null)
     $languageService = App::make(LanguageService::class);
     $language = $languageService->getUserLanguage($request);
     return trans($string, $variables, $language);
+}
+
+/**
+ * Convert expiration date ("12/96") to year and month [12, 96]
+ * @param string $date
+ * @returns list
+ */
+function convertExpirationDateToYearAndMonth(string $date)
+{
+    $date = trim($date);
+    $boom = explode("/", $date);
+
+    $month = $boom[0];
+    $year = $boom[1];
+
+    if (strlen($year) == 2) {
+        $now = Carbon::now(config("app.timezone"));
+        $year = substr($now->year, 0, 2) . $year;
+    }
+
+    return array($year, $month);
 }
