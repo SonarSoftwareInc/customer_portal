@@ -72,8 +72,8 @@ function convertExpirationDateToYearAndMonth(string $date)
     $date = trim($date);
     $boom = explode("/", $date);
 
-    $month = $boom[0];
-    $year = $boom[1];
+    $month = rtrim($boom[0]);
+    $year = ltrim($boom[1]);
 
     if (strlen($year) == 2) {
         $now = Carbon::now(config("app.timezone"));
