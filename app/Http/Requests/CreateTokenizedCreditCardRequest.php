@@ -37,7 +37,6 @@ class CreateTokenizedCreditCardRequest extends FormRequest
             'country' => 'required|string',
             'name' => 'required|string',
             'cardType' => 'required|string',
-            'legalDisclaimer' => 'accepted'
         ];
     }
 }
