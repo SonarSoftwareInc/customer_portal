@@ -29,7 +29,7 @@
       </div>
    </div>
 </div>
-@if($policyDetails->has_policy === true)
+@if($policyDetails->has_policy === true && $currentUsage)
 <div class="col-12 col-sm-12 col-md-12">
    <!-- Card -->
    <div class="card">
