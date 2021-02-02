@@ -1515,7 +1515,6 @@ pre code {
 		display: block;
 		overflow-x: auto;
 		width: 100%;
-		-webkit-overflow-scrolling: touch;
 		-ms-overflow-style: -ms-autohiding-scrollbar;
 	}
 	.table-responsive-sm > .table-bordered {
@@ -1527,7 +1526,6 @@ pre code {
 		display: block;
 		overflow-x: auto;
 		width: 100%;
-		-webkit-overflow-scrolling: touch;
 		-ms-overflow-style: -ms-autohiding-scrollbar;
 	}
 	.table-responsive-md > .table-bordered {
@@ -1539,7 +1537,6 @@ pre code {
 		display: block;
 		overflow-x: auto;
 		width: 100%;
-		-webkit-overflow-scrolling: touch;
 		-ms-overflow-style: -ms-autohiding-scrollbar;
 	}
 	.table-responsive-lg > .table-bordered {
@@ -1551,7 +1548,6 @@ pre code {
 		display: block;
 		overflow-x: auto;
 		width: 100%;
-		-webkit-overflow-scrolling: touch;
 		-ms-overflow-style: -ms-autohiding-scrollbar;
 	}
 	.table-responsive-xl > .table-bordered {
@@ -1562,7 +1558,6 @@ pre code {
 	display: block;
 	overflow-x: auto;
 	width: 100%;
-	-webkit-overflow-scrolling: touch;
 	-ms-overflow-style: -ms-autohiding-scrollbar;
 }
 .table-responsive > .table-bordered {
