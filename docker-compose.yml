@@ -16,7 +16,7 @@ services:
       - ./data/certbot/www:/var/www/certbot
       - ./public/assets/img/logo.png:/var/www/html/public/assets/img/logo.png
       - ./public/assets/img/cover.png:/var/www/html/public/assets/img/cover.png
-      - storage:/var/www/html/storage
+      - ./storage:/var/www/html/storage
     env_file:
      - .env
     environment:
@@ -35,6 +35,7 @@ services:
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
+      - ./storage/logs/letsencrypt:/var/log/letsencrypt
 
   watchtower:
     image: v2tec/watchtower

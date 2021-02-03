@@ -81,10 +81,15 @@ echo
 
 echo "### Requesting Let's Encrypt certificate for $NGINX_HOST ..."
 
+
+
 case "$EMAIL_ADDRESS" in
   "") email_arg="--register-unsafely-without-email" ;;
   *) email_arg="--email $EMAIL_ADDRESS" ;;
 esac
+
+currentDirectory=$(pwd)
+mkdir "$currentDirectory/storage/logs/letsencrypt"
 
 docker-compose run --rm \
     -p 80:80 \
