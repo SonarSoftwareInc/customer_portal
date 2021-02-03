@@ -68,6 +68,8 @@ Stopping the customer portal:
 Viewing the logs:
 `sudo docker-compose logs`
 
+Certificate Issues? Lets Encrypt logs can be found in the customer_portal/storage/logs/letsencrypt/ directory.
+
 ## Commands you can use after setup
 
 From the `customer_portal` directory, you can execute `sudo docker-compose exec app /bin/bash` to access the docker container that the portal is running in. After doing this, you can execute the commands below.
