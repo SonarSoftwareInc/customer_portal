@@ -100,7 +100,7 @@ docker-compose run --rm \
         -d $NGINX_HOST \
         --rsa-key-size 4096 \
         --agree-tos \
-        --force-renewal" certbot
+        --keep" certbot
 echo
 
 docker-compose up -d
