@@ -1,14 +1,14 @@
 <?php
 return [
-    'login' => 'S\'identifier',
+    'login' => 'S’identifier',
     'makePayment' => 'Faire un paiement',
-    'createTicket' => 'Billet de Support',
-    'lookupEmail' => 'Chercher un Courriel',
-    'createAccount' => 'Crée un Compte',
-    'sendResetEmail' => 'Réinisialiser Votre Mot de Passe',
-    'postReply' => 'Afficher une Réponse',
+    'createTicket' => 'Billet de soutien',
+    'lookupEmail' => 'Rechercher un courriel',
+    'createAccount' => 'Créer un compte',
+    'sendResetEmail' => 'Réinitialiser votre mot de passe',
+    'postReply' => 'Afficher une réponse',
     'delete' => 'Supprimer',
-    'resetPassword' => 'Reinitialiser le mot de passe',
-    'loginMessage' => 'Accédez à votre compte de :ispName',
+    'resetPassword' => 'Réinitialiser le mot de passe',
+    'loginMessage' => 'Accédez à votre compte :ispName',
     'linkMessage' => 'Liez votre compte :ispName',
 ];
