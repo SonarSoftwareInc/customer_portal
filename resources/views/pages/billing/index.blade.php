@@ -161,7 +161,7 @@
                         </div>
                      </div>
                   </div>
-                  @if($systemSetting->data_usage_enabled === true)
+                  @if($systemSetting->data_usage_enabled === true && $values["currentUsage"] && isset($values["currentUsage"]["billable"]))
                   <div class="col-12 col-xl-6">
                      <div class="card">
                         <div class="card-body">
