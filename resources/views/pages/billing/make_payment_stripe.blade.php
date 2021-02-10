@@ -111,7 +111,7 @@
                   {{utrans("billing.amountToPay")}}
                   </label>
                   <!-- Input -->
-                  {!! Form::number("amount",number_format($billingDetails->balance_due,2,".",""),['id' => 'amount', 'class' => 'form-control', 'placeholder' => utrans("billing.amountToPay"), 'steps' => 'any', 'required' => true]) !!}
+                  {!! Form::number("amount",number_format($billingDetails->balance_due,2,".",""),['id' => 'amount', 'class' => 'form-control', 'placeholder' => utrans("billing.amountToPay"), 'step' => 'any', 'required' => true]) !!}
                </div>
             </div>
             <div class="col-auto ">
