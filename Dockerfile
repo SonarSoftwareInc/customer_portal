@@ -34,7 +34,7 @@ COPY deploy/conf/nginx/sonar-customerportal.template /etc/nginx/conf.d/customerp
 COPY deploy/conf/php-fpm/ /etc/php/7.3/fpm/
 
 COPY deploy/conf/cron.d/* /etc/cron.d/
-RUN chmod -R 644 /etc/cron.d
+RUN chmod -R go-w /etc/cron.d
 
 RUN mkdir -p /etc/my_init.d
 COPY deploy/*.sh /etc/my_init.d/
