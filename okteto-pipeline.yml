@@ -1,0 +1,6 @@
+icon: https://raw.githubusercontent.com/SonarSoftwareInc/customer_portal/develop/doc/sonar-logo.png
+deploy:
+  - okteto build -t okteto.dev/customer_portal:develop -f okteto.Dockerfile --progress=plain
+  - okteto stack deploy -f okteto-stack.yml
+devs:
+  - okteto.yml

@@ -1,0 +1,9 @@
+name: customer_portal
+securityContext:
+  runAsUser: 33
+  runAsGroup: 33
+  fsGroup: 33
+sync:
+  - .:/var/www/html
+workdir: /var/www/html
+remote: 22223
