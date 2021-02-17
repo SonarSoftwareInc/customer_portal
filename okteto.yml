@@ -4,6 +4,7 @@ securityContext:
   runAsGroup: 33
   fsGroup: 33
 sync:
-  - .:/var/www/html
-workdir: /var/www/html
+  - .:/var/www/html/
+workdir: /var/www/html/
 remote: 22223
+command: bash /var/www/html/okteto.sh
