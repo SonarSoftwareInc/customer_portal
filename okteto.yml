@@ -1,4 +1,4 @@
-name: customer_portal
+name: customer-portal
 securityContext:
   runAsUser: 33
   runAsGroup: 33
