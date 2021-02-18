@@ -1,0 +1,16 @@
+.circleci
+.vscode/
+.env.example
+.git*
+*Dockerfile
+.phpunit.result.cache
+/node_modules/
+/vendor/
+*.DS_Store
+/storage/logs/
+/storage/framework/
+/storage/app/public/
+auth.json
+*.log
+public/assets/app/dist/
+.phpstorm_helpers/
