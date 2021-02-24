@@ -5,7 +5,7 @@
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
-        <style>
+        <style nonce="{{ csp_nonce() }}">
             html, body {
                 height: 100%;
             }

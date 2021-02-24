@@ -35,7 +35,7 @@
 </body>
 @endsection
 @section('additionalJS')
-<script>
+<script nonce="{{ csp_nonce() }}">
 window.onbeforeunload = function(e){
     document.getElementById('main').className = 'section content animated fadeOutUp';
 }

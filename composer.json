@@ -9,7 +9,7 @@
     "type": "project",
     "require": {
         "php": ">=7.0",
-        "laravel/framework": "5.5.*",
+        "laravel/framework": "5.8.*",
         "predis/predis": "^1.0",
         "laravelcollective/html": "^5.5",
         "proengsoft/laravel-jsvalidation": "^1.6.0-dev",
@@ -18,10 +18,11 @@
         "mariuzzo/laravel-js-localization": "dev-master",
         "laravel/tinker": "^1.0",
         "gocardless/gocardless-pro": "^1.5",
-        "fideloper/proxy": "~3.0",
+        "fideloper/proxy": "^4.0",
         "doctrine/dbal": "^2.10",
         "stripe/stripe-php": "^7",
-        "sonarsoftwareinc/customer_portal_framework": ">=1.0.20"
+        "sonarsoftwareinc/customer_portal_framework": ">=1.0.20",
+        "spatie/laravel-csp": "^2.6"
     },
     "repositories": [
         {

@@ -1,0 +1,307 @@
+### docker is not installed, installing it now...
+Hit:1 http://security.ubuntu.com/ubuntu bionic-security InRelease
+Get:2 http://mirrors.digitalocean.com/ubuntu bionic InRelease [242 kB]
+Hit:3 http://mirrors.digitalocean.com/ubuntu bionic-updates InRelease
+Hit:4 http://mirrors.digitalocean.com/ubuntu bionic-backports InRelease
+Fetched 242 kB in 1s (238 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+ca-certificates is already the newest version (20210119~18.04.1).
+ca-certificates set to manually installed.
+curl is already the newest version (7.58.0-2ubuntu3.12).
+curl set to manually installed.
+software-properties-common is already the newest version (0.96.24.32.14).
+software-properties-common set to manually installed.
+The following package was automatically installed and is no longer required:
+  grub-pc-bin
+Use 'sudo apt autoremove' to remove it.
+The following NEW packages will be installed:
+  apt-transport-https gnupg-agent
+0 upgraded, 2 newly installed, 0 to remove and 4 not upgraded.
+Need to get 6560 B of archives.
+After this operation, 196 kB of additional disk space will be used.
+Get:1 http://mirrors.digitalocean.com/ubuntu bionic-updates/universe amd64 apt-transport-https all 1.6.12ubuntu0.2 [1696 B]
+Get:2 http://mirrors.digitalocean.com/ubuntu bionic-updates/universe amd64 gnupg-agent all 2.2.4-1ubuntu1.4 [4864 B]
+Fetched 6560 B in 0s (39.1 kB/s)
+Selecting previously unselected package apt-transport-https.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 60169 files and directories currently installed.)
+Preparing to unpack .../apt-transport-https_1.6.12ubuntu0.2_all.deb ...
+Unpacking apt-transport-https (1.6.12ubuntu0.2) ...
+Selecting previously unselected package gnupg-agent.
+Preparing to unpack .../gnupg-agent_2.2.4-1ubuntu1.4_all.deb ...
+Unpacking gnupg-agent (2.2.4-1ubuntu1.4) ...
+Setting up apt-transport-https (1.6.12ubuntu0.2) ...
+Setting up gnupg-agent (2.2.4-1ubuntu1.4) ...
+OK
+Hit:1 http://security.ubuntu.com/ubuntu bionic-security InRelease
+Get:2 http://mirrors.digitalocean.com/ubuntu bionic InRelease [242 kB]
+Get:3 https://download.docker.com/linux/ubuntu bionic InRelease [64.4 kB]
+Hit:4 http://mirrors.digitalocean.com/ubuntu bionic-updates InRelease
+Hit:5 http://mirrors.digitalocean.com/ubuntu bionic-backports InRelease
+Get:6 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages [16.0 kB]
+Fetched 323 kB in 1s (280 kB/s)
+Reading package lists...
+Hit:1 http://security.ubuntu.com/ubuntu bionic-security InRelease
+Get:2 http://mirrors.digitalocean.com/ubuntu bionic InRelease [242 kB]
+Hit:3 http://mirrors.digitalocean.com/ubuntu bionic-updates InRelease
+Hit:4 https://download.docker.com/linux/ubuntu bionic InRelease
+Hit:5 http://mirrors.digitalocean.com/ubuntu bionic-backports InRelease
+Fetched 242 kB in 1s (204 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following package was automatically installed and is no longer required:
+  grub-pc-bin
+Use 'sudo apt autoremove' to remove it.
+The following additional packages will be installed:
+  docker-ce-rootless-extras libltdl7 pigz
+Suggested packages:
+  aufs-tools cgroupfs-mount | cgroup-lite
+Recommended packages:
+  slirp4netns
+The following NEW packages will be installed:
+  containerd.io docker-ce docker-ce-cli docker-ce-rootless-extras libltdl7
+  pigz
+0 upgraded, 6 newly installed, 0 to remove and 4 not upgraded.
+Need to get 103 MB of archives.
+After this operation, 450 MB of additional disk space will be used.
+Get:1 http://mirrors.digitalocean.com/ubuntu bionic/universe amd64 pigz amd64 2.4-1 [57.4 kB]
+Get:2 https://download.docker.com/linux/ubuntu bionic/stable amd64 containerd.io amd64 1.4.3-1 [28.1 MB]
+Get:3 http://mirrors.digitalocean.com/ubuntu bionic/main amd64 libltdl7 amd64 2.4.6-2 [38.8 kB]
+Get:4 https://download.docker.com/linux/ubuntu bionic/stable amd64 docker-ce-cli amd64 5:20.10.3~3-0~ubuntu-bionic [41.4 MB]
+Get:5 https://download.docker.com/linux/ubuntu bionic/stable amd64 docker-ce amd64 5:20.10.3~3-0~ubuntu-bionic [24.8 MB]
+Get:6 https://download.docker.com/linux/ubuntu bionic/stable amd64 docker-ce-rootless-extras amd64 5:20.10.3~3-0~ubuntu-bionic [8902 kB]
+Fetched 103 MB in 4s (27.9 MB/s)
+Selecting previously unselected package pigz.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 60177 files and directories currently installed.)
+Preparing to unpack .../0-pigz_2.4-1_amd64.deb ...
+Unpacking pigz (2.4-1) ...
+Selecting previously unselected package containerd.io.
+Preparing to unpack .../1-containerd.io_1.4.3-1_amd64.deb ...
+Unpacking containerd.io (1.4.3-1) ...
+Selecting previously unselected package docker-ce-cli.
+Preparing to unpack .../2-docker-ce-cli_5%3a20.10.3~3-0~ubuntu-bionic_amd64.deb ...
+Unpacking docker-ce-cli (5:20.10.3~3-0~ubuntu-bionic) ...
+Selecting previously unselected package docker-ce.
+Preparing to unpack .../3-docker-ce_5%3a20.10.3~3-0~ubuntu-bionic_amd64.deb ...
+Unpacking docker-ce (5:20.10.3~3-0~ubuntu-bionic) ...
+Selecting previously unselected package docker-ce-rootless-extras.
+Preparing to unpack .../4-docker-ce-rootless-extras_5%3a20.10.3~3-0~ubuntu-bionic_amd64.deb ...
+Unpacking docker-ce-rootless-extras (5:20.10.3~3-0~ubuntu-bionic) ...
+Selecting previously unselected package libltdl7:amd64.
+Preparing to unpack .../5-libltdl7_2.4.6-2_amd64.deb ...
+Unpacking libltdl7:amd64 (2.4.6-2) ...
+Setting up containerd.io (1.4.3-1) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/containerd.service → /lib/systemd/system/containerd.service.
+Setting up libltdl7:amd64 (2.4.6-2) ...
+Setting up docker-ce-cli (5:20.10.3~3-0~ubuntu-bionic) ...
+Setting up pigz (2.4-1) ...
+Setting up docker-ce (5:20.10.3~3-0~ubuntu-bionic) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /lib/systemd/system/docker.service.
+Created symlink /etc/systemd/system/sockets.target.wants/docker.socket → /lib/systemd/system/docker.socket.
+Setting up docker-ce-rootless-extras (5:20.10.3~3-0~ubuntu-bionic) ...
+Processing triggers for systemd (237-3ubuntu10.44) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+Processing triggers for ureadahead (0.100.0-21) ...
+Processing triggers for libc-bin (2.27-3ubuntu1.4) ...
+### docker-compose is not installed, installing it now...
+
+stable: Pulling from sonarsoftware/customerportal
+c64513b74145: Pulling fs layer
+01b8b12bad90: Pulling fs layer
+c5d85cf7a05f: Pulling fs layer
+b6b268720157: Pulling fs layer
+e12192999ff1: Pulling fs layer
+d39ece66b667: Pulling fs layer
+65599be66378: Pulling fs layer
+57c2c51f919d: Pulling fs layer
+fc1a8cb2caf7: Pulling fs layer
+979f2e661a32: Pulling fs layer
+5436f0d0a9fd: Pulling fs layer
+6790c5d94ed3: Pulling fs layer
+e25b4cbe67ac: Pulling fs layer
+c21b345b2974: Pulling fs layer
+fc2a760a9b52: Pulling fs layer
+d5bccf5c1dff: Pulling fs layer
+59685c36f964: Pulling fs layer
+2a5602f011a2: Pulling fs layer
+6ef64dde874b: Pulling fs layer
+2f6ccd1e773e: Pulling fs layer
+df757aebbcbc: Pulling fs layer
+bef1ca08b192: Pulling fs layer
+b6b268720157: Waiting
+e12192999ff1: Waiting
+d39ece66b667: Waiting
+65599be66378: Waiting
+57c2c51f919d: Waiting
+fc1a8cb2caf7: Waiting
+979f2e661a32: Waiting
+5436f0d0a9fd: Waiting
+e25b4cbe67ac: Waiting
+c21b345b2974: Waiting
+fc2a760a9b52: Waiting
+d5bccf5c1dff: Waiting
+59685c36f964: Waiting
+2a5602f011a2: Waiting
+6ef64dde874b: Waiting
+2f6ccd1e773e: Waiting
+df757aebbcbc: Waiting
+bef1ca08b192: Waiting
+6790c5d94ed3: Waiting
+01b8b12bad90: Verifying Checksum
+01b8b12bad90: Download complete
+c5d85cf7a05f: Verifying Checksum
+c5d85cf7a05f: Download complete
+b6b268720157: Verifying Checksum
+b6b268720157: Download complete
+e12192999ff1: Verifying Checksum
+e12192999ff1: Download complete
+d39ece66b667: Verifying Checksum
+d39ece66b667: Download complete
+c64513b74145: Verifying Checksum
+c64513b74145: Download complete
+fc1a8cb2caf7: Verifying Checksum
+fc1a8cb2caf7: Download complete
+979f2e661a32: Verifying Checksum
+979f2e661a32: Download complete
+65599be66378: Verifying Checksum
+65599be66378: Download complete
+6790c5d94ed3: Verifying Checksum
+6790c5d94ed3: Download complete
+5436f0d0a9fd: Verifying Checksum
+5436f0d0a9fd: Download complete
+e25b4cbe67ac: Verifying Checksum
+e25b4cbe67ac: Download complete
+c21b345b2974: Verifying Checksum
+c21b345b2974: Download complete
+fc2a760a9b52: Verifying Checksum
+fc2a760a9b52: Download complete
+d5bccf5c1dff: Verifying Checksum
+d5bccf5c1dff: Download complete
+59685c36f964: Verifying Checksum
+59685c36f964: Download complete
+2a5602f011a2: Verifying Checksum
+2a5602f011a2: Download complete
+6ef64dde874b: Verifying Checksum
+6ef64dde874b: Download complete
+2f6ccd1e773e: Verifying Checksum
+2f6ccd1e773e: Download complete
+df757aebbcbc: Verifying Checksum
+df757aebbcbc: Download complete
+57c2c51f919d: Verifying Checksum
+57c2c51f919d: Download complete
+bef1ca08b192: Verifying Checksum
+bef1ca08b192: Download complete
+c64513b74145: Pull complete
+01b8b12bad90: Pull complete
+c5d85cf7a05f: Pull complete
+b6b268720157: Pull complete
+e12192999ff1: Pull complete
+d39ece66b667: Pull complete
+65599be66378: Pull complete
+57c2c51f919d: Pull complete
+fc1a8cb2caf7: Pull complete
+979f2e661a32: Pull complete
+5436f0d0a9fd: Pull complete
+6790c5d94ed3: Pull complete
+e25b4cbe67ac: Pull complete
+c21b345b2974: Pull complete
+fc2a760a9b52: Pull complete
+d5bccf5c1dff: Pull complete
+59685c36f964: Pull complete
+2a5602f011a2: Pull complete
+6ef64dde874b: Pull complete
+2f6ccd1e773e: Pull complete
+df757aebbcbc: Pull complete
+bef1ca08b192: Pull complete
+Digest: sha256:5256a6dab4280359368522dbd7908fa881f4734040703040643e818781db72c3
+Status: Downloaded newer image for sonarsoftware/customerportal:stable
+docker.io/sonarsoftware/customerportal:stable
+### Deleting old certificate for portal-inlinefix1.fixitquick.ca ...
+
+### Requesting Let's Encrypt certificate for portal-inlinefix1.fixitquick.ca ...
+latest: Pulling from certbot/certbot
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Plugins selected: Authenticator standalone, Installer None
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Would you be willing, once your first certificate is successfully issued, to
+share your email address with the Electronic Frontier Foundation, a founding
+partner of the Let's Encrypt project and the non-profit organization that
+develops Certbot? We'd like to send you email about our work encrypting the web,
+EFF news, campaigns, and ways to support digital freedom.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(Y)es/(N)o: n
+Account registered.
+Requesting a certificate for portal-inlinefix1.fixitquick.ca
+Performing the following challenges:
+http-01 challenge for portal-inlinefix1.fixitquick.ca
+Waiting for verification...
+Cleaning up challenges
+[1m
+IMPORTANT NOTES:
+[0m - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/portal-inlinefix1.fixitquick.ca/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/portal-inlinefix1.fixitquick.ca/privkey.pem
+   Your certificate will expire on 2021-05-24. To obtain a new or
+   tweaked version of this certificate in the future, simply run
+   certbot again. To non-interactively renew *all* of your
+   certificates, run "certbot renew"
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+
+
+5.0.4-alpine: Pulling from library/redis
+### Reconfiguring renewal method to webroot...
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Plugins selected: Authenticator webroot, Installer None
+Renewing an existing certificate for portal-inlinefix1.fixitquick.ca
+[1m
+IMPORTANT NOTES:
+[0m - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/portal-inlinefix1.fixitquick.ca/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/portal-inlinefix1.fixitquick.ca/privkey.pem
+   Your certificate will expire on 2021-05-24. To obtain a new or
+   tweaked version of this certificate in the future, simply run
+   certbot again. To non-interactively renew *all* of your
+   certificates, run "certbot renew"
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+
+
+### The app key is: base64:+YccwGPpp4aePrG4KsFUzVFL93Btnc1rMeCdkuuKgdM=
+### Back this up somewhere in case you need it.
+Migration table created successfully.
+Migrating: 2016_05_18_161648_create_creation_tokens_table
+Migrated:  2016_05_18_161648_create_creation_tokens_table
+Migrating: 2016_05_18_184241_create_password_resets_table
+Migrated:  2016_05_18_184241_create_password_resets_table
+Migrating: 2016_06_01_165839_create_paypal_temporary_tokens_table
+Migrated:  2016_06_01_165839_create_paypal_temporary_tokens_table
+Migrating: 2017_07_19_152029_create_username_languages_table
+Migrated:  2017_07_19_152029_create_username_languages_table
+Migrating: 2018_03_22_181912_create_gocardless_tokens_table
+Migrated:  2018_03_22_181912_create_gocardless_tokens_table
+Migrating: 2019_02_25_174424_create_system_settings_table
+Migrated:  2019_02_25_174424_create_system_settings_table
+Migrating: 2020_02_03_184723_modify_system_settings_change_loginmessage_column
+Migrated:  2020_02_03_184723_modify_system_settings_change_loginmessage_column
+Migrating: 2020_12_11_195022_modify_system_settings_add_stripe
+Migrated:  2020_12_11_195022_modify_system_settings_add_stripe
+Cache cleared successfully.
+Compiled views cleared!
+Route cache cleared!
+Routes cached successfully!
+Configuration cache cleared!
+Configuration cached successfully!
+Settings key is BlVEd5WewGz2ibf6pFkLsSijJogb84TA
+### Navigate to https://portal-inlinefix1.fixitquick.ca/settings and use the above settings key configure your portal.
