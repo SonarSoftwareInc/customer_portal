@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euf -o pipefail
 
+mkdir -p /var/www/html/storage/framework/{cache,views}
+
 composer install
 
 sudo -E /sbin/my_init --no-kill-all-on-exit --skip-runit true &
