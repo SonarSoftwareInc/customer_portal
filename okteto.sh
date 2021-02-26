@@ -14,10 +14,10 @@ php /var/www/html/artisan route:clear
 touch /var/www/html/storage/logs/laravel.log
 echo '' > /var/www/html/storage/logs/laravel.log
 
-sudo pkill php-fpm || true
-sudo /usr/sbin/php-fpm7.3
+sudo -E pkill php-fpm || true
+sudo -E /usr/sbin/php-fpm7.3
 
-sudo pkill nginx || true
-sudo /usr/sbin/nginx
+sudo -E pkill nginx || true
+sudo -E /usr/sbin/nginx
 
 exec bash
