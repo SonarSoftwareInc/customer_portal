@@ -44,6 +44,7 @@ class BillingController extends Controller
     public function __construct()
     {
         $this->accountBillingController = new AccountBillingController();
+        $this->accountController = new AccountController();
 	$this->frameworkDataUsageController = new \SonarSoftware\CustomerPortalFramework\Controllers\DataUsageController();
     }
     /**
@@ -51,6 +52,7 @@ class BillingController extends Controller
      */
     public function index()
     {
+        $accountDetails = $this->getAccountDetails();
         $billingDetails = $this->getAccountBillingDetails();
         $invoices = $this->getInvoices();
         $invoices = $this->paginate($invoices, 5, false, ['path' => '/portal/billing/invoices']);
@@ -63,6 +65,8 @@ class BillingController extends Controller
         $currentUsage = $historicalUsage ? $historicalUsage[0] : [];
         $calculatedCap = $policyDetails->policy_cap_in_gigabytes + round($policyDetails->rollover_available_in_bytes/1000**3, 2) + round($policyDetails->purchased_top_off_total_in_bytes/1000**3, 2);
 
+        var_dump($billingDetails);
+
         $values = [
             'amount_due' => $billingDetails->balance_due,
             'next_bill_date' => $billingDetails->next_bill_date,
@@ -71,7 +75,8 @@ class BillingController extends Controller
             'available_funds' => $billingDetails->available_funds,
             'payment_past_due' => $this->isPaymentPastDue(),
             'balance_minus_funds' => bcsub($billingDetails->total_balance, $billingDetails->available_funds, 2),
-            'currentUsage' => $currentUsage
+            'currentUsage' => $currentUsage,
+            'account_activated' => $accountDetails->created_at,
         ];
 
         $systemSetting = SystemSetting::firstOrNew(['id' => 1]);
@@ -496,6 +501,20 @@ class BillingController extends Controller
         return $result;
     }
 
+
+    /**
+     * Get account details
+     * @return mixed
+     */
+    private function getAccountDetails()
+    {
+        if (!Cache::tags("account.details")->has(get_user()->account_id)) {
+            $accountDetails = $this->accountController->getAccountDetails(get_user()->account_id);
+            Cache::tags("account.details")->put(get_user()->account_id, $accountDetails, 10);
+        }
+
+        return Cache::tags("account.details")->get(get_user()->account_id);
+    }
 
     /**
      * Get account billing details
