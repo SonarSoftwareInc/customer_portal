@@ -118,6 +118,7 @@ class AppConfigController extends Controller
                 'show_detailed_transactions',
                 'credit_card_payments_enabled',
                 'bank_payments_enabled',
+                'bank_payments_only_before',
                 'go_cardless_enabled',
                 'go_cardless_environment',
                 'go_cardless_access_token',
@@ -135,6 +136,9 @@ class AppConfigController extends Controller
                 'ticket_priority',
             ]));
 
+            if (!$systemSetting->bank_payments_enabled) {
+                $systemSetting->bank_payments_only_before = null;
+            }
             /**
              * CHANGE LOGIN MESSAGE TO HTMLENTITIES
              */
