@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Session;
 use Inacho\CreditCard as CreditCardValidator;
 use InvalidArgumentException;
 use SonarSoftware\CustomerPortalFramework\Controllers\AccountBillingController;
+use SonarSoftware\CustomerPortalFramework\Controllers\AccountController;
 use SonarSoftware\CustomerPortalFramework\Models\BankAccount;
 use SonarSoftware\CustomerPortalFramework\Models\CreditCard;
 use SonarSoftware\CustomerPortalFramework\Models\TokenizedCreditCard;
@@ -65,8 +66,6 @@ class BillingController extends Controller
         $currentUsage = $historicalUsage ? $historicalUsage[0] : [];
         $calculatedCap = $policyDetails->policy_cap_in_gigabytes + round($policyDetails->rollover_available_in_bytes/1000**3, 2) + round($policyDetails->purchased_top_off_total_in_bytes/1000**3, 2);
 
-        var_dump($billingDetails);
-
         $values = [
             'amount_due' => $billingDetails->balance_due,
             'next_bill_date' => $billingDetails->next_bill_date,
@@ -76,7 +75,7 @@ class BillingController extends Controller
             'payment_past_due' => $this->isPaymentPastDue(),
             'balance_minus_funds' => bcsub($billingDetails->total_balance, $billingDetails->available_funds, 2),
             'currentUsage' => $currentUsage,
-            'account_activated' => $accountDetails->created_at,
+            'account' => $accountDetails,
         ];
 
         $systemSetting = SystemSetting::firstOrNew(['id' => 1]);
