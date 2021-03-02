@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
                 'customer_portal.login_page_message' => $systemSetting->login_page_message,
                 'customer_portal.show_detailed_transactions' => $systemSetting->show_detailed_transactions,
                 'customer_portal.enable_bank_payments' => $systemSetting->bank_payments_enabled,
+                'customer_portal.bank_payments_only_before' => $systemSetting->bank_payments_only_before,
                 'customer_portal.enable_credit_card_payments' => $systemSetting->credit_card_payments_enabled,
                 'customer_portal.paypal_enabled' => $systemSetting->paypal_enabled,
                 'customer_portal.paypal_api_client_id' => $systemSetting->paypal_api_client,

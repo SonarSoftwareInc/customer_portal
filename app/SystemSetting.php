@@ -17,7 +17,7 @@ class SystemSetting extends Model
         'show_detailed_transactions' => false,
         'credit_card_payments_enabled' => true,
         'bank_payments_enabled' => false,
-        'bank_payments_enabled_before_date' => null,
+        'bank_payments_only_before' => null,
         'go_cardless_enabled' => false,
         'paypal_enabled' => false,
         'ticketing_enabled' => false,

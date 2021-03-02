@@ -54,6 +54,12 @@ return [
      * Do you want to allow ACH/eCheck payments?
      */
     'enable_bank_payments' => env('ENABLE_BANK_PAYMENTS', false),
+
+    /*
+     * Optionally limit bank payments only for accounts created before this date (YYYY-MM-DD)
+     */
+    'bank_payments_only_before' => env('BANK_PAYMENTS_ONLY_BEFORE', false),
+
     /*
      * Do you want to allow credit card payments?
      */
