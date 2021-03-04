@@ -34,6 +34,7 @@ class DataUsageController extends Controller
         } else {
             $usagePercentage = 0;
         }
+
         return view("pages.data_usage.index", compact('historicalUsage', 'policyDetails', 'currentUsage', 'calculatedCap', 'usagePercentage'));
     }
 
@@ -47,6 +48,9 @@ class DataUsageController extends Controller
         if ($policyDetails->allow_user_to_purchase_capacity !== true) {
             return redirect()->back()->withErrors(utrans("errors.topOffNotAvailable"));
         }
+
+        //Sonar v2 API does not use decimal places, 5000 = $50
+        $policyDetails->overage_cost = $policyDetails->overage_cost / 100;
 
         return view("pages.data_usage.add_top_off", compact('policyDetails'));
     }
