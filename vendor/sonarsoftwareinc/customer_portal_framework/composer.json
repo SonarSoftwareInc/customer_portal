@@ -1,0 +1,39 @@
+{
+  "name": "sonarsoftwareinc/customer_portal_framework",
+  "type": "library",
+  "description": "A framework to build a customer portal for Sonar.",
+  "keywords": ["sonar","sonar software","sonar api","sonar software api","sonar customer portal"],
+  "homepage": "https://sonar.software",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Simon Westlake",
+      "email": "simon@sonar.software",
+      "homepage": "https://sonar.software",
+      "role": "Developer"
+    },
+    {
+      "name": "Devin Johnson",
+      "email": "devin@sonar.software",
+      "homepage": "https://sonar.software",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "support@sonar.software",
+    "forum": "https://sonar.community"
+  },
+  "require": {
+    "php" : "^5.5 || ^7.0",
+    "vlucas/phpdotenv": "*",
+    "guzzlehttp/guzzle": "6.*",
+    "inacho/php-credit-card-validator": "^1.0",
+    "nesbot/carbon": "1.*"
+  },
+  "autoload": {
+    "psr-4" : {
+      "SonarSoftware\\CustomerPortalFramework\\" : "src"
+    },
+    "files": ["src/Helpers/functions.php"]
+  }
+}

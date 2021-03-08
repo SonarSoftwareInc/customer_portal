@@ -821,3 +821,6 @@
 .fe-zoom-out:before {
   content: "\ea09";
 }
+.cspfont1:before {
+  font-size: 20px !important;
+}

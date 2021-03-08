@@ -82,6 +82,12 @@
      animation-duration: .4s;
      animation-fill-mode: both;
 }
+
+.csp_style1 {
+     display: none;
+}
+
+
  .delayed_01s {
      animation-delay: .1s;
 }

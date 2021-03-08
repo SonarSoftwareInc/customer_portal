@@ -16,6 +16,7 @@ $(document).ready(function(){
     ccNumberField.keyup(function (e){
         var cardType = $.payment.cardType($("#cc-number").val());
         ccIcon.removeClass();
+        // set width: 25px;
         switch (cardType) {
             case "visa":
             case "visaelectron":

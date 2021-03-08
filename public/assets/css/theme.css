@@ -3055,8 +3055,7 @@ input[type='button'].btn-block {
 	margin-left: 0;
 }
 .btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle),
-.btn-group-vertical > .btn-group:not(:last-child) > .btn {
-	border-bottom-right-radius: 0;
+.btn-group-vertical > .btn-group:not(:last-child) > .btn {	border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
 }
 .btn-group-vertical > .btn:not(:first-child),
@@ -11693,4 +11692,44 @@ button:focus {
 }
 .blurry-text::selection {
 	opacity: 0;
+}
+
+.csp_style1 {
+	display: none;
+}
+.csp_style2 {
+	position: absolute;
+	will-change: transform;
+	top: 0px;
+	left: 0px;
+	transform: translate3d(595px, 123px, 0px);
+}
+
+
+.fa .fa-cc-visa{
+	width: 25px;
+}
+
+.fa .fa-cc-mastercard {
+	width: 25px;
+}
+
+.fa .fa-cc-amex {
+	width: 25px;
+}
+
+.fa .fa-cc-diners-club {
+	width: 25px;
+}
+
+.fa .fa-cc-discover {
+	width: 25px;
+}
+
+.fa .fa-cc-jcb {
+	width: 25px;
+}
+
+.fa .fa-cc {
+	width: 25px;
 }

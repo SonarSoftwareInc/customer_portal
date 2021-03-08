@@ -85,7 +85,6 @@
             {{--<input id="primaryColor" type="text" class="form-control" value="pink" />--}}
             {{--</div>--}}
             {{--</div>--}}
-         </div>
       </div>
 
 
@@ -608,7 +607,7 @@
 <script src="/assets/libs/tinymce/tinymce.min.js"></script>
 <script src="/assets/libs/tinymce/jquery.tinymce.min.js"></script>
 
-<script>
+<script nonce="{{ csp_nonce() }}">
    $(function () {
      $('[data-toggle="tooltip"]').tooltip()
    })

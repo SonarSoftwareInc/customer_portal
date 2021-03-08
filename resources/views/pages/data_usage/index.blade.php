@@ -95,7 +95,7 @@
 </div>
 @endsection
 @section('additionalJS')
-<script>
+<script nonce="{{ csp_nonce() }}">
    var historicalUsage = {!! $historicalUsage !!};
    var dataUsageLabel = '{{utrans("data_usage.usage")}}';
 </script>

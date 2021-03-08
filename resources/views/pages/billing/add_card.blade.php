@@ -38,7 +38,7 @@
                <div class="form-group">
                   <label for="cc_number">{{utrans("billing.creditCardNumber")}}</label>
                   {!! Form::tel("cc-number",null,['id' => 'cc-number', 'autocomplete' => 'cc-number', 'class' => 'cc-number form-control', 'placeholder' => utrans("billing.creditCardNumber")]) !!}
-                  <span class="input-group-addon"><i class="fa fa-cc" id="ccIcon" style="width: 25px;"></i></span>
+                  <span class="input-group-addon"><i class="fa fa-cc" id="ccIcon"></i></span>
                </div>
             </div>
             <div class="col-lg-3 col-12">
@@ -52,7 +52,7 @@
                   <label for="cvc">{{utrans("billing.cvc")}}</label>
                   <div class="input-group">
                      {!! Form::tel("cvc",null,['id' => 'cvc', 'autocomplete' => 'cvc', 'class' => 'form-control', 'placeholder' => utrans("billing.cvc")]) !!}
-                     <span class="input-group-addon"><i class="fa fa-cc" id="ccIcon" style="width: 25px;"></i></span>
+                     <span class="input-group-addon"><i class="fa fa-cc" id="ccIcon"></i></span>
                   </div>
                </div>
             </div>
@@ -80,7 +80,7 @@
             </div>
             <div class="col-12 col-lg-4">
                <div class="form-group">
-                  <div id="stateWrapper" @if(count(subdivisions(\Illuminate\Support\Facades\Config::get("customer_portal.country"))) === 0) style="display:none;" @endif">
+                  <div id="stateWrapper" @if(count(subdivisions(\Illuminate\Support\Facades\Config::get("customer_portal.country"))) === 0) class="csp_style1" @endif">
                   <label for="state">{{utrans("billing.state")}}</label>
                   {!! Form::select("state",subdivisions(\Illuminate\Support\Facades\Config::get("customer_portal.country")),\Illuminate\Support\Facades\Config::get("customer_portal.state"),['id' => 'state', 'class' => 'form-control']) !!}
                </div>

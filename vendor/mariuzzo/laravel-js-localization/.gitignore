@@ -1,0 +1,17 @@
+# Composer.
+/vendor
+composer.lock
+
+# Mac OS.
+.DS_Store
+
+# NPM.
+/node_modules
+
+# IntelliJ IDEA.
+/.idea
+*.iml
+
+# Tests
+/tests/*/vendor
+/tmp

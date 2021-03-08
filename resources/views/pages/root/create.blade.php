@@ -25,17 +25,17 @@
             <label for="password_confirmation">{{trans("register.confirmPassword",[],$language)}}</label>
             {!! Form::password("password_confirmation",['id' => 'password_confirmation', 'placeholder' => trans("register.confirmPassword",[],$language)]) !!}
          </div>
+         {!! Form::close() !!} 
          <div class="half vcenter label">
             <div><button type="submit" value="{{trans("actions.createAccount",[],$language)}}">{{trans("actions.createAccount",[],$language)}}</button></div>
          </div>
          <small><a href="{{action("AuthenticationController@index")}}">{{trans("register.back",[],$language)}}</a></small>
-         {!! Form::close() !!} 
       </section>
    </div>
 </body>
 @endsection
 @section('additionalJS')
-<script>
+<script nonce="{{ csp_nonce() }}">
 window.onbeforeunload = function(e){
     document.getElementById('main').className = 'section content animated fadeOutUp';
 }

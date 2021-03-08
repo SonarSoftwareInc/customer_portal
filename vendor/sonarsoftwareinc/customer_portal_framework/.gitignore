@@ -1,0 +1,5 @@
+vendor/*
+.hg/*
+.idea/*
+.hgignore
+composer.lock

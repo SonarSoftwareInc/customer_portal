@@ -51,7 +51,7 @@
                   <div class="col-12 col-xl-10">
                      <!-- Image -->
                      <span class="badge badge-soft-danger">
-                     <i class="fe fe-alert-triangle" style="font-size: 20px !important;"></i>
+                     <i class="fe fe-alert-triangle cspfont1"></i>
                      </span>
                      <!-- Title -->
                      <h2 class="mb-2 mt-3">
@@ -77,7 +77,7 @@
                   <div class="col-12 col-xl-10">
                      <!-- Image -->
                      <span class="badge badge-soft-success">
-                     <i class="fe fe-thumbs-up" style="font-size: 20px !important;"></i>
+                     <i class="fe fe-thumbs-up cspfont1"></i>
                      </span>
                      <!-- Title -->
                      <h2 class="mb-4 mt-4">
@@ -304,7 +304,7 @@
                               <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="window">
                               <i class="fe fe-more-vertical"></i>
                               </a>
-                              <div class="dropdown-menu dropdown-menu-right" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(595px, 123px, 0px);" x-out-of-boundaries="">
+                              <div class="dropdown-menu dropdown-menu-right csp_style2" x-placement="top-end" x-out-of-boundaries="">
                                  @if($paymentMethod->auto == 1)
                                  {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'patch']) !!}
                                  <button class="dropdown-item btn btn-sm btn-danger" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.disabling")}}'">
@@ -372,7 +372,7 @@
                                     <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="window">
                                     <i class="fe fe-more-vertical"></i>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(595px, 123px, 0px);" x-out-of-boundaries="">
+                                    <div class="dropdown-menu dropdown-menu-right csp_style2" x-placement="top-end"  x-out-of-boundaries="">
                                        @if($paymentMethod->auto == 1)
                                        {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'patch']) !!}
                                        <button class="dropdown-item btn btn-sm btn-danger" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.disabling")}}'">

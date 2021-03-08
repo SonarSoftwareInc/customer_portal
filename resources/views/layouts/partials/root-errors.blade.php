@@ -5,6 +5,6 @@
 @endforeach
 </div>
 @else
-<div id="close" style="display: none"></div>
+<div id="close" class="csp_style1"></div>
 @endif
 
