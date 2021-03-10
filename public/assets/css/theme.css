@@ -11694,3 +11694,17 @@ button:focus {
 .blurry-text::selection {
 	opacity: 0;
 }
+
+.csp_style1 {
+	display: none;
+}
+.csp_style2 {
+	position: absolute;
+	will-change: transform;
+	top: 0px;
+	left: 0px;
+	transform: translate3d(595px, 123px, 0px);
+}
+#ccIcon {
+    width: 25px;
+}

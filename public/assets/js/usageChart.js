@@ -1,6 +1,6 @@
-        var historicalUsage = {!! $historicalUsage !!};
-        var dataUsageLabel = '{{utrans("data_usage.usage")}}';
- 
+    var historicalUsage = {!! $historicalUsage !!};
+    var dataUsageLabel = '{{utrans("data_usage.usage")}}';
+
     var labels = [];
     var datasets = [
         {

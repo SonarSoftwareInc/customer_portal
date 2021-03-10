@@ -79,7 +79,7 @@
                     </div>
                     <div class="col-12 col-lg-4">
                         <div class="form-group">
-                            <div id="stateWrapper" @if(count(subdivisions(\Illuminate\Support\Facades\Config::get("customer_portal.country"))) === 0) style="display:none;" @endif">
+                            <div id="stateWrapper" @if(count(subdivisions(\Illuminate\Support\Facades\Config::get("customer_portal.country"))) === 0) class="csp_style1" @endif">
                             <label for="state">{{utrans("billing.state")}}</label>
                             {!! Form::select("state",subdivisions(\Illuminate\Support\Facades\Config::get("customer_portal.country")),\Illuminate\Support\Facades\Config::get("customer_portal.state"),['id' => 'state', 'class' => 'form-control']) !!}
                         </div>
