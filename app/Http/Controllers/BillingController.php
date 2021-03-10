@@ -75,12 +75,11 @@ class BillingController extends Controller
             'payment_past_due' => $this->isPaymentPastDue(),
             'balance_minus_funds' => bcsub($billingDetails->total_balance, $billingDetails->available_funds, 2),
             'currentUsage' => $currentUsage,
-            'account' => $accountDetails,
         ];
 
         $systemSetting = SystemSetting::firstOrNew(['id' => 1]);
 
-        return view("pages.billing.index", compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting'));
+        return view("pages.billing.index", compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting', 'accountDetails'));
     }
 
     /**
@@ -643,13 +642,21 @@ class BillingController extends Controller
     {
         $paymentMethods = [];
         $validAccountMethods = $this->getPaymentMethods();
+
+        $accountDetails = $this->getAccountDetails();
+        $bankPaymentEnabled = config("customer_portal.enable_bank_payments") == 1 || config("customer_portal.enable_gocardless") == 1;
+        $bankPaymentsOnlyBefore = config("customer_portal.bank_payments_only_before");
+        $accountMatchesDate = $bankPaymentsOnlyBefore && Carbon::parse($accountDetails->created_at ?? '1970-01-01')->greaterThan(config("customer_portal.bank_payments_only_before"));
+
         foreach ($validAccountMethods as $validAccountMethod)
         {
-            if ($validAccountMethod->type == "credit card" && config("customer_portal.enable_credit_card_payments") == 1)
+            if ($validAccountMethod->type == "credit card")
             {
-                $paymentMethods[$validAccountMethod->id] = utrans("billing.payUsingExistingCard", ['card' => "****" . $validAccountMethod->identifier . " (" . sprintf("%02d", $validAccountMethod->expiration_month) . " / " . $validAccountMethod->expiration_year . ")"]);
+                if (config("customer_portal.enable_credit_card_payments") == 1) {
+                    $paymentMethods[$validAccountMethod->id] = utrans("billing.payUsingExistingCard", ['card' => "****" . $validAccountMethod->identifier . " (" . sprintf("%02d", $validAccountMethod->expiration_month) . " / " . $validAccountMethod->expiration_year . ")"]);
+                }
             }
-            elseif ((config("customer_portal.enable_bank_payments") == 1 || config("customer_portal.enable_gocardless") == 1) && $validAccountMethod->type != "credit card")
+            elseif ($bankPaymentEnabled && (!$bankPaymentsOnlyBefore || $accountMatchesDate))
             {
                 $paymentMethods[$validAccountMethod->id] = utrans("billing.payUsingExistingBankAccount", ['accountNumber' => "**" . $validAccountMethod->identifier]);
             }

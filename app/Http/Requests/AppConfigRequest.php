@@ -45,7 +45,7 @@ class AppConfigRequest extends FormRequest
             'show_detailed_transactions' => 'boolean',
             'credit_card_payments_enabled' => 'boolean',
             'bank_payments_enabled' => 'boolean',
-            'bank_payments_only_before' => 'string',
+            'bank_payments_only_before' => 'nullable|date_format:Y-m-d',
             'go_cardless_enabled' => 'boolean',
             'go_cardless_environment' => 'boolean',
             'go_cardless_access_token' => 'required_if:go_cardless_enabled,1',
