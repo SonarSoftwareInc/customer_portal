@@ -362,7 +362,7 @@
                   <div class="col-auto ">
                      <!-- Toggle -->
                      <div class="custom-control custom-checkbox-toggle mt-1">
-                        {{ Form::hidden('bank_payments_enabled',0) }}
+                        {{ Form::hidden('bank_payments_enabled',0,['id' => 'native_bank_payments_enabled']) }}
                         {!! Form::checkbox("bank_payments_enabled",1,$systemSetting->bank_payments_enabled,['id' => 'bank_payments_enabled', 'class' => 'custom-control-input', 'data-toggle' => 'tooltip', 'data-trigger' => 'hover','data-placement' => 'left','data-offset' => '3','data-html' => 'true', 'data-original-title' => 'Enable bank payment functionality']) !!}
                         <label class="custom-control-label" for="bank_payments_enabled"></label>
                      </div>
@@ -372,6 +372,23 @@
                   <label>
                   Enable Bank Payments
                   </label>
+               </div>
+            </div>
+            <div class="row mt-1" id="bank_payments_only_before_wrapper">
+               <div class="col-auto offset-1">
+                  <div class="form-group">
+                     <label>
+                        Disable bank account payments after this date*
+                     </label>
+   
+                     {{ Form::hidden('bank_payments_only_before','') }}
+                     {!! Form::text("bank_payments_only_before",$systemSetting->bank_payments_only_before,['id' => 'bank_payments_only_before', 'class' => 'form-control', 'placeholder' => 'YYYY-MM-DD', 'data-toggle' => 'tooltip', 'data-trigger' => 'hover','data-placement' => 'left','data-offset' => '3','data-html' => 'true', 'data-original-title' => 'Disable bank account payments after this date']) !!}
+                  </div>
+                  <p class="text-muted">
+                     <label>
+                        <i>* This feature is only available in Sonar version 2.</i>
+                     </label>
+                  </p>
                </div>
             </div>
          </div>

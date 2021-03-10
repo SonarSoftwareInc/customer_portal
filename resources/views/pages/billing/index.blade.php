@@ -337,7 +337,13 @@
          </div>
          @endif
          <div class="row">
-            @if(config("customer_portal.enable_bank_payments") == 1 || config("customer_portal.enable_gocardless") == 1)
+            @php
+               $bankPaymentEnabled = config("customer_portal.enable_bank_payments") == 1 || config("customer_portal.enable_gocardless") == 1;
+               $bankPaymentsOnlyBefore = config("customer_portal.bank_payments_only_before");
+               $accountMatchesDate = $bankPaymentsOnlyBefore && Carbon\Carbon::parse($accountDetails->created_at ?? '1970-01-01')->greaterThan(config("customer_portal.bank_payments_only_before"));
+            @endphp
+
+            @if($bankPaymentEnabled && (!$bankPaymentsOnlyBefore || $accountMatchesDate))
             <div class="col-12 col-md-12 col-xl-12">
                <div class="card">
                      <div class="card-header">

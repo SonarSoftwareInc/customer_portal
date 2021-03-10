@@ -7,7 +7,17 @@ $(document).ready(function(){
     $("#passwd-reveal").change(function() {
       $("#mail_password")[0].type = ($(this).prop("checked")) ? "text" : "password";
     });
+
+    $('#bank_payments_enabled').on('change', updateBankPaymentsSubFields);
+    updateBankPaymentsSubFields();
 });
+
+function updateBankPaymentsSubFields() {
+    var inputValue = $('#bank_payments_enabled')[0].checked;
+    var wrapperEl = $('#bank_payments_only_before_wrapper')[0];
+
+    wrapperEl.style.display = inputValue ? 'block' : 'none';
+}
 
 function updateSubdivisions()
 {
