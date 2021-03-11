@@ -1,5 +1,8 @@
 @extends('layouts.full')
 @section('content')
+<style nonce="{{ csp_nonce() }}">
+   #usage-progressbar { width: {{$values["currentUsage"]["billable"]}}% }
+</style>
 <!-- HEADER -->
 <div class="header index-bg pb-5">
    <div class="container-fluid">
@@ -181,7 +184,7 @@
                                     <div class="col">
                                        <!-- Progress -->
                                        <div class="progress progress-sm">
-                                          <div class="progress-bar" role="progressbar" style="width: {{$values["currentUsage"]["billable"]}}%" aria-valuenow="{{$values["currentUsage"]["billable"]}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                          <div id="usage-progressbar" class="progress-bar" role="progressbar" aria-valuenow="{{$values["currentUsage"]["billable"]}}" aria-valuemin="0" aria-valuemax="100"></div>
                                        </div>
                                     </div>
                                  </div>
