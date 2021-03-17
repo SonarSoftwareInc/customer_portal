@@ -1,20 +1,3 @@
-.csp_style1 {
-        display: none;
-}
-.csp_style2 {
-        position: absolute;
-        will-change: transform;
-        top: 0px;
-        left: 0px;
-        transform: translate3d(595px, 123px, 0px);
-}
-
-.csp_style3 {
-        opacity: 0;
-}
-
-
-
 <script nonce="{{ csp_nonce() }}">
 close=document.getElementById("close");close.addEventListener('click',function(){close.className="csp_style3"; setTimeout(function(){ close.className="csp_style1"; }, 600); },false);
    var _portal = {
