@@ -1,4 +1,4 @@
-<script>
+<script nonce="{{ csp_nonce() }}">
 close=document.getElementById("close");close.addEventListener('click',function(){close.style.opacity="0"; setTimeout(function(){ close.style.display="none"; }, 600); },false);
    var _portal = {
        currencySymbol: '{{Config::get("customer_portal.currency_symbol")}}',
@@ -19,7 +19,7 @@ close=document.getElementById("close");close.addEventListener('click',function()
 <script src="/assets/libs/jquery-payment-plugin/jquery.payment.min.js"></script>
 <script src="/assets/libs/moment/moment.min.js"></script>
 <script src="https://js.stripe.com/v3/"></script>
-<script>
+<script nonce="{{ csp_nonce() }}">
    moment.locale('{{Config::get("app.locale")}}');
    $(document).ready(function(){
    $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});$(".languageSelector").change(function(){var language = $(this).val();$.ajax("/language",{data: {language: language},dataType: 'json',type: 'POST'}).then(function() {setTimeout(function(){location.reload();}, 100);});});});

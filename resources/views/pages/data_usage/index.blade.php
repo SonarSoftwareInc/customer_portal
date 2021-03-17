@@ -1,5 +1,8 @@
 @extends('layouts.full')
 @section('content')
+<style nonce="{{ csp_nonce() }}">
+   #usage-progressbar { width: {{$usagePercentage}}% }
+</style>
 <div class="container-fluid">
 <div class="row justify-content-center">
 <div class="col-12">
@@ -51,7 +54,7 @@
                   <div class="col">
                      <!-- Progress -->
                      <div class="progress progress-sm">
-                        <div class="progress-bar" role="progressbar" style="width: {{$usagePercentage}}%" aria-valuenow="{{$usagePercentage}}" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="usage-progressbar" class="progress-bar" role="progressbar" aria-valuenow="{{$usagePercentage}}" aria-valuemin="0" aria-valuemax="100"></div>
                      </div>
                   </div>
                </div>
@@ -95,7 +98,7 @@
 </div>
 @endsection
 @section('additionalJS')
-<script>
+<script nonce="{{ csp_nonce() }}">
    var historicalUsage = {!! $historicalUsage !!};
    var dataUsageLabel = '{{utrans("data_usage.usage")}}';
 </script>

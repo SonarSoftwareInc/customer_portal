@@ -61,7 +61,7 @@
 </div>
 @endsection
 @section('additionalJS')
-<script>
+<script nonce="{{ csp_nonce() }}">
    var units = $("#units").val();
    var cost = $("#cost").val();
    

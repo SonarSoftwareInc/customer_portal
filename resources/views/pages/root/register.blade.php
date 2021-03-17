@@ -20,7 +20,7 @@
       </section>
    </div>
 </body>
-<script>
+<script nonce="{{ csp_nonce() }}">
 window.onbeforeunload = function(e){
     document.getElementById('main').className = 'section content animated fadeOutUp';
 }
