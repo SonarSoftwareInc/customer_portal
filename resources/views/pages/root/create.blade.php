@@ -25,10 +25,10 @@
             <label for="password_confirmation">{{trans("register.confirmPassword",[],$language)}}</label>
             {!! Form::password("password_confirmation",['id' => 'password_confirmation', 'placeholder' => trans("register.confirmPassword",[],$language)]) !!}
          </div>
-         {!! Form::close() !!} 
          <div class="half vcenter label">
             <div><button type="submit" value="{{trans("actions.createAccount",[],$language)}}">{{trans("actions.createAccount",[],$language)}}</button></div>
          </div>
+         {!! Form::close() !!} 
          <small><a href="{{action("AuthenticationController@index")}}">{{trans("register.back",[],$language)}}</a></small>
       </section>
    </div>
