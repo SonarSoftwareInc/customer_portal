@@ -1,5 +1,5 @@
 <script nonce="{{ csp_nonce() }}">
-close=document.getElementById("close");close.addEventListener('click',function(){close.className="csp_style3"; setTimeout(function(){ close.className="csp_style1"; }, 600); },false);
+close=document.getElementById("close");close.addEventListener('click',function(){close.className.Add("csp_style3"); setTimeout(function(){ close.className,Add("csp_style1"); }, 600); },false);
    var _portal = {
        currencySymbol: '{{Config::get("customer_portal.currency_symbol")}}',
        thousandsSeparator: '{{Config::get("customer_portal.thousands_separator")}}',
