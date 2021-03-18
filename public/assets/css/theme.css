@@ -11705,6 +11705,13 @@ button:focus {
 	left: 0px;
 	transform: translate3d(595px, 123px, 0px);
 }
+
+.csp_style3 {
+        opacity: 0;
+}
+
+
+
 #ccIcon {
     width: 25px;
 }
