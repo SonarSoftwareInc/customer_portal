@@ -28,6 +28,7 @@
             </div>
             <div class="right"><a href="/reset" class="forgot">{{trans("headers.forgotUsernameOrPassword",[],$language)}}</a></div>
          </div>
+         {!! Form::close() !!}
          <small><a href="{{action("AuthenticationController@showRegistrationForm")}}">{{trans("root.register",[],$language)}}</a></small>
          <form class="form-group">
             <select id="language" name="language" class="form-control languageSelector">
@@ -35,8 +36,7 @@
             <option value="{{$key}}" @if($language == $key) selected @endif>{{$value}}</option>
             @endforeach
             </select>
-         </form>
-         {!! Form::close() !!} 
+         </form> 
       </section>
    </div>
 </body>
