@@ -11,7 +11,7 @@
          @endif
          <h1 class="fake-half">{{trans('actions.loginMessage', ['ispName' => config("customer_portal.company_name")],$language)}}</h1>
          {!! Form::open(['action' => 'AuthenticationController@authenticate']) !!}
-	     <input type="hidden" name="language" value="{{$language}}">
+	     <input type="hidden" name="language" value="{{$language ?? 'en'}}">
          <div class="label label-text">
             <label for="input-email">{{trans("root.username",[],$language)}}</label>
             {!! Form::text("username",null,['placeholder' => trans("root.username",[],$language), 'id' => 'username']) !!}
