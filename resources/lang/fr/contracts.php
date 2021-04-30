@@ -1,11 +1,11 @@
 <?php
 return [
-    'name' => 'Nom de Contrat',
-    'status' => 'Status',
+    'name' => 'Nom',
+    'status' => 'État',
     'action' => 'Action',
-    'noContracts' => ' Présentement aucun contrat de disponible.',
+    'noContracts' => 'Aucun contrat disponible.',
     'signed' => 'Signé',
-    'pendingSignature' => 'En Attente d\'une Signature.',
-	'sign' => 'Signer un contrat',
-    'download' => 'Télécharger le Contrat',
+    'pendingSignature' => 'En attente d’une signature.',
+    'sign' => 'Signer un contrat',
+    'download' => 'Télécharger le contrat',
 ];

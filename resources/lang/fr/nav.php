@@ -4,7 +4,7 @@ return [
     'billing' => 'Facturation',
     'myAccount' => 'MON COMPTE',
     'profile' => 'Mes coordonnées',
-    'tickets' => 'Billets de support',
+    'tickets' => 'Billets de soutien',
     'dataUsage' => 'Utilisation des données',
     'contracts' => 'Contrats',
     'myService' => 'MON SERVICE',

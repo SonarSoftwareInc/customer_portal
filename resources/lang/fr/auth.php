@@ -10,6 +10,6 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'failed' => 'Ces informations d\'identification ne correspondent pas à nos enregistrements.',
+    'failed' => "Ces informations d'identification ne correspondent pas à nos enregistrements.",
     'throttle' => 'Trop de tentatives de connexion. Veuillez réessayer dans :seconds secondes.',
 ];
