@@ -28,7 +28,7 @@
             <div class="col-lg-12 col-12">
                <div class="form-group">
                   <label for="name">{{utrans("billing.nameOnCard")}}</label>
-                  {!! Form::text("name",null,['id' => 'name', 'class' => 'form-control', 'placeholder' => utrans("billing.nameOnCard")]) !!}
+                  {!! Form::text("name",null,['id' => 'name', 'class' => 'form-control', 'placeholder' => utrans("billing.nameOnCard"), 'maxlength' => 255]) !!}
                </div>
             </div>
          </div>

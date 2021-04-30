@@ -26,7 +26,7 @@ class CreateCreditCardRequest extends FormRequest
     {
         return [
             'cc-number' => 'required|string', //this can contain spaces
-            'name' => 'required|string',
+            'name' => 'required|string|max:255',
             'expirationDate' => 'required|string', //this has the / separator in it
             'country' => 'required|string',
             'line1' => 'required|string',
