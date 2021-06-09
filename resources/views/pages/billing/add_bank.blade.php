@@ -91,6 +91,23 @@
                         {!! Form::text("zip",null,['id' => 'zip', 'class' => 'form-control', 'placeholder' => utrans("billing.zip")]) !!}
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-auto">
+                        <!-- Toggle -->
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox-toggle mt-1">
+                                {!! Form::checkbox("auto",1,false,['id' => 'auto', 'class' => 'custom-control-input']) !!}
+                                <label class="custom-control-label" for="auto"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mt-1">
+                        <small class="text-muted">
+                            {{utrans("billing.saveAsAutoPayMethod")}}
+                        </small>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
