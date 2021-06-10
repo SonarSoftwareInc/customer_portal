@@ -236,12 +236,12 @@
                      @foreach($transactions as $transaction)
                      <tr>
                         <td>
-                           @if(in_array($transaction['type'],['debit','discount'])) 
+                           @if(in_array($transaction['type'],['debit','discount']))
                            <span class="badge-lg pl-2">{{$transaction['description']}}</span>
                            @else
                            <span class="@if($transaction['type'] != "debit") badge-lg rounded p-2 badge-soft-success @else badge-lg @endif">
                            {{utrans("transaction_types." . $transaction['type'])}}
-                           </span>     
+                           </span>
                            @endif
                         </td>
                         <td>{{Formatter::date($transaction['date'],false)}}</td>
@@ -303,31 +303,27 @@
                         </TD>
                         <TD>{{$paymentMethod->expiration_month}}/{{$paymentMethod->expiration_year}}</TD>
                         <TD class="text-right">
-                           <div class="dropdown position-static">
-                              <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="window">
-                              <i class="fe fe-more-vertical"></i>
-                              </a>
-                              <div class="dropdown-menu dropdown-menu-right csp_style2" x-placement="top-end" x-out-of-boundaries="">
-                                 @if($paymentMethod->auto == 1)
-                                 {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'patch']) !!}
-                                 <button class="dropdown-item btn btn-sm btn-danger" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.disabling")}}'">
-                                 <i class="fe fe-minus-circle mr-2"></i> {{utrans("billing.disableAuto")}}
-                                 </button>
-                                 {!! Form::close() !!}
-                                 @else
-                                 {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'patch']) !!}
-                                 <button class="dropdown-item btn btn-sm btn-primary" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2&quot;></i> {{utrans("billing.enabling")}}'">
-                                 <i class="fe fe-check-circle mr-2"></i> {{utrans("billing.enableAuto")}}
-                                 </button>
-                                 {!! Form::close() !!}
-                                 @endif
-                                 {!! Form::open(['action' => ["BillingController@deletePaymentMethod",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'delete']) !!}
-                                 <button class="dropdown-item btn btn-sm btn-danger" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.deleting")}}'">
-                                 <i class="fe fe-x-circle mr-2"></i>
-                                 {{utrans("actions.delete")}}
-                                 </button>
-                                 {!! Form::close() !!}
-                              </div>
+                           @if($paymentMethod->auto == 1)
+                           {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'patch']) !!}
+                           <button class="btn btn-sm" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.disabling")}}'">
+                           <i class="fe fe-minus-circle mr-2"></i> {{utrans("billing.disableAuto")}}
+                           </button>
+                           {!! Form::close() !!}
+                           @else
+                           {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'patch']) !!}
+                           <button class="btn btn-sm " onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2&quot;></i> {{utrans("billing.enabling")}}'">
+                           <i class="fe fe-check-circle mr-2"></i> {{utrans("billing.enableAuto")}}
+                           </button>
+                           {!! Form::close() !!}
+                           @endif
+                        </TD>
+                        <TD class="text-right">
+                           {!! Form::open(['action' => ["BillingController@deletePaymentMethod",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'delete']) !!}
+                           <button class="btn btn-sm" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.deleting")}}'">
+                           <i class="fe fe-x-circle mr-2"></i>
+                           {{utrans("actions.delete")}}
+                           </button>
+                           {!! Form::close() !!}
                         </TD>
                         </div>
                      </TR>
@@ -371,32 +367,29 @@
                                   ****{{$paymentMethod->identifier}}@if($paymentMethod->auto == 1)<span class="badge badge-soft-success ml-3"><i class="fe fe-check-circle text-success mr-1"></i>{{utrans("headers.autopay")}}</span>@endif
                               </TD>
                               <TD class="text-right">
-                                 <div class="dropdown position-static">
-                                    <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="window">
-                                    <i class="fe fe-more-vertical"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right csp_style2" x-placement="top-end"  x-out-of-boundaries="">
-                                       @if($paymentMethod->auto == 1)
-                                       {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'patch']) !!}
-                                       <button class="dropdown-item btn btn-sm btn-danger" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.disabling")}}'">
-                                       <i class="fe fe-minus-circle mr-2"></i>
-                                       {{utrans("billing.disableAuto")}}
-                                       </button>
-                                       {!! Form::close() !!}
-                                       @else
-                                       {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'patch']) !!}
-                                       <button class="dropdown-item btn btn-primary btn-sm" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.enabling")}}'">
-                                       <i class="fe fe-check-circle mr-2"></i>
-                                       {{utrans("billing.enableAuto")}}
-                                       </button>
-                                       {!! Form::close() !!}
-                                       @endif
-                                       {!! Form::open(['action' => ["BillingController@deletePaymentMethod",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'delete']) !!}
-                                       <button class="dropdown-item btn btn-sm btn-danger" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.deleting")}}'">
-                                       <i class="fe fe-x-circle mr-2"></i>
-                                       {{utrans("actions.delete")}}
-                                       </button>
-                                       {!! Form::close() !!}
+                                 @if($paymentMethod->auto == 1)
+                                 {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'patch']) !!}
+                                 <button class="btn btn-sm onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.disabling")}}'">
+                                 <i class="fe fe-minus-circle mr-2"></i>
+                                 {{utrans("billing.disableAuto")}}
+                                 </button>
+                                 {!! Form::close() !!}
+                                 @else
+                                 {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'patch']) !!}
+                                 <button class="btn btn-sm" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.enabling")}}'">
+                                 <i class="fe fe-check-circle mr-2"></i>
+                                 {{utrans("billing.enableAuto")}}
+                                 </button>
+                                 {!! Form::close() !!}
+                                    @endif
+                              </TD>
+                              <TD class="text-right">
+                                 {!! Form::open(['action' => ["BillingController@deletePaymentMethod",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'delete']) !!}
+                                 <button class="btn btn-sm" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.deleting")}}'">
+                                 <i class="fe fe-x-circle mr-2"></i>
+                                 {{utrans("actions.delete")}}
+                                 </button>
+                                 {!! Form::close() !!}
                               </TD>
                            </TR>
                            @endif
