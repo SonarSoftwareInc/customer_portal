@@ -24,7 +24,7 @@ class CreateBankAccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
+            'name' => 'required|string|max:255',
             'account_number' => 'required|numeric',
             'routing_number' => 'required|numeric|digits:9',
             'account_type' => 'required|string|in:checking,savings',
@@ -33,7 +33,6 @@ class CreateBankAccountRequest extends FormRequest
             'city' => 'required|string',
             'state' => 'string',
             'zip' => 'required|string',
-
         ];
     }
 }
