@@ -421,13 +421,6 @@
                   </div>
                </div>
             </div>
-            <div class="row mt-1">
-               <div class="col-12">
-                   <p class="text-muted">
-                     <i>* This is required to use Stripe with Sonar version 2. Version 1 users may still use Stripe without enabling this.</i>
-                   </p>
-               </div>
-            </div>
       </div>
    </div>
 
