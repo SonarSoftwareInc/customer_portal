@@ -46,5 +46,5 @@ COPY deploy/services/php-fpm.sh /etc/service/php-fpm/run
 RUN mkdir /etc/service/nginx
 COPY deploy/services/nginx.sh /etc/service/nginx/run
 
-VOLUME ['/var/www/html/storage']
+VOLUME /var/www/html/storage
 EXPOSE 80 443
