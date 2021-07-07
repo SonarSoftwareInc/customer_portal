@@ -1,8 +1,12 @@
 @extends('layouts.full')
 @section('content')
+@if (isset($values["currentUsage"]["billable"]))
 <style nonce="{{ csp_nonce() }}">
-   #usage-progressbar { width: {{$values["currentUsage"]["billable"]}}% }
+   #usage-progressbar {
+     width:  {{$values["currentUsage"]["billable"]}}%
+   }
 </style>
+@endif
 <!-- HEADER -->
 <div class="header index-bg pb-5">
    <div class="container-fluid">
@@ -236,12 +240,12 @@
                      @foreach($transactions as $transaction)
                      <tr>
                         <td>
-                           @if(in_array($transaction['type'],['debit','discount'])) 
+                           @if(in_array($transaction['type'],['debit','discount']))
                            <span class="badge-lg pl-2">{{$transaction['description']}}</span>
                            @else
                            <span class="@if($transaction['type'] != "debit") badge-lg rounded p-2 badge-soft-success @else badge-lg @endif">
                            {{utrans("transaction_types." . $transaction['type'])}}
-                           </span>     
+                           </span>
                            @endif
                         </td>
                         <td>{{Formatter::date($transaction['date'],false)}}</td>

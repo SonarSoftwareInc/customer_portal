@@ -26,7 +26,7 @@ class DataUsageController extends Controller
     {
         $historicalUsage = $this->getHistoricalUsage();
         $policyDetails = $this->getPolicyDetails();
-        $currentUsage = $historicalUsage[0];
+        $currentUsage = $historicalUsage ? $historicalUsage[0] : [];
         $historicalUsage = json_encode($historicalUsage);
         $calculatedCap = $policyDetails->policy_cap_in_gigabytes + round($policyDetails->rollover_available_in_bytes/1000**3, 2) + round($policyDetails->purchased_top_off_total_in_bytes/1000**3, 2);
         if ($calculatedCap > 0) {
