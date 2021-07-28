@@ -22,6 +22,7 @@ return [
     'submitPayment' => 'Envoyer un paiement',
     'legalDisclaimer' => 'J\'autorise :business_name à envoyer des instructions à l\'institution financière qui a émis ma carte pour qu\'elle accepte les paiements de mon compte de carte conformément aux conditions de mon accord avec vous.',
     'saveAsAutoPayMethod' => 'Débiter cette carte automatiquement pour toutes les factures à venir',
+    'saveAsAutoPayMethodAccount' => 'Débiter ce compte bancaire automatiquement pour toutes les factures à venir.',
     'autoPayDescription' => 'En cochant cette case, vous acceptez que cette carte soit utilisée  automatiquement pour toutes les factures à venir. Vous pouvez annuler cette action en tout temps.',
     'amountToPay' => 'Montant à payer',
     'paymentWasSuccessful' => 'Paiment traité avec succès. Imprimer cette page pour vos dossiers.',
