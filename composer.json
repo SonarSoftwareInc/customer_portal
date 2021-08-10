@@ -1,6 +1,6 @@
 {
-    "name": "sonarsoftwareinc/customer_portal",
-    "description": "Sonar Customer Portal",
+    "name": "laravel/laravel",
+    "description": "The Laravel Framework.",
     "keywords": [
         "framework",
         "laravel"
@@ -21,14 +21,10 @@
         "fideloper/proxy": "~3.0",
         "doctrine/dbal": "^2.10",
         "stripe/stripe-php": "^7",
-        "sonarsoftwareinc/customer_portal_framework": "dev-ab5701",
+        "sonarsoftwareinc/customer_portal_framework": ">=1.0.20",
         "spatie/laravel-csp": "^2.1.2"
     },
     "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/SonarSoftwareInc/customer_portal_framework"
-        },
         {
             "type": "vcs",
             "url": "https://github.com/reganjohnson/laravel-jsvalidation"
