@@ -34,7 +34,7 @@ class CreditCardPaymentRequest extends FormRequest
             'line1' => 'required_if:payment_method,new_card',
             'city' => 'required_if:payment_method,new_card',
             'state' => 'required_if:payment_method,new_card',
-            'zip' => 'required_if:payment_method,new_card',
+            'zip' => 'exclude_if:country,GB|required_if:payment_method,new_card',
             'cvc' => 'required_if:payment_method,new_card',
         ];
     }
