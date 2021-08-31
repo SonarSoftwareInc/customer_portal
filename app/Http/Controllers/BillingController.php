@@ -481,7 +481,7 @@ class BillingController extends Controller
                 $creditCard,
                 $request->input('amount'),
                 (boolean)$request->input('makeAuto'),
-                $request->input('payment_tracker_id')
+                $request->input('payment_tracker_id'),
             );
         } catch (Exception $e) {
             throw new InvalidArgumentException(utrans("billing.errorSubmittingPayment"));
