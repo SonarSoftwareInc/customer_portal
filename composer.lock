@@ -2616,67 +2616,67 @@
             "time": "2020-02-21T04:36:14+00:00"
         },
         {
-            "name": "sonarsoftwareinc/customer_portal_framework",
-            "version": "1.0.20",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SonarSoftwareInc/customer_portal_framework.git",
-                "reference": "639893e778a194bb8e82d351b89c1e76086ee3a1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SonarSoftwareInc/customer_portal_framework/zipball/639893e778a194bb8e82d351b89c1e76086ee3a1",
-                "reference": "639893e778a194bb8e82d351b89c1e76086ee3a1",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "6.*",
-                "inacho/php-credit-card-validator": "^1.0",
-                "nesbot/carbon": "1.*",
-                "php": "^5.5 || ^7.0",
-                "vlucas/phpdotenv": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "SonarSoftware\\CustomerPortalFramework\\": "src"
-                },
-                "files": [
-                    "src/Helpers/functions.php"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Simon Westlake",
-                    "email": "simon@sonar.software",
-                    "homepage": "https://sonar.software",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Devin Johnson",
-                    "email": "devin@sonar.software",
-                    "homepage": "https://sonar.software",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A framework to build a customer portal for Sonar.",
-            "homepage": "https://sonar.software",
-            "keywords": [
-                "sonar",
-                "sonar api",
-                "sonar customer portal",
-                "sonar software",
-                "sonar software api"
-            ],
-            "support": {
-                "email": "support@sonar.software",
-                "forum": "https://sonar.community",
-                "source": "https://github.com/SonarSoftwareInc/customer_portal_framework/tree/1.0.20"
-            },
-            "time": "2020-12-23T00:32:46+00:00"
+	            "name": "sonarsoftwareinc/customer_portal_framework",
+	            "version": "10.0.22",
+	            "source": {
+	                "type": "git",
+	                "url": "https://github.com/SonarSoftwareInc/customer_portal_framework.git",
+	                "reference": "4dae207e65d950962f5772005fb594b206e75bdf"
+	            },
+	            "dist": {
+	                "type": "zip",
+	                "url": "https://api.github.com/repos/SonarSoftwareInc/customer_portal_framework/zipball/4dae207e65d950962f5772005fb594b206e75bdf",
+	                "reference": "4dae207e65d950962f5772005fb594b206e75bdf",
+	                "shasum": ""
+	            },
+	            "require": {
+	                "guzzlehttp/guzzle": "6.*",
+	                "inacho/php-credit-card-validator": "^1.0",
+	                "nesbot/carbon": "1.*",
+	                "php": "^5.5 || ^7.0",
+	                "vlucas/phpdotenv": "*"
+	            },
+	            "type": "library",
+	            "autoload": {
+	                "psr-4": {
+	                    "SonarSoftware\\CustomerPortalFramework\\": "src"
+	                },
+	                "files": [
+	                    "src/Helpers/functions.php"
+	                ]
+	            },
+	            "license": [
+	                "MIT"
+	            ],
+	            "authors": [
+	                {
+	                    "name": "Simon Westlake",
+	                    "email": "simon@sonar.software",
+	                    "homepage": "https://sonar.software",
+	                    "role": "Developer"
+	                },
+	                {
+	                    "name": "Devin Johnson",
+	                    "email": "devin@sonar.software",
+	                    "homepage": "https://sonar.software",
+	                    "role": "Developer"
+	                }
+	            ],
+	            "description": "A framework to build a customer portal for Sonar.",
+	            "homepage": "https://sonar.software",
+	            "keywords": [
+	                "sonar",
+	                "sonar api",
+	                "sonar customer portal",
+	                "sonar software",
+	                "sonar software api"
+	            ],
+	            "support": {
+	                "email": "support@sonar.software",
+	                "forum": "https://sonar.community",
+	                "source": "https://github.com/SonarSoftwareInc/customer_portal_framework/tree/10.0.22"
+	            },
+	            "time": "2021-08-31T14:54:08+00:00"
         },
         {
             "name": "spatie/laravel-csp",
