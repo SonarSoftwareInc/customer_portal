@@ -1,6 +1,6 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "name": "sonarsoftwareinc/customer_portal",
+    "description": "Sonar Customer Portal",
     "keywords": [
         "framework",
         "laravel"
