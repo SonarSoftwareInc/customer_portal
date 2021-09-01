@@ -21,7 +21,7 @@
         "fideloper/proxy": "~3.0",
         "doctrine/dbal": "^2.10",
         "stripe/stripe-php": "^7",
-        "sonarsoftwareinc/customer_portal_framework": "^1.0.22",
+        "sonarsoftwareinc/customer_portal_framework": "^1.0.23",
         "spatie/laravel-csp": "^2.1.2"
     },
     "repositories": [

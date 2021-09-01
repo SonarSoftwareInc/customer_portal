@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "14530b0128a0b491351b23bebe4b5b8b",
+    "content-hash": "ce22eee0d4fa903160d14e4e7aeb9ef8",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2617,16 +2617,16 @@
         },
         {
             "name": "sonarsoftwareinc/customer_portal_framework",
-            "version": "1.0.22",
+            "version": "1.0.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SonarSoftwareInc/customer_portal_framework.git",
-                "reference": "4dae207e65d950962f5772005fb594b206e75bdf"
+                "reference": "d7fb1d1f06ba8b45ede6f97d3143032f881bfd7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SonarSoftwareInc/customer_portal_framework/zipball/4dae207e65d950962f5772005fb594b206e75bdf",
-                "reference": "4dae207e65d950962f5772005fb594b206e75bdf",
+                "url": "https://api.github.com/repos/SonarSoftwareInc/customer_portal_framework/zipball/d7fb1d1f06ba8b45ede6f97d3143032f881bfd7e",
+                "reference": "d7fb1d1f06ba8b45ede6f97d3143032f881bfd7e",
                 "shasum": ""
             },
             "require": {
@@ -2674,9 +2674,9 @@
             "support": {
                 "email": "support@sonar.software",
                 "forum": "https://sonar.community",
-                "source": "https://github.com/SonarSoftwareInc/customer_portal_framework/tree/10.0.22"
+                "source": "https://github.com/SonarSoftwareInc/customer_portal_framework/tree/1.0.23"
             },
-            "time": "2021-08-31T14:54:08+00:00"
+            "time": "2021-09-01T14:19:14+00:00"
         },
         {
             "name": "spatie/laravel-csp",
