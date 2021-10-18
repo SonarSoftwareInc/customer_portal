@@ -416,7 +416,7 @@ class BillingController extends Controller
     {
 
         try {
-            $result = $this->accountBillingController->makePaymentUsingExistingPaymentMethod(get_user()->account_id, intval($request->input('payment_method')), trim($request->input('amount')));
+            $result = $this->accountBillingController->makePaymentUsingExistingPaymentMethod(get_user()->account_id, intval($request->input('payment_method')), trim($request->input('amount')), $request->input('payment_tracker_id'));
         } catch (Exception $e) {
             Log::error($e->getMessage());
             throw new Exception(utrans("billing.paymentFailedTryAnother"));
@@ -446,7 +446,7 @@ class BillingController extends Controller
         $creditCard = $this->createCreditCardObjectFromRequest($request);
 
         try {
-            $result = $this->accountBillingController->makeCreditCardPayment(get_user()->account_id, $creditCard, $request->input('amount'), (boolean)$request->input('makeAuto'));
+            $result = $this->accountBillingController->makeCreditCardPayment(get_user()->account_id, $creditCard, $request->input('amount'), (boolean)$request->input('makeAuto'), $request->input('payment_tracker_id'));
         } catch (Exception $e) {
             throw new InvalidArgumentException(utrans("billing.errorSubmittingPayment"));
         }
@@ -480,7 +480,8 @@ class BillingController extends Controller
                 get_user()->account_id,
                 $creditCard,
                 $request->input('amount'),
-                (boolean)$request->input('makeAuto')
+                (boolean)$request->input('makeAuto'),
+                $request->input('payment_tracker_id')
             );
         } catch (Exception $e) {
             throw new InvalidArgumentException(utrans("billing.errorSubmittingPayment"));
@@ -859,5 +860,4 @@ class BillingController extends Controller
     {
         return str_replace('https://', '', str_replace('http://', '', $url));
     }
-
 }

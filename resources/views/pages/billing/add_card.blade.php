@@ -113,6 +113,7 @@
 </div>
 <div class="row">
    <div class="col-12 col-md-12">
+       <input type="hidden" name="payment_tracker_id" value="{{uniqid("", true)}}" />
       <button type="submit" class="btn btn-primary">{{utrans("billing.addNewCard")}}</button>
       {!! Form::close() !!}
    </div>
