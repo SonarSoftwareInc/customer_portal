@@ -53,7 +53,7 @@ The Sonar version 2 instructions have been moved to the [Sonar Knowledge Base](h
 
 The API username and API password you are prompted for are credentials for your Sonar instance. You should create a dedicated user to utilize for the customer portal - **do not use your admin username/password!** Create the user as instructed above and assign to this "Customer Portal" role.
 
-** Please be aware that at this time, you cannot use a `^` or `\` character in the API password. This is a known issue that may be addressed in the future.
+**Please be aware that at this time, you cannot use a `^` or `\` character in the API password. This is a known issue that may be addressed in the future.**
 
 ## Post-Installation Setup
 
