@@ -91,15 +91,15 @@ class AuthenticationController extends Controller
      */
     public function lookupEmail(LookupEmailRequest $request)
     {
-        if ($this->getThrottleValue("email_lookup", md5($request->getClientIp())) > 10) {
+        if ($this->getThrottleValue("email_lookup", hash('sha256', $request->getClientIp())) > 10) {
             return redirect()->back()->withErrors(utrans("errors.tooManyFailedLookupAttempts",[],$request));
         }
-        
+
         $accountAuthenticationController = new AccountAuthenticationController();
         try {
             $result = $accountAuthenticationController->lookupEmail($request->input('email'));
         } catch (Exception $e) {
-            $this->incrementThrottleValue("email_lookup", md5($request->getClientIp()));
+            $this->incrementThrottleValue("email_lookup", hash('sha256', $request->getClientIp()));
             Log::info($e->getMessage());
             return redirect()->back()->withErrors(utrans("errors.emailLookupFailed",[],$request));
         }
@@ -142,7 +142,7 @@ class AuthenticationController extends Controller
             return redirect()->back()->withErrors(utrans("errors.emailSendFailed",[],$request));
         }
 
-        $this->resetThrottleValue("email_lookup", md5($request->getClientIp()));
+        $this->resetThrottleValue("email_lookup", hash('sha256', $request->getClientIp()));
         return redirect()->action("AuthenticationController@index")->with('success', utrans("root.emailFound",[],$request));
     }
 
@@ -171,7 +171,7 @@ class AuthenticationController extends Controller
      */
     public function createAccount(AccountCreationRequest $request, $token)
     {
-        if ($this->getThrottleValue("create_account", md5($token . $request->getClientIp())) > 10) {
+        if ($this->getThrottleValue("create_account", hash('sha256', $token . $request->getClientIp())) > 10) {
             return redirect()->back()->withErrors(utrans("errors.tooManyFailedCreationAttempts",[],$request));
         }
 
@@ -179,15 +179,15 @@ class AuthenticationController extends Controller
             ->where('updated_at', '>=', Carbon::now("UTC")->subHours(24)->toDateTimeString())
             ->first();
         if ($creationToken === null) {
-            $this->incrementThrottleValue("email_lookup", md5($token . $request->getClientIp()));
+            $this->incrementThrottleValue("email_lookup", hash('sha256', $token . $request->getClientIp()));
             return redirect()->action("AuthenticationController@showRegistrationForm")->withErrors(utrans("errors.invalidToken",[],$request));
         }
-        
+
         if (strtolower(trim($creationToken->email)) != strtolower(trim($request->input('email')))) {
-            $this->incrementThrottleValue("email_lookup", md5($token . $request->getClientIp()));
+            $this->incrementThrottleValue("email_lookup", hash('sha256', $token . $request->getClientIp()));
             return redirect()->back()->withErrors(utrans("errors.invalidEmailAddress",[],$request))->withInput();
         }
-        
+
         $accountAuthenticationController = new AccountAuthenticationController();
         try {
             $accountAuthenticationController->createUser($creationToken->account_id, $creationToken->contact_id, $request->input('username'), $request->input('password'));
@@ -197,7 +197,7 @@ class AuthenticationController extends Controller
 
         $creationToken->delete();
 
-        $this->resetThrottleValue("email_lookup", md5($token . $request->getClientIp()));
+        $this->resetThrottleValue("email_lookup", hash('sha256',$token . $request->getClientIp()));
         return redirect()->action("AuthenticationController@index")->with('success', utrans("register.accountCreated",[],$request));
     }
 
@@ -217,7 +217,7 @@ class AuthenticationController extends Controller
      */
     public function sendResetEmail(SendPasswordResetRequest $request)
     {
-        if ($this->getThrottleValue("password_reset", md5($request->getClientIp())) > 5) {
+        if ($this->getThrottleValue("password_reset", hash('sha256', $request->getClientIp())) > 5) {
             return redirect()->back()->withErrors(utrans("errors.tooManyPasswordResetRequests",[],$request));
         }
 
@@ -225,7 +225,7 @@ class AuthenticationController extends Controller
         try {
             $result = $accountAuthenticationController->lookupEmail($request->input('email'), false);
         } catch (Exception $e) {
-            $this->incrementThrottleValue("password_reset", md5($request->getClientIp()));
+            $this->incrementThrottleValue("password_reset", hash('sha256', $request->getClientIp()));
             return redirect()->back()->withErrors(utrans("errors.resetLookupFailed",[],$request));
         }
 
@@ -298,7 +298,7 @@ class AuthenticationController extends Controller
      */
     public function updateContactWithNewPassword(PasswordUpdateRequest $request, $token)
     {
-        if ($this->getThrottleValue("password_update", md5($request->getClientIp())) > 5) {
+        if ($this->getThrottleValue("password_update", hash('sha256', $request->getClientIp())) > 5) {
             return redirect()->back()->withErrors(utrans("errors.tooManyFailedPasswordResets",[],$request));
         }
 
@@ -306,15 +306,15 @@ class AuthenticationController extends Controller
             ->where('updated_at', '>=', Carbon::now("UTC")->subHours(24)->toDateTimeString())
             ->first();
         if ($passwordReset === null) {
-            $this->incrementThrottleValue("password_update", md5($token . $request->getClientIp()));
+            $this->incrementThrottleValue("password_update", hash('sha256', $token . $request->getClientIp()));
             return redirect()->action("AuthenticationController@showResetPasswordForm")->withErrors(utrans("errors.invalidToken",[],$request));
         }
 
         if ($passwordReset->email != $request->input('email')) {
-            $this->incrementThrottleValue("password_update", md5($token . $request->getClientIp()));
+            $this->incrementThrottleValue("password_update", hash('sha256', $token . $request->getClientIp()));
             return redirect()->back()->withErrors(utrans("errors.invalidEmailAddress",[],$request));
         }
-        
+
         $contactController = new ContactController();
         try {
             $contact = $contactController->getContact($passwordReset->contact_id, $passwordReset->account_id);
@@ -329,10 +329,10 @@ class AuthenticationController extends Controller
 
         $passwordReset->delete();
 
-        $this->resetThrottleValue("password_update", md5($token . $request->getClientIp()));
+        $this->resetThrottleValue("password_update", hash('sha256', $token . $request->getClientIp()));
         return redirect()->action("AuthenticationController@index")->with('success', utrans("register.passwordReset",[],$request));
     }
-    
+
     /**
      * Log out the current session
      * @param Request $request
@@ -357,6 +357,6 @@ class AuthenticationController extends Controller
      */
     private function generateLoginThrottleHash(AuthenticationRequest $request)
     {
-        return md5($request->input('username') . "_" . $request->getClientIp());
+        return hash('sha256', $request->input('username') . "_" . $request->getClientIp());
     }
 }
