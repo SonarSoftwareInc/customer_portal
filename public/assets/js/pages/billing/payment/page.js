@@ -85,7 +85,7 @@ $(document).ready(function(){
                 break;
             }
         }
-        $("#submit").prop('disabled', allClear);
+        $("#submit_payment").prop('disabled', allClear);
     });
 
 });

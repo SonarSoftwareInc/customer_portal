@@ -15,6 +15,8 @@ $(document).ready(function(){
 
     //Payment Submit form
     $('#paymentForm').submit(async function(event) {
+        $('#submit_payment').prop('disabled', 'disabled')
+
         //Only do stripe tings if its a new card
         if (paymentMethod.value !== 'new_card') {
             return true;
