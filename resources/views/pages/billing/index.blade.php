@@ -309,13 +309,13 @@
                         <TD>{{$paymentMethod->expiration_month}}/{{$paymentMethod->expiration_year}}</TD>
                         <TD class="text-right">
                            @if($paymentMethod->auto == 1)
-                           {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'patch']) !!}
+                           {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'enablePaymentMethodForm', 'method' => 'patch']) !!}
                            <button class="btn btn-sm" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.disabling")}}'">
                            <i class="fe fe-minus-circle mr-2"></i> {{utrans("billing.disableAuto")}}
                            </button>
                            {!! Form::close() !!}
                            @else
-                           {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'patch']) !!}
+                           {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'enablePaymentMethodForm', 'method' => 'patch']) !!}
                            <button class="btn btn-sm " onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2&quot;></i> {{utrans("billing.enabling")}}'">
                            <i class="fe fe-check-circle mr-2"></i> {{utrans("billing.enableAuto")}}
                            </button>
@@ -343,25 +343,25 @@
             @if(config("customer_portal.enable_bank_payments") == 1 || config("customer_portal.enable_gocardless") == 1)
             <div class="col-12 col-md-12 col-xl-12">
                <div class="card">
-                     <div class="card-header">
-                        <h4 class="card-header-title text-muted"><i class="fe fe-dollar-sign mr-3"></i> {{utrans("headers.bankAccounts")}}</h4>
-                        <p class="text-right mt-3">
-                           <a class="btn btn-secondary btn-sm" href="{{action("BillingController@createPaymentMethod",['type' => 'bank'])}}" role="button">
-                              <i class="fe fe-plus"></i> {{utrans("billing.addNewBankAccount")}}</a>
-                        </p>
-                     </div>
+                  <div class="card-header">
+                     <h4 class="card-header-title text-muted"><i class="fe fe-dollar-sign mr-3"></i> {{utrans("headers.bankAccounts")}}</h4>
+                     <p class="text-right mt-3">
+                        <a class="btn btn-secondary btn-sm" href="{{action("BillingController@createPaymentMethod",['type' => 'bank'])}}" role="button">
+                           <i class="fe fe-plus"></i> {{utrans("billing.addNewBankAccount")}}</a>
+                     </p>
+                  </div>
                   <div class="table-responsive">
                      <table class="table table-sm card-table">
                         <thead>
                            <tr>
                               <th>{{utrans("billing.accountNumber")}}</th>
-                              <th></th>
+                              <th colspan="2"></th>
                            </tr>
                         </thead>
                         <tbody>
                            @if(count($paymentMethods) === 0)
                               <TR>
-                                 <TD colspan="2">{{utrans("billing.noBankAccounts")}}</TD>
+                                 <TD colspan="3">{{utrans("billing.noBankAccounts")}}</TD>
                               </TR>
                            @else
                            @foreach($paymentMethods as $paymentMethod)
@@ -385,7 +385,7 @@
                                  {{utrans("billing.enableAuto")}}
                                  </button>
                                  {!! Form::close() !!}
-                                    @endif
+                                 @endif
                               </TD>
                               <TD class="text-right">
                                  {!! Form::open(['action' => ["BillingController@deletePaymentMethod",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'delete']) !!}
@@ -401,59 +401,58 @@
                            @endif
                         </tbody>
                      </table>
-                     </div>
-                     </div>
                   </div>
-                  @endif
                </div>
             </div>
-            <div class="col-12 col-md-12 col-xl-6">
-               <div class="card">
-                  <div class="card-header">
-                     <h4 class="card-header-title text-muted">
-                        <i class="fe fe-inbox mr-3"></i>{{utrans("headers.invoices")}}
-                     </h4>
-                  </div>
-                  <div class="table-responsive">
-                     <table class="table table-sm card-table">
-                        <thead>
-                           <tr>
-                              <th>{{utrans("general.date")}}</th>
-                              <th>{{utrans("billing.invoiceNumber")}}</th>
-                              <th>{{utrans("billing.remainingDue")}}</th>
-                              <th>{{utrans("billing.dueDate")}}</th>
-                              <th>{{utrans("billing.viewInvoice")}}</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           @if(count($invoices) == 0)
-                           <TR>
-                              <TD colspan="4">{{utrans("billing.noInvoicesFound")}}</TD>
-                           </TR>
-                           @else
-                           @foreach($invoices as $invoice)
-                           <TR>
-                              <TD>{{Formatter::date($invoice->date,false)}}</TD>
-                              <TD>{{$invoice->id}}</TD>
-                              <TD>{{Formatter::currency(bcadd($invoice->remaining_due, $invoice->child_remaining_due,2))}}</TD>
-                              <TD>{{Formatter::date($invoice->due_date,false)}}</TD>
-                              <TD>
-                                 <a class="btn btn-sm" href="{{action("BillingController@getInvoicePdf",['invoices' => $invoice->id])}}" role="button">
-                                 <i class="fe fe-file-text mr-1"></i>
-                                 {{utrans("billing.downloadInvoice")}}
-                                 </a>
-                              </TD>
-                           </TR>
-                           @endforeach
-                           @endif
-                        </tbody>
-                     </table>
-                      {{ $invoices->links() }}
-                  </div>
-               </div>
+            @endif
+         </div>
+      </div>
+      <div class="col-12 col-md-12 col-xl-6">
+         <div class="card">
+            <div class="card-header">
+               <h4 class="card-header-title text-muted">
+                  <i class="fe fe-inbox mr-3"></i>{{utrans("headers.invoices")}}
+               </h4>
+            </div>
+            <div class="table-responsive">
+               <table class="table table-sm card-table">
+                  <thead>
+                     <tr>
+                        <th>{{utrans("general.date")}}</th>
+                        <th>{{utrans("billing.invoiceNumber")}}</th>
+                        <th>{{utrans("billing.remainingDue")}}</th>
+                        <th>{{utrans("billing.dueDate")}}</th>
+                        <th>{{utrans("billing.viewInvoice")}}</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     @if(count($invoices) == 0)
+                     <TR>
+                        <TD colspan="5">{{utrans("billing.noInvoicesFound")}}</TD>
+                     </TR>
+                     @else
+                     @foreach($invoices as $invoice)
+                     <TR>
+                        <TD>{{Formatter::date($invoice->date,false)}}</TD>
+                        <TD>{{$invoice->id}}</TD>
+                        <TD>{{Formatter::currency(bcadd($invoice->remaining_due, $invoice->child_remaining_due,2))}}</TD>
+                        <TD>{{Formatter::date($invoice->due_date,false)}}</TD>
+                        <TD>
+                           <a class="btn btn-sm" href="{{action("BillingController@getInvoicePdf",['invoices' => $invoice->id])}}" role="button">
+                           <i class="fe fe-file-text mr-1"></i>
+                           {{utrans("billing.downloadInvoice")}}
+                           </a>
+                        </TD>
+                     </TR>
+                     @endforeach
+                     @endif
+                  </tbody>
+               </table>
+                {{ $invoices->links() }}
             </div>
          </div>
       </div>
    </div>
 </div>
+</div><!-- #main-content -->
 @endsection
