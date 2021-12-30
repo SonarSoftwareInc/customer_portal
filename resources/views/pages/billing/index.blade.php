@@ -261,7 +261,8 @@
                      @endforeach
                      @endif
                      @endforeach
-                     @endif
+                  </tbody>
+                  @endif
                </table>
                 {{ $transactions->links() }}
             </div>
@@ -288,13 +289,13 @@
                      <tr>
                         <th>{{utrans("billing.last4")}}</th>
                         <th>{{utrans("billing.expiration")}}</th>
-                        <th></th>
+                        <th colspan="2"></th>
                      </tr>
                   </thead>
                   <tbody>
                      @if(count($paymentMethods) === 0)
                      <TR>
-                        <TD colspan="3">{{utrans("billing.noCreditCardsOnFile")}}</TD>
+                        <TD colspan="4">{{utrans("billing.noCreditCardsOnFile")}}</TD>
                      </TR>
                      @else
                      @foreach($paymentMethods as $paymentMethod)
@@ -329,7 +330,6 @@
                            </button>
                            {!! Form::close() !!}
                         </TD>
-                        </div>
                      </TR>
                      @endif
                      @endforeach
