@@ -341,10 +341,7 @@
                         }
 
                         var buttons = document.getElementById('credit_cards_table').getElementsByClassName('btn-disable-with-msg-on-click');
-                        for (var idx in buttons) {
-                           if (! buttons.hasOwnProperty(idx)) {
-                              continue;
-                           }
+                        for (var idx = 0; idx < buttons.length; idx++) {
                            buttons[idx].addEventListener('click', function(){ disableWithMessage(this); });
                         }
 
