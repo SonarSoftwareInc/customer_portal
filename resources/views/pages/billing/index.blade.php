@@ -336,7 +336,7 @@
                      <script nonce="{{ csp_nonce() }}">
 
                         function disableWithMessage(button) {
-                           button.innerHTML = '<i class="fe fe-loader mt-2 mr-2"></i> ' + button.getAttribute('data-message');
+                           button.innerHTML = '<i class="fe fe-loader mt-2 mr-2">' + button.getAttribute('data-message') + '</i>';
                            button.disabled = true;
                         }
 
