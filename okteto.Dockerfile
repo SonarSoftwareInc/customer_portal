@@ -1,6 +1,6 @@
 FROM sonarsoftware/customerportal:latest
 
-COPY --chown=www-data --from=composer:1.8.4 /usr/bin/composer /usr/local/bin/composer
+COPY --chown=www-data --from=composer:2.2.12 /usr/bin/composer /usr/local/bin/composer
 
 RUN install_clean \
       php7.3-dom \

@@ -19,7 +19,7 @@ RUN add-apt-repository ppa:ondrej/php \
 
 WORKDIR /var/www/html
 
-COPY --chown=www-data --from=composer:1.8.4 /usr/bin/composer /tmp/composer
+COPY --chown=www-data --from=composer:2.2.12 /usr/bin/composer /tmp/composer
 COPY composer.json composer.lock ./
 RUN mkdir -p vendor \
  && chown www-data:www-data vendor \
