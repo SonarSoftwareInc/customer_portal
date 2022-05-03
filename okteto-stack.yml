@@ -15,9 +15,9 @@ services:
       - API_PASSWORD=sonar
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - NGINX_HOST=customer-portal-${OKTETO_NAMESPACE}.sonar.church
-      - SONAR_URL=http://web-${OKTETO_NAMESPACE}.sonar.church:8080
-      - OKTETO_SONAR_HOST=web-${OKTETO_NAMESPACE}.sonar.church
+      - NGINX_HOST=customer-portal-${OKTETO_NAMESPACE}.sonar.rocks
+      - SONAR_URL=http://web-${OKTETO_NAMESPACE}.sonar.rocks:8080
+      - OKTETO_SONAR_HOST=web-${OKTETO_NAMESPACE}.sonar.rocks
     annotations:
       dev.okteto.com/auto-ingress: "private"
       dev.okteto.com/generate-host: "true"
