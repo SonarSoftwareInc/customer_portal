@@ -21,7 +21,7 @@
         "fideloper/proxy": "~3.0",
         "doctrine/dbal": "^2.10",
         "stripe/stripe-php": "^7",
-        "sonarsoftwareinc/customer_portal_framework": "^1.0.24",
+        "sonarsoftwareinc/customer_portal_framework": "^1.0.25",
         "spatie/laravel-csp": "^2.1.2"
     },
     "repositories": [
@@ -75,7 +75,10 @@
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true
+        }
     },
     "prefer-stable": true,
     "minimum-stability": "dev"
