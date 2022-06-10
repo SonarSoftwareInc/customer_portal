@@ -87,7 +87,16 @@ class BillingController extends Controller
     public function getInvoicePdf($invoiceID)
     {
         try {
-            $data = $this->accountBillingController->getInvoicePdf(get_user()->account_id, $invoiceID);
+            $invoices = $this->accountBillingController->getInvoices(get_user()->account_id);
+            foreach ($invoices as $invoice) {
+                if ($invoice->id === $invoiceID) {
+                    $data = $this->accountBillingController->getInvoicePdf(get_user()->account_id, $invoiceID);
+                    break;
+                }
+            }
+            if (data == null) {
+                throw new Exception("A supreme hacker has been thwarted.");
+            }
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return redirect()->back()->withErrors(utrans("errors.failedToDownloadInvoice"));
