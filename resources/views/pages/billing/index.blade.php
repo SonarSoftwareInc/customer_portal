@@ -310,13 +310,13 @@
                         <TD class="text-right">
                            @if($paymentMethod->auto == 1)
                            {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'enablePaymentMethodForm', 'method' => 'patch']) !!}
-                           <button class="btn btn-sm btn-disable-with-msg-on-click" type="submit" data-message="{{utrans("billing.disabling")}}">
+                           <button class="btn btn-sm btn-disable-with-msg-on-click" data-message="{{utrans("billing.disabling")}}">
                            <i class="fe fe-minus-circle mr-2"></i> {{utrans("billing.disableAuto")}}
                            </button>
                            {!! Form::close() !!}
                            @else
                            {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'enablePaymentMethodForm', 'method' => 'patch']) !!}
-                           <button class="btn btn-sm btn-disable-with-msg-on-click" type="submit" data-message="{{utrans("billing.enabling")}}">
+                           <button class="btn btn-sm btn-disable-with-msg-on-click" data-message="{{utrans("billing.enabling")}}">
                            <i class="fe fe-check-circle mr-2"></i> {{utrans("billing.enableAuto")}}
                            </button>
                            {!! Form::close() !!}
@@ -324,7 +324,7 @@
                         </TD>
                         <TD class="text-right">
                            {!! Form::open(['action' => ["BillingController@deletePaymentMethod",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'delete']) !!}
-                           <button class="btn btn-sm btn-disable-with-msg-on-click" type="submit" data-message="{{utrans("billing.deleting")}}'">
+                           <button class="btn btn-sm btn-disable-with-msg-on-click" data-message="{{utrans("billing.deleting")}}'">
                            <i class="fe fe-x-circle mr-2"></i>
                            {{utrans("actions.delete")}}
                            </button>
@@ -333,19 +333,6 @@
                      </TR>
                      @endif
                      @endforeach
-                     <script nonce="{{ csp_nonce() }}">
-
-                        function disableWithMessage(button) {
-                           button.innerHTML = '<i class="fe fe-loader mt-2 mr-2">' + button.getAttribute('data-message') + '</i>';
-                           button.disabled = true;
-                        }
-
-                        var buttons = document.getElementById('credit_cards_table').getElementsByClassName('btn-disable-with-msg-on-click');
-                        for (var idx = 0; idx < buttons.length; idx++) {
-                           buttons[idx].addEventListener('click', function(){ disableWithMessage(this); });
-                        }
-
-                     </script>
                      @endif
                   </tbody>
                </table>
