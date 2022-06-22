@@ -284,7 +284,7 @@
                </p>
             </div>
             <div class="table-responsive">
-               <table class="table table-sm card-table" id="credit_cards_table">
+               <table class="table table-sm card-table">
                   <thead>
                      <tr>
                         <th>{{utrans("billing.last4")}}</th>
