@@ -324,7 +324,7 @@
                         </TD>
                         <TD class="text-right">
                            {!! Form::open(['action' => ["BillingController@deletePaymentMethod",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'delete']) !!}
-                           <button class="btn btn-sm btn-disable-with-msg-on-click" data-message="{{utrans("billing.deleting")}}'">
+                           <button class="btn btn-sm btn-disable-with-msg-on-click" data-message="{{utrans("billing.deleting")}}">
                            <i class="fe fe-x-circle mr-2"></i>
                            {{utrans("actions.delete")}}
                            </button>
