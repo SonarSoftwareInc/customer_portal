@@ -34,4 +34,16 @@ close=document.getElementById("close");close.addEventListener('click',function()
        return _portal.currencySymbol + s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
    };
 </script>
+<script nonce="{{ csp_nonce() }}">
+    $(document).ready(function() {
+        $('.btn-disable-with-msg-on-click').each(function(idx, button) {
+            $(button).on('click', function() {
+                $(this.form).submit();
+                var $button = $(this);
+                $button.html('<i class="fe fe-loader mt-2 mr-2"> ' + $button.data('message') + '</i>');
+                $button.prop('disabled', true);
+            });
+        });
+    });
+</script>
 @yield('additionalJS')
