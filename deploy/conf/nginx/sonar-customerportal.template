@@ -4,6 +4,9 @@ server {
 
     server_name ${NGINX_HOST};
     server_tokens off;
+
+    add_header X-Content-Type-Options nosniff;
+
     location / {
         return 301 https://$host$request_uri;
     }
@@ -15,7 +18,7 @@ server {
 
 server {
     listen 443 ssl;
-    listen [::]:443 ssl; 
+    listen [::]:443 ssl;
 
     server_name ${NGINX_HOST};
     server_tokens off;
@@ -27,6 +30,8 @@ server {
 
     root /var/www/html/public;
     index index.php;
+
+    add_header X-Content-Type-Options nosniff;
 
     location / {
         try_files $uri $uri/ /index.php?q=$uri&$args;
