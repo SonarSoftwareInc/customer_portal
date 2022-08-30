@@ -21,7 +21,7 @@ if ! [ -x "$(command -v docker)" ]; then
        $(lsb_release -cs) \
        stable"
     apt-get update
-    apt-get install -y docker-ce docker-ce-cli containerd.io=1.4.4-1
+    apt-get install -y docker-ce docker-ce-cli
 fi
 
 if ! [ -x "$(command -v docker-compose)" ]; then
