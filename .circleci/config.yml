@@ -10,7 +10,7 @@ references:
 jobs:
   build:
     docker:
-      - image: circleci/buildpack-deps:18.04-scm
+      - image: cimg/base:current-22.04
 
     working_directory: *workspace_root
 
@@ -55,7 +55,7 @@ jobs:
 
   deploy_to_production:
     docker:
-      - image: circleci/buildpack-deps:18.10-scm
+      - image: cimg/base:current-22.04
 
     working_directory: *workspace_root
 
