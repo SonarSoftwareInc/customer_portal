@@ -10,7 +10,7 @@ references:
 jobs:
   build:
     docker:
-      - image: circleci/buildpack-deps:18.10-scm
+      - image: circleci/buildpack-deps:18.04-scm
 
     working_directory: *workspace_root
 
