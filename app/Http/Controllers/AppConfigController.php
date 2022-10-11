@@ -175,6 +175,7 @@ class AppConfigController extends Controller
             'SEK' => 'SEK',
             'CHF' => 'CHF',
             'THB' => 'THB',
+            'XCD' => 'XCD',
         ];
     }
 }
