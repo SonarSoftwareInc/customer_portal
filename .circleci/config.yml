@@ -10,7 +10,7 @@ references:
 jobs:
   build:
     docker:
-      - image: circleci/buildpack-deps:18.10-scm
+      - image: cimg/base:current-22.04
 
     working_directory: *workspace_root
 
@@ -29,7 +29,8 @@ jobs:
           paths:
             - "/tmp/workspace/.git"
 
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.14
 
       - run:
           name: Build portal image
@@ -54,7 +55,7 @@ jobs:
 
   deploy_to_production:
     docker:
-      - image: circleci/buildpack-deps:18.10-scm
+      - image: cimg/base:current-22.04
 
     working_directory: *workspace_root
 
