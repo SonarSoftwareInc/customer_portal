@@ -373,7 +373,7 @@
                               <TD class="text-right">
                                  @if($paymentMethod->auto == 1)
                                  {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'patch']) !!}
-                                 <button class="btn btn-sm onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.disabling")}}'">
+                                 <button class="btn btn-sm" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.disabling")}}'">
                                  <i class="fe fe-minus-circle mr-2"></i>
                                  {{utrans("billing.disableAuto")}}
                                  </button>
