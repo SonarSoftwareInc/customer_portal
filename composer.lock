@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ba097bff736b9abfb16b9c312eb4d54",
+    "content-hash": "6b7342c5e10db4b27a6f33e96f8a50cc",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2719,16 +2719,16 @@
         },
         {
             "name": "sonarsoftwareinc/customer_portal_framework",
-            "version": "1.0.25",
+            "version": "1.0.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SonarSoftwareInc/customer_portal_framework.git",
-                "reference": "e795dd823713966fd1a9944ba4c7d3b82629afba"
+                "reference": "05de7e726a764d03dc76cac668eaf68ab5e7e8e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SonarSoftwareInc/customer_portal_framework/zipball/e795dd823713966fd1a9944ba4c7d3b82629afba",
-                "reference": "e795dd823713966fd1a9944ba4c7d3b82629afba",
+                "url": "https://api.github.com/repos/SonarSoftwareInc/customer_portal_framework/zipball/05de7e726a764d03dc76cac668eaf68ab5e7e8e3",
+                "reference": "05de7e726a764d03dc76cac668eaf68ab5e7e8e3",
                 "shasum": ""
             },
             "require": {
@@ -2776,9 +2776,9 @@
             "support": {
                 "email": "support@sonar.software",
                 "forum": "https://sonar.community",
-                "source": "https://github.com/SonarSoftwareInc/customer_portal_framework/tree/1.0.25"
+                "source": "https://github.com/SonarSoftwareInc/customer_portal_framework/tree/1.0.26"
             },
-            "time": "2022-05-20T22:06:17+00:00"
+            "time": "2023-02-02T20:29:39+00:00"
         },
         {
             "name": "spatie/laravel-csp",
@@ -6761,5 +6761,5 @@
         "php": ">=7.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
