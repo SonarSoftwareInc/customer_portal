@@ -8,6 +8,7 @@ use App\Http\Requests\AuthenticationRequest;
 use App\Http\Requests\LookupEmailRequest;
 use App\Http\Requests\PasswordUpdateRequest;
 use App\Http\Requests\SendPasswordResetRequest;
+use App\PasswordPolicy;
 use App\PasswordReset;
 use App\Services\LanguageService;
 use App\SystemSetting;
@@ -15,6 +16,7 @@ use App\Traits\Throttles;
 use App\UsernameLanguage;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -31,6 +33,13 @@ use SonarSoftware\CustomerPortalFramework\Exceptions\AuthenticationException;
 class AuthenticationController extends Controller
 {
     use Throttles;
+
+    private $passwordPolicy;
+
+    public function __construct()
+    {
+        $this->passwordPolicy = new PasswordPolicy();
+    }
 
     /**
      * Show the main login page
@@ -87,7 +96,7 @@ class AuthenticationController extends Controller
     /**
      * Look up an email address to see if it can be used to create a new account.
      * @param LookupEmailRequest $request
-     * @return $this
+     * @return RedirectResponse
      */
     public function lookupEmail(LookupEmailRequest $request)
     {
@@ -150,7 +159,7 @@ class AuthenticationController extends Controller
      * Show the account creation form
      * @param $token
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
     public function showCreationForm($token, Request $request)
     {
@@ -167,7 +176,7 @@ class AuthenticationController extends Controller
      * Create a new account
      * @param AccountCreationRequest $request
      * @param $token
-     * @return $this
+     * @return RedirectResponse
      */
     public function createAccount(AccountCreationRequest $request, $token)
     {
@@ -186,6 +195,10 @@ class AuthenticationController extends Controller
         if (strtolower(trim($creationToken->email)) != strtolower(trim($request->input('email')))) {
             $this->incrementThrottleValue("email_lookup", hash('sha256', $token . $request->getClientIp()));
             return redirect()->back()->withErrors(utrans("errors.invalidEmailAddress",[],$request))->withInput();
+        }
+
+        if (!$this->passwordPolicy->isPasswordValid($request->input('password'))) {
+            return redirect()->back()->withErrors(utrans("errors.passwordIsTooWeak"))->withInput();
         }
 
         $accountAuthenticationController = new AccountAuthenticationController();
@@ -276,7 +289,7 @@ class AuthenticationController extends Controller
      * Show the password reset form, if valid.
      * @param $token
      * @param Request $request
-     * @return $this
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
     public function showNewPasswordForm($token, Request $request)
     {
@@ -294,7 +307,7 @@ class AuthenticationController extends Controller
      * Attempt to reset the password to a new value
      * @param PasswordUpdateRequest $request
      * @param $token
-     * @return $this
+     * @return RedirectResponse
      */
     public function updateContactWithNewPassword(PasswordUpdateRequest $request, $token)
     {
@@ -313,6 +326,10 @@ class AuthenticationController extends Controller
         if ($passwordReset->email != $request->input('email')) {
             $this->incrementThrottleValue("password_update", hash('sha256', $token . $request->getClientIp()));
             return redirect()->back()->withErrors(utrans("errors.invalidEmailAddress",[],$request));
+        }
+
+        if (!$this->passwordPolicy->isPasswordValid($request->input('password'))) {
+            return redirect()->back()->withErrors(utrans("errors.passwordIsTooWeak"))->withInput();
         }
 
         $contactController = new ContactController();
