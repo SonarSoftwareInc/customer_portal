@@ -16,16 +16,13 @@ use App\Traits\Throttles;
 use App\UsernameLanguage;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 use SonarSoftware\CustomerPortalFramework\Controllers\AccountAuthenticationController;
 use SonarSoftware\CustomerPortalFramework\Controllers\ContactController;
 use SonarSoftware\CustomerPortalFramework\Exceptions\AuthenticationException;
@@ -43,7 +40,7 @@ class AuthenticationController extends Controller
 
     /**
      * Show the main login page
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -56,7 +53,7 @@ class AuthenticationController extends Controller
     /**
      * Authenticate against the Sonar API
      * @param AuthenticationRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function authenticate(AuthenticationRequest $request)
     {
@@ -86,7 +83,7 @@ class AuthenticationController extends Controller
 
     /**
      * Show the registration form
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showRegistrationForm()
     {
@@ -159,7 +156,7 @@ class AuthenticationController extends Controller
      * Show the account creation form
      * @param $token
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     * @return Factory|View|RedirectResponse
      */
     public function showCreationForm($token, Request $request)
     {
@@ -216,7 +213,7 @@ class AuthenticationController extends Controller
 
     /**
      * Show the reset password form
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showResetPasswordForm()
     {
@@ -226,7 +223,7 @@ class AuthenticationController extends Controller
     /**
      * Check for, and email a password reset if email is valid.
      * @param SendPasswordResetRequest $request
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @return $this|RedirectResponse
      */
     public function sendResetEmail(SendPasswordResetRequest $request)
     {
@@ -289,7 +286,7 @@ class AuthenticationController extends Controller
      * Show the password reset form, if valid.
      * @param $token
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     * @return Factory|View|RedirectResponse
      */
     public function showNewPasswordForm($token, Request $request)
     {
@@ -353,7 +350,7 @@ class AuthenticationController extends Controller
     /**
      * Log out the current session
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function logout(Request $request)
     {
