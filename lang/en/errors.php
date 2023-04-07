@@ -52,4 +52,5 @@ return [
     '500error' => '500 Error',
     'apiPermissionsFailure' => 'Your API user is not setup with the correct permissions. Verify the permissions are setup per the <a href="https://github.com/SonarSoftwareInc/customer_portal/blob/master/README.md#a-note-on-initial-setup">readme</a> document.',
     'stripePaymentMethodNotFound' => 'No Stripe PaymentMethod found with that ID',
+    'phoneNumberNotValid' => "A phone number cannot be saved. Please remove it and try again.",
 ];
