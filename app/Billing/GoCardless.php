@@ -16,7 +16,7 @@ class GoCardless
     {
         $this->client = new \GoCardlessPro\Client([
             'access_token' => config("customer_portal.gocardless_access_token"),
-            'environment' => config("customer_portal.gocardless_environment"),
+            'environment' => \GoCardlessPro\Environment::SANDBOX,
         ]);
     }
 
@@ -40,6 +40,7 @@ class GoCardless
                 'description' => config("customer_portal.company_name"),
                 'session_token' => $gocardlessToken->token,
                 'success_redirect_url' => action("GoCardlessController@handleReturnRedirect"),
+                'scheme' => 'bacs',
             ]
         ];
 
