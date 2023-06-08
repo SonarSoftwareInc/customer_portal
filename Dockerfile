@@ -3,8 +3,8 @@ FROM phusion/baseimage:jammy-1.0.0 as base
 ENV LC_ALL C.UTF-8
 
 RUN add-apt-repository ppa:ondrej/php \
- && add-apt-repository ppa:ondrej/nginx-mainline \
- && install_clean \
+      && add-apt-repository ppa:ondrej/nginx-mainline \
+      && install_clean \
       gettext \
       nginx \
       php7.3-fpm \
@@ -22,13 +22,13 @@ WORKDIR /var/www/html
 COPY --chown=www-data --from=composer:2.2.12 /usr/bin/composer /tmp/composer
 COPY composer.json composer.lock ./
 RUN mkdir -p vendor \
- && chown www-data:www-data vendor \
- && COMPOSER_CACHE_DIR=/dev/null setuser www-data /tmp/composer install --no-dev --no-interaction --no-scripts --no-autoloader
+      && chown www-data:www-data vendor \
+      && COMPOSER_CACHE_DIR=/dev/null setuser www-data /tmp/composer install --no-dev --no-interaction --no-scripts --no-autoloader
 
 COPY --chown=www-data . .
 
 RUN COMPOSER_CACHE_DIR=/dev/null setuser www-data /tmp/composer install --no-dev --no-interaction --no-scripts --classmap-authoritative \
- && rm -rf /tmp/composer
+      && rm -rf /tmp/composer
 
 COPY deploy/conf/nginx/sonar-customerportal.template /etc/nginx/conf.d/customerportal.template
 
@@ -39,6 +39,9 @@ RUN chmod -R go-w /etc/cron.d
 
 RUN mkdir -p /etc/my_init.d
 COPY deploy/*.sh /etc/my_init.d/
+
+RUN mkdir /etc/nginx/ssl
+COPY deploy/certs /etc/nginx/ssl
 
 RUN mkdir /etc/service/php-fpm
 COPY deploy/services/php-fpm.sh /etc/service/php-fpm/run

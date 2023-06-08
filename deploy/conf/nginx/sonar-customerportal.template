@@ -22,8 +22,9 @@ server {
 
     server_name ${NGINX_HOST};
     server_tokens off;
-    ssl_certificate /etc/letsencrypt/live/${NGINX_HOST}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/${NGINX_HOST}/privkey.pem;
+    ssl_certificate /etc/nginx/ssl/localhost.otlaydev.com.crt;
+    ssl_certificate_key /etc/nginx/ssl/localhost.otlaydev.com.key;
+
 
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
