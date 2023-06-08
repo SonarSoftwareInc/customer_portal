@@ -8,3 +8,4 @@ Homestead.yaml
 storage/database.sqlite
 /vendor
 /deploy/certs
+*.log
