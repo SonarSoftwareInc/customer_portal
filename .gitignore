@@ -7,3 +7,6 @@ Homestead.json
 Homestead.yaml
 storage/database.sqlite
 /vendor
+/deploy/certs
+*.log
+**/.DS_Store
