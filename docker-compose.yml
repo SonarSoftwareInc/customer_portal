@@ -9,8 +9,8 @@ services:
     restart: always
     tty: true
     ports:
-      - "8080:80"
-      - "4443:443"
+      - "80:80"
+      - "443:443"
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
