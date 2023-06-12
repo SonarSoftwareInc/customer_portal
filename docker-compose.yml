@@ -1,4 +1,4 @@
-version: '3.6'
+version: "3.6"
 services:
   app:
     build:
@@ -9,23 +9,24 @@ services:
     restart: always
     tty: true
     ports:
-      - "80:80"
-      - "443:443"
+      - "8080:80"
+      - "4443:443"
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
+      - ./deploy/certs:/etc/letsencrypt/live/localhost.otlaydev.com
       - ./public/assets/img/logo.png:/var/www/html/public/assets/img/logo.png
       - ./public/assets/img/cover.png:/var/www/html/public/assets/img/cover.png
       - storage:/var/www/html/storage
     env_file:
-     - .env
+      - .env
     environment:
       REDIS_HOST: redis
     depends_on:
       - redis
 
   redis:
-    image: redis:5.0.4-alpine 
+    image: redis:5.0.4-alpine
     restart: always
 
 volumes:
