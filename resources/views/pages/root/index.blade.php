@@ -3,7 +3,6 @@
 <body class="page-login">
    <div class="wrapper">
       <section id="main" class="section content animated fadeInDown delayed_02s">
-         <span>fuckityfuckfuck</span>
          <img class="logo-form" src="/assets/img/logo.png">
          @if($systemSetting->login_page_message)
             <div>

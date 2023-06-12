@@ -43,14 +43,6 @@ COPY deploy/*.sh /etc/my_init.d/
 RUN mkdir /etc/nginx/ssl
 COPY deploy/certs /etc/nginx/ssl
 
-RUN mkdir /etc/letsencrypt
-# COPY data/certbot/conf/options-ssl-nginx.conf /etc/letsencrypt/options-ssl-nginx.conf
-COPY deploy/certs/ssl-dhparams.pem /etc/letsencrypt/ssl-dhparams.pem
-
-RUN mkdir /etc/letsencrypt/live
-COPY deploy/certs/fullchain.pem /etc/letsencrypt/live/localhost.otlaydev.com/fullchain.pem
-COPY deploy/certs/privkey.pem /etc/letsencrypt/live/localhost.otlaydev.com/privkey.pem
-
 RUN mkdir /etc/service/php-fpm
 COPY deploy/services/php-fpm.sh /etc/service/php-fpm/run
 
