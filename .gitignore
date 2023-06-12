@@ -9,3 +9,4 @@ storage/database.sqlite
 /vendor
 /deploy/certs
 *.log
+**/.DS_Store
