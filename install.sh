@@ -55,12 +55,14 @@ echo
 read -ep "Enter Your Instance URL (e.g. https://example.sonar.software): " -i "${SONAR_URL:-}" SONAR_URL
 read -ep "Enter your email address: "  -i "${EMAIL_ADDRESS:-}" EMAIL_ADDRESS
 
+TRIMMED_SONAR_URL=$(echo "$SONAR_URL" | sed 's:/*$::')
+
 cat <<- EOF > ".env"
         APP_KEY=$APP_KEY
         NGINX_HOST=$NGINX_HOST
         API_USERNAME=$API_USERNAME
         API_PASSWORD=$API_PASSWORD
-        SONAR_URL=$SONAR_URL
+        SONAR_URL=$TRIMMED_SONAR_URL
         EMAIL_ADDRESS=$EMAIL_ADDRESS
 EOF
 
