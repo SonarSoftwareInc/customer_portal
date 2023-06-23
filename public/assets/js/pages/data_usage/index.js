@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    Chart.platform.disableCSSInjection = true;
     var labels = [];
     var datasets = [
         {
