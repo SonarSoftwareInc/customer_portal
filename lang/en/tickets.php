@@ -22,5 +22,5 @@ return [
     'whenCreatingTicket' => 'When creating a new ticket, please:',
     'beAsDetailed' => 'Be as detailed as possible',
     'includeRelevantInfo' => 'Include any relevant information',
-    'neverAskForCredit' => 'We will never ask for your password or credit card info',
+    'neverAskForCredit' => 'Remember that we will never ask for your password or credit card info',
 ];
