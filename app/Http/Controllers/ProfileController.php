@@ -72,15 +72,21 @@ class ProfileController extends Controller
             $fax->setNumber(preg_replace("/[^0-9]/", "", $request->input('fax')));
             $contact->setPhoneNumber($fax);
         } catch (Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage());
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors($e->getMessage());
         }
-        
+
         $contactController = new ContactController();
         try {
             $contactController->updateContact($contact);
         } catch (Exception $e) {
             Log::error($e);
-            return redirect()->back()->withErrors(utrans("errors.failedToUpdateProfile"));
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors($this->convertErrorMessage($e->getMessage()));
         }
 
         $this->clearProfileCache();
@@ -135,5 +141,16 @@ class ProfileController extends Controller
             Cache::tags("profile.details")->put(get_user()->contact_id, $contact, 10);
         }
         return Cache::tags("profile.details")->get(get_user()->contact_id);
+    }
+
+    private function convertErrorMessage(string $message)
+    {
+        //Trying to save a phone number type that doesn't exist in Sonar will result in this message. The caching above
+        //in getContact() compounds the problem sending old phone number types after they've been edited.
+        if (strpos($message, 'The Phone Number Type is invalid: ') === 0) {
+            return utrans("errors.phoneNumberNotValid");
+        }
+
+        return utrans("errors.failedToUpdateProfile");
     }
 }
