@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "66182b49b3e98c761a82ffa6fccef2a7",
+    "content-hash": "2693d3c8de66b5ea51f1a97fdf4465a7",
     "packages": [
         {
             "name": "brick/math",
@@ -3864,16 +3864,16 @@
         },
         {
             "name": "sonarsoftwareinc/customer_portal_framework",
-            "version": "dev-upgrade-customer-portal-dependencies",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SonarSoftwareInc/customer_portal_framework.git",
-                "reference": "1f5876ad8302a2dba56beb5b2ec3cae89bf0d6f8"
+                "reference": "b7c1922b2b54946bb886036ae80826e0c6f374d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SonarSoftwareInc/customer_portal_framework/zipball/1f5876ad8302a2dba56beb5b2ec3cae89bf0d6f8",
-                "reference": "1f5876ad8302a2dba56beb5b2ec3cae89bf0d6f8",
+                "url": "https://api.github.com/repos/SonarSoftwareInc/customer_portal_framework/zipball/b7c1922b2b54946bb886036ae80826e0c6f374d3",
+                "reference": "b7c1922b2b54946bb886036ae80826e0c6f374d3",
                 "shasum": ""
             },
             "require": {
@@ -3921,9 +3921,9 @@
             "support": {
                 "email": "support@sonar.software",
                 "forum": "https://sonar.community",
-                "source": "https://github.com/SonarSoftwareInc/customer_portal_framework/tree/upgrade-customer-portal-dependencies"
+                "source": "https://github.com/SonarSoftwareInc/customer_portal_framework/tree/2.0.0"
             },
-            "time": "2023-07-10T19:17:58+00:00"
+            "time": "2023-08-29T19:38:25+00:00"
         },
         {
             "name": "spatie/backtrace",
@@ -9742,8 +9742,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "mariuzzo/laravel-js-localization": 20,
-        "sonarsoftwareinc/customer_portal_framework": 20
+        "mariuzzo/laravel-js-localization": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
