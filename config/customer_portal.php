@@ -1,4 +1,5 @@
 <?php
+
 return [
     /**
      * BASIC CONFIGURATION OPTIONS
@@ -57,7 +58,7 @@ return [
     /*
      * Do you want to allow credit card payments?
      */
-    'enable_credit_card_payments' => env("ENABLE_CREDIT_CARD_PAYMENTS",true),
+    'enable_credit_card_payments' => env('ENABLE_CREDIT_CARD_PAYMENTS', true),
 
     /*
      * If you wish to allow PayPal payments via the portal, set this to true

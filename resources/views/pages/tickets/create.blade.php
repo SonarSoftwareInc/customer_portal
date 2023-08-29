@@ -25,7 +25,7 @@
          </div>
          <div class="card">
             <div class="card-body">
-               {!! Form::open(['action' => 'TicketController@store', 'id' => 'ticketForm']) !!}
+               {!! Form::open(['action' => '\App\Http\Controllers\TicketController@store', 'id' => 'ticketForm']) !!}
                <div class="form-group">
                   <label for="subject">{{utrans("tickets.subject")}}</label>
                   <div class="input-group input-group-merge">

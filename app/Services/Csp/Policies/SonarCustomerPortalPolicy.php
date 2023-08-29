@@ -1,19 +1,19 @@
 <?php
+
 namespace App\Services\Csp\Policies;
 
 use Spatie\Csp\Directive;
-use Spatie\Csp\Policies\Basic;
 use Spatie\Csp\Keyword;
+use Spatie\Csp\Policies\Basic;
 use Spatie\Csp\Value;
 
 class SonarCustomerPortalPolicy extends Basic
 {
-	public function configure()
-	{
-		parent::configure();
+    public function configure()
+    {
+        parent::configure();
 
-
-  		$this
+        $this
             ->addDirective(Directive::FRAME, [
                 'self',
                 'js.stripe.com',
@@ -33,14 +33,13 @@ class SonarCustomerPortalPolicy extends Basic
                 'js.stripe.com',
             ])
 
-			->addDirective(Directive::STYLE, [
-				'self',
-			])
+            ->addDirective(Directive::STYLE, [
+                'self',
+            ])
 
             ->addDirective(Directive::CONNECT, [
                 'self',
                 'api.stripe.com',
             ]);
-
-	}
+    }
 }

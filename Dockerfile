@@ -1,25 +1,27 @@
-FROM phusion/baseimage:jammy-1.0.0 as base
+FROM phusion/baseimage:jammy-1.0.1 AS base
 
 ENV LC_ALL C.UTF-8
+
+ARG PHP_VERSION=8.2
 
 RUN add-apt-repository ppa:ondrej/php \
  && add-apt-repository ppa:ondrej/nginx-mainline \
  && install_clean \
       gettext \
       nginx \
-      php7.3-fpm \
-      php7.3-bcmath \
-      php7.3-curl \
-      php7.3-gmp \
-      php7.3-mbstring \
-      php7.3-sqlite3 \
-      php7.3-zip \
-      php7.3-dom \
+      php${PHP_VERSION}-fpm \
+      php${PHP_VERSION}-bcmath \
+      php${PHP_VERSION}-curl \
+      php${PHP_VERSION}-gmp \
+      php${PHP_VERSION}-mbstring \
+      php${PHP_VERSION}-sqlite3 \
+      php${PHP_VERSION}-zip \
+      php${PHP_VERSION}-dom \
       unzip
 
 WORKDIR /var/www/html
 
-COPY --chown=www-data --from=composer:2.2.12 /usr/bin/composer /tmp/composer
+COPY --chown=www-data --from=composer:2.5.8 /usr/bin/composer /tmp/composer
 COPY composer.json composer.lock ./
 RUN mkdir -p vendor \
  && chown www-data:www-data vendor \
@@ -32,7 +34,7 @@ RUN COMPOSER_CACHE_DIR=/dev/null setuser www-data /tmp/composer install --no-dev
 
 COPY deploy/conf/nginx/sonar-customerportal.template /etc/nginx/conf.d/customerportal.template
 
-COPY deploy/conf/php-fpm/ /etc/php/7.3/fpm/
+COPY deploy/conf/php-fpm/ /etc/php/8.2/fpm/
 
 COPY deploy/conf/cron.d/* /etc/cron.d/
 RUN chmod -R go-w /etc/cron.d

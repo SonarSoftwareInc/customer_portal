@@ -3,13 +3,12 @@
 namespace App\Providers;
 
 use App\Services\FormattingService;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
-class FormattingServiceProvider extends ServiceProvider
+class FormattingServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    protected $defer = true;
-
-    public function register()
+    public function register(): void
     {
         $this->app->singleton('Sonar.FormattingService', function ($app) {
             return new FormattingService();

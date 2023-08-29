@@ -1,0 +1,23 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+    paths:
+        - app/
+        - bootstrap/
+        - config/
+        - database/
+        - lang/
+        - public/
+        - resources/views/
+        - routes/
+
+    level: 5
+
+    ignoreErrors:
+        -
+            message: '#Variable \$validator might not be defined\.#'
+            path: resources/views/vendor/jsvalidation/bootstrap.php
+        -
+            message: '#Access to an undefined property PayPal\\Api\\Transaction::\$related_resources\.#'
+            path: app/Http/Controllers/PayPalController.php

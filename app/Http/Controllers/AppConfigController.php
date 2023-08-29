@@ -1,44 +1,44 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AppConfigRequest;
 use App\Http\Requests\SettingsAuthRequest;
 use App\SystemSetting;
 use App\Traits\Throttles;
-use Carbon\Carbon;
-use Exception;
-use SonarSoftware\CustomerPortalFramework\Helpers\HttpHelper;
-use View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
+use Illuminate\View\View;
+use SonarSoftware\CustomerPortalFramework\Helpers\HttpHelper;
 
 class AppConfigController extends Controller
 {
     use Throttles;
 
-    public function authenticate(SettingsAuthRequest $request)
+    public function authenticate(SettingsAuthRequest $request): RedirectResponse
     {
         $systemSetting = SystemSetting::first();
-        if (!$systemSetting) {
+        if (! $systemSetting) {
             return redirect()->back()->withErrors(trans('errors.noKeyFound'));
         }
 
-        if ($this->getThrottleValue("settings", $request->getClientIp()) > 10) {
-            return redirect()->back()->withErrors(utrans("errors.tooManyFailedAuthenticationAttempts",[],$request));
+        if ($this->getThrottleValue('settings', $request->getClientIp()) > 10) {
+            return redirect()->back()->withErrors(utrans('errors.tooManyFailedAuthenticationAttempts', [], $request));
         }
 
         if ($systemSetting->settings_key && $systemSetting->settings_key == $request->input('key')) {
-            $this->resetThrottleValue("settings", $request->getClientIp());
+            $this->resetThrottleValue('settings', $request->getClientIp());
             $request->session()->put('settings_authenticated', 1);
-            return redirect()->action('AppConfigController@show');
+
+            return redirect()->action([\App\Http\Controllers\AppConfigController::class, 'show']);
         }
 
-        $this->incrementThrottleValue("settings", $request->getClientIp());
+        $this->incrementThrottleValue('settings', $request->getClientIp());
+
         return redirect()->back()->withErrors(trans('errors.invalidSettingsKey'));
     }
 
-    public function show(Request $request)
+    public function show(Request $request): View
     {
         if ($request->session()->get('settings_authenticated') === 1) {
             $httpHelper = new HttpHelper();
@@ -54,28 +54,28 @@ class AppConfigController extends Controller
             }
 
             $systemSetting = SystemSetting::firstOrNew([
-                'id' => 1
+                'id' => 1,
             ]);
 
             $paypalCurrency = $this->paypalCurrency();
 
-            return view("pages.config.show", compact(
-                    'inboundEmailAccounts',
-                    'ticketGroups',
-                    'systemSetting',
-                    'paypalCurrency'
-                )
+            return view('pages.config.show', compact(
+                'inboundEmailAccounts',
+                'ticketGroups',
+                'systemSetting',
+                'paypalCurrency'
+            )
             );
         }
 
-        return view("pages.config.auth");
+        return view('pages.config.auth');
     }
 
-    public function save(AppConfigRequest $request)
+    public function save(AppConfigRequest $request): RedirectResponse
     {
         if ($request->session()->get('settings_authenticated') === 1) {
             $systemSetting = SystemSetting::firstOrNew([
-                'id' => 1
+                'id' => 1,
             ]);
 
             /**
@@ -94,7 +94,6 @@ class AppConfigController extends Controller
             /**
              * System Settings
              */
-
             $systemSetting->fill($request->only([
                 'url',
                 'locale',
@@ -142,13 +141,13 @@ class AppConfigController extends Controller
 
             $systemSetting->save();
 
-            return redirect()->action('AppConfigController@show');
+            return redirect()->action([\App\Http\Controllers\AppConfigController::class, 'show']);
         }
 
         abort(401);
     }
 
-    private function paypalCurrency():array
+    private function paypalCurrency(): array
     {
         return [
             'USD' => 'USD',

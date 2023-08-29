@@ -2,14 +2,14 @@
 
 namespace App\Traits;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 
 trait Throttles
 {
     /**
      * Get the current throttle value
-     * @param $throttleName
-     * @param $tag
+     *
      * @return mixed
      */
     protected function getThrottleValue($throttleName, $tag)
@@ -19,22 +19,18 @@ trait Throttles
 
     /**
      * Increment the throttle value
-     * @param $throttleName
-     * @param $tag
      */
     protected function incrementThrottleValue($throttleName, $tag)
     {
         Cache::tags("$throttleName.throttle")->put(
             $tag,
-            (int)Cache::tags("$throttleName.throttle")->get($tag)+1,
-            2
+            (int) Cache::tags("$throttleName.throttle")->get($tag) + 1,
+            Carbon::now()->addMinutes(2)
         );
     }
 
     /**
      * Reset the throttle value
-     * @param $throttleName
-     * @param $tag
      */
     protected function resetThrottleValue($throttleName, $tag)
     {

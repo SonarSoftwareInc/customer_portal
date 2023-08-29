@@ -22,7 +22,7 @@
             </div>
             @if($policyDetails->allow_user_to_purchase_capacity === true)
             <div class="col-auto">
-               <a href="{{action("DataUsageController@showTopOff")}}" class="btn btn-primary">
+               <a href="{{action([\App\Http\Controllers\DataUsageController::class, 'showTopOff'])}}" class="btn btn-primary">
                {{utrans("data_usage.purchaseAdditionalData")}} <i class="fe fe-zap"></i>
                </a>
             </div>

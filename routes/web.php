@@ -1,5 +1,19 @@
 <?php
 
+use App\Http\Controllers\AppConfigController;
+use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\BillingController;
+use App\Http\Controllers\ContractController;
+use App\Http\Controllers\DataUsageController;
+use App\Http\Controllers\GoCardlessController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\PayPalController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\SubdivisionController;
+use App\Http\Controllers\TicketController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -14,100 +28,100 @@
 /**
  * Admin routes
  */
-Route::get("/settings", "AppConfigController@show");
-Route::get("/settings/subdivisions/{country}", "SubdivisionController@authenticate");
-Route::post("/settings", "AppConfigController@save");
-Route::post("/settings/auth", "AppConfigController@authenticate");
+Route::get('/settings', [AppConfigController::class, 'show']);
+Route::get('/settings/subdivisions/{country}', [SubdivisionController::class, 'authenticate']);
+Route::post('/settings', [AppConfigController::class, 'save']);
+Route::post('/settings/auth', [AppConfigController::class, 'authenticate']);
 
-Route::group(['middleware' => ['language']], function () {
-    Route::group(['middleware' => ['web','guest']], function () {
+Route::middleware('language')->group(function () {
+    Route::middleware(['web', 'guest'])->group(function () {
         //Unauthenticated routes
-        Route::get('/', 'AuthenticationController@index');
-        Route::post('/', 'AuthenticationController@authenticate');
-        Route::get('/register', 'AuthenticationController@showRegistrationForm');
-        Route::post('/register', 'AuthenticationController@lookupEmail');
-        Route::get('/create/{token}', 'AuthenticationController@showCreationForm');
-        Route::post('/create/{token}', 'AuthenticationController@createAccount');
-        Route::get('/reset', 'AuthenticationController@showResetPasswordForm');
-        Route::post('/reset', 'AuthenticationController@sendResetEmail');
-        Route::get('/reset/{token}', 'AuthenticationController@showNewPasswordForm');
-        Route::post('/reset/{token}', 'AuthenticationController@updateContactWithNewPassword');
+        Route::get('/', [AuthenticationController::class, 'index']);
+        Route::post('/', [AuthenticationController::class, 'authenticate']);
+        Route::get('/register', [AuthenticationController::class, 'showRegistrationForm']);
+        Route::post('/register', [AuthenticationController::class, 'lookupEmail']);
+        Route::get('/create/{token}', [AuthenticationController::class, 'showCreationForm']);
+        Route::post('/create/{token}', [AuthenticationController::class, 'createAccount']);
+        Route::get('/reset', [AuthenticationController::class, 'showResetPasswordForm']);
+        Route::post('/reset', [AuthenticationController::class, 'sendResetEmail']);
+        Route::get('/reset/{token}', [AuthenticationController::class, 'showNewPasswordForm']);
+        Route::post('/reset/{token}', [AuthenticationController::class, 'updateContactWithNewPassword']);
     });
 
     /**
      * Authenticated routes.
      */
-    Route::group(['prefix' => 'portal', 'middleware' => ['web','auth']], function () {
-		/**
+    Route::prefix('portal')->middleware(['web', 'auth'])->group(function () {
+        /**
          * Billing routes
          */
-        Route::group(['prefix' => 'billing'], function () {
-            Route::get('/', 'BillingController@index');
-            Route::get('/transaction', 'BillingController@index');
-            Route::get('/invoices', 'BillingController@index');
-            Route::get('/invoices/{invoices}', 'BillingController@getInvoicePdf');
-            Route::get('/payment_methods/{type}/create', 'BillingController@createPaymentMethod');
-            Route::post('/payment_methods/card', 'BillingController@storeCard');
-            Route::post('/payment_methods/tokenized_card/', 'BillingController@storeTokenizedCard');
-            Route::post('/payment_methods/bank', 'BillingController@storeBank');
-            Route::delete('/payment_methods/{payment_methods}', 'BillingController@deletePaymentMethod');
-            Route::patch('/payment_methods/{payment_methods}/toggle_auto', 'BillingController@toggleAutoPay');
-            Route::get('/payment', 'BillingController@makePayment');
-            Route::post('/payment', 'BillingController@submitPayment');
-            Route::post('/tokenized_payment', 'BillingController@submitTokenizedPayment');
+        Route::prefix('billing')->group(function () {
+            Route::get('/', [BillingController::class, 'index']);
+            Route::get('/transaction', [BillingController::class, 'index']);
+            Route::get('/invoices', [BillingController::class, 'index']);
+            Route::get('/invoices/{invoices}', [BillingController::class, 'getInvoicePdf']);
+            Route::get('/payment_methods/{type}/create', [BillingController::class, 'createPaymentMethod']);
+            Route::post('/payment_methods/card', [BillingController::class, 'storeCard']);
+            Route::post('/payment_methods/tokenized_card/', [BillingController::class, 'storeTokenizedCard']);
+            Route::post('/payment_methods/bank', [BillingController::class, 'storeBank']);
+            Route::delete('/payment_methods/{payment_methods}', [BillingController::class, 'deletePaymentMethod']);
+            Route::patch('/payment_methods/{payment_methods}/toggle_auto', [BillingController::class, 'toggleAutoPay']);
+            Route::get('/payment', [BillingController::class, 'makePayment']);
+            Route::post('/payment', [BillingController::class, 'submitPayment']);
+            Route::post('/tokenized_payment', [BillingController::class, 'submitTokenizedPayment']);
 
             /** Paypal Routes */
-            Route::get('/paypal/{temporary_token}/complete', 'PayPalController@completePayment');
-            Route::get('/paypal/{temporary_token}/cancel', 'PayPalController@cancelPayment');
+            Route::get('/paypal/{temporary_token}/complete', [PayPalController::class, 'completePayment']);
+            Route::get('/paypal/{temporary_token}/cancel', [PayPalController::class, 'cancelPayment']);
 
             /** Stripe Routes */
-            Route::get('/stripe/{id}', 'StripeController@paymentMethod');
+            Route::get('/stripe/{id}', [StripeController::class, 'paymentMethod']);
 
             /** Subdivisions for cards */
-            Route::get("subdivisions/{country}", "SubdivisionController@show");
+            Route::get('subdivisions/{country}', [SubdivisionController::class, 'show']);
 
             /** GoCardless success */
-            Route::get("debit_add_success","GoCardlessController@handleReturnRedirect");
+            Route::get('debit_add_success', [GoCardlessController::class, 'handleReturnRedirect']);
         });
 
         /**
          * Profile routes
          */
-        Route::group(['prefix' => 'profile'], function () {
-            Route::get("/", "ProfileController@show");
-            Route::patch("/", "ProfileController@update");
-            Route::patch("/password", "ProfileController@updatePassword");
+        Route::prefix('profile')->group(function () {
+            Route::get('/', [ProfileController::class, 'show']);
+            Route::patch('/', [ProfileController::class, 'update']);
+            Route::patch('/password', [ProfileController::class, 'updatePassword']);
         });
 
         /**
          * Ticketing routes
          */
-        Route::group(['prefix' => 'tickets', 'middleware' => ['tickets']], function () {
-            Route::get("/", "TicketController@index");
-            Route::get("/create", "TicketController@create");
-            Route::post("/", "TicketController@store");
-            Route::get("/{tickets}", "TicketController@show");
-            Route::post("/{tickets}/reply", "TicketController@postReply");
+        Route::prefix('tickets')->middleware('tickets')->group(function () {
+            Route::get('/', [TicketController::class, 'index']);
+            Route::get('/create', [TicketController::class, 'create']);
+            Route::post('/', [TicketController::class, 'store']);
+            Route::get('/{tickets}', [TicketController::class, 'show']);
+            Route::post('/{tickets}/reply', [TicketController::class, 'postReply']);
         });
 
         /**
          * Data usage routes
          */
-        Route::group(['prefix' => 'data_usage', 'middleware' => ['data_usage']], function () {
-            Route::get("/", "DataUsageController@index");
-            Route::get("/top_off", "DataUsageController@showTopOff");
-            Route::post("/add_top_off", "DataUsageController@addTopOff");
+        Route::prefix('data_usage')->middleware('data_usage')->group(function () {
+            Route::get('/', [DataUsageController::class, 'index']);
+            Route::get('/top_off', [DataUsageController::class, 'showTopOff']);
+            Route::post('/add_top_off', [DataUsageController::class, 'addTopOff']);
         });
 
         /**
          * Contract routes
          */
-        Route::group(['prefix' => 'contracts', 'middleware' => ['contracts']], function () {
-            Route::get("/", "ContractController@index");
-            Route::get("/{contracts}", "ContractController@downloadContractPdf");
+        Route::prefix('contracts')->middleware('contracts')->group(function () {
+            Route::get('/', [ContractController::class, 'index']);
+            Route::get('/{contracts}', [ContractController::class, 'downloadContractPdf']);
         });
     });
 
-    Route::get('/logout', 'AuthenticationController@logout');
-    Route::post("/language","LanguageController@update");
+    Route::get('/logout', [AuthenticationController::class, 'logout']);
+    Route::post('/language', [LanguageController::class, 'update']);
 });

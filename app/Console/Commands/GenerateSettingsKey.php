@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\SystemSetting;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class GenerateSettingsKey extends Command
 {
@@ -33,18 +34,16 @@ class GenerateSettingsKey extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $systemSetting = SystemSetting::firstOrNew([
             'id' => 1,
         ]);
 
-        $systemSetting->settings_key = str_random(32);
+        $systemSetting->settings_key = Str::random(32);
         $systemSetting->save();
 
-        $this->info("Settings key is " . $systemSetting->settings_key);
+        $this->info('Settings key is '.$systemSetting->settings_key);
     }
 }

@@ -34,7 +34,7 @@
             },
 
             focusInvalid: false, // do not focus the last invalid input
-            <?php if (Config::get('jsvalidation.focus_on_error')): ?>
+            <?php if (config('jsvalidation.focus_on_error')): ?>
             invalidHandler: function(form, validator) {
 
                 if (!validator.numberOfInvalids())
@@ -42,7 +42,7 @@
 
                 $('html, body').animate({
                     scrollTop: $(validator.errorList[0].element).offset().top
-                }, <?php echo Config::get('jsvalidation.duration_animate') ?>);
+                }, <?php echo config('jsvalidation.duration_animate') ?>);
                 $(validator.errorList[0].element).focus();
 
             },

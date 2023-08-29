@@ -2,66 +2,75 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
-use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Session\TokenMismatchException;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
     /**
-     * A list of the exception types that should not be reported.
+     * A list of exception types with their corresponding custom log levels.
      *
-     * @var array
+     * @var array<class-string<Throwable>, \Psr\Log\LogLevel::*>
      */
-    protected $dontReport = [
-        \Illuminate\Auth\AuthenticationException::class,
-        \Illuminate\Auth\Access\AuthorizationException::class,
-        \Symfony\Component\HttpKernel\Exception\HttpException::class,
-        \Illuminate\Database\Eloquent\ModelNotFoundException::class,
-        \Illuminate\Session\TokenMismatchException::class,
-        \Illuminate\Validation\ValidationException::class,
+    protected $levels = [
+        //
     ];
 
     /**
-     * Report or log an exception.
+     * A list of the exception types that are not reported.
      *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
-     * @param  \Exception  $e
-     * @return void
+     * @var array<int, class-string<Throwable>>
      */
-    public function report(Exception $e)
-    {
-        parent::report($e);
-    }
+    protected $dontReport = [
+        AuthenticationException::class,
+        AuthorizationException::class,
+        HttpException::class,
+        ModelNotFoundException::class,
+        TokenMismatchException::class,
+        ValidationException::class,
+    ];
+
+    /**
+     * A list of the inputs that are never flashed to the session on validation exceptions.
+     *
+     * @var array<int, string>
+     */
+    protected $dontFlash = [
+        'current_password',
+        'password',
+        'password_confirmation',
+    ];
 
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
      */
-    public function render($request, Exception $e)
+    public function render($request, Throwable $e): Response|RedirectResponse
     {
-        if ($e instanceof \Illuminate\Session\TokenMismatchException) {
-            return redirect()->back()->withErrors(utrans("errors.tokenMismatch",[],$request));
+        if ($e instanceof TokenMismatchException) {
+            return redirect()->back()->withErrors(utrans('errors.tokenMismatch', [], $request));
         }
+
         return parent::render($request, $e);
     }
+
     /**
-     * Convert an authentication exception into an unauthenticated response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Auth\AuthenticationException  $e
-     * @return \Illuminate\Http\Response
+     * Register the exception handling callbacks for the application.
      */
-    protected function unauthenticated($request, AuthenticationException $e)
+    public function register(): void
     {
-        if ($request->expectsJson()) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
-        } else {
-            return redirect()->guest('/');
-        }
+        $this->reportable(function (Throwable $e) {
+            //
+        });
     }
 }

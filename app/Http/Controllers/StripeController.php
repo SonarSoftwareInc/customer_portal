@@ -18,17 +18,14 @@ class StripeController extends Controller
     /**
      * Return PaymentMethod associated with ID
      *
-     * @param string $id
      * @return mixed
      */
-    public function paymentMethod(Request $request, $id)
+    public function paymentMethod(Request $request, string $id)
     {
         try {
             return $this->stripe->paymentMethod($id);
-        } catch (Stripe\Exception\ApiErrorException $e)
-        {
-            return redirect()->back()->withErrors(utrans("errors.stripePaymentMethodNotFound"));
+        } catch (Stripe\Exception\ApiErrorException $e) {
+            return redirect()->back()->withErrors(utrans('errors.stripePaymentMethodNotFound'));
         }
     }
-
 }

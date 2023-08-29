@@ -8,7 +8,7 @@
          </a>
          <h1 class="fake-half">{{trans("headers.forgotUsernameOrPassword",[],$language)}}</h1>
          <p>{{trans("register.forgotDescription",[],$language)}}</p>
-         {!! Form::open(['action' => 'AuthenticationController@sendResetEmail', 'id' => 'passwordResetForm', 'method' => 'post']) !!}
+         {!! Form::open(['action' => '\App\Http\Controllers\AuthenticationController@sendResetEmail','id' => 'passwordResetForm','method' => 'post']) !!}
          <div class="label label-text">
             <label for="input-email">{{trans("register.email",[],$language)}}</label>
             {!! Form::email("email",null,['id' => 'email', 'placeholder' => trans("register.email",[],$language)]) !!}
@@ -16,8 +16,8 @@
          <div class="half vcenter label">
             <div><button type="submit" value="{{trans("actions.sendResetEmail",[],$language)}}">{{trans("actions.sendResetEmail",[],$language)}}</button></div>
          </div>
-         <small><a href="{{action("AuthenticationController@index")}}">{{trans("register.back",[],$language)}}</a></small>
-         {!! Form::close() !!} 
+         <small><a href="{{action([\App\Http\Controllers\AuthenticationController::class, 'index'])}}">{{trans("register.back",[],$language)}}</a></small>
+         {!! Form::close() !!}
       </section>
    </div>
 </body>

@@ -3,25 +3,27 @@
 namespace App\Providers;
 
 use App\SystemSetting;
+use Exception;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
+        Paginator::useBootstrap();
+
         try {
             $systemSetting = SystemSetting::firstOrNew([
-                'id' => 1
+                'id' => 1,
             ]);
 
             config([
                 'app.name' => $systemSetting->isp_name,
-                'app.url' => $systemSetting->url,
+                'app.url' => $systemSetting->url ?? 'http://localhost',
                 'app.locale' => $systemSetting->locale,
                 'customer_portal.company_name' => $systemSetting->isp_name,
                 'customer_portal.decimal_separator' => $systemSetting->decimal_separator,
@@ -62,17 +64,15 @@ class AppServiceProvider extends ServiceProvider
                     'name' => $systemSetting->mail_from_name,
                 ],
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             //
         }
     }
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }

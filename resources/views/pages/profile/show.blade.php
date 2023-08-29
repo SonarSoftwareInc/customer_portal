@@ -24,7 +24,7 @@
             <span class="fe fe-settings"></span> {{utrans("profile.changeYourDetails")}}
          </h6>
          <br>
-         {!! Form::open(['action' => 'ProfileController@update', 'id' => 'profileForm', 'method' => 'PATCH']) !!}
+         {!! Form::open(['action' => '\App\Http\Controllers\ProfileController@update','id' => 'profileForm','method' => 'PATCH']) !!}
          <form class="mb-4">
             <div class="row">
                <div class="col-12">
@@ -130,7 +130,7 @@
             <br>
             <div class="row">
                <div class="col-12 col-md-6">
-                  {!! Form::open(['action' => 'ProfileController@updatePassword', 'id' => 'passwordForm', 'class' => 'form', 'method' => 'PATCH']) !!}
+                  {!! Form::open(['action' => '\App\Http\Controllers\ProfileController@updatePassword','id' => 'passwordForm','class' => 'form','method' => 'PATCH']) !!}
                   <!-- Password -->
                   <div class="form-group">
                      <!-- Label -->

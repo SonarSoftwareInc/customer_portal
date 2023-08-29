@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 
 class TestSmtpCredentials extends Command
@@ -25,7 +24,6 @@ class TestSmtpCredentials extends Command
 
     /**
      * Create a new command instance.
-     *
      */
     public function __construct()
     {
@@ -34,27 +32,26 @@ class TestSmtpCredentials extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $email = $this->argument('email');
         if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-            $this->error($email . " is not a valid email address.");
+            $this->error($email.' is not a valid email address.');
+
             return;
         }
 
         try {
             Mail::send('emails.test', [], function ($m) use ($email) {
-                $m->from(config("customer_portal.from_address"), config("customer_portal.from_name"))
+                $m->from(config('customer_portal.from_address'), config('customer_portal.from_name'))
                     ->to($email, $email)
                     ->subject('Sonar customer portal test email!');
             });
 
             $this->info("Test email to $email sent.");
         } catch (Exception $e) {
-            $this->error("Test email failed with the following: " . $e->getMessage());
+            $this->error('Test email failed with the following: '.$e->getMessage());
         }
     }
 }

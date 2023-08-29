@@ -23,7 +23,7 @@
                <!-- / .row -->
             </div>
          </div>
-         {!! Form::open(['action' => 'BillingController@submitTokenizedPayment', 'id' => 'paymentForm', 'class' => 'mb-4', 'autocomplete' => 'on']) !!}
+         {!! Form::open(['action' => '\App\Http\Controllers\BillingController@submitTokenizedPayment', 'id' => 'paymentForm', 'class' => 'mb-4', 'autocomplete' => 'on']) !!}
          <div class="row mt-4">
             <div class="col-12 ">
                <!-- First name -->
@@ -67,7 +67,7 @@
                   {{utrans("billing.country")}}
                   </label>
                   <!-- Input -->
-                  {!! Form::select("country",countries(),\Illuminate\Support\Facades\Config::get("customer_portal.country"),['id' => 'country', 'class' => 'form-control', 'required' => true]) !!}
+                  {!! Form::select("country",countries(),config("customer_portal.country"),['id' => 'country', 'class' => 'form-control', 'required' => true]) !!}
                </div>
             </div>
             <div id="stateWrapper" class="col-12 ">
@@ -78,7 +78,7 @@
                   {{utrans("billing.state")}}
                   </label>
                   <!-- Input -->
-                  {!! Form::select("state",subdivisions(\Illuminate\Support\Facades\Config::get("customer_portal.country")),\Illuminate\Support\Facades\Config::get("customer_portal.state"),['id' => 'state', 'class' => 'form-control', 'required' => true]) !!}
+                  {!! Form::select("state",subdivisions(config("customer_portal.country")),config("customer_portal.state"),['id' => 'state', 'class' => 'form-control', 'required' => true]) !!}
                </div>
             </div>
             <div class="col-12 ">

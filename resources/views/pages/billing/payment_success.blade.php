@@ -28,7 +28,7 @@
             {{utrans("billing.transactionID")}}: {{$result->transaction_id}}
          </p>
          <p>
-            <a href="{{action("BillingController@index")}}">{{utrans("billing.backToBillingPage")}}</a>
+            <a href="{{action([\App\Http\Controllers\BillingController::class, 'index'])}}">{{utrans("billing.backToBillingPage")}}</a>
          </p>
       </div>
    </div>

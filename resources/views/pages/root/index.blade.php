@@ -10,7 +10,7 @@
             </div>
          @endif
          <h1 class="fake-half">{{trans('actions.loginMessage', ['ispName' => config("customer_portal.company_name")],$language)}}</h1>
-         {!! Form::open(['action' => 'AuthenticationController@authenticate']) !!}
+         {!! Form::open(['action' => '\App\Http\Controllers\AuthenticationController@authenticate']) !!}
 	     <input type="hidden" name="language" value="{{$language ?? 'en'}}">
          <div class="label label-text">
             <label for="input-email">{{trans("root.username",[],$language)}}</label>
@@ -29,14 +29,14 @@
             <div class="right"><a href="/reset" class="forgot">{{trans("headers.forgotUsernameOrPassword",[],$language)}}</a></div>
          </div>
          {!! Form::close() !!}
-         <small><a href="{{action("AuthenticationController@showRegistrationForm")}}">{{trans("root.register",[],$language)}}</a></small>
+         <small><a href="{{action([\App\Http\Controllers\AuthenticationController::class, 'showRegistrationForm'])}}">{{trans("root.register",[],$language)}}</a></small>
          <form class="form-group">
             <select id="language" name="language" class="form-control languageSelector">
             @foreach(getAvailableLanguages($language) as $key => $value)
             <option value="{{$key}}" @if($language == $key) selected @endif>{{$value}}</option>
             @endforeach
             </select>
-         </form> 
+         </form>
       </section>
    </div>
 </body>
