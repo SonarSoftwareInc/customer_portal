@@ -72,12 +72,12 @@
          </ul>
          <div class="navbar-user mt-auto d-none d-md-flex">
             <div class="dropup">
-               <a href="#!" id="sidebarIconCopy" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <a href="#sidebarDropup" id="sidebarIconCopy" class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <div class="avatar avatar-sm avatar-online">
                      <img src="/assets/img/alec.png" class="avatar-img rounded-circle" alt="...">
                   </div>
                </a>
-               <div class="dropdown-menu" aria-labelledby="sidebarIconCopy">
+               <div id="sidebarDropup" class="dropdown-menu" aria-labelledby="sidebarIconCopy">
                   <a href="/portal/profile" class="dropdown-item">{{utrans("nav.profile")}}</a>
                   <hr class="dropdown-divider">
                   <a href="/logout" class="dropdown-item">{{utrans("nav.logOut")}}</a>

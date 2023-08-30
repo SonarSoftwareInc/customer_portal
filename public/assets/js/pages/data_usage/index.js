@@ -1,5 +1,4 @@
-$(document).ready(function(){
-    Chart.platform.disableCSSInjection = true;
+$(function(){
     var labels = [];
     var datasets = [
         {
@@ -25,18 +24,21 @@ $(document).ready(function(){
         },
         options: {
             scales: {
-                yAxes: [{
+                y: {
                     scaleLabel: {
                         display: true,
                         labelString: 'GB'
+                    },
+                    ticks: {
+                        beginAtZero: true
                     }
-                }],
-                xAxes: [{
-                    stacked: true
-                }],
-                ticks: {
-                    beginAtZero: true
-                }
+                },
+                x: {
+                    stacked: true,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                },
             }
         }
     });

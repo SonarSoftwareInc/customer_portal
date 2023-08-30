@@ -10,7 +10,6 @@ close=document.getElementById("close");close.addEventListener('click',function()
 <script src="/assets/lang.dist.js"></script>
 <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/assets/libs/chart.js/dist/Chart.min.js"></script>
-<script src="/assets/libs/chart.js/Chart.extension.min.js"></script>
 <script src="/assets/libs/highlight/highlight.pack.min.js"></script>
 <script src="/assets/libs/flatpickr/dist/flatpickr.min.js"></script>
 <script src="/assets/libs/list.js/dist/list.min.js"></script>
