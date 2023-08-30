@@ -1,4 +1,4 @@
-FROM sonarsoftware/customerportal:latest
+FROM okteto.dev/customer_portal:latest
 
 COPY --chown=www-data --from=composer:2.5.8 /usr/bin/composer /usr/local/bin/composer
 
