@@ -1,4 +1,4 @@
-name: phpstan w/ larastan
+name: phpstan
 on: [push]
 jobs:
   phpstan:
