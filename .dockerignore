@@ -1,8 +1,10 @@
+.circleci/
 .dockerignore
 .env
 .env.*
 .git
 .gitattributes
+.github/
 .gitignore
 bootstrap/cache/**
 data
