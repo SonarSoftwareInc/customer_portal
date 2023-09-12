@@ -14,7 +14,7 @@
         "laravelcollective/html": "^6.4",
         "proengsoft/laravel-jsvalidation": "^4.8",
         "paypal/rest-api-sdk-php": "^1.14",
-        "psr/log": "3.0 as 1.0",
+        "psr/log": "2.0 as 1.0",
         "mariuzzo/laravel-js-localization": "dev-master",
         "laravel/tinker": "^2.8",
         "gocardless/gocardless-pro": "^4.8",
