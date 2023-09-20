@@ -74,22 +74,16 @@ jobs:
             docker push sonarsoftware/customerportal:next
 
 workflows:
-  # temporary during customer portal upgrade 2023-09
-  build_without_deploying:
+  build_and_deploy_master:
     jobs:
       - build
-
-# temporarily disabled during customer portal upgrade 2023-09
-#  build_and_deploy_master:
-#    jobs:
-#      - build
-#      - hold:
-#          type: approval
-#          requires:
-#            - build
-#          filters:
-#            branches:
-#              only: master
-#      - deploy_to_production:
-#          requires:
-#            - hold
+      - hold:
+          type: approval
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - deploy_to_production:
+          requires:
+            - hold
