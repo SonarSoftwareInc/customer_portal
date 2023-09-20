@@ -10,6 +10,7 @@ services:
       cpu: 200m
     environment:
       - APP_ENV=local
+      - APP_DEBUG=true
       - APP_KEY=base64:7qBm4Fss5HEZQu+lJHyh9+j0AQl7es/mg2aPIuk1rLo=
       - API_USERNAME=admin
       - API_PASSWORD=sonar

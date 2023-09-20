@@ -2,31 +2,23 @@
 
 namespace App\Providers;
 
-use App\Http\ViewComposers\LanguageComposer;
 use App\Services\LanguageService;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\View;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
-class LanguageServiceProvider extends ServiceProvider
+class LanguageServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    protected $defer = true;
     /**
      * Register bindings in the container.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-
     }
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(LanguageService::class, function ($app) {
             return new LanguageService();

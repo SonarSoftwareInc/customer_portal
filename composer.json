@@ -8,44 +8,47 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.0",
-        "laravel/framework": "5.5.*",
-        "predis/predis": "^1.0",
-        "laravelcollective/html": "^5.5",
-        "proengsoft/laravel-jsvalidation": "^1.6.0-dev",
-        "inacho/php-credit-card-validator": "^1.0",
-        "paypal/rest-api-sdk-php": "^1.7",
+        "php": "^8.2",
+        "laravel/framework": "^10.0",
+        "predis/predis": "^1.1",
+        "laravelcollective/html": "^6.4",
+        "proengsoft/laravel-jsvalidation": "^4.8",
+        "paypal/rest-api-sdk-php": "^1.14",
+        "psr/log": "2.0 as 1.0",
         "mariuzzo/laravel-js-localization": "dev-master",
-        "laravel/tinker": "^1.0",
-        "gocardless/gocardless-pro": "^1.5",
-        "fideloper/proxy": "~3.0",
-        "doctrine/dbal": "^2.10",
+        "laravel/tinker": "^2.8",
+        "gocardless/gocardless-pro": "^4.8",
+        "doctrine/dbal": "^3.5",
         "stripe/stripe-php": "^7",
-        "sonarsoftwareinc/customer_portal_framework": "^1.0.26",
-        "spatie/laravel-csp": "^2.1.2"
+        "sonarsoftwareinc/customer_portal_framework": "^2.0.0",
+        "spatie/laravel-csp": "^2.8",
+        "laravel/ui": "^4.2",
+        "guzzlehttp/guzzle": "^7.2",
+        "spatie/laravel-ray": "^1.32"
     },
     "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/reganjohnson/laravel-jsvalidation"
-        },
         {
             "type": "vcs",
             "url": "https://github.com/sonarsoftwareinc/customer_portal_framework"
         }
     ],
     "require-dev": {
-        "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~6.0",
-        "filp/whoops": "~2.0"
+        "mockery/mockery": "^1.4.4",
+        "phpunit/phpunit": "^10.0",
+        "filp/whoops": "^2.8",
+        "fakerphp/faker": "^1.9.1",
+        "nunomaduro/collision": "^7.0",
+        "spatie/laravel-ignition": "^2.0",
+        "nunomaduro/larastan": "^2.6"
     },
     "autoload": {
         "classmap": [
             "database"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
             "app/Helpers/functions.php"
@@ -67,7 +70,8 @@
             "Illuminate\\Foundation\\ComposerScripts::postInstall"
         ],
         "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate"
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
@@ -81,5 +85,5 @@
         }
     },
     "prefer-stable": true,
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }

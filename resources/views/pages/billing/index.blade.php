@@ -69,7 +69,7 @@
                         {{Formatter::currency($values['amount_due'])}}
                      </p>
                      <!-- Button -->
-                     <a href="{{action("BillingController@makePayment")}}" class="btn btn-white">
+                     <a href="{{action([\App\Http\Controllers\BillingController::class, 'makePayment'])}}" class="btn btn-white">
                      {{utrans("billing.makePayment")}}
                      </a>
                   </div>
@@ -91,7 +91,7 @@
                       {{utrans("headers.allPaid")}}
                      </h2>
                       <!-- Button -->
-                      <a href="{{action("BillingController@makePayment")}}" class="btn btn-white">
+                      <a href="{{action([\App\Http\Controllers\BillingController::class, 'makePayment'])}}" class="btn btn-white">
                           {{utrans("billing.makePayment")}}
                       </a>
                   </div>
@@ -210,7 +210,7 @@
       </div>
    </div>
    <div class="row">
-      @if(Config::get("customer_portal.show_detailed_transactions") == true)
+      @if(config("customer_portal.show_detailed_transactions") == true)
       <div class="col-12 col-md-12 col-xl-6">
          <div class="card">
             <div class="card-header">
@@ -277,7 +277,7 @@
                   <i class="fe fe-credit-card mr-3"></i> {{utrans("headers.creditCards")}}
                </h4>
                <p class="text-right mt-3">
-                  <a class="btn btn-secondary btn-sm" href="{{action("BillingController@createPaymentMethod",['type' => 'credit_card'])}}" role="button">
+                  <a class="btn btn-secondary btn-sm" href="{{action([\App\Http\Controllers\BillingController::class, 'createPaymentMethod'],['type' => 'credit_card'])}}" role="button">
                   <i class="fe fe-plus"></i>
                   {{utrans("billing.addNewCard")}}
                   </a>
@@ -309,13 +309,13 @@
                         <TD>{{$paymentMethod->expiration_month}}/{{$paymentMethod->expiration_year}}</TD>
                         <TD class="text-right">
                            @if($paymentMethod->auto == 1)
-                           {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'enablePaymentMethodForm', 'method' => 'patch']) !!}
+                           {!! Form::open(['action' => ["\App\Http\Controllers\BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'enablePaymentMethodForm','method' => 'patch']) !!}
                            <button class="btn btn-sm btn-disable-with-msg-on-click" data-message="{{utrans("billing.disabling")}}">
                            <i class="fe fe-minus-circle mr-2"></i> {{utrans("billing.disableAuto")}}
                            </button>
                            {!! Form::close() !!}
                            @else
-                           {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'enablePaymentMethodForm', 'method' => 'patch']) !!}
+                           {!! Form::open(['action' => ["\App\Http\Controllers\BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'enablePaymentMethodForm','method' => 'patch']) !!}
                            <button class="btn btn-sm btn-disable-with-msg-on-click" data-message="{{utrans("billing.enabling")}}">
                            <i class="fe fe-check-circle mr-2"></i> {{utrans("billing.enableAuto")}}
                            </button>
@@ -323,7 +323,7 @@
                            @endif
                         </TD>
                         <TD class="text-right">
-                           {!! Form::open(['action' => ["BillingController@deletePaymentMethod",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'delete']) !!}
+                           {!! Form::open(['action' => ["\App\Http\Controllers\BillingController@deletePaymentMethod",$paymentMethod->id],'id' => 'deletePaymentMethodForm','method' => 'delete']) !!}
                            <button class="btn btn-sm btn-disable-with-msg-on-click" data-message="{{utrans("billing.deleting")}}">
                            <i class="fe fe-x-circle mr-2"></i>
                            {{utrans("actions.delete")}}
@@ -346,7 +346,7 @@
                   <div class="card-header">
                      <h4 class="card-header-title text-muted"><i class="fe fe-dollar-sign mr-3"></i> {{utrans("headers.bankAccounts")}}</h4>
                      <p class="text-right mt-3">
-                        <a class="btn btn-secondary btn-sm" href="{{action("BillingController@createPaymentMethod",['type' => 'bank'])}}" role="button">
+                        <a class="btn btn-secondary btn-sm" href="{{action([\App\Http\Controllers\BillingController::class, 'createPaymentMethod'],['type' => 'bank'])}}" role="button">
                            <i class="fe fe-plus"></i> {{utrans("billing.addNewBankAccount")}}</a>
                      </p>
                   </div>
@@ -372,14 +372,14 @@
                               </TD>
                               <TD class="text-right">
                                  @if($paymentMethod->auto == 1)
-                                 {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'patch']) !!}
+                                 {!! Form::open(['action' => ["\App\Http\Controllers\BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm','method' => 'patch']) !!}
                                  <button class="btn btn-sm" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.disabling")}}'">
                                  <i class="fe fe-minus-circle mr-2"></i>
                                  {{utrans("billing.disableAuto")}}
                                  </button>
                                  {!! Form::close() !!}
                                  @else
-                                 {!! Form::open(['action' => ["BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'patch']) !!}
+                                 {!! Form::open(['action' => ["\App\Http\Controllers\BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm','method' => 'patch']) !!}
                                  <button class="btn btn-sm" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.enabling")}}'">
                                  <i class="fe fe-check-circle mr-2"></i>
                                  {{utrans("billing.enableAuto")}}
@@ -388,7 +388,7 @@
                                  @endif
                               </TD>
                               <TD class="text-right">
-                                 {!! Form::open(['action' => ["BillingController@deletePaymentMethod",$paymentMethod->id],'id' => 'deletePaymentMethodForm', 'method' => 'delete']) !!}
+                                 {!! Form::open(['action' => ["\App\Http\Controllers\BillingController@deletePaymentMethod",$paymentMethod->id],'id' => 'deletePaymentMethodForm','method' => 'delete']) !!}
                                  <button class="btn btn-sm" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.deleting")}}'">
                                  <i class="fe fe-x-circle mr-2"></i>
                                  {{utrans("actions.delete")}}
@@ -438,7 +438,7 @@
                         <TD>{{Formatter::currency(bcadd($invoice->remaining_due, $invoice->child_remaining_due,2))}}</TD>
                         <TD>{{Formatter::date($invoice->due_date,false)}}</TD>
                         <TD>
-                           <a class="btn btn-sm" href="{{action("BillingController@getInvoicePdf",['invoices' => $invoice->id])}}" role="button">
+                           <a class="btn btn-sm" href="{{action([\App\Http\Controllers\BillingController::class, 'getInvoicePdf'],['invoices' => $invoice->id])}}" role="button">
                            <i class="fe fe-file-text mr-1"></i>
                            {{utrans("billing.downloadInvoice")}}
                            </a>

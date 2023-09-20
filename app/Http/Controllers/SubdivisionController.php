@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use Illuminate\Support\Facades\Response;
 
 class SubdivisionController extends Controller
@@ -13,11 +12,8 @@ class SubdivisionController extends Controller
     /**
      * Get subdivisions for a country,
      * for user on app settings page
-     * @param Request $request
-     * @param $country
-     * @return mixed
      */
-    public function authenticate(Request $request, $country)
+    public function authenticate(Request $request, $country): JsonResponse
     {
         if ($request->session()->get('settings_authenticated') === 1) {
             try {
@@ -27,18 +23,21 @@ class SubdivisionController extends Controller
                     'error' => $e->getMessage(),
                 ], 422);
             }
+
             return Response::json([
                 'subdivisions' => $subdivisions,
             ], 200);
         }
+
+        return Response::json([
+            'error' => __('errors.invalidSettingsKey'),
+        ], 422);
     }
 
     /**
      * Get subdivisions for a country
-     * @param $country
-     * @return mixed
      */
-    public function show($country)
+    public function show($country): JsonResponse
     {
         try {
             $subdivisions = subdivisions($country);

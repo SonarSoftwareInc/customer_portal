@@ -8,7 +8,7 @@
          </a>
          <h1 class="fake-half">{{trans("headers.createYourAccount",[],$language)}}</h1>
          <p>{{trans("register.creationDescription",[],$language)}}</p>
-         {!! Form::open(['action' => ['AuthenticationController@createAccount', 'token' => $creationToken->token], 'id' => 'createForm', 'method' => 'post']) !!}
+         {!! Form::open(['action' => ['\App\Http\Controllers\AuthenticationController@createAccount', 'token' => $creationToken->token], 'id' => 'createForm', 'method' => 'post']) !!}
          <div class="label label-text">
             <label for="email">{{trans("register.email",[],$language)}}</label>
             {!! Form::email("email",null,['id' => 'email', 'placeholder' => trans("register.email",[],$language)]) !!}
@@ -28,8 +28,8 @@
          <div class="half vcenter label">
             <div><button type="submit" value="{{trans("actions.createAccount",[],$language)}}">{{trans("actions.createAccount",[],$language)}}</button></div>
          </div>
-         {!! Form::close() !!} 
-         <small><a href="{{action("AuthenticationController@index")}}">{{trans("register.back",[],$language)}}</a></small>
+         {!! Form::close() !!}
+         <small><a href="{{action([\App\Http\Controllers\AuthenticationController::class, 'index'])}}">{{trans("register.back",[],$language)}}</a></small>
       </section>
    </div>
 </body>
@@ -39,7 +39,7 @@
 window.onbeforeunload = function(e){
     document.getElementById('main').className = 'section content animated fadeOutUp';
 }
-var passwordStrength = {{Config::get("customer_portal.password_strength_required")}};
+var passwordStrength = {{config("customer_portal.password_strength_required")}};
 </script>
 <script type="text/javascript" src="/assets/js/pages/register/register.js"></script>
 <script type="text/javascript" src="/assets/libs/js-validation/jsvalidation.min.js"></script>

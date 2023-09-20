@@ -36,15 +36,13 @@ class DeleteExpiredTokens extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
-        $deleteTokensOlderThan = Carbon::now("UTC")->subHours(24)->toDateTimeString();
+        $deleteTokensOlderThan = Carbon::now('UTC')->subHours(24)->toDateTimeString();
         CreationToken::where('updated_at', '<=', $deleteTokensOlderThan)->delete();
         PasswordReset::where('updated_at', '<=', $deleteTokensOlderThan)->delete();
-        GoCardlessToken::where('updated_at','<=',$deleteTokensOlderThan)->delete();
-        $this->info("Tokens deleted.");
+        GoCardlessToken::where('updated_at', '<=', $deleteTokensOlderThan)->delete();
+        $this->info('Tokens deleted.');
     }
 }

@@ -19,7 +19,7 @@
                </div>
             </div>
          </div>
-         {!! Form::open(['action' => 'DataUsageController@addTopOff', 'id' => 'topOffForm', 'autocomplete' => 'on']) !!}
+         {!! Form::open(['action' => '\App\Http\Controllers\DataUsageController@addTopOff', 'id' => 'topOffForm', 'autocomplete' => 'on']) !!}
 	<h6 class="header-pretitle mb-4">
             <i class="fe fe-zap"></i> {{utrans("data_usage.quantity")}}
         </h6>
@@ -46,7 +46,7 @@
                      </div>
                   </div>
                   <div class="col-auto">
-                     <button type"submit" class="btn btn-primary mb-3">
+                     <button type="submit" class="btn btn-primary mb-3">
                      {{utrans("data_usage.confirmTopOffAddition")}}
                      </button>
                   </div>
@@ -64,7 +64,7 @@
 <script nonce="{{ csp_nonce() }}">
    var units = $("#units").val();
    var cost = $("#cost").val();
-   
+
    function addValue() {
        valX = document.getElementById('quantity').value;
        valX = parseInt(valX, 10);
@@ -72,7 +72,7 @@
        updateCalcValue(valY);
        document.getElementById('quantity').value = valY;
    }
-   
+
    function updateCalcValue(value) {
        $("#calculatedAmount").html(Lang.get("data_usage.topOffTotal", {
            count: value * units,

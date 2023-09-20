@@ -246,14 +246,14 @@
                   </div>
                </div>
             </div>
-			@if(count(subdivisions(\Illuminate\Support\Facades\Config::get("customer_portal.country"))) != 0)
+			@if(count(subdivisions(config("customer_portal.country"))) != 0)
             <div id="stateWrapper" class="row mt-1">
                <div class="col-12">
                   <div class="form-group">
                      <label>
                      State
                      </label>
-                     {!! Form::select("state",subdivisions(\Illuminate\Support\Facades\Config::get("customer_portal.country")),\Illuminate\Support\Facades\Config::get("customer_portal.state"),['id' => 'state', 'class' => 'form-control state-control']) !!}
+                     {!! Form::select("state",subdivisions(config("customer_portal.country")),config("customer_portal.state"),['id' => 'state', 'class' => 'form-control state-control']) !!}
 				</div>
                </div>
             </div>

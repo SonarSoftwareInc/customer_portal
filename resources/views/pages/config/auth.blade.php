@@ -10,7 +10,7 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    {!! Form::open(['action' => 'AppConfigController@authenticate', 'id' => 'authForm', 'class' => 'mb-4', 'autocomplete' => 'off']) !!}
+                    {!! Form::open(['action' => '\App\Http\Controllers\AppConfigController@authenticate', 'id' => 'authForm', 'class' => 'mb-4', 'autocomplete' => 'off']) !!}
                     <div class="row mt-1">
                         <div class="col-12 ">
                             <div class="form-group">

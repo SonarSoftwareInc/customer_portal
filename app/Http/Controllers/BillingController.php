@@ -9,47 +9,42 @@ use App\Http\Requests\CreateCreditCardRequest;
 use App\Http\Requests\CreateTokenizedCreditCardRequest;
 use App\Http\Requests\CreditCardPaymentRequest;
 use App\Http\Requests\TokenizedCreditCardPaymentRequest;
-use App\Http\Requests\PaymentMethodDeleteRequest;
-use App\Services\LanguageService;
 use App\SystemSetting;
 use App\Traits\ListsPaymentMethods;
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
-use Inacho\CreditCard as CreditCardValidator;
+use Illuminate\View\View;
 use InvalidArgumentException;
 use SonarSoftware\CustomerPortalFramework\Controllers\AccountBillingController;
+use SonarSoftware\CustomerPortalFramework\Controllers\DataUsageController as FrameworkDataUsageController;
+use SonarSoftware\CustomerPortalFramework\Helpers\CreditCardValidator;
 use SonarSoftware\CustomerPortalFramework\Models\BankAccount;
 use SonarSoftware\CustomerPortalFramework\Models\CreditCard;
 use SonarSoftware\CustomerPortalFramework\Models\TokenizedCreditCard;
-use Stripe\Token;
 
 class BillingController extends Controller
 {
     use ListsPaymentMethods;
-    private $frameworkDataUsageController;
-    private $dataUsageController;
-    private $accountBillingController;
+
+    private FrameworkDataUsageController $frameworkDataUsageController;
+
+    private AccountBillingController $accountBillingController;
+
     public function __construct()
     {
         $this->accountBillingController = new AccountBillingController();
-	$this->frameworkDataUsageController = new \SonarSoftware\CustomerPortalFramework\Controllers\DataUsageController();
+        $this->frameworkDataUsageController = new FrameworkDataUsageController();
     }
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index()
+
+    public function index(): Factory|View
     {
         $billingDetails = $this->getAccountBillingDetails();
         $invoices = $this->getInvoices();
@@ -58,10 +53,12 @@ class BillingController extends Controller
         $transactions = $this->paginate($transactions, 5, false, ['path' => '/portal/billing/transaction']);
         $paymentMethods = $this->getPaymentMethods();
 
-	    $historicalUsage = $this->getHistoricalUsage();
+        $historicalUsage = $this->getHistoricalUsage();
         $policyDetails = $this->getPolicyDetails();
         $currentUsage = $historicalUsage ? $historicalUsage[0] : [];
-        $calculatedCap = $policyDetails->policy_cap_in_gigabytes + round($policyDetails->rollover_available_in_bytes/1000**3, 2) + round($policyDetails->purchased_top_off_total_in_bytes/1000**3, 2);
+        $calculatedCap = $policyDetails->policy_cap_in_gigabytes
+            + round($policyDetails->rollover_available_in_bytes / 1000 ** 3, 2)
+            + round($policyDetails->purchased_top_off_total_in_bytes / 1000 ** 3, 2);
 
         $values = [
             'amount_due' => $billingDetails->balance_due,
@@ -71,26 +68,28 @@ class BillingController extends Controller
             'available_funds' => $billingDetails->available_funds,
             'payment_past_due' => $this->isPaymentPastDue(),
             'balance_minus_funds' => bcsub($billingDetails->total_balance, $billingDetails->available_funds, 2),
-            'currentUsage' => $currentUsage
+            'currentUsage' => $currentUsage,
         ];
 
         $systemSetting = SystemSetting::firstOrNew(['id' => 1]);
 
-        return view("pages.billing.index", compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting'));
+        return view(
+            'pages.billing.index',
+            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting')
+        );
     }
 
     /**
      * Get an invoice PDF as base64, and decode it
-     * @param $invoiceID
-     * @return $this|\Illuminate\Http\Response
      */
-    public function getInvoicePdf($invoiceID)
+    public function getInvoicePdf($invoiceID): mixed
     {
         try {
             $data = $this->accountBillingController->getInvoicePdf(get_user()->account_id, $invoiceID);
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->back()->withErrors(utrans("errors.failedToDownloadInvoice"));
+
+            return redirect()->back()->withErrors(utrans('errors.failedToDownloadInvoice'));
         }
 
         return response()->make(base64_decode($data->base64), 200, [
@@ -101,23 +100,21 @@ class BillingController extends Controller
 
     /**
      * Make payment page
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function makePayment()
+    public function makePayment(): Factory|View|RedirectResponse
     {
         $billingDetails = $this->getAccountBillingDetails();
         $paymentMethods = $this->generatePaymentMethodListForPaymentPage();
-        if (count($paymentMethods) == 0)
-        {
-            return redirect()->back()->withErrors(utrans("errors.addAPaymentMethod"));
+        if (count($paymentMethods) == 0) {
+            return redirect()->back()->withErrors(utrans('errors.addAPaymentMethod'));
         }
 
-        if (config('customer_portal.stripe_enabled') == 1)
-        {
+        if (config('customer_portal.stripe_enabled') == 1) {
             $stripe = new PortalStripe();
             $secret = $stripe->setupIntent();
             $systemSettings = SystemSetting::first();
             $key = $systemSettings->stripe_public_api_key;
+
             return view(
                 'pages.billing.make_payment_stripe',
                 compact('billingDetails', 'paymentMethods', 'secret', 'key')
@@ -129,17 +126,16 @@ class BillingController extends Controller
 
     /**
      * Process a tokenized submitted payment
-     * @param TokenizedCreditCardPaymentRequest $request
-     * @return $this
      */
-    public function submitTokenizedPayment(TokenizedCreditCardPaymentRequest $request)
+    public function submitTokenizedPayment(TokenizedCreditCardPaymentRequest $request): RedirectResponse
     {
         switch ($request->input('payment_method')) {
-            case "new_card":
+            case 'new_card':
                 try {
                     $result = $this->payWithNewTokenizedCreditCard($request);
                 } catch (Exception $e) {
                     Log::error($e->getMessage());
+
                     return redirect()->back()->withErrors($e->getMessage())->withInput();
                 }
                 break;
@@ -148,171 +144,169 @@ class BillingController extends Controller
                     $result = $this->payWithExistingPaymentMethod($request);
                 } catch (Exception $e) {
                     Log::error($e->getMessage());
+
                     return redirect()->back()->withErrors($e->getMessage())->withInput();
                 }
                 break;
         }
 
         $this->clearBillingCache();
-        if ($result->success == true)
-        {
-            return redirect()->action("BillingController@index")->with('success', utrans("billing.paymentWasSuccessful"));
+        if ($result->success == true) {
+            return redirect()
+                ->action([BillingController::class, 'index'])
+                ->with('success', utrans('billing.paymentWasSuccessful'));
+        } else {
+            return redirect()->back()->withErrors(utrans('errors.paymentFailed'));
         }
-        else
-        {
-            return redirect()->back()->withErrors(utrans("errors.paymentFailed"));
-        }
-
     }
 
     /**
      * Process a submitted payment
-     * @param CreditCardPaymentRequest $request
-     * @return $this
      */
-    public function submitPayment(CreditCardPaymentRequest $request)
+    public function submitPayment(CreditCardPaymentRequest $request): RedirectResponse
     {
         switch ($request->input('payment_method')) {
-            case "new_card":
+            case 'new_card':
                 try {
                     $result = $this->payWithNewCreditCard($request);
                 } catch (Exception $e) {
                     Log::error($e->getMessage());
+
                     return redirect()->back()->withErrors($e->getMessage())->withInput();
                 }
                 break;
-            case "paypal":
+            case 'paypal':
                 $paypalController = new PayPalController();
                 try {
                     $redirectLink = $paypalController->generateApprovalLink($request->input('amount'));
                 } catch (Exception $e) {
                     Log::error($e->getMessage());
-                    return redirect()->back()->withErrors(utrans("errors.paypalFailed"));
+
+                    return redirect()->back()->withErrors(utrans('errors.paypalFailed'));
                 }
+
                 return redirect()->to($redirectLink);
-                break;
+
             default:
                 //If we've made it here, this is an existing payment method
                 try {
                     $result = $this->payWithExistingPaymentMethod($request);
                 } catch (Exception $e) {
                     Log::error($e->getMessage());
+
                     return redirect()->back()->withErrors($e->getMessage())->withInput();
                 }
                 break;
         }
 
         $this->clearBillingCache();
-        if ($result->success == true)
-        {
-            return redirect()->action("BillingController@index")->with('success', utrans("billing.paymentWasSuccessful"));
-        }
-        else
-        {
-            return redirect()->back()->withErrors(utrans("errors.paymentFailed"));
+        if ($result->success == true) {
+            return redirect()
+                ->action([BillingController::class, 'index'])
+                ->with('success', utrans('billing.paymentWasSuccessful'));
+        } else {
+            return redirect()->back()->withErrors(utrans('errors.paymentFailed'));
         }
     }
 
     /**
      * Delete an existing payment method from a customer account.
-     * @param $id
-     * @return $this
      */
-    public function deletePaymentMethod($id)
+    public function deletePaymentMethod($id): RedirectResponse
     {
         $paymentMethods = $this->getPaymentMethods();
         foreach ($paymentMethods as $paymentMethod) {
-            if ((int)$paymentMethod->id === (int)$id) {
+            if ((int) $paymentMethod->id === (int) $id) {
                 try {
                     $this->accountBillingController->deletePaymentMethodByID(get_user()->account_id, $id);
                     $this->clearBillingCache();
-                    return redirect()->action("BillingController@index")->with('success', utrans("billing.creditCardDeleted"));
+
+                    return redirect()
+                        ->action([BillingController::class, 'index'])
+                        ->with('success', utrans('billing.creditCardDeleted'));
                 } catch (Exception $e) {
                     //
                 }
             }
         }
 
-        return redirect()->back()->withErrors(utrans("errors.paymentMethodNotFound"));
+        return redirect()->back()->withErrors(utrans('errors.paymentMethodNotFound'));
     }
 
     /**
      * Toggle the auto pay setting on a payment method
-     * @param $id
-     * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function toggleAutoPay($id)
+    public function toggleAutoPay($id): RedirectResponse
     {
         $paymentMethods = $this->getPaymentMethods();
         foreach ($paymentMethods as $paymentMethod) {
-            if ((int)$paymentMethod->id === (int)$id) {
+            if ((int) $paymentMethod->id === (int) $id) {
                 try {
-                    $existingAutoSetting = (boolean)$paymentMethod->auto;
-                    $this->accountBillingController->setAutoOnPaymentMethod(get_user()->account_id, $paymentMethod->id, !$existingAutoSetting);
+                    $existingAutoSetting = (bool) $paymentMethod->auto;
+                    $this->accountBillingController->setAutoOnPaymentMethod(
+                        get_user()->account_id,
+                        $paymentMethod->id,
+                        ! $existingAutoSetting
+                    );
                     $this->clearBillingCache();
-                    if ($existingAutoSetting == true) {
-                        return redirect()->action("BillingController@index")->with('success', utrans("billing.autoPayDisabled"));
+                    if ($existingAutoSetting === true) {
+                        return redirect()
+                            ->action([BillingController::class, 'index'])
+                            ->with('success', utrans('billing.autoPayDisabled'));
                     }
-                    return redirect()->action("BillingController@index")->with('success', utrans("billing.autoPayEnabled"));
+
+                    return redirect()
+                        ->action([BillingController::class, 'index'])
+                        ->with('success', utrans('billing.autoPayEnabled'));
                 } catch (Exception $e) {
                     //
                 }
             }
         }
 
-        return redirect()->back()->withErrors(utrans("errors.paymentMethodNotFound"));
+        return redirect()->back()->withErrors(utrans('errors.paymentMethodNotFound'));
     }
 
     /**
      * Show page to create a new payment method
-     * @param $type
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function createPaymentMethod($type)
+    public function createPaymentMethod($type): Factory|View|RedirectResponse
     {
-        switch ($type)
-        {
-            case "credit_card":
-                if (config("customer_portal.stripe_enabled") == 1)
-                {
+        switch ($type) {
+            case 'credit_card':
+                if (config('customer_portal.stripe_enabled') == 1) {
                     $stripe = new PortalStripe();
                     $systemSettings = SystemSetting::first();
-                    return view("pages.billing.add_card_stripe", [
+
+                    return view('pages.billing.add_card_stripe', [
                         'secret' => $stripe->setupIntent(),
-                        'key' => $systemSettings->stripe_public_api_key
+                        'key' => $systemSettings->stripe_public_api_key,
                     ]);
+                } else {
+                    return view('pages.billing.add_card');
                 }
-                else
-                {
-                    return view("pages.billing.add_card");
-                }
-                break;
-            case "bank":
-                if (config("customer_portal.enable_gocardless") == 1)
-                {
+
+            case 'bank':
+                if (config('customer_portal.enable_gocardless') == 1) {
                     $gocardless = new GoCardless();
+
                     return Redirect::away($gocardless->createRedirect());
+                } else {
+                    return view('pages.billing.add_bank');
                 }
-                else
-                {
-                    return view("pages.billing.add_bank");
-                }
-                break;
+
             default:
-                return redirect()->back()->withErrors(utrans("errors.invalidPaymentMethodType"));
+                return redirect()->back()->withErrors(utrans('errors.invalidPaymentMethodType'));
         }
     }
 
     /**
      * Store a new tokenized credit card
-     * @param CreateTokenizedCreditCardRequest $request
-     * @return $this|mixed
      */
-    public function storeTokenizedCard(CreateTokenizedCreditCardRequest $request)
+    public function storeTokenizedCard(CreateTokenizedCreditCardRequest $request): RedirectResponse
     {
-        if (config("customer_portal.enable_credit_card_payments") == false)
-        {
-            throw new InvalidArgumentException(utrans("errors.creditCardPaymentsDisabled"));
+        if (config('customer_portal.enable_credit_card_payments') == false) {
+            throw new InvalidArgumentException(utrans('errors.creditCardPaymentsDisabled'));
         }
 
         try {
@@ -325,26 +319,24 @@ class BillingController extends Controller
             $this->accountBillingController->createTokenizedCreditCard(
                 get_user()->account_id,
                 $card,
-                (bool)$request->input('auto')
+                (bool) $request->input('auto')
             );
         } catch (Exception $e) {
-            return redirect()->back()->withErrors(utrans("errors.failedToCreateCard"))->withInput();
+            return redirect()->back()->withErrors(utrans('errors.failedToCreateCard'))->withInput();
         }
 
         $this->clearBillingCache();
-        return redirect()->action("BillingController@index")->with('success', utrans("billing.cardAdded"));
+
+        return redirect()->action([BillingController::class, 'index'])->with('success', utrans('billing.cardAdded'));
     }
 
     /**
      * Store a new credit card
-     * @param CreateCreditCardRequest $request
-     * @return $this|mixed
      */
-    public function storeCard(CreateCreditCardRequest $request)
+    public function storeCard(CreateCreditCardRequest $request): RedirectResponse
     {
-        if (config("customer_portal.enable_credit_card_payments") == false)
-        {
-            throw new InvalidArgumentException(utrans("errors.creditCardPaymentsDisabled"));
+        if (config('customer_portal.enable_credit_card_payments') == false) {
+            throw new InvalidArgumentException(utrans('errors.creditCardPaymentsDisabled'));
         }
 
         try {
@@ -354,34 +346,35 @@ class BillingController extends Controller
         }
 
         try {
-            $this->accountBillingController->createCreditCard(get_user()->account_id, $card, (bool)$request->input('auto'));
+            $this->accountBillingController->createCreditCard(
+                get_user()->account_id,
+                $card,
+                (bool) $request->input('auto')
+            );
         } catch (Exception $e) {
-            return redirect()->back()->withErrors(utrans("errors.failedToCreateCard"))->withInput();
+            return redirect()->back()->withErrors(utrans('errors.failedToCreateCard'))->withInput();
         }
 
-        unset($creditCard);
+        unset($card);
         unset($request);
 
         $this->clearBillingCache();
-        return redirect()->action("BillingController@index")->with('success', utrans("billing.cardAdded"));
+
+        return redirect()->action([BillingController::class, 'index'])->with('success', utrans('billing.cardAdded'));
     }
 
     /**
      * Store a new credit card
-     * @param CreateBankAccountRequest $request
-     * @return $this|mixed
      */
-    public function storeBank(CreateBankAccountRequest $request)
+    public function storeBank(CreateBankAccountRequest $request): RedirectResponse
     {
-        if (config("customer_portal.enable_bank_payments") != true)
-        {
-            return redirect()->back()->withErrors(utrans("errors.failedToCreateBankAccount"))->withInput();
+        if (config('customer_portal.enable_bank_payments') != true) {
+            return redirect()->back()->withErrors(utrans('errors.failedToCreateBankAccount'))->withInput();
         }
 
         try {
             $bankAccount = $this->createBankAccountObjectFromRequest($request);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage())->withInput();
         }
 
@@ -393,37 +386,49 @@ class BillingController extends Controller
                 'zip' => $request->input('zip'),
                 'country' => $request->input('country'),
             ];
-            $this->accountBillingController->createBankAccount(get_user()->account_id, $bankAccount, (bool)$request->input('auto'), $address);
+            $this->accountBillingController->createBankAccount(
+                get_user()->account_id,
+                $bankAccount,
+                (bool) $request->input('auto'),
+                $address
+            );
         } catch (Exception $e) {
             Log::error($e);
-            return redirect()->back()->withErrors(utrans("errors.failedToCreateBankAccount"))->withInput();
+
+            return redirect()->back()->withErrors(utrans('errors.failedToCreateBankAccount'))->withInput();
         }
 
         unset($bankAccount);
         unset($request);
 
         $this->clearBillingCache();
-        return redirect()->action("BillingController@index")->with('success', utrans("billing.bankAccountAdded"));
+
+        return redirect()
+            ->action([BillingController::class, 'index'])
+            ->with('success', utrans('billing.bankAccountAdded'));
     }
 
     /**
      * Make a payment with an existing payment method
-     * @param $request
-     * @return mixed
+     *
      * @throws Exception
      */
-    private function payWithExistingPaymentMethod($request)
+    private function payWithExistingPaymentMethod($request): mixed
     {
-
         try {
-            $result = $this->accountBillingController->makePaymentUsingExistingPaymentMethod(get_user()->account_id, intval($request->input('payment_method')), trim($request->input('amount')), $request->input('payment_tracker_id'));
+            $result = $this->accountBillingController->makePaymentUsingExistingPaymentMethod(
+                get_user()->account_id,
+                intval($request->input('payment_method')),
+                trim($request->input('amount')),
+                $request->input('payment_tracker_id')
+            );
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            throw new Exception(utrans("billing.paymentFailedTryAnother"));
+            throw new Exception(utrans('billing.paymentFailedTryAnother'));
         }
 
         if ($result->success !== true) {
-            throw new Exception(utrans("billing.paymentFailedTryAnother"));
+            throw new Exception(utrans('billing.paymentFailedTryAnother'));
         }
 
         Log::info(json_encode($result));
@@ -433,26 +438,29 @@ class BillingController extends Controller
 
     /**
      * Make a payment with a new credit card
-     * @param CreditCardPaymentRequest $request
-     * @return mixed
      */
-    private function payWithNewCreditCard(CreditCardPaymentRequest $request)
+    private function payWithNewCreditCard(CreditCardPaymentRequest $request): mixed
     {
-        if (config("customer_portal.enable_credit_card_payments") == false)
-        {
-            throw new InvalidArgumentException(utrans("errors.creditCardPaymentsDisabled"));
+        if (config('customer_portal.enable_credit_card_payments') == false) {
+            throw new InvalidArgumentException(utrans('errors.creditCardPaymentsDisabled'));
         }
 
         $creditCard = $this->createCreditCardObjectFromRequest($request);
 
         try {
-            $result = $this->accountBillingController->makeCreditCardPayment(get_user()->account_id, $creditCard, $request->input('amount'), (boolean)$request->input('makeAuto'), $request->input('payment_tracker_id'));
+            $result = $this->accountBillingController->makeCreditCardPayment(
+                get_user()->account_id,
+                $creditCard,
+                $request->input('amount'),
+                (bool) $request->input('makeAuto'),
+                $request->input('payment_tracker_id')
+            );
         } catch (Exception $e) {
-            throw new InvalidArgumentException(utrans("billing.errorSubmittingPayment"));
+            throw new InvalidArgumentException(utrans('billing.errorSubmittingPayment'));
         }
 
         if ($result->success !== true) {
-            throw new InvalidArgumentException(utrans("errors.paymentFailed"));
+            throw new InvalidArgumentException(utrans('errors.paymentFailed'));
         }
 
         unset($creditCard);
@@ -463,14 +471,11 @@ class BillingController extends Controller
 
     /**
      * Make a payment with a new tokenized credit card
-     * @param TokenizedCreditCardPaymentRequest $request
-     * @return mixed
      */
-    public function payWithNewTokenizedCreditCard(TokenizedCreditCardPaymentRequest $request)
+    public function payWithNewTokenizedCreditCard(TokenizedCreditCardPaymentRequest $request): mixed
     {
-        if (config("customer_portal.enable_credit_card_payments") == false)
-        {
-            throw new InvalidArgumentException(utrans("errors.creditCardPaymentsDisabled"));
+        if (config('customer_portal.enable_credit_card_payments') == false) {
+            throw new InvalidArgumentException(utrans('errors.creditCardPaymentsDisabled'));
         }
 
         $creditCard = $this->createTokenizedCreditCardObjectFromRequest($request);
@@ -480,15 +485,15 @@ class BillingController extends Controller
                 get_user()->account_id,
                 $creditCard,
                 $request->input('amount'),
-                (boolean)$request->input('makeAuto'),
+                (bool) $request->input('makeAuto'),
                 $request->input('payment_tracker_id')
             );
         } catch (Exception $e) {
-            throw new InvalidArgumentException(utrans("billing.errorSubmittingPayment"));
+            throw new InvalidArgumentException(utrans('billing.errorSubmittingPayment'));
         }
 
         if ($result->success !== true) {
-            throw new InvalidArgumentException(utrans("errors.paymentFailed"));
+            throw new InvalidArgumentException(utrans('errors.paymentFailed'));
         }
 
         unset($creditCard);
@@ -497,33 +502,34 @@ class BillingController extends Controller
         return $result;
     }
 
-
     /**
      * Get account billing details
-     * @return mixed
      */
-    private function getAccountBillingDetails()
+    private function getAccountBillingDetails(): mixed
     {
-        if (!Cache::tags("billing.details")->has(get_user()->account_id)) {
+        if (! Cache::tags('billing.details')->has(get_user()->account_id)) {
             $billingDetails = $this->accountBillingController->getAccountBillingDetails(get_user()->account_id);
-            Cache::tags("billing.details")->put(get_user()->account_id, $billingDetails, 10);
+            Cache::tags('billing.details')->put(
+                get_user()->account_id,
+                $billingDetails,
+                Carbon::now()->addMinutes(10)
+            );
         }
 
-        return Cache::tags("billing.details")->get(get_user()->account_id);
+        return Cache::tags('billing.details')->get(get_user()->account_id);
     }
 
     /**
      * Get the invoice list for a user. This will only retrieve the last 100.
-     * @return mixed
      */
-    private function getInvoices()
+    private function getInvoices(): mixed
     {
-        if (!Cache::tags("billing.invoices")->has(get_user()->account_id)) {
+        if (! Cache::tags('billing.invoices')->has(get_user()->account_id)) {
             $invoicesToReturn = [];
             $invoices = $this->accountBillingController->getInvoices(get_user()->account_id);
             foreach ($invoices as $invoice) {
                 //This check is here because this property did not exist prior to Sonar 0.6.6
-                if (property_exists($invoice, "void")) {
+                if (property_exists($invoice, 'void')) {
                     if ($invoice->void != 1) {
                         array_push($invoicesToReturn, $invoice);
                     }
@@ -531,20 +537,22 @@ class BillingController extends Controller
                     array_push($invoicesToReturn, $invoice);
                 }
             }
-            Cache::tags("billing.invoices")->put(get_user()->account_id, $invoicesToReturn, 10);
+            Cache::tags('billing.invoices')->put(
+                get_user()->account_id,
+                $invoicesToReturn,
+                Carbon::now()->addMinutes(10)
+            );
         }
 
-        return Cache::tags("billing.invoices")->get(get_user()->account_id);
+        return Cache::tags('billing.invoices')->get(get_user()->account_id);
     }
 
     /**
      * Get the transaction list for a user. This will only display the last 100 currently.
-     * @return mixed
      */
-    private function getTransactions()
+    private function getTransactions(): mixed
     {
-
-        if (!Cache::tags("billing.transactions")->has(get_user()->account_id)) {
+        if (! Cache::tags('billing.transactions')->has(get_user()->account_id)) {
             $transactions = [];
             $debits = $this->accountBillingController->getDebits(get_user()->account_id);
             foreach ($debits as $debit) {
@@ -590,20 +598,23 @@ class BillingController extends Controller
             });
             $transactions = array_slice($transactions, 0, 100);
 
-            Cache::tags("billing.transactions")->put(get_user()->account_id, $transactions, 10);
+            Cache::tags('billing.transactions')->put(
+                get_user()->account_id,
+                $transactions,
+                Carbon::now()->addMinutes(10)
+            );
         }
 
-        return Cache::tags("billing.transactions")->get(get_user()->account_id);
+        return Cache::tags('billing.transactions')->get(get_user()->account_id);
     }
 
     /**
      * Check if the payment is past due
-     * @return bool
      */
-    private function isPaymentPastDue()
+    private function isPaymentPastDue(): bool
     {
         $invoices = $this->getInvoices();
-        $now = Carbon::now(config("app.timezone"));
+        $now = Carbon::now(config('app.timezone'));
 
         foreach ($invoices as $invoice) {
             if ($invoice->remaining_due <= 0) {
@@ -620,30 +631,43 @@ class BillingController extends Controller
 
     /**
      * Generate a formatted list of payment methods for the make payment page
-     * @return array
      */
-    private function generatePaymentMethodListForPaymentPage()
+    private function generatePaymentMethodListForPaymentPage(): array
     {
         $paymentMethods = [];
         $validAccountMethods = $this->getPaymentMethods();
-        foreach ($validAccountMethods as $validAccountMethod)
-        {
-            if ($validAccountMethod->type == "credit card" && config("customer_portal.enable_credit_card_payments") == 1)
-            {
-                $paymentMethods[$validAccountMethod->id] = utrans("billing.payUsingExistingCard", ['card' => "****" . $validAccountMethod->identifier . " (" . sprintf("%02d", $validAccountMethod->expiration_month) . " / " . $validAccountMethod->expiration_year . ")"]);
-            }
-            elseif ((config("customer_portal.enable_bank_payments") == 1 || config("customer_portal.enable_gocardless") == 1) && $validAccountMethod->type != "credit card")
-            {
-                $paymentMethods[$validAccountMethod->id] = utrans("billing.payUsingExistingBankAccount", ['accountNumber' => "**" . $validAccountMethod->identifier]);
+        foreach ($validAccountMethods as $validAccountMethod) {
+            if (
+                $validAccountMethod->type == 'credit card'
+                && config('customer_portal.enable_credit_card_payments') == 1
+            ) {
+                $paymentMethods[$validAccountMethod->id] = utrans(
+                    'billing.payUsingExistingCard',
+                    [
+                        'card' => '****'.$validAccountMethod->identifier.' ('
+                            .sprintf('%02d', $validAccountMethod->expiration_month).' / '
+                            .$validAccountMethod->expiration_year.')'
+                    ]
+                );
+            } elseif (
+                (
+                    config('customer_portal.enable_bank_payments') == 1
+                    || config('customer_portal.enable_gocardless') == 1
+                )
+                && $validAccountMethod->type != 'credit card'
+            ) {
+                $paymentMethods[$validAccountMethod->id] = utrans(
+                    'billing.payUsingExistingBankAccount',
+                    ['accountNumber' => '**'.$validAccountMethod->identifier]
+                );
             }
         }
 
-        if (config("customer_portal.paypal_enabled") == 1) {
-            $paymentMethods['paypal'] = utrans("billing.payWithPaypal");
+        if (config('customer_portal.paypal_enabled') == 1) {
+            $paymentMethods['paypal'] = utrans('billing.payWithPaypal');
         }
-        if (config("customer_portal.enable_credit_card_payments") == 1)
-        {
-            $paymentMethods['new_card'] = utrans("billing.payWithNewCard");
+        if (config('customer_portal.enable_credit_card_payments') == 1) {
+            $paymentMethods['new_card'] = utrans('billing.payWithNewCard');
         }
 
         $paymentMethods = array_reverse($paymentMethods, true);
@@ -654,35 +678,33 @@ class BillingController extends Controller
     /**
      * Clear all the cached billing items.
      */
-    public function clearBillingCache()
+    public function clearBillingCache(): void
     {
-        Cache::tags("billing.details")->forget(get_user()->account_id);
-        Cache::tags("billing.invoices")->forget(get_user()->account_id);
-        Cache::tags("billing.transactions")->forget(get_user()->account_id);
-        Cache::tags("billing.payment_methods")->forget(get_user()->account_id);
+        Cache::tags('billing.details')->forget(get_user()->account_id);
+        Cache::tags('billing.invoices')->forget(get_user()->account_id);
+        Cache::tags('billing.transactions')->forget(get_user()->account_id);
+        Cache::tags('billing.payment_methods')->forget(get_user()->account_id);
     }
 
     /**
      * Create a credit card object from a request containing cc-number, name, and expirationDate
-     * @param $request
-     * @return CreditCard
      */
-    private function createCreditCardObjectFromRequest($request)
+    private function createCreditCardObjectFromRequest($request): CreditCard
     {
-        $card = CreditCardValidator::validCreditCard(trim(str_replace(" ", "", $request->input('cc-number'))));
+        $card = CreditCardValidator::validCreditCard(trim(str_replace(' ', '', $request->input('cc-number'))));
         if ($card['valid'] !== true) {
-            throw new InvalidArgumentException(utrans("errors.invalidCreditCardNumber"));
+            throw new InvalidArgumentException(utrans('errors.invalidCreditCardNumber'));
         }
 
-        list($year, $month) = convertExpirationDateToYearAndMonth(
+        [$year, $month] = convertExpirationDateToYearAndMonth(
             $request->input('expirationDate')
         );
 
         if (! CreditCardValidator::validDate($year, $month)) {
-            throw new InvalidArgumentException(utrans("errors.invalidExpirationDate"));
+            throw new InvalidArgumentException(utrans('errors.invalidExpirationDate'));
         }
 
-       return new CreditCard([
+        return new CreditCard([
             'name' => $request->input('name'),
             'number' => $card['number'],
             'expiration_month' => intval($month),
@@ -698,17 +720,15 @@ class BillingController extends Controller
 
     /**
      * Create a tokenized credit card object from a request
-     * @param $request
-     * @return TokenizedCreditCard
      */
-    private function createTokenizedCreditCardObjectFromRequest($request)
+    private function createTokenizedCreditCardObjectFromRequest($request): TokenizedCreditCard
     {
-        list($year, $month) = convertExpirationDateToYearAndMonth(
+        [$year, $month] = convertExpirationDateToYearAndMonth(
             $request->input('expirationDate')
         );
 
         if (! CreditCardValidator::validDate($year, $month)) {
-            throw new InvalidArgumentException(utrans("errors.invalidExpirationDate"));
+            throw new InvalidArgumentException(utrans('errors.invalidExpirationDate'));
         }
 
         return new TokenizedCreditCard([
@@ -727,129 +747,89 @@ class BillingController extends Controller
         ]);
     }
 
-    /**
-     * @param CreateBankAccountRequest $request
-     * @return BankAccount
-     */
-    private function createBankAccountObjectFromRequest(CreateBankAccountRequest $request)
+    private function createBankAccountObjectFromRequest(CreateBankAccountRequest $request): BankAccount
     {
-        $bankAccount = new BankAccount([
+        return new BankAccount([
             'name' => trim($request->input('name')),
             'type' => trim($request->input('account_type')),
             'account_number' => trim($request->input('account_number')),
             'routing_number' => trim($request->input('routing_number')),
         ]);
-
-        return $bankAccount;
     }
 
-   /**
+    /**
      * Get cached usage based billing policy details. Cache is lower on this one in case service is changed.
-     * @return mixed
      */
-    private function getPolicyDetails()
+    private function getPolicyDetails(): mixed
     {
-        if (!Cache::tags("usage_based_billing_policy_details")->has(get_user()->account_id)) {
-            $policyDetails = $this->frameworkDataUsageController->getUsageBasedBillingPolicyDetails(get_user()->account_id, 3);
-            Cache::tags("usage_based_billing_policy_details")->put(get_user()->account_id, $policyDetails, 10);
+        if (! Cache::tags('usage_based_billing_policy_details')->has(get_user()->account_id)) {
+            $policyDetails = $this->frameworkDataUsageController->getUsageBasedBillingPolicyDetails(
+                get_user()->account_id
+            );
+            Cache::tags('usage_based_billing_policy_details')->put(
+                get_user()->account_id,
+                $policyDetails,
+                Carbon::now()->addMinutes(10)
+            );
         }
-        return Cache::tags("usage_based_billing_policy_details")->get(get_user()->account_id);
+
+        return Cache::tags('usage_based_billing_policy_details')->get(get_user()->account_id);
     }
 
     /**
      * Get cached historical data usage
-     * @return mixed
      */
-    private function getHistoricalUsage()
+    private function getHistoricalUsage(): mixed
     {
-        if (!Cache::tags("historical_data_usage")->has(get_user()->account_id)) {
-            $dataUsage = $this->formatHistoricalUsageData(array_slice($this->frameworkDataUsageController->getAggregatedDataUsage(get_user()->account_id, 3), 0, 12));
-            Cache::tags("historical_data_usage")->put(get_user()->account_id, $dataUsage, 60);
-        }
-        return Cache::tags("historical_data_usage")->get(get_user()->account_id);
-    }
-
-    /**
-     * Format the data returned from the customer portal framework data usage controller into a usable format
-     * @param $dataUsage
-     * @return array
-     */
-    private function formatGranularDataUsage($dataUsage)
-    {
-        $graphData = [];
-        $largestValue = 0;
-        $dataToFormat = $dataUsage->granular->series;
-        foreach ($dataToFormat as $datumToFormat) {
-            foreach ($datumToFormat->in as $timestamp => $value) {
-                if (!array_key_exists($timestamp, $graphData)) {
-                    $graphData[$timestamp] = [
-                        "in" => $value,
-                        "out" => 0
-                    ];
-                } else {
-                    $graphData[$timestamp]['in'] += $value;
-                }
-
-                if ($graphData[$timestamp]['in'] > $largestValue) {
-                    $largestValue = $graphData[$timestamp]['in'];
-                }
-            }
-            foreach ($datumToFormat->out as $timestamp => $value) {
-                $graphData[$timestamp]['out'] += $value;
-                if ($graphData[$timestamp]['out'] > $largestValue) {
-                    $largestValue = $graphData[$timestamp]['out'];
-                }
-            }
+        if (! Cache::tags('historical_data_usage')->has(get_user()->account_id)) {
+            $dataUsage = $this->formatHistoricalUsageData(
+                array_slice(
+                    $this->frameworkDataUsageController->getAggregatedDataUsage(get_user()->account_id),
+                    0,
+                    12
+                )
+            );
+            Cache::tags('historical_data_usage')->put(
+                get_user()->account_id,
+                $dataUsage,
+                Carbon::now()->addMinutes(60)
+            );
         }
 
-        //We need to convert all the values to some SI-suffixed value based on the largest value so that the graph is not shown in bytes.
-        $suffixAndPower = $this->returnSiSuffixAndPower($largestValue);
-        foreach ($graphData as $timestamp => $values) {
-            $graphData[$timestamp] = [
-                'in' => round($values['in'] / 1000**$suffixAndPower['power'], 2),
-                'out' => round($values['out'] / 1000**$suffixAndPower['power'], 2),
-            ];
-        }
-
-        return json_encode([
-            'graphData' => $graphData,
-            'suffix' => $suffixAndPower['suffix'],
-        ]);
+        return Cache::tags('historical_data_usage')->get(get_user()->account_id);
     }
 
     /**
      * Convert all historical usage to gigabytes
-     * @param $historicalUsageData
-     * @return array
      */
-    private function formatHistoricalUsageData($historicalUsageData)
+    private function formatHistoricalUsageData($historicalUsageData): array
     {
         $formattedData = [];
         foreach ($historicalUsageData as $datum) {
-            $timestamp = new Carbon($datum->start_time, "UTC");
+            $timestamp = new Carbon($datum->start_time, 'UTC');
             array_push($formattedData, [
                 'timestamp' => $timestamp->toRfc3339String(),
-                'billable' => round(($datum->billable_in_bytes+$datum->billable_out_bytes)/1000**3, 2),
-                'free' => round(($datum->free_in_bytes+$datum->free_out_bytes)/1000**3, 2),
+                'billable' => round(($datum->billable_in_bytes + $datum->billable_out_bytes) / 1000 ** 3, 2),
+                'free' => round(($datum->free_in_bytes + $datum->free_out_bytes) / 1000 ** 3, 2),
             ]);
         }
+
         return $formattedData;
     }
 
     private function paginate($items, $perPage, $setDefaultOption = true, $options = [])
     {
-        if($setDefaultOption){
+        if ($setDefaultOption) {
             $options = ['path' => request()->url(), 'query' => request()->query()];
         }
 
         $requestUrl = $this->cleanUrl(request()->url());
 
-        if (isset($options['path']) && $_SERVER['HTTP_HOST'] . $options['path'] == $requestUrl) {
-            $page = Input::get('page', 1); // Get the current page or default to 1
+        if (isset($options['path']) && $_SERVER['HTTP_HOST'].$options['path'] == $requestUrl) {
+            $page = request()->input('page', 1); // Get the current page or default to 1
         } else {
             $page = 1; // Get the current page or default to 1
         }
-
 
         $items = $items instanceof Collection ? $items : Collection::make($items);
 

@@ -3,21 +3,20 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthMiddleware
 {
     /**
      * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         if ($request->session()->get('authenticated', false) === true) {
             return $next($request);
         }
-        return redirect()->action("AuthenticationController@index")->withErrors(trans("errors.notAuthenticated"));
+
+        return redirect()->action([\App\Http\Controllers\AuthenticationController::class, 'index'])->withErrors(trans('errors.notAuthenticated'));
     }
 }

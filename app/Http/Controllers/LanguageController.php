@@ -4,22 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LanguageUpdateRequest;
 use App\UsernameLanguage;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class LanguageController extends Controller
 {
-    /**
-     * @param LanguageUpdateRequest $request
-     * @return $this
-     */
-    public function update(LanguageUpdateRequest $request)
+    public function update(LanguageUpdateRequest $request): JsonResponse
     {
         $language = $request->input('language');
-        if (get_user())
-        {
+        if (get_user()) {
             $usernameLanguage = UsernameLanguage::firstOrNew([
-                'username' => get_user()->username
+                'username' => get_user()->username,
             ]);
             $usernameLanguage->language = $language;
             $usernameLanguage->save();
@@ -27,6 +21,6 @@ class LanguageController extends Controller
 
         return response()->json([
             'success' => true,
-        ])->cookie('language',$language, 31536000);
+        ])->cookie('language', $language, 31536000);
     }
 }

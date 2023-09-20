@@ -23,7 +23,7 @@
                         <!-- / .row -->
                     </div>
                 </div>
-                {!! Form::open(['action' => 'BillingController@storeBank', 'id' => 'createPaymentMethodForm']) !!}
+                {!! Form::open(['action' => '\App\Http\Controllers\BillingController@storeBank','id' => 'createPaymentMethodForm']) !!}
                 <div class="row">
                     <div class="col-lg-12 col-12">
                         <div class="form-group">
@@ -66,7 +66,7 @@
                     <div class="col-12 col-lg-12">
                         <div class="form-group">
                             <label for="country">{{utrans("billing.country")}}</label>
-                            {!! Form::select("country",countries(),\Illuminate\Support\Facades\Config::get("customer_portal.country"),['id' => 'country', 'class' => 'form-control']) !!}
+                            {!! Form::select("country",countries(),config("customer_portal.country"),['id' => 'country', 'class' => 'form-control']) !!}
                         </div>
                     </div>
                 </div>
@@ -79,9 +79,9 @@
                     </div>
                     <div class="col-12 col-lg-4">
                         <div class="form-group">
-                            <div id="stateWrapper" @if(count(subdivisions(\Illuminate\Support\Facades\Config::get("customer_portal.country"))) === 0) class="csp_style1" @endif">
+                            <div id="stateWrapper" @if(count(subdivisions(config("customer_portal.country"))) === 0) class="csp_style1" @endif">
                             <label for="state">{{utrans("billing.state")}}</label>
-                            {!! Form::select("state",subdivisions(\Illuminate\Support\Facades\Config::get("customer_portal.country")),\Illuminate\Support\Facades\Config::get("customer_portal.state"),['id' => 'state', 'class' => 'form-control']) !!}
+                            {!! Form::select("state",subdivisions(config("customer_portal.country")),config("customer_portal.state"),['id' => 'state', 'class' => 'form-control']) !!}
                         </div>
                     </div>
                 </div>

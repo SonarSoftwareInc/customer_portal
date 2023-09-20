@@ -472,7 +472,6 @@ var Header = (function() {
   function init($chart) {
 
     // Create chart
-    Chart.platform.disableCSSInjection = true;
     var headerChart = new Chart($chart, {
       type: 'line',
       options: {
@@ -528,7 +527,6 @@ var Performance = (function() {
   function init($chart) {
 
     // Create chart
-    Chart.platform.disableCSSInjection = true;
     var performanceChart = new Chart($chart, {
       type: 'line',
       data: {
@@ -573,7 +571,6 @@ var PerformanceAlias = (function() {
   function init($chart) {
 
     // Create chart
-    Chart.platform.disableCSSInjection = true;
     var performanceChartAlias = new Chart($chart, {
       type: 'line',
       data: {
@@ -619,7 +616,6 @@ var Orders = (function() {
   function init($chart) {
 
     // Create chart
-    Chart.platform.disableCSSInjection = true;
     var ordersChart = new Chart($chart, {
       type: 'bar',
       data: {
@@ -666,7 +662,6 @@ var OrdersAlias = (function() {
   function init($chart) {
 
     // Create chart
-    Chart.platform.disableCSSInjection = true;
     var ordersChartAlias = new Chart($chart, {
       type: 'bar',
       data: {
@@ -713,7 +708,6 @@ var Devices = (function() {
   function init($chart) {
 
     // Create chart
-    Chart.platform.disableCSSInjection = true;
     var devicesChart = new Chart($chart, {
       type: 'doughnut',
       data: {
@@ -777,7 +771,6 @@ var WeeklyHours = (function() {
   function init($chart) {
 
     // Create chart
-    Chart.platform.disableCSSInjection = true;
     var weeklyHoursChart = new Chart($chart, {
       type: 'bar',
       options: {

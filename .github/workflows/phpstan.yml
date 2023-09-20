@@ -1,0 +1,21 @@
+name: phpstan
+on: [push]
+jobs:
+  phpstan:
+    name: runner / phpstan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install PHP.
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          coverage: none
+
+      - name: Check out code.
+        uses: actions/checkout@v3
+
+      - name: Install backend dependencies.
+        uses: ramsey/composer-install@v2
+
+      - name: Run phpstan.
+        run: vendor/bin/phpstan analyse

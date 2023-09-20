@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: sonarsoftware/customerportal:stable
+    image: sonarsoftware/customerportal:next
     container_name: sonar-customerportal
     restart: always
     tty: true
@@ -25,7 +25,7 @@ services:
       - redis
 
   redis:
-    image: redis:5.0.4-alpine 
+    image: redis:7.0.11-alpine
     restart: always
 
   certbot:

@@ -8,24 +8,20 @@ class AppConfigRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'url' => 'required|url',
-            'locale' => 'required|in:' . implode(",", array_keys(getAvailableLanguages())),
+            'locale' => 'required|in:'.implode(',', array_keys(getAvailableLanguages())),
             'mail_host' => 'required|string',
             'mail_username' => 'required|string',
             'mail_password' => 'required|string',
@@ -37,7 +33,7 @@ class AppConfigRequest extends FormRequest
             'decimal_separator' => 'required|string',
             'thousands_separator' => 'required|string',
             'currency_symbol' => 'required|string',
-            'country' => 'required|in:' . implode(",", array_keys(countries())),
+            'country' => 'required|in:'.implode(',', array_keys(countries())),
             'state' => 'required|string',
             'data_usage_enabled' => 'boolean',
             'contracts_enabled' => 'boolean',

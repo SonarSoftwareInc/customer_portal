@@ -16,7 +16,7 @@
          </div>
          <div class="col-auto">
             <!-- Button -->
-            <a class="btn btn-primary" href="{{action("TicketController@create")}}" role="button">
+            <a class="btn btn-primary" href="{{action([\App\Http\Controllers\TicketController::class, 'create'])}}" role="button">
             {{utrans("tickets.createNewTicket")}} <span class="fe fe-edit-2"></span> 
             </a>
          </div>
@@ -54,7 +54,7 @@
                   @foreach($tickets as $ticket)
                   <tr>
                      <TD id="ticket-status">
-                        <a href="{{action("TicketController@show",['tickets' => $ticket->getTicketID()])}}">{{$ticket->getSubject()}}</a>
+                        <a href="{{action([\App\Http\Controllers\TicketController::class, 'show'],['tickets' => $ticket->getTicketID()])}}">{{$ticket->getSubject()}}</a>
                      </TD>
                      @if($ticket->getOpen() === false)
                      <TD id="ticket-status">
@@ -63,7 +63,7 @@
                         </div>
                      </TD>
                      @else
-                     <TD><span @if($ticket->getLastReplyIncoming() === false) class="badge badge-info" @else class="badge badge-light" @endif>@if($ticket->getLastReplyIncoming() === false) {{utrans("tickets.waitingYourResponse")}} @else {{utrans("tickets.waitingIspResponse", [ 'companyName' => Config::get("customer_portal.company_name")])}} @endif</span></TD>
+                     <TD><span @if($ticket->getLastReplyIncoming() === false) class="badge badge-info" @else class="badge badge-light" @endif>@if($ticket->getLastReplyIncoming() === false) {{utrans("tickets.waitingYourResponse")}} @else {{utrans("tickets.waitingIspResponse", [ 'companyName' => config("customer_portal.company_name")])}} @endif</span></TD>
                      @endif
                   </tr>
                   @endforeach
