@@ -71,6 +71,16 @@
                   </div>
                </div>
             </div>
+            <div class="row mt-1">
+               <div class="col-12 ">
+                  <div class="form-group">
+                     <label>
+                         FCC Label Zip File (<a href="https://fcclabel.sonar.software">fcclabel.sonar.software</a>)
+                     </label> <br>
+                    {!! Form::file('fcclabels', null, ['class' => 'form-control']) !!}
+                  </div>
+               </div>
+            </div>
             {{--<div class="row mt-1">--}}
                {{--<div class="col-12 mb--3 ">--}}
                   {{--<div class="form-group">--}}

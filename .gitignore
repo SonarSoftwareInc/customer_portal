@@ -9,3 +9,4 @@ storage/database.sqlite
 /vendor
 
 /.phpunit.cache
+/nbproject/private/

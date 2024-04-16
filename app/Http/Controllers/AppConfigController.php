@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use SonarSoftware\CustomerPortalFramework\Helpers\HttpHelper;
+use ZipArchive;
 
 class AppConfigController extends Controller
 {
@@ -30,7 +31,7 @@ class AppConfigController extends Controller
             $this->resetThrottleValue('settings', $request->getClientIp());
             $request->session()->put('settings_authenticated', 1);
 
-            return redirect()->action([\App\Http\Controllers\AppConfigController::class, 'show']);
+            return redirect()->action([AppConfigController::class, 'show']);
         }
 
         $this->incrementThrottleValue('settings', $request->getClientIp());
@@ -91,6 +92,18 @@ class AppConfigController extends Controller
                 $request->file('cover')->move(base_path('public/assets/img/'), 'cover.png');
             }
 
+            if ($request->hasFile('fcclabels')) {
+                $request->file('fcclabels');
+                $request->file('fcclabels')->move(base_path('public/assets/fcclabels/'), 'labels.zip');
+                $zip = new ZipArchive;
+                if ($zip->open(base_path('public/assets/fcclabels/labels.zip')) === TRUE) {
+                    $zip->extractTo(base_path('public/assets/fcclabels/'));
+                    $zip->close();
+                } else {
+                    echo 'failed';
+                }
+            }
+
             /**
              * System Settings
              */
@@ -141,7 +154,7 @@ class AppConfigController extends Controller
 
             $systemSetting->save();
 
-            return redirect()->action([\App\Http\Controllers\AppConfigController::class, 'show']);
+            return redirect()->action([AppConfigController::class, 'show']);
         }
 
         abort(401);
