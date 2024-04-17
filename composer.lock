@@ -4178,12 +4178,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/SonarSoftwareInc/customer_portal_framework.git",
-                "reference": "e60b5480740b22886d9219a550054ab9e3c093ad"
+                "reference": "692a13c73b0012401aa9bc467ea2b0356bf862af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SonarSoftwareInc/customer_portal_framework/zipball/e60b5480740b22886d9219a550054ab9e3c093ad",
-                "reference": "e60b5480740b22886d9219a550054ab9e3c093ad",
+                "url": "https://api.github.com/repos/SonarSoftwareInc/customer_portal_framework/zipball/692a13c73b0012401aa9bc467ea2b0356bf862af",
+                "reference": "692a13c73b0012401aa9bc467ea2b0356bf862af",
                 "shasum": ""
             },
             "require": {
@@ -4233,7 +4233,7 @@
                 "forum": "https://sonar.community",
                 "source": "https://github.com/SonarSoftwareInc/customer_portal_framework/tree/fcclabels"
             },
-            "time": "2024-04-17T15:25:19+00:00"
+            "time": "2024-04-17T16:34:11+00:00"
         },
         {
             "name": "spatie/backtrace",
