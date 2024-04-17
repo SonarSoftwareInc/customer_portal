@@ -78,10 +78,16 @@ class BillingController extends Controller
         $systemSetting = SystemSetting::firstOrNew(['id' => 1]);
         
         $services = $this->accountBillingController->getServices(get_user()->account_id);
+        $dataServiceId = 0;
+        foreach ($services as $service) {
+            if ($service->service_type == "DATA") {
+                $dataServiceId = $service->id;
+            }
+        }
 
-        $svgPath = "label_" . $services[0]->id . "_" . $accountDetails->company_id . ".svg";
+        $svgPath = "public/assets/fcclabels/label_" . $dataServiceId . "_" . $accountDetails->company_id . ".svg";
 
-        if (file_exists(base_path("public/assets/fcclabels/{$svgPath}"))) {
+        if (file_exists(base_path("{$svgPath}"))) {
             $svgDisplay = "none";
         } else {
             $svgDisplay = "initial";
