@@ -93,9 +93,9 @@ class BillingController extends Controller
         $svgPath = "public/assets/fcclabels/label_" . $dataServiceId . "_" . $accountDetails->company_id . ".svg";
 
         if (file_exists(base_path("{$svgPath}"))) {
-            $svgDisplay = "none";
-        } else {
             $svgDisplay = "initial";
+        } else {
+            $svgDisplay = "none";
         }
 
         return view(
