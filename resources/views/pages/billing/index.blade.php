@@ -2,8 +2,6 @@
 @section('content')
 @if (isset($values["currentUsage"]["billable"]))
 <style nonce="{{ csp_nonce() }}">
-   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900');
-   @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600;8..144,700;8..144,800;8..144,900;8..144,1000');
    #usage-progressbar {
      width:  {{$values["currentUsage"]["billable"]}}%
    }
@@ -456,7 +454,9 @@
       </div>
       <div class="col-12 col-md-12 col-xl-6">
          <div class="card">
-             <img border="0" src="{{ $svgPath }}" style="display: {{ $svgDisplay }};" />
+             <div style="display: {{ $svgDisplay }};">
+                 {{ $svg }}
+            </div>
          </div>
       </div>
    </div>

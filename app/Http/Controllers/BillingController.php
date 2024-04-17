@@ -94,13 +94,14 @@ class BillingController extends Controller
 
         if (file_exists(base_path("public{$svgPath}"))) {
             $svgDisplay = "initial";
+            $svg = file_get_contents(base_path("public{$svgPath}"));
         } else {
             $svgDisplay = "none";
         }
 
         return view(
             'pages.billing.index',
-            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting', 'svgPath', 'svgDisplay')
+            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting', 'svg', 'svgDisplay')
         );
     }
 
