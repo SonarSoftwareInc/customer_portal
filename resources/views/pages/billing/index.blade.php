@@ -448,14 +448,14 @@
                      @endif
                   </tbody>
                </table>
-                { $invoices->links() }
+                {{ $invoices->links() }}
             </div>
          </div>
       </div>
       <div class="col-12 col-md-12 col-xl-6">
          <div class="card">
              <div style="display: {{ $svgDisplay }};">
-                 {{!! $svg !!}}
+                 {!! $svg !!}
             </div>
          </div>
       </div>
