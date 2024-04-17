@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use InvalidArgumentException;
 use SonarSoftware\CustomerPortalFramework\Controllers\AccountBillingController;
+use SonarSoftware\CustomerPortalFramework\Controllers\AccountController;
 use SonarSoftware\CustomerPortalFramework\Controllers\DataUsageController as FrameworkDataUsageController;
 use SonarSoftware\CustomerPortalFramework\Helpers\CreditCardValidator;
 use SonarSoftware\CustomerPortalFramework\Models\BankAccount;
@@ -37,15 +38,18 @@ class BillingController extends Controller
     private FrameworkDataUsageController $frameworkDataUsageController;
 
     private AccountBillingController $accountBillingController;
+    private AccountController $accountController;
 
     public function __construct()
     {
         $this->accountBillingController = new AccountBillingController();
+        $this->accountController = new AccountController();
         $this->frameworkDataUsageController = new FrameworkDataUsageController();
     }
 
     public function index(): Factory|View
     {
+        $accountDetails = $this->accountController->getAccountDetails(get_user()->account_id);
         $billingDetails = $this->getAccountBillingDetails();
         $invoices = $this->getInvoices();
         $invoices = $this->paginate($invoices, 5, false, ['path' => '/portal/billing/invoices']);
@@ -72,10 +76,20 @@ class BillingController extends Controller
         ];
 
         $systemSetting = SystemSetting::firstOrNew(['id' => 1]);
+        
+        $services = $this->accountBillingController->getServices(get_user()->account_id);
+
+        $svgPath = "label_" . $services[0]->id . "_" . $accountDetails->company_id . ".svg";
+
+        if (file_exists(base_path("public/assets/fcclabels/{$svgPath}"))) {
+            $svgDisplay = "none";
+        } else {
+            $svgDisplay = "initial";
+        }
 
         return view(
             'pages.billing.index',
-            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting')
+            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting', 'svgPath', 'svgDisplay')
         );
     }
 

@@ -452,6 +452,11 @@
             </div>
          </div>
       </div>
+      <div class="col-12 col-md-12 col-xl-6">
+         <div class="card">
+             <img border="0" src="/assets/fcclabels/{{ $svgPath }}" style="display: {{ $svgDisplay }};" />
+         </div>
+      </div>
    </div>
 </div>
 </div><!-- #main-content -->
