@@ -80,8 +80,8 @@ class BillingController extends Controller
         $services = $this->accountBillingController->getServices(get_user()->account_id);
         $dataServiceId = 0;
         foreach ($services as $service) {
-            if ($service->service_type == "DATA") {
-                $dataServiceId = $service->id;
+            if ($service->type == "DATA") {
+                $dataServiceId = $service->unique_service_relationship_id;
             }
         }
 
