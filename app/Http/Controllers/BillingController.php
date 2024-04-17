@@ -81,18 +81,18 @@ class BillingController extends Controller
         $dataServiceId = 0;
         foreach ($services as $service) {
             //save a call back to sonar if no label is here to find anyway
-            $trySvgPath = "public/assets/fcclabels/label_" . $service->unique_service_relationship_id . "_" . $accountDetails->company_id . ".svg";
+            $trySvgPath = "public/assets/fcclabels/label_" . $service->id . "_" . $accountDetails->company_id . ".svg";
             if (file_exists(base_path("{$trySvgPath}"))) {
-                $serviceDef = $this->accountBillingController->getService($service->unique_service_relationship_id);
-                if ($serviceDef->type == "DATA") {
-                    $dataServiceId = $service->unique_service_relationship_id;
+                $serviceDef = $this->accountBillingController->getService($service->id);
+                if ($serviceDef->data_service) {
+                    $dataServiceId = $service->id;
                 }
             }
         }
 
-        $svgPath = "public/assets/fcclabels/label_" . $dataServiceId . "_" . $accountDetails->company_id . ".svg";
+        $svgPath = "/assets/fcclabels/label_" . $dataServiceId . "_" . $accountDetails->company_id . ".svg";
 
-        if (file_exists(base_path("{$svgPath}"))) {
+        if (file_exists(base_path("public{$svgPath}"))) {
             $svgDisplay = "initial";
         } else {
             $svgDisplay = "none";
