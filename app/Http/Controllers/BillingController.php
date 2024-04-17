@@ -97,6 +97,7 @@ class BillingController extends Controller
             $svg = file_get_contents(base_path("public{$svgPath}"));
         } else {
             $svgDisplay = "none";
+            $svg = "";
         }
 
         return view(
