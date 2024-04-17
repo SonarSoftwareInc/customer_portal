@@ -448,7 +448,7 @@
                      @endif
                   </tbody>
                </table>
-                {{ $invoices->links() }}
+                { $invoices->links() }
             </div>
          </div>
       </div>
