@@ -80,8 +80,13 @@ class BillingController extends Controller
         $services = $this->accountBillingController->getServices(get_user()->account_id);
         $dataServiceId = 0;
         foreach ($services as $service) {
-            if ($service->type == "DATA") {
-                $dataServiceId = $service->unique_service_relationship_id;
+            //save a call back to sonar if no label is here to find anyway
+            $trySvgPath = "public/assets/fcclabels/label_" . $service->unique_service_relationship_id . "_" . $accountDetails->company_id . ".svg";
+            if (file_exists(base_path("{$trySvgPath}"))) {
+                $serviceDef = $this->accountBillingController->getService($service->unique_service_relationship_id);
+                if ($serviceDef->type == "DATA") {
+                    $dataServiceId = $service->unique_service_relationship_id;
+                }
             }
         }
 
