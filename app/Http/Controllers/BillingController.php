@@ -26,6 +26,7 @@ use InvalidArgumentException;
 use SonarSoftware\CustomerPortalFramework\Controllers\AccountBillingController;
 use SonarSoftware\CustomerPortalFramework\Controllers\AccountController;
 use SonarSoftware\CustomerPortalFramework\Controllers\DataUsageController as FrameworkDataUsageController;
+use SonarSoftware\CustomerPortalFramework\Controllers\SystemController;
 use SonarSoftware\CustomerPortalFramework\Helpers\CreditCardValidator;
 use SonarSoftware\CustomerPortalFramework\Models\BankAccount;
 use SonarSoftware\CustomerPortalFramework\Models\CreditCard;
@@ -38,11 +39,13 @@ class BillingController extends Controller
     private FrameworkDataUsageController $frameworkDataUsageController;
 
     private AccountBillingController $accountBillingController;
+    private SystemController $systemController;
     private AccountController $accountController;
 
     public function __construct()
     {
         $this->accountBillingController = new AccountBillingController();
+        $this->systemController = new SystemController();
         $this->accountController = new AccountController();
         $this->frameworkDataUsageController = new FrameworkDataUsageController();
     }
@@ -83,7 +86,7 @@ class BillingController extends Controller
             //save a call back to sonar if no label is here to find anyway
             $trySvgPath = "public/assets/fcclabels/label_" . $service->id . "_" . $accountDetails->company_id . ".svg";
             if (file_exists(base_path("{$trySvgPath}"))) {
-                $serviceDef = $this->accountBillingController->getService($service->id);
+                $serviceDef = $this->systemController->getService($service->id);
                 if ($serviceDef->data_service) {
                     $dataServiceId = $service->id;
                 }
