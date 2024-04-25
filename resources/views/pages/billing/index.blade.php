@@ -452,7 +452,7 @@
             </div>
          </div>
       </div>
-      <div class="col-6 col-md-6 col-xl-3">
+      <div class="col-12 col-sm-10 col-md-10 col-lg-6 col-xl-4">
          <div class="card">
              <div style="display: {{ $svgDisplay }};">
                  {!! $svg !!}
