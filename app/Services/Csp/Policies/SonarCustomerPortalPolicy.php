@@ -23,7 +23,18 @@ class SonarCustomerPortalPolicy extends Basic
             ->addDirective(Directive::MEDIA, Keyword::SELF)
             ->addDirective(Directive::OBJECT, Keyword::NONE)
             ->addDirective(Directive::SCRIPT, Keyword::SELF)
-            ->addDirective(Directive::STYLE, Keyword::SELF)
+            ->addDirective(Directive::STYLE, [
+                Keyword::SELF,
+                Scheme::DATA,
+                'https://fonts.googleapis.com',
+                'https://fonts.gstatic.com',
+            ])
+            ->addDirective(Directive::FONT, [
+                Keyword::SELF,
+                Scheme::DATA,
+                'https://fonts.googleapis.com',
+                'https://fonts.gstatic.com',
+            ])
             ->addNonceForDirective(Directive::SCRIPT)
 
             ->addDirective(Directive::FRAME, [
