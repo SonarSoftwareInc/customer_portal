@@ -452,10 +452,10 @@
             </div>
          </div>
       </div>
-      <div class="col-12 col-md-12 col-xl-6">
+      <div class="col-6 col-md-6 col-xl-3">
          <div class="card">
              <div style="display: {{ $svgDisplay }};">
-                 <div id="FCClabel">{!! $svg !!}</div>
+                 {!! $svg !!}
             </div>
          </div>
       </div>

@@ -12,9 +12,4 @@
       <link rel="stylesheet" href="/assets/css/select2.css">
       <link rel="stylesheet" href="/assets/css/bootstrap-colorpicker.min.css">
       <link rel="stylesheet" href="/assets/css/Chart.min.css">
-      <style>
-         svg {
-            max-width: 35rem;
-         }
-      </style>
    </head>
