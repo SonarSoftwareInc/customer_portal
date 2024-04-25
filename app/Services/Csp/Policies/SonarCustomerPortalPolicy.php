@@ -5,6 +5,7 @@ namespace App\Services\Csp\Policies;
 use Spatie\Csp\Directive;
 use Spatie\Csp\Keyword;
 use Spatie\Csp\Policies\Basic;
+use Spatie\Csp\Scheme;
 use Spatie\Csp\Value;
 
 class SonarCustomerPortalPolicy extends Basic
