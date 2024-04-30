@@ -24,7 +24,9 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use InvalidArgumentException;
 use SonarSoftware\CustomerPortalFramework\Controllers\AccountBillingController;
+use SonarSoftware\CustomerPortalFramework\Controllers\AccountController;
 use SonarSoftware\CustomerPortalFramework\Controllers\DataUsageController as FrameworkDataUsageController;
+use SonarSoftware\CustomerPortalFramework\Controllers\SystemController;
 use SonarSoftware\CustomerPortalFramework\Helpers\CreditCardValidator;
 use SonarSoftware\CustomerPortalFramework\Models\BankAccount;
 use SonarSoftware\CustomerPortalFramework\Models\CreditCard;
@@ -37,15 +39,20 @@ class BillingController extends Controller
     private FrameworkDataUsageController $frameworkDataUsageController;
 
     private AccountBillingController $accountBillingController;
+    private SystemController $systemController;
+    private AccountController $accountController;
 
     public function __construct()
     {
         $this->accountBillingController = new AccountBillingController();
+        $this->systemController = new SystemController();
+        $this->accountController = new AccountController();
         $this->frameworkDataUsageController = new FrameworkDataUsageController();
     }
 
     public function index(): Factory|View
     {
+        $accountDetails = $this->accountController->getAccountDetails(get_user()->account_id);
         $billingDetails = $this->getAccountBillingDetails();
         $invoices = $this->getInvoices();
         $invoices = $this->paginate($invoices, 5, false, ['path' => '/portal/billing/invoices']);
@@ -72,10 +79,33 @@ class BillingController extends Controller
         ];
 
         $systemSetting = SystemSetting::firstOrNew(['id' => 1]);
+        
+        $services = $this->accountBillingController->getServices(get_user()->account_id);
+        $dataServiceId = 0;
+        foreach ($services as $service) {
+            //save a call back to sonar if no label is here to find anyway
+            $trySvgPath = "public/assets/fcclabels/label_" . $service->id . "_" . $accountDetails->company_id . ".svg";
+            if (file_exists(base_path("{$trySvgPath}"))) {
+                $serviceDef = $this->systemController->getService($service->id);
+                if ($serviceDef->data_service) {
+                    $dataServiceId = $service->id;
+                }
+            }
+        }
+
+        $svgPath = "/assets/fcclabels/label_" . $dataServiceId . "_" . $accountDetails->company_id . ".svg";
+
+        if (file_exists(base_path("public{$svgPath}"))) {
+            $svgDisplay = "initial";
+            $svg = file_get_contents(base_path("public{$svgPath}"));
+        } else {
+            $svgDisplay = "none";
+            $svg = "";
+        }
 
         return view(
             'pages.billing.index',
-            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting')
+            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting', 'svg', 'svgDisplay')
         );
     }
 

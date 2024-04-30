@@ -452,6 +452,13 @@
             </div>
          </div>
       </div>
+      <div class="col-12 col-sm-10 col-md-10 col-lg-6 col-xl-4">
+         <div class="card">
+             <div style="display: {{ $svgDisplay }};">
+                 {!! $svg !!}
+            </div>
+         </div>
+      </div>
    </div>
 </div>
 </div><!-- #main-content -->
