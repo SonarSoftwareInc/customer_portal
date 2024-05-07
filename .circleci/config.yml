@@ -73,6 +73,8 @@ jobs:
             docker tag sonarsoftware/customerportal:$CIRCLE_SHA1 sonarsoftware/customerportal:next
             docker push sonarsoftware/customerportal:next
 
+            docker tag sonarsoftware/customerportal:$CIRCLE_SHA1 sonarsoftware/customerportal:stable
+            docker push sonarsoftware/customerportal:stable
 workflows:
   build_and_deploy_master:
     jobs:
