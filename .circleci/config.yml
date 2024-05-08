@@ -67,11 +67,15 @@ jobs:
 
       - run:
           name: Deploy portal image
+          # Update both "next" and "stable" tags to ensure updates go out to everyone
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker load -i customerportal.tar
             docker tag sonarsoftware/customerportal:$CIRCLE_SHA1 sonarsoftware/customerportal:next
             docker push sonarsoftware/customerportal:next
+
+            docker tag sonarsoftware/customerportal:$CIRCLE_SHA1 sonarsoftware/customerportal:stable
+            docker push sonarsoftware/customerportal:stable
 workflows:
   build_and_deploy_master:
     jobs:
