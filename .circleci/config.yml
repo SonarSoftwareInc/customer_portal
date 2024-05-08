@@ -100,7 +100,6 @@ jobs:
             IMAGE_SHA1: << pipeline.parameters.image-tag >>
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker load -i customerportal.tar
 
             if [[ -z "$IMAGE_SHA1" ]]; then
               exit 1
