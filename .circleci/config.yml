@@ -1,5 +1,10 @@
 version: 2.1
 
+parameters:
+  image-tag:
+    type: string
+    default: "current"
+
 references:
   workspace_root: &workspace_root
     /tmp/workspace
@@ -76,6 +81,33 @@ jobs:
 
             docker tag sonarsoftware/customerportal:$CIRCLE_SHA1 sonarsoftware/customerportal:stable
             docker push sonarsoftware/customerportal:stable
+
+  manual_tag:
+    docker:
+      - image: cimg/base:current-22.04
+
+    working_directory: *workspace_root
+
+    steps:
+      - setup_remote_docker
+
+      - attach_workspace:
+          at: *workspace_root
+
+      - run:
+          name: Deploy portal image
+          environment:
+            IMAGE_SHA1: << pipeline.parameters.image-tag >>
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker load -i customerportal.tar
+
+            if [[ -z "$IMAGE_SHA1" ]]; then
+              exit 1
+            fi
+
+            docker tag sonarsoftware/customerportal:$IMAGE_SHA1 sonarsoftware/customerportal:stable
+            docker push sonarsoftware/customerportal:stable
 workflows:
   build_and_deploy_master:
     jobs:
@@ -90,3 +122,4 @@ workflows:
       - deploy_to_production:
           requires:
             - hold
+      - manual_tag
