@@ -100,6 +100,7 @@ jobs:
             IMAGE_SHA1: << pipeline.parameters.image-tag >>
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker pull sonarsoftware/customerportal:$IMAGE_SHA1
 
             if [[ -z "$IMAGE_SHA1" ]]; then
               exit 1
