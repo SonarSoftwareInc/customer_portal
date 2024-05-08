@@ -47,4 +47,7 @@ return [
     'addAPaymentMethod' => 'Veuillez ajouter un mode de paiement à votre compte pour effectuer un paiement.',
     '500error' => 'Erreur 500',
     'apiPermissionsFailure' => 'Votre API ne contient pas les autorisations appropriées. Vérifiez que les autorisations soient configurées par le <a href="https://github.com/SonarSoftwareInc/customer_portal/blob/master/README.md#a-note-on-initial-setup">document Lisez-moi.</a>',
+    'stripePaymentMethodNotFound' => 'Aucune méthode de paiement Stripe trouvée avec cet identifiant',
+    'phoneNumberNotValid' => "Un numéro de téléphone ne peut pas être enregistré. Veuillez le supprimer et réessayer.",
 ];
+
