@@ -6,6 +6,10 @@ If you are setting up a new instance of the customer portal, you will automatica
 
 If you are running an existing deployment of the customer portal, manual action is required:
 
+**Please ensure you are on a version of Ubuntu newer than 16.**
+To upgrade, follow the instructions from our knowledge base:
+https://docs.sonar.expert/system/upgrading-your-ubuntu-os-customer-portal-upgrades
+
 1. Stop the customer portal by running
 	```
 	sudo docker-compose down
