@@ -82,23 +82,28 @@ class BillingController extends Controller
         
         $services = $this->accountBillingController->getServices(get_user()->account_id);
         $dataServiceId = 0;
-        foreach ($services as $service) {
-            //save a call back to sonar if no label is here to find anyway
-            $trySvgPath = "public/assets/fcclabels/label_" . $service->id . "_" . $accountDetails->company_id . ".svg";
-            if (file_exists(base_path("{$trySvgPath}"))) {
-                $serviceDef = $this->systemController->getService($service->id);
-                if ($serviceDef->data_service) {
-                    $dataServiceId = $service->id;
+        if ($accountDetails->company_id) {
+            foreach ($services as $service) {
+                //save a call back to sonar if no label is here to find anyway
+                $trySvgPath = "public/assets/fcclabels/label_" . $service->id . "_" . $accountDetails->company_id . ".svg";
+                if (file_exists(base_path("{$trySvgPath}"))) {
+                    $serviceDef = $this->systemController->getService($service->id);
+                    if ($serviceDef->data_service) {
+                        $dataServiceId = $service->id;
+                    }
                 }
             }
-        }
 
-        $svgPath = "/assets/fcclabels/label_" . $dataServiceId . "_" . $accountDetails->company_id . ".svg";
+            $svgPath = "/assets/fcclabels/label_" . $dataServiceId . "_" . $accountDetails->company_id . ".svg";
 
-        if (file_exists(base_path("public{$svgPath}"))) {
-            $svgDisplay = "initial";
-            $svg = file_get_contents(base_path("public{$svgPath}"));
-        } else {
+            if (file_exists(base_path("public{$svgPath}"))) {
+                $svgDisplay = "initial";
+                $svg = file_get_contents(base_path("public{$svgPath}"));
+            } else {
+                $svgDisplay = "none";
+                $svg = "";
+            }
+        } else {//must be using v1
             $svgDisplay = "none";
             $svg = "";
         }
