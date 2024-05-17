@@ -8,6 +8,7 @@ return [
     'paymentFailed' => 'Payment failed. Please check your details and try again.',
     'failedToUpdateProfile' => 'Failed to update profile. Please try again later.',
     'currentPasswordInvalid' => 'Current password is incorrect.',
+    'passwordIsTooWeak' => 'Password is generally too weak or contains simple dictionary words.',
     'failedToDownloadInvoice' => 'Failed to download invoice. Please try again later.',
     'mustSetEmailAddress' => 'You must set your email address before you can create a ticket.',
     'sectionDisabled' => 'That section is disabled.',
