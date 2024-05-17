@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\UpdatePasswordRequest;
+use App\PasswordPolicy;
 use App\SystemSetting;
 use Carbon\Carbon;
 use Exception;
@@ -19,6 +20,13 @@ use SonarSoftware\CustomerPortalFramework\Models\PhoneNumber;
 
 class ProfileController extends Controller
 {
+    private $passwordPolicy;
+
+    public function __construct()
+    {
+        $this->passwordPolicy = new PasswordPolicy();
+    }
+
     public function show(): Factory|View
     {
         $user = get_user();
@@ -106,6 +114,10 @@ class ProfileController extends Controller
             );
         } catch (Exception $e) {
             return redirect()->back()->withErrors(utrans('errors.currentPasswordInvalid'));
+        }
+
+        if (!$this->passwordPolicy->isPasswordValid($request->input('new_password'))) {
+            return redirect()->back()->withErrors(utrans("errors.passwordIsTooWeak"))->withInput();
         }
 
         $contact = $this->getContact();
