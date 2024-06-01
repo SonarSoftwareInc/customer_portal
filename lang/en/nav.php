@@ -9,4 +9,5 @@ return [
     'dataUsage' => 'Data Usage',
     'contracts' => 'Contracts',
     'myService' => 'MY SERVICE',
+    'tv' => 'TV'
 ];

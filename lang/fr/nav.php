@@ -9,4 +9,5 @@ return [
     'dataUsage' => 'Utilisation de données',
     'contracts' => 'Contrats',
     'myService' => 'MON SERVICE',
+    'tv' => 'Télévision'
 ];
