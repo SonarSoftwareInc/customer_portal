@@ -49,10 +49,12 @@
                <i class="fe fe-package"></i> {{utrans("nav.contracts")}}</a>
             </li>
             @endif
+            @if(2==2)
             <li class="nav-item">
-               <a class="nav-link" href="#">
+               <a class="nav-link" href="https://www.directv.com/my-community/">
                <i class="fe fe-tv"></i> {{utrans("nav.tv")}}</a>
             </li>
+            @endif
          </ul>
          <h6 class="navbar-heading text-muted mt-4">
             {{utrans("nav.myAccount")}}
