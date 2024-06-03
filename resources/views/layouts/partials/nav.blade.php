@@ -52,7 +52,13 @@
             @if(2==2)
             <li class="nav-item">
                <a class="nav-link" href="https://www.directv.com/my-community/">
-               <i class="fe fe-tv"></i> {{utrans("nav.tv")}}</a>
+               <i class="fe fe-tv"></i> DIRECTV for Sedona Residents</a>
+            </li>
+            @endif
+            @if(2==2)
+            <li class="nav-item">
+               <a class="nav-link" href="https://mdu-services.com/qflix/shop/?utm_key=OYv7ejrodHSqE9D3">
+               <i class="fe fe-tv"></i> DIRECTV for Cambridge Residents</a>
             </li>
             @endif
          </ul>

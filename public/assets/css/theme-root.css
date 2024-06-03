@@ -254,7 +254,7 @@
      margin-bottom: 32px;
 }
  p, small {
-     margin-bottom: 32px;
+     margin-bottom: 30px;
 }
  p a {
      color: #533feb;
@@ -274,7 +274,7 @@
      font-size: 13px;
 }
  .page-login small {
-     margin-top: 64px;
+     margin-top: 10px;
 }
  pre {
      background: #f5f7fa;
@@ -288,7 +288,7 @@
      border-radius: 4px;
 }
  form {
-     margin-bottom: 32px;
+     margin-bottom: 25px;
 }
  .req {
      color: #eb4093;
@@ -303,6 +303,44 @@
      color: #98a0a6;
      margin: 8px 0;
      display: block;
+}
+
+@media screen and (min-width: 720px) {
+    .half-two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 0px;
+        align-items: center;
+        justify-items: center;
+    }
+}
+
+@media screen and (min-width: 719px) {
+    .d-lg-none {
+        display: none !important;
+    }
+}
+@media screen and (max-width: 719px) {
+    .d-sm-none {
+        display: none !important;
+    }
+}
+
+.btn_tv {
+    margin-bottom: 10px;
+    cursor: pointer;
+    background: #102641;
+    border-radius: 50px;
+    color: #fff;
+    letter-spacing: .3px;
+    padding: 8px 16px;
+    font-size: 15px;
+    font-weight: 400;
+    transition: ease background .2s;
+    display: inline-block;
+}
+.btn_tv:hover {
+    background: #21528C;
 }
  label.label-large {
      font-size: 13px;

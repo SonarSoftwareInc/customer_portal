@@ -28,8 +28,21 @@
             </div>
             <div class="right"><a href="/reset" class="forgot">{{trans("headers.forgotUsernameOrPassword",[],$language)}}</a></div>
          </div>
+         <small class="d-lg-none"><a href="{{action([\App\Http\Controllers\AuthenticationController::class, 'showRegistrationForm'])}}">{{trans("root.register",[],$language)}}</a></small>
+         <div class="half-two vcenter label" style="margin-top: 25px;">
+            <div>
+               <a href="https://www.directv.com/my-community" class="btn_tv">
+                  DIRECTV for Sedona Residents
+               </a>
+            </div>
+            <div>
+               <a href="https://mdu-services.com/qflix/shop/?utm_key=OYv7ejrodHSqE9D3" class="btn_tv">
+                  DIRECTV for Cambridge Residents
+               </a>
+            </div>
+         </div>
          {!! Form::close() !!}
-         <small><a href="{{action([\App\Http\Controllers\AuthenticationController::class, 'showRegistrationForm'])}}">{{trans("root.register",[],$language)}}</a></small>
+         <small class="d-sm-none"><a href="{{action([\App\Http\Controllers\AuthenticationController::class, 'showRegistrationForm'])}}">{{trans("root.register",[],$language)}}</a></small>
          <form class="form-group">
             <select id="language" name="language" class="form-control languageSelector">
             @foreach(getAvailableLanguages($language) as $key => $value)
