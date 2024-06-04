@@ -12,4 +12,19 @@
       <link rel="stylesheet" href="/assets/css/select2.css">
       <link rel="stylesheet" href="/assets/css/bootstrap-colorpicker.min.css">
       <link rel="stylesheet" href="/assets/css/Chart.min.css">
+      <style>
+         .show {
+            display: block;
+            animation: slideDown 0.3s ease-out !important;
+         }
+
+         @keyframes slideDown {
+            from {
+               height: 0;
+            }
+            to {
+               height: 100%;
+            }
+         }
+      </style>
    </head>

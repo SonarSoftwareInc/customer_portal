@@ -19,14 +19,18 @@ close=document.getElementById("close");close.addEventListener('click',function()
 <script src="/assets/libs/moment/moment.min.js"></script>
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const toggler = document.querySelector('.navbar-toggler');
-    const collapse = document.querySelector('#sidebarCollapse');
+document.addEventListener('DOMContentLoaded', function () {
+  const toggler = document.querySelector('.toggler-btn');
+  const collapse = document.querySelector('#sidebarCollapse');
 
-    toggler.addEventListener('click', function () {
-        collapse.classList.toggle('show');
-    });
-    });
+  toggler.addEventListener('click', function () {
+    if (collapse.classList.contains('show')) {
+      collapse.classList.remove('show');
+    } else {
+      collapse.classList.add('show');
+    }
+  });
+});
 </script>
 <script nonce="{{ csp_nonce() }}">
    moment.locale('{{config("app.locale")}}');
