@@ -4,8 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: sonarsoftware/customerportal:next
-    container_name: sonar-customerportal
+    image: qportalsonar
+    container_name: q-portal-sonar
     restart: always
     tty: true
     ports:
@@ -36,12 +36,12 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
 
-  watchtower:
-    image: v2tec/watchtower
-    restart: always
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    command: sonar-customerportal
+#  watchtower:
+#    image: v2tec/watchtower
+#    restart: always
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#    command: sonar-customerportal
 
 volumes:
   storage:

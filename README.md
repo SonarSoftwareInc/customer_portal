@@ -1,6 +1,6 @@
 [![Customer Portal](https://i.imgur.com/AMoOuyg.png)](https://github.com/SonarSoftwareInc/customer_portal)
 
-# Sonar Customer Portal
+# Sonar Customer Portal Updated for Qflix LLC
 
 This is a prebuilt and self-hosted customer portal for [Sonar](https://sonar.software).
 
@@ -80,8 +80,8 @@ From the `customer_portal` directory, you can execute `sudo docker-compose exec 
 
 ## Upgrading
 
-Upgrades for the customer portal are done automatically and require no interaction on your part! The customer portal will automatically check for updates every 5 minutes and update itself. For further customization such as setting an update window or configuring email and/or Slack notifications, please see https://github.com/v2tec/watchtower
-
+~~Upgrades for the customer portal are done automatically and require no interaction on your part! The customer portal will automatically check for updates every 5 minutes and update itself. For further customization such as setting an update window or configuring email and/or Slack notifications, please see https://github.com/v2tec/watchtower~~. 
+Manually upgrade.
 ## Troubleshooting
 
 If you get the following error during setup:
