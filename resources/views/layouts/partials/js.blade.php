@@ -18,6 +18,16 @@ close=document.getElementById("close");close.addEventListener('click',function()
 <script src="/assets/libs/jquery-payment-plugin/jquery.payment.min.js"></script>
 <script src="/assets/libs/moment/moment.min.js"></script>
 <script src="https://js.stripe.com/v3/"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const toggler = document.querySelector('.navbar-toggler');
+    const collapse = document.querySelector('#sidebarCollapse');
+
+    toggler.addEventListener('click', function () {
+        collapse.classList.toggle('show');
+    });
+    });
+</script>
 <script nonce="{{ csp_nonce() }}">
    moment.locale('{{config("app.locale")}}');
    $(document).ready(function(){
