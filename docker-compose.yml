@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: qportalsonar
-    container_name: q-portal-sonar
+    container_name: sonar-customerportal
     restart: always
     tty: true
     ports:
