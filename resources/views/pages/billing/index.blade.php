@@ -5,6 +5,11 @@
    #usage-progressbar {
      width:  {{$values["currentUsage"]["billable"]}}%
    }
+   @media screen and (max-width: 768px) {
+      .resposive-row {
+         margin-top: -10px;
+      }
+   }
 </style>
 @endif
 <!-- HEADER -->
@@ -101,8 +106,8 @@
          </div>
          @endif
       </div>
-      <div class="col-12 col-xl-8">
-         <div class="row">
+      <div class="col-12 col-xl-4">
+         <div class="row resposive-row">
             <div class="col-12 col-xl-6">
                <div class="card">
                   <div class="card-body">
@@ -141,72 +146,103 @@
                   </div>
                </div>
             </div>
-            <div></div>
             <div class="col-12 col-xl-12">
-               <div class="row">
-                  <div class="col-12 col-xl-6">
-                     <div class="card">
-                        <div class="card-body">
-                           <div class="row align-items-center">
-                              <div class="col">
-                                 <h6 class="card-title text-uppercase text-muted mb-2">
-                                    {{utrans("billing.nextBillAmount")}}
-                                 </h6>
-                                 <span class="h2 mb-0">
-                                 @if($values['next_bill_amount'] !== null)
-                                 {{Formatter::currency($values['next_bill_amount'])}}
-                                 @else
-                                 {{utrans("general.notAvailable")}}
-                                 @endif
-                                 </span>
-                              </div>
-                              <div class="col-auto">
-                                 <!-- Icon -->
-                                 <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
-                              </div>
-                           </div>
+               <div class="card">
+                  <div class="card-body">
+                     <div class="row align-items-center">
+                        <div class="col">
+                           <h6 class="card-title text-uppercase text-muted mb-2">
+                              {{utrans("billing.nextBillAmount")}}
+                           </h6>
+                           <span class="h2 mb-0">
+                           @if($values['next_bill_amount'] !== null)
+                           {{Formatter::currency($values['next_bill_amount'])}}
+                           @else
+                           {{utrans("general.notAvailable")}}
+                           @endif
+                           </span>
+                        </div>
+                        <div class="col-auto">
+                           <!-- Icon -->
+                           <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
                         </div>
                      </div>
                   </div>
-                  @if($systemSetting->data_usage_enabled === true && $values["currentUsage"] && isset($values["currentUsage"]["billable"]))
-                  <div class="col-12 col-xl-6">
-                     <div class="card">
-                        <div class="card-body">
-                           <div class="row align-items-center">
-                              <div class="col">
-                                 <!-- Title -->
-                                 <h6 class="card-title text-uppercase text-muted mb-2">
-                                  {{utrans("headers.currentDataUsage")}}
-                                 </h6>
-                                 <div class="row align-items-center no-gutters">
-                                    <div class="col-auto">
-                                       <!-- Heading -->
-                                       <span class="h2 mr-2 mb-0">
-                                       {{$values["currentUsage"]["billable"]}}GB
-                                       </span>
-                                    </div>
-                                    <div class="col">
-                                       <!-- Progress -->
-                                       <div class="progress progress-sm">
-                                          <div id="usage-progressbar" class="progress-bar" role="progressbar" aria-valuenow="{{$values["currentUsage"]["billable"]}}" aria-valuemin="0" aria-valuemax="100"></div>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <!-- / .row -->
-                              </div>
+               </div>
+            </div>
+            @if($systemSetting->data_usage_enabled === true && $values["currentUsage"] && isset($values["currentUsage"]["billable"]))
+            <div class="col-12 col-xl-6">
+               <div class="card">
+                  <div class="card-body">
+                     <div class="row align-items-center">
+                        <div class="col">
+                           <!-- Title -->
+                           <h6 class="card-title text-uppercase text-muted mb-2">
+                            {{utrans("headers.currentDataUsage")}}
+                           </h6>
+                           <div class="row align-items-center no-gutters">
                               <div class="col-auto">
-                                 <!-- Icon -->
-                                 <span class="h2 fe fe-activity text-muted mb-0"></span>
+                                 <!-- Heading -->
+                                 <span class="h2 mr-2 mb-0">
+                                 {{$values["currentUsage"]["billable"]}}GB
+                                 </span>
+                              </div>
+                              <div class="col">
+                                 <!-- Progress -->
+                                 <div class="progress progress-sm">
+                                    <div id="usage-progressbar" class="progress-bar" role="progressbar" aria-valuenow="{{$values["currentUsage"]["billable"]}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                 </div>
                               </div>
                            </div>
                            <!-- / .row -->
                         </div>
+                        <div class="col-auto">
+                           <!-- Icon -->
+                           <span class="h2 fe fe-activity text-muted mb-0"></span>
+                        </div>
                      </div>
+                     <!-- / .row -->
                   </div>
-                  @endif
                </div>
             </div>
+            @endif
          </div>
+      </div>
+      <div class="col-12 col-xl-4">
+         <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-xl-12">
+                        <!-- Title -->
+                        <h2 class="pb-4">CPE Wi-Fi Management</h2>
+                        <!-- Form -->
+                        <form action="#" method="post">
+                            <div class="mb-3">
+                                <label for="wifi" class="form-label">Wi-Fi</label>
+                                <select name="wifi" id="wifi" class="form-control form-select" disabled="">
+                                    <option>vypersolution.tech.01</option>
+                                    <option>vypersolution.tech.01</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ssid" class="form-label">SSID</label>
+                                <input type="text" name="ssid" class="form-control" id="ssid" disabled=""
+                                    value="12345">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="text" name="password" class="form-control" id="password" disabled=""
+                                    value="12345">
+                            </div><!-- Button -->
+                            <div class="text-center">
+                                <button type="button" id="edit-button" class="btn btn-info w-25">Edit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- / .row -->
+            </div>
+        </div>
       </div>
    </div>
    <div class="row">
@@ -462,4 +498,23 @@
    </div>
 </div>
 </div><!-- #main-content -->
+@endsection
+
+@section('additionalJS')
+<script>
+   $(document).ready(function() {
+       $('#edit-button').on('click', function() {
+           if ($(this).attr('type') === 'button') {
+               event.preventDefault();
+               $('#wifi, #ssid, #password').prop('disabled', false);
+               $(this).attr('type', 'submit')
+                       .removeClass('btn-info')
+                       .addClass('btn-success')
+                       .text('Submit');
+           } else {
+               $('#edit-form').submit();
+           }
+       });
+   });
+</script>
 @endsection
