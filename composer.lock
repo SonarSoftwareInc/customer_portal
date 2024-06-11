@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e5ee86de40fe9a1459fb3a8a336bd0ac",
+    "content-hash": "724d0ace54471dc79a77428dfb33a40d",
     "packages": [
         {
             "name": "bjeavons/zxcvbn-php",
@@ -4234,16 +4234,16 @@
         },
         {
             "name": "sonarsoftwareinc/customer_portal_framework",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SonarSoftwareInc/customer_portal_framework.git",
-                "reference": "3e1b026ae6625642496904093b5276da641710b1"
+                "reference": "85d93442a0913773e71338b45472607766e424d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SonarSoftwareInc/customer_portal_framework/zipball/3e1b026ae6625642496904093b5276da641710b1",
-                "reference": "3e1b026ae6625642496904093b5276da641710b1",
+                "url": "https://api.github.com/repos/SonarSoftwareInc/customer_portal_framework/zipball/85d93442a0913773e71338b45472607766e424d9",
+                "reference": "85d93442a0913773e71338b45472607766e424d9",
                 "shasum": ""
             },
             "require": {
@@ -4267,14 +4267,8 @@
             ],
             "authors": [
                 {
-                    "name": "Simon Westlake",
-                    "email": "simon@sonar.software",
-                    "homepage": "https://sonar.software",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Devin Johnson",
-                    "email": "devin@sonar.software",
+                    "name": "Sonar Developers",
+                    "email": "support@sonar.software",
                     "homepage": "https://sonar.software",
                     "role": "Developer"
                 }
@@ -4291,9 +4285,9 @@
             "support": {
                 "email": "support@sonar.software",
                 "forum": "https://sonar.community",
-                "source": "https://github.com/SonarSoftwareInc/customer_portal_framework/tree/2.0.1"
+                "source": "https://github.com/SonarSoftwareInc/customer_portal_framework/tree/2.0.2"
             },
-            "time": "2024-04-26T13:55:32+00:00"
+            "time": "2024-06-11T15:58:13+00:00"
         },
         {
             "name": "spatie/backtrace",
