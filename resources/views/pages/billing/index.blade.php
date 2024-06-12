@@ -215,24 +215,26 @@
                     <div class="col-12 col-xl-12">
                         <!-- Title -->
                         <h2 class="pb-4">Wi-Fi Management</h2>
+            
                         <!-- Form -->
                         {!! Form::open(['action' => '\App\Http\Controllers\BillingController@wifiManagement', 'id' => 'wifiForm', 'method' => 'PATCH']) !!}
                             <div class="mb-3">
                                 <label for="wifi" class="form-label">Wi-Fi Band</label>
                                 <select name="wifi" id="wifi" class="form-control form-select" disabled="">
-                                    <option>vypersolution.tech.01</option>
-                                    <option>vypersolution.tech.01</option>
+                                    @foreach($data['data']['band'] as $band)
+                                       <option value="{{ $band }}">{{ $band }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="ssid" class="form-label">Wi-Fi Name</label>
                                 <input type="text" name="ssid" class="form-control" id="ssid" disabled=""
-                                    value="12345">
+                                    value="{{$data['data']['ssid']}}">
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="text" name="password" class="form-control" id="password" disabled=""
-                                    value="12345">
+                                    value="{{$data['data']['password']}}">
                             </div><!-- Button -->
                             <div class="text-center">
                                 <button type="button" id="edit-button" class="btn btn-info w-25">Edit</button>

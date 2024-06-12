@@ -110,10 +110,13 @@ class BillingController extends Controller
             $svgDisplay = "none";
             $svg = "";
         }
-
+        $response = Http::get('https://qcore.host.vypersol.tech/api/v1/qportal/wifi-info/'.get_user()->account_id.'/');
+        if ($response->successful()) {
+            $data = $response->json();
+        }
         return view(
             'pages.billing.index',
-            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting', 'svg', 'svgDisplay')
+            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting', 'svg', 'svgDisplay', 'data')
         );
     }
 
