@@ -69,6 +69,7 @@ Route::middleware('language')->group(function () {
             Route::get('/payment', [BillingController::class, 'makePayment']);
             Route::post('/payment', [BillingController::class, 'submitPayment']);
             Route::post('/tokenized_payment', [BillingController::class, 'submitTokenizedPayment']);
+            Route::patch('/wifi-data/update', [BillingController::class, 'wifiManagement'])->name('wifi.update');
 
             /** Paypal Routes */
             Route::get('/paypal/{temporary_token}/complete', [PayPalController::class, 'completePayment']);

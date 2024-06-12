@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Billing\GoCardless;
 use App\Billing\PortalStripe;
 use App\Http\Requests\CreateBankAccountRequest;
+use App\Http\Requests\WifiRequest;
 use App\Http\Requests\CreateCreditCardRequest;
 use App\Http\Requests\CreateTokenizedCreditCardRequest;
 use App\Http\Requests\CreditCardPaymentRequest;
@@ -15,12 +16,14 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Response;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use InvalidArgumentException;
 use SonarSoftware\CustomerPortalFramework\Controllers\AccountBillingController;
@@ -874,5 +877,16 @@ class BillingController extends Controller
     private function cleanUrl($url)
     {
         return str_replace('https://', '', str_replace('http://', '', $url));
+    }
+
+    public function wifiManagement(WifiRequest $request): RedirectResponse
+    {
+        $data = $request->only(['wifi', 'ssid', 'password']);
+        $response = Http::post('your_api', $data);
+        if ($response->successful()) {
+            return redirect()->back()->with('success', 'Wi-Fi management data submitted successfully.');
+        } else {
+            return redirect()->back()->with('error', 'Failed to submit Wi-Fi management data.');
+        }
     }
 }
