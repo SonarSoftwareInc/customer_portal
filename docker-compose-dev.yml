@@ -1,0 +1,31 @@
+version: '3.6'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    image: sonarsoftware/customerportal:next
+    container_name: sonar-customerportal
+    restart: always
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./public/assets/img/logo.png:/var/www/html/public/assets/img/logo.png
+      - ./public/assets/img/cover.png:/var/www/html/public/assets/img/cover.png
+      - storage:/var/www/html/storage
+    env_file:
+     - .env
+    environment:
+      REDIS_HOST: redis
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7.0.11-alpine
+    restart: always
+
+volumes:
+  storage:
+    driver: local
