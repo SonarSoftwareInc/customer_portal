@@ -5,11 +5,11 @@
    #usage-progressbar {
      width:  {{$values["currentUsage"]["billable"]}}%
    }
-   @media screen and (max-width: 768px) {
+   /* @media screen and (min-width: 768px) {
       .resposive-row {
          margin-top: -10px;
       }
-   }
+   } */
 </style>
 @endif
 <!-- HEADER -->
@@ -108,7 +108,7 @@
       </div>
       <div class="col-12 col-xl-4">
          <div class="row resposive-row">
-            <div class="col-12 col-xl-6">
+            <div class="col-12 col-xl-12">
                <div class="card">
                   <div class="card-body">
                      <div class="row align-items-center">
@@ -128,7 +128,7 @@
                   </div>
                </div>
             </div>
-            <div class="col-12 col-xl-6">
+            <div class="col-12 col-xl-12">
                <div class="card">
                   <div class="card-body">
                      <div class="row align-items-center">
@@ -214,18 +214,18 @@
                 <div class="row">
                     <div class="col-12 col-xl-12">
                         <!-- Title -->
-                        <h2 class="pb-4">CPE Wi-Fi Management</h2>
+                        <h2 class="pb-4">Wi-Fi Management</h2>
                         <!-- Form -->
-                        <form action="#" method="post">
+                        {!! Form::open(['action' => '\App\Http\Controllers\BillingController@wifiManagement', 'id' => 'wifiForm', 'method' => 'PATCH']) !!}
                             <div class="mb-3">
-                                <label for="wifi" class="form-label">Wi-Fi</label>
+                                <label for="wifi" class="form-label">Wi-Fi Band</label>
                                 <select name="wifi" id="wifi" class="form-control form-select" disabled="">
                                     <option>vypersolution.tech.01</option>
                                     <option>vypersolution.tech.01</option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="ssid" class="form-label">SSID</label>
+                                <label for="ssid" class="form-label">Wi-Fi Name</label>
                                 <input type="text" name="ssid" class="form-control" id="ssid" disabled=""
                                     value="12345">
                             </div>
@@ -237,7 +237,7 @@
                             <div class="text-center">
                                 <button type="button" id="edit-button" class="btn btn-info w-25">Edit</button>
                             </div>
-                        </form>
+                        {!! Form::close() !!}
                     </div>
                 </div>
                 <!-- / .row -->
@@ -501,7 +501,7 @@
 @endsection
 
 @section('additionalJS')
-<script>
+<script nonce="{{ csp_nonce() }}">
    $(document).ready(function() {
        $('#edit-button').on('click', function() {
            if ($(this).attr('type') === 'button') {
@@ -512,7 +512,7 @@
                        .addClass('btn-success')
                        .text('Submit');
            } else {
-               $('#edit-form').submit();
+               $('#wifiForm').submit();
            }
        });
    });
