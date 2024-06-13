@@ -36,5 +36,9 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-
+    
+    'qcore' => [
+        'username' => env('QCORE_USERNAME'),
+        'password' => env('QCORE_PASSWORD'),
+    ],
 ];
