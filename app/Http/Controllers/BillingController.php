@@ -110,13 +110,36 @@ class BillingController extends Controller
             $svgDisplay = "none";
             $svg = "";
         }
+        $wifiData = [];
         $response = Http::get('https://qcore.host.vypersol.tech/api/v1/qportal/wifi-info/'.get_user()->account_id.'/');
         if ($response->successful()) {
             $data = $response->json();
+
+            // For test............
+            // $data = [
+            //     "data" => [
+            //         [
+            //             "name" => "wlan1",
+            //             "port_status" => "Down",
+            //             "ssid" => "123",
+            //             "wifi_band" => "2ghz-b/g/n",
+            //             "wifi_password" => "P0ntiac1Fast5512"
+            //         ],
+            //         [
+            //             "name" => "wlan2",
+            //             "port_status" => "Down",
+            //             "ssid" => "Firesdfbird",
+            //             "wifi_band" => "5ghz-a/n/ac",
+            //             "wifi_password" => "P0ntiac1Fast33"
+            //         ]
+            //     ]
+            // ];
+            
+            $wifiData = $data['data'] ?? [];
         }
         return view(
             'pages.billing.index',
-            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting', 'svg', 'svgDisplay', 'data')
+            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting', 'svg', 'svgDisplay', 'wifiData')
         );
     }
 

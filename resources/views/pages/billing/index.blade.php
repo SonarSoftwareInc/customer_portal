@@ -218,27 +218,31 @@
             
                         <!-- Form -->
                         {!! Form::open(['action' => '\App\Http\Controllers\BillingController@wifiManagement', 'id' => 'wifiForm', 'method' => 'PATCH']) !!}
-                            <div class="mb-3">
-                                <label for="wifi" class="form-label">Wi-Fi Band</label>
-                                <select name="wifi" id="wifi" class="form-control form-select" disabled="">
-                                    @foreach($data['data']['band'] as $band)
-                                       <option value="{{ $band }}">{{ $band }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="ssid" class="form-label">Wi-Fi Name</label>
-                                <input type="text" name="ssid" class="form-control" id="ssid" disabled=""
-                                    value="{{$data['data']['ssid']}}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="text" name="password" class="form-control" id="password" disabled=""
-                                    value="{{$data['data']['password']}}">
-                            </div><!-- Button -->
-                            <div class="text-center">
-                                <button type="button" id="edit-button" class="btn btn-info w-25">Edit</button>
-                            </div>
+                           <div class="mb-3">
+                              <label for="wifi" class="form-label">Wi-Fi Band</label>
+                              <select name="wifi" id="wifi" class="form-control form-select">
+                                 @if(!empty($wifiData))
+                                       @foreach($wifiData as $wifi)
+                                          <option value="{{ $wifi['wifi_band'] }}">{{ $wifi['wifi_band'] }}</option>
+                                       @endforeach
+                                 @else
+                                       <option value="">No data found</option>
+                                 @endif
+                              </select>
+                           </div>
+                           <div class="mb-3">
+                              <label for="ssid" class="form-label">Wi-Fi Name</label>
+                              <input type="text" name="ssid" class="form-control" id="ssid" 
+                                    value="{{ !empty($wifiData) ? $wifiData[0]['ssid'] : '' }}" disabled>
+                           </div>
+                           <div class="mb-3">
+                              <label for="password" class="form-label">Password</label>
+                              <input type="text" name="password" class="form-control" id="password" 
+                                    value="{{ !empty($wifiData) ? $wifiData[0]['wifi_password'] : '' }}" disabled>
+                           </div>
+                           <div class="text-center">
+                              <button type="button" id="edit-button" class="btn btn-info w-25">Edit</button>
+                           </div>
                         {!! Form::close() !!}
                     </div>
                 </div>
@@ -508,7 +512,7 @@
        $('#edit-button').on('click', function() {
            if ($(this).attr('type') === 'button') {
                event.preventDefault();
-               $('#wifi, #ssid, #password').prop('disabled', false);
+               $('#ssid, #password').prop('disabled', false);
                $(this).attr('type', 'submit')
                        .removeClass('btn-info')
                        .addClass('btn-success')
@@ -518,5 +522,22 @@
            }
        });
    });
+   document.addEventListener('DOMContentLoaded', function () {
+        const wifiData = @json($wifiData);
+        const wifiSelect = document.getElementById('wifi');
+        const ssidInput = document.getElementById('ssid');
+        const passwordInput = document.getElementById('password');
+
+        wifiSelect.addEventListener('change', function () {
+            const selectedBand = this.value;
+            const selectedWifi = wifiData.find(wifi => wifi.wifi_band === selectedBand);
+
+            if (selectedWifi) {
+                ssidInput.value = selectedWifi.ssid;
+                passwordInput.value = selectedWifi.wifi_password;
+            }
+        });
+    });
 </script>
+
 @endsection
