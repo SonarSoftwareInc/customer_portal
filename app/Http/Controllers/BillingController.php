@@ -134,7 +134,7 @@ class BillingController extends Controller
             //         ]
             //     ]
             // ];
-            
+
             $wifiData = $data['data'] ?? [];
         }
         return view(
@@ -907,8 +907,9 @@ class BillingController extends Controller
 
     public function wifiManagement(WifiRequest $request): RedirectResponse
     {
-        $data = $request->only(['wifi', 'ssid', 'password']);
-        $response = Http::post('your_api', $data);
+
+        $data = $request->only(['wifi_band', 'ssid', 'password']);
+        $response = Http::post('https://qcore.host.vypersol.tech/api/v1/qportal/wifi-info/'.get_user()->account_id.'/update/', $data);
         if ($response->successful()) {
             return redirect()->back()->with('success', 'Wi-Fi management data submitted successfully.');
         } else {
