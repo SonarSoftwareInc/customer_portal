@@ -21,7 +21,7 @@ class WifiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'wifi' => 'required|string',
+            'wifi_band' => 'required|string',
             'ssid' => 'required|string',
             'password' => 'required|string',
         ];

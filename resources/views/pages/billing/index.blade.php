@@ -220,7 +220,7 @@
                         {!! Form::open(['action' => '\App\Http\Controllers\BillingController@wifiManagement', 'id' => 'wifiForm', 'method' => 'PATCH']) !!}
                            <div class="mb-3">
                               <label for="wifi" class="form-label">Wi-Fi Band</label>
-                              <select name="wifi" id="wifi" class="form-control form-select">
+                              <select name="wifi_band" id="wifi" class="form-control form-select">
                                  @if(!empty($wifiData))
                                        @foreach($wifiData as $wifi)
                                           <option value="{{ $wifi['wifi_band'] }}">{{ $wifi['wifi_band'] }}</option>
