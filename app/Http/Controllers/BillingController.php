@@ -114,13 +114,14 @@ class BillingController extends Controller
 
         $qcore_username = config('services.qcore.username');
         $qcore_password = config('services.qcore.password');
+        $qcore_uri = config('services.qcore.qcore_uri');
         
         $qcore_data = [
             'username' => $qcore_username,
             'password' => $qcore_password,
         ];
 
-        $qcore_response = Http::timeout(20)->post('http://qcore.host.vypersol.tech/api/v1/api-token-auth/', $qcore_data);
+        $qcore_response = Http::timeout(10)->post($qcore_uri.'/api/v1/api-token-auth/', $qcore_data);
 
         if ($qcore_response->successful()) {
             
@@ -130,7 +131,7 @@ class BillingController extends Controller
             $response = Http::withHeaders([
                 'Authorization' => 'Token ' . $token,
                 'Accept' => 'application/json',
-            ])->timeout(20)->get('https://qcore.host.vypersol.tech/api/v1/qportal/wifi-info/'.get_user()->account_id.'/');
+            ])->timeout(10)->get($qcore_uri.'/api/v1/qportal/wifi-info/'.get_user()->account_id.'/');
 
             if ($response->successful()) {
                 $data = $response->json();
@@ -932,13 +933,14 @@ class BillingController extends Controller
 
         $qcore_username = config('services.qcore.username');
         $qcore_password = config('services.qcore.password');
-
+        $qcore_uri = config('services.qcore.qcore_uri');
+        
         $qcore_data = [
             'username' => $qcore_username,
             'password' => $qcore_password,
         ];
 
-        $qcore_response = Http::post('http://qcore.host.vypersol.tech/api/v1/api-token-auth/', $qcore_data);
+        $qcore_response = Http::timeout(10)->post($qcore_uri.'/api/v1/api-token-auth/', $qcore_data);
         if ($qcore_response->successful()) {
             $response_data = $qcore_response->json();
             $token = $response_data['token'];
@@ -951,7 +953,7 @@ class BillingController extends Controller
         $response = Http::withHeaders([
             'Authorization' => 'Token ' . $token,
             'Accept' => 'application/json',
-        ])->post('https://qcore.host.vypersol.tech/api/v1/qportal/wifi-info/'.get_user()->account_id.'/update/', $data);
+        ])->timeout(10)->post($qcore_uri.'/api/v1/qportal/wifi-info/'.get_user()->account_id.'/update/', $data);
 
         if ($response->successful()) {
             return redirect()->back()->with('success', 'Wi-Fi management data submitted successfully.');
