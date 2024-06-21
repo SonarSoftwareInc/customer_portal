@@ -40,5 +40,6 @@ return [
     'qcore' => [
         'username' => env('QCORE_USERNAME'),
         'password' => env('QCORE_PASSWORD'),
+        'qcore_uri' => env('QCORE_URI'),
     ],
 ];
