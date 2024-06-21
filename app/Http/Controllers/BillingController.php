@@ -120,7 +120,7 @@ class BillingController extends Controller
             'password' => $qcore_password,
         ];
 
-        $qcore_response = Http::post('http://qcore.host.vypersol.tech/api/v1/api-token-auth/', $qcore_data);
+        $qcore_response = Http::timeout(20)->post('http://qcore.host.vypersol.tech/api/v1/api-token-auth/', $qcore_data);
 
         if ($qcore_response->successful()) {
             
@@ -130,7 +130,7 @@ class BillingController extends Controller
             $response = Http::withHeaders([
                 'Authorization' => 'Token ' . $token,
                 'Accept' => 'application/json',
-            ])->get('https://qcore.host.vypersol.tech/api/v1/qportal/wifi-info/'.get_user()->account_id.'/');
+            ])->timeout(20)->get('https://qcore.host.vypersol.tech/api/v1/qportal/wifi-info/'.get_user()->account_id.'/');
 
             if ($response->successful()) {
                 $data = $response->json();
