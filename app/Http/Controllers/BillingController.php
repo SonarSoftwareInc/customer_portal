@@ -961,4 +961,38 @@ class BillingController extends Controller
             return redirect()->back()->with('error', 'Failed to submit Wi-Fi management data.');
         }
     }
+
+    public function wifiIndex(): Factory|View
+    {
+        $wifiData = [];
+
+        $qcore_username = config('services.qcore.username');
+        $qcore_password = config('services.qcore.password');
+        $qcore_uri = config('services.qcore.qcore_uri');
+        
+        $qcore_data = [
+            'username' => $qcore_username,
+            'password' => $qcore_password,
+        ];
+
+        $qcore_response = Http::timeout(10)->post($qcore_uri.'/api/v1/api-token-auth/', $qcore_data);
+
+        if ($qcore_response->successful()) {
+            
+            $response_data = $qcore_response->json();
+            $token = $response_data['token'];
+
+            $response = Http::withHeaders([
+                'Authorization' => 'Token ' . $token,
+                'Accept' => 'application/json',
+            ])->timeout(10)->get($qcore_uri.'/api/v1/qportal/wifi-info/'.get_user()->account_id.'/');
+
+            if ($response->successful()) {
+                $data = $response->json();
+                $wifiData = $data['data'] ?? [];
+            }
+        } 
+
+        return view('pages.wifi.index',compact('wifiData'));
+    }
 }
