@@ -12,10 +12,10 @@
       <link rel="stylesheet" href="/assets/css/select2.css">
       <link rel="stylesheet" href="/assets/css/bootstrap-colorpicker.min.css">
       <link rel="stylesheet" href="/assets/css/Chart.min.css">
-      <style>
-         .show {
+      <style nonce="{{ csp_nonce() }}">
+         /* .show {
             display: block;
-            animation: slideDown 0.3s ease-out !important;
+            animation: slideDown 5s ease-out !important;
          }
 
          @keyframes slideDown {
@@ -25,6 +25,25 @@
             to {
                height: 100%;
             }
-         }
+         } */
+         @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .bounce {
+            animation: bounce 1s;
+        }
+
+        .navbar-toggler-icon {
+            display: inline-block;
+        }
       </style>
    </head>
