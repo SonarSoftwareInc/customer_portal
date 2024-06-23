@@ -31,6 +31,10 @@
                <a @if(str_contains(Route::getCurrentRoute()->uri(),"billing")) class="nav-link selected" @else class="nav-link" @endif href="{{action([\App\Http\Controllers\BillingController::class, 'index'])}}">
                <i class="fe fe-dollar-sign"></i> {{utrans("nav.billing")}}</a>
             </li>
+            <li class="nav-item">
+               <a @if(str_contains(Route::getCurrentRoute()->uri(),"wifi-management")) class="nav-link selected" @else class="nav-link" @endif href="{{action([\App\Http\Controllers\BillingController::class, 'wifiIndex'])}}">
+               <i class="fe fe-wifi"></i> Wifi-Management</a>
+            </li>
             @if(config("customer_portal.ticketing_enabled") === true)
             <li class="nav-item">
                <a @if(str_contains(Route::getCurrentRoute()->uri(),"tickets")) class="nav-link selected" @else class="nav-link" @endif href="{{action([\App\Http\Controllers\TicketController::class, 'index'])}}">

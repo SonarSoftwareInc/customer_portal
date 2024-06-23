@@ -121,8 +121,14 @@ Route::middleware('language')->group(function () {
             Route::get('/', [ContractController::class, 'index']);
             Route::get('/{contracts}', [ContractController::class, 'downloadContractPdf']);
         });
+
+        Route::prefix('wifi-management')->group(function () {
+            Route::get('/', [BillingController::class, 'wifiIndex']);
+        });
     });
 
     Route::get('/logout', [AuthenticationController::class, 'logout']);
     Route::post('/language', [LanguageController::class, 'update']);
+
+
 });

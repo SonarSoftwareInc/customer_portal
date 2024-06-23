@@ -20,7 +20,11 @@ class SonarCustomerPortalPolicy extends Basic
             ->addDirective(Directive::CONNECT, Keyword::SELF)
             ->addDirective(Directive::DEFAULT, Keyword::SELF)
             ->addDirective(Directive::FORM_ACTION, Keyword::SELF)
-            ->addDirective(Directive::IMG, Keyword::SELF)
+            ->addDirective(Directive::IMG, [
+                Keyword::SELF,
+                Scheme::DATA,
+                // 'https://example.com',
+            ])
             ->addDirective(Directive::MEDIA, Keyword::SELF)
             ->addDirective(Directive::OBJECT, Keyword::NONE)
             ->addDirective(Directive::SCRIPT, Keyword::SELF)
