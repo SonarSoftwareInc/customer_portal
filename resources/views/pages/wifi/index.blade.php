@@ -1,5 +1,12 @@
 @extends('layouts.full')
 @section('content')
+<style nonce="{{ csp_nonce() }}">
+   .input-group-text {
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+      border-left: white;
+   }
+</style>
 <div class="container-fluid">
    <div class="row justify-content-center">
       <div class="col-12">
@@ -57,8 +64,18 @@
                                  </div>
                                  <div class="mb-4">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="text" name="password" class="form-control" id="password" 
+                                    <div class="input-group">
+                                       <input type="password" name="password" class="form-control" id="password" 
                                           value="{{ !empty($wifiData) ? $wifiData[0]['wifi_password'] : '' }}" {{ empty($wifiData) ? 'disabled' : '' }}>
+                                       <span class="input-group-text">
+                                           <a href="javascript:void(0)"
+                                               class="link-secondary fe fe-eye field-icon toggle-password"
+                                               toggle="#password">
+                                           </a>
+                                       </span>
+                                    </div>
+                                    {{-- <input type="password" name="password" class="form-control" id="password" 
+                                          value="{{ !empty($wifiData) ? $wifiData[0]['wifi_password'] : '' }}" {{ empty($wifiData) ? 'disabled' : '' }}> --}}
                                  </div>
                                  <div class="text-center">
                                     <button type="button" id="reset-button" class="btn btn-danger w-25 mr-2" hidden>Cancel</button>
@@ -79,13 +96,15 @@
 @section('additionalJS')
 <script type="text/javascript" src="{{ asset('assets/js/jquery-qrcode.min.js') }}" nonce="{{ csp_nonce() }}"></script>
 <script nonce="{{ csp_nonce() }}">
-
    document.addEventListener('DOMContentLoaded', function() {
+      
+      // Interactive Buttons
       const ssidInput = document.getElementById('ssid');
       const passwordInput = document.getElementById('password');
       const submitButton = document.getElementById('edit-button');
       const cancelButton = document.getElementById('reset-button');
 
+      // Initial SSID and PASSWORD
       let initialSSID = ssidInput.value.trim();
       let initialPassword = passwordInput.value.trim();
 
@@ -114,7 +133,9 @@
       passwordInput.addEventListener('input', toggleSubmitButton);
       cancelButton.addEventListener('click', resetInputsAndToggleButton);
 
-      makeQRCode('qqq', $(".wifi-qrcode"));
+      // Qr Code Generation
+      let qr_text = 'WIFI:T:nopass;S:'+initialSSID+';P:'+initialPassword+';H:;;';
+      makeQRCode(qr_text, $(".wifi-qrcode"));
       function makeQRCode(qr_text, idClass) {
          let qrparams = {
                render: 'image',
@@ -122,7 +143,7 @@
                mode: Number(0),
                fill: "#797e85",
                background: "#ffffff",
-               size: 120,
+               size: 90,
                left: 0,
                top: 0,
                text: qr_text,
@@ -135,14 +156,26 @@
                idClass.qrcode(qrparams);
          });
       }
+
+      // password show hide
+      $(".toggle-password").click(function () {
+         $(this).toggleClass("fe-eye fe-eye-off");
+         var input = $($(this).attr("toggle"));
+         if (input.attr("type") == "password") {
+               input.attr("type", "text");
+         } else {
+               input.attr("type", "password");
+         }
+      });
    });
-   
+
    document.addEventListener('DOMContentLoaded', function () {
         const wifiData = @json($wifiData);
         const wifiSelect = document.getElementById('wifi');
         const ssidInput = document.getElementById('ssid');
         const passwordInput = document.getElementById('password');
 
+        // Get SSID and Password accroding the Wifi Band
         wifiSelect.addEventListener('change', function () {
             const selectedBand = this.value;
             const selectedWifi = wifiData.find(wifi => wifi.wifi_band === selectedBand);
@@ -152,6 +185,6 @@
                 passwordInput.value = selectedWifi.wifi_password;
             }
         });
-    });
+   });
 </script>
 @endsection

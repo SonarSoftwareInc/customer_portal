@@ -162,7 +162,7 @@ class BillingController extends Controller
             }
 
         } catch (Exception $e) {
-            
+
             $wifiData = [];
         } 
 
@@ -946,26 +946,31 @@ class BillingController extends Controller
             'password' => $qcore_password,
         ];
 
-        $qcore_response = Http::timeout(10)->post($qcore_uri.'/api/v1/api-token-auth/', $qcore_data);
-        if ($qcore_response->successful()) {
-            $response_data = $qcore_response->json();
-            $token = $response_data['token'];
-        } else {
-            return redirect()->back()->with('error', 'Failed to submit Wi-Fi management data.');
-        }
-
-        $data = $request->only(['wifi_band', 'ssid', 'password']);
+        try {
+            $qcore_response = Http::timeout(10)->post($qcore_uri.'/api/v1/api-token-auth/', $qcore_data);
+            if ($qcore_response->successful()) {
+                $response_data = $qcore_response->json();
+                $token = $response_data['token'];
+            } else {
+                return redirect()->back()->with('error', 'Failed to submit Wi-Fi management data.');
+            }
     
-        $response = Http::withHeaders([
-            'Authorization' => 'Token ' . $token,
-            'Accept' => 'application/json',
-        ])->timeout(10)->post($qcore_uri.'/api/v1/qportal/wifi-info/'.get_user()->account_id.'/update/', $data);
-
-        if ($response->successful()) {
-            return redirect()->back()->with('success', 'Wi-Fi management data submitted successfully.');
-        } else {
+            $data = $request->only(['wifi_band', 'ssid', 'password']);
+        
+            $response = Http::withHeaders([
+                'Authorization' => 'Token ' . $token,
+                'Accept' => 'application/json',
+            ])->timeout(10)->post($qcore_uri.'/api/v1/qportal/wifi-info/'.get_user()->account_id.'/update/', $data);
+    
+            if ($response->successful()) {
+                return redirect()->back()->with('success', 'Wi-Fi management data submitted successfully.');
+            } else {
+                return redirect()->back()->with('error', 'Failed to submit Wi-Fi management data.');
+            }
+        } catch (Exception $e) {
             return redirect()->back()->with('error', 'Failed to submit Wi-Fi management data.');
-        }
+        } 
+
     }
 
     public function wifiIndex(): Factory|View
@@ -981,23 +986,29 @@ class BillingController extends Controller
             'password' => $qcore_password,
         ];
 
-        $qcore_response = Http::timeout(10)->post($qcore_uri.'/api/v1/api-token-auth/', $qcore_data);
+        try {
 
-        if ($qcore_response->successful()) {
-            
-            $response_data = $qcore_response->json();
-            $token = $response_data['token'];
+            $qcore_response = Http::timeout(10)->post($qcore_uri.'/api/v1/api-token-auth/', $qcore_data);
 
-            $response = Http::withHeaders([
-                'Authorization' => 'Token ' . $token,
-                'Accept' => 'application/json',
-            ])->timeout(10)->get($qcore_uri.'/api/v1/qportal/wifi-info/'.get_user()->account_id.'/');
-
-            if ($response->successful()) {
-                $data = $response->json();
-                $wifiData = $data['data'] ?? [];
-            }
+            if ($qcore_response->successful()) {
+                
+                $response_data = $qcore_response->json();
+                $token = $response_data['token'];
+    
+                $response = Http::withHeaders([
+                    'Authorization' => 'Token ' . $token,
+                    'Accept' => 'application/json',
+                ])->timeout(10)->get($qcore_uri.'/api/v1/qportal/wifi-info/'.get_user()->account_id.'/');
+    
+                if ($response->successful()) {
+                    $data = $response->json();
+                    $wifiData = $data['data'] ?? [];
+                }
+            } 
+        } catch (Exception $e) {
+            $wifiData = [];
         } 
+
 
         return view('pages.wifi.index',compact('wifiData'));
     }
