@@ -121,43 +121,49 @@ class BillingController extends Controller
             'password' => $qcore_password,
         ];
 
-        $qcore_response = Http::timeout(10)->post($qcore_uri.'/api/v1/api-token-auth/', $qcore_data);
-
-        if ($qcore_response->successful()) {
-            
-            $response_data = $qcore_response->json();
-            $token = $response_data['token'];
-
-            $response = Http::withHeaders([
-                'Authorization' => 'Token ' . $token,
-                'Accept' => 'application/json',
-            ])->timeout(10)->get($qcore_uri.'/api/v1/qportal/wifi-info/'.get_user()->account_id.'/');
-
-            if ($response->successful()) {
-                $data = $response->json();
+        try {
+            $qcore_response = Http::timeout(10)->post($qcore_uri.'/api/v1/api-token-auth/', $qcore_data);
     
-                // For test............
-                // $data = [
-                //     "data" => [
-                //         [
-                //             "name" => "wlan1",
-                //             "port_status" => "Down",
-                //             "ssid" => "123",
-                //             "wifi_band" => "2ghz-b/g/n",
-                //             "wifi_password" => "P0ntiac1Fast5512"
-                //         ],
-                //         [
-                //             "name" => "wlan2",
-                //             "port_status" => "Down",
-                //             "ssid" => "Firesdfbird",
-                //             "wifi_band" => "5ghz-a/n/ac",
-                //             "wifi_password" => "P0ntiac1Fast33"
-                //         ]
-                //     ]
-                // ];
+            if ($qcore_response->successful()) {
+                
+                $response_data = $qcore_response->json();
+                $token = $response_data['token'];
     
-                $wifiData = $data['data'] ?? [];
+                $response = Http::withHeaders([
+                    'Authorization' => 'Token ' . $token,
+                    'Accept' => 'application/json',
+                ])->timeout(10)->get($qcore_uri.'/api/v1/qportal/wifi-info/'.get_user()->account_id.'/');
+    
+                if ($response->successful()) {
+                    $data = $response->json();
+        
+                    // For test............
+                    // $data = [
+                    //     "data" => [
+                    //         [
+                    //             "name" => "wlan1",
+                    //             "port_status" => "Down",
+                    //             "ssid" => "123",
+                    //             "wifi_band" => "2ghz-b/g/n",
+                    //             "wifi_password" => "P0ntiac1Fast5512"
+                    //         ],
+                    //         [
+                    //             "name" => "wlan2",
+                    //             "port_status" => "Down",
+                    //             "ssid" => "Firesdfbird",
+                    //             "wifi_band" => "5ghz-a/n/ac",
+                    //             "wifi_password" => "P0ntiac1Fast33"
+                    //         ]
+                    //     ]
+                    // ];
+        
+                    $wifiData = $data['data'] ?? [];
+                }
             }
+
+        } catch (Exception $e) {
+            
+            $wifiData = [];
         } 
 
         return view(
