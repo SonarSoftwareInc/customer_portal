@@ -15,6 +15,10 @@
       border-bottom-left-radius: 0px;
       border-left: white;
    }
+   ul.pagination {
+      padding-left: 10px !important;
+      margin-bottom: 10px !important;
+   }
 </style>
 @endif
 <!-- HEADER -->
@@ -78,10 +82,10 @@
                               <label for="wifi" class="form-label">Wi-Fi Band</label>
                               <select name="wifi_band" id="wifi" class="form-control form-select">
                                  @if(!empty($wifiData))
-                                       <option value="both" selected>Both</option>
                                        @foreach($wifiData as $wifi)
                                           <option value="{{ $wifi['wifi_band'] }}">Personalize - {{ $wifi['wifi_band'] }}</option>
                                        @endforeach
+                                       <option value="both" selected>Both</option>
                                  @else
                                        <option value="">No data found</option>
                                  @endif
@@ -601,23 +605,27 @@
                input.attr("type", "password");
          }
       });
-   });
-   document.addEventListener('DOMContentLoaded', function () {
-        const wifiData = @json($wifiData);
-        const wifiSelect = document.getElementById('wifi');
-        const ssidInput = document.getElementById('ssid');
-        const passwordInput = document.getElementById('password');
 
-        // Get SSID and Password accroding the Wifi Band
-        wifiSelect.addEventListener('change', function () {
-            const selectedBand = this.value;
-            const selectedWifi = wifiData.find(wifi => wifi.wifi_band === selectedBand);
+      // Get Wifi Management Data
+      const wifiData = @json($wifiData);
+      const wifiSelect = document.getElementById('wifi');
 
-            if (selectedWifi) {
-                ssidInput.value = selectedWifi.ssid;
-                passwordInput.value = selectedWifi.wifi_password;
-            }
-        });
+      // Get SSID and Password accroding the Wifi Band
+      wifiSelect.addEventListener('change', function () {
+         const selectedBand = this.value;
+         const selectedWifi = wifiData.find(wifi => wifi.wifi_band === selectedBand);
+
+         if (selectedWifi) {
+               ssidInput.value = selectedWifi.ssid;
+               passwordInput.value = selectedWifi.wifi_password;
+
+               initialSSID = selectedWifi.ssid;
+               initialPassword = selectedWifi.wifi_password;
+               qr_text = 'WIFI:T:nopass;S:'+initialSSID+';P:'+initialPassword+';H:;;';
+               makeQRCode(qr_text, $(".wifi-qrcode"));
+               toggleSubmitButton();
+         }
+      });
    });
 </script>
 @endsection

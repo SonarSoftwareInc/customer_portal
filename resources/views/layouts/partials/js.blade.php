@@ -18,12 +18,20 @@ close=document.getElementById("close");close.addEventListener('click',function()
 <script src="/assets/libs/jquery-payment-plugin/jquery.payment.min.js"></script>
 <script src="/assets/libs/moment/moment.min.js"></script>
 <script src="https://js.stripe.com/v3/"></script>
-<script>
+<script nonce="{{ csp_nonce() }}">
 document.addEventListener('DOMContentLoaded', function () {
   const toggler = document.querySelector('.toggler-btn');
+  const togglerIcon = document.querySelector('.navbar-toggler-icon');
   const collapse = document.querySelector('#sidebarCollapse');
 
   toggler.addEventListener('click', function () {
+    // Add the bounce class
+    togglerIcon.classList.add('bounce');
+    // Remove the bounce class after the animation is complete
+    togglerIcon.addEventListener('animationend', function () {
+        togglerIcon.classList.remove('bounce');
+    }, { once: true });
+    
     if (collapse.classList.contains('show')) {
       collapse.classList.remove('show');
     } else {
