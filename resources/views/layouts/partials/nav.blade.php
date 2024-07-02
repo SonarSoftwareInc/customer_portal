@@ -1,3 +1,9 @@
+@php
+    $accountId = get_user()->account_id;
+    $qCoreService = app(App\Services\QCoreService::class);
+    $sidebarData = $qCoreService->getSonarAccountInfo($accountId);
+@endphp
+
 <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidebar">
    <div class="container-fluid">
       <button class="navbar-toggler toggler-btn" type="button" data-toggle="collapse" data-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,17 +59,26 @@
                <i class="fe fe-package"></i> {{utrans("nav.contracts")}}</a>
             </li>
             @endif
-            @if(2==2)
-            <li class="nav-item">
-               <a class="nav-link" href="https://www.directv.com/my-community/">
-               <i class="fe fe-tv"></i> DIRECTV for Sedona Residents</a>
-            </li>
-            @endif
-            @if(2==2)
-            <li class="nav-item">
-               <a class="nav-link" href="https://mdu-services.com/qflix/shop/?utm_key=OYv7ejrodHSqE9D3">
-               <i class="fe fe-tv"></i> DIRECTV for Cambridge Residents</a>
-            </li>
+            @if(isset($sidebarData) && $sidebarData['complex'] == 'Sedona')
+               <li class="nav-item">
+                  <a class="nav-link" href="https://www.directv.com/my-community/">
+                  <i class="fe fe-tv"></i> DIRECTV for Sedona Residents</a>
+               </li>
+            @elseif(isset($sidebarData) && $sidebarData['complex'] == 'Cambridge')
+               <li class="nav-item">
+                  <a class="nav-link" href="https://mdu-services.com/qflix/shop/?utm_key=OYv7ejrodHSqE9D3">
+                  <i class="fe fe-tv"></i> DIRECTV for Cambridge Residents</a>
+               </li>
+            @else
+               <li class="nav-item">
+                  <a class="nav-link" href="https://www.directv.com/my-community/">
+                  <i class="fe fe-tv"></i> DIRECTV for Sedona Residents</a>
+               </li>
+               
+               <li class="nav-item">
+                  <a class="nav-link" href="https://mdu-services.com/qflix/shop/?utm_key=OYv7ejrodHSqE9D3">
+                  <i class="fe fe-tv"></i> DIRECTV for Cambridge Residents</a>
+               </li>
             @endif
          </ul>
          <h6 class="navbar-heading text-muted mt-4">
@@ -78,12 +93,12 @@
                <a class="nav-link" href="/logout">
                <i class="fe fe-log-out"></i> {{utrans("nav.logOut")}}</a>
             </li>
-@if(str_contains(Route::getCurrentRoute()->uri(),"settings"))
+         @if(str_contains(Route::getCurrentRoute()->uri(),"settings"))
             <li class="nav-item">
                <a class="nav-link selected" href="{{action([\App\Http\Controllers\AppConfigController::class, 'show'])}}">
                <i class="fe fe-codepen"></i> App Configuration</a>
             </li>
-@endif
+         @endif
 
          </ul>
          <div class="navbar-user mt-auto d-none d-md-flex">

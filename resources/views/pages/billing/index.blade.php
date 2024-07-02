@@ -10,17 +10,19 @@
          margin-top: -10px;
       }
    } */
-   .input-group-text {
-      border-top-left-radius: 0px;
-      border-bottom-left-radius: 0px;
-      border-left: white;
-   }
    ul.pagination {
       padding-left: 10px !important;
       margin-bottom: 10px !important;
    }
 </style>
 @endif
+<style nonce="{{ csp_nonce() }}">
+   .left-round-border {
+      border-top-left-radius: 0px !important;
+      border-bottom-left-radius: 0px !important;
+      border-left: white !important;
+   }
+</style>
 <!-- HEADER -->
 <div class="header index-bg pb-5">
    <div class="container-fluid">
@@ -101,7 +103,7 @@
                               <div class="input-group">
                                  <input type="password" name="password" class="form-control" id="password" 
                                     value="{{ !empty($wifiData) ? $wifiData[0]['wifi_password'] : '' }}" {{ empty($wifiData) ? 'disabled' : '' }}>
-                                 <span class="input-group-text">
+                                 <span class="input-group-text left-round-border">
                                      <a href="javascript:void(0)"
                                          class="link-secondary fe fe-eye field-icon toggle-password"
                                          toggle="#password">
@@ -572,8 +574,11 @@
       cancelButton.addEventListener('click', resetInputsAndToggleButton);
 
       // Qr Code Generation
-      let qr_text = 'WIFI:T:nopass;S:'+initialSSID+';P:'+initialPassword+';H:;;';
-      makeQRCode(qr_text, $(".wifi-qrcode"));
+      if (initialSSID) {
+         let qr_text = 'WIFI:T:nopass;S:'+initialSSID+';P:'+initialPassword+';H:;;';
+         makeQRCode(qr_text, $(".wifi-qrcode"));
+      }
+      
       function makeQRCode(qr_text, idClass) {
          let qrparams = {
                render: 'image',
@@ -629,11 +634,17 @@
             }
          }
 
-         // Generate QR code and toggle submit button
+         
          initialSSID = ssidInput.value;
          initialPassword = passwordInput.value;
-         qr_text = 'WIFI:T:nopass;S:' + initialSSID + ';P:' + initialPassword + ';H:;;';
-         makeQRCode(qr_text, $(".wifi-qrcode"));
+
+         // Generate QR code
+         if (initialSSID) {
+            qr_text = 'WIFI:T:nopass;S:' + initialSSID + ';P:' + initialPassword + ';H:;;';
+            makeQRCode(qr_text, $(".wifi-qrcode"));
+         } 
+
+         // Toggle submit button
          toggleSubmitButton();
       });
    });

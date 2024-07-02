@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use App\SystemSetting;
 use Exception;
+use App\SystemSetting;
+use App\Services\QCoreService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -74,6 +75,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(QCoreService::class, function ($app) {
+            return new QCoreService();
+        });
     }
 }
