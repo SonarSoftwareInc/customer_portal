@@ -136,27 +136,6 @@ class BillingController extends Controller
     
                 if ($response->successful()) {
                     $data = $response->json();
-        
-                    // For test............
-                    // $data = [
-                    //     "data" => [
-                    //         [
-                    //             "name" => "wlan1",
-                    //             "port_status" => "Down",
-                    //             "ssid" => "123",
-                    //             "wifi_band" => "2ghz-b/g/n",
-                    //             "wifi_password" => "P0ntiac1Fast5512"
-                    //         ],
-                    //         [
-                    //             "name" => "wlan2",
-                    //             "port_status" => "Down",
-                    //             "ssid" => "Firesdfbird",
-                    //             "wifi_band" => "5ghz-a/n/ac",
-                    //             "wifi_password" => "P0ntiac1Fast33"
-                    //         ]
-                    //     ]
-                    // ];
-        
                     $wifiData = $data['data'] ?? [];
                 }
             }

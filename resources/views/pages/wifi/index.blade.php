@@ -1,10 +1,10 @@
 @extends('layouts.full')
 @section('content')
 <style nonce="{{ csp_nonce() }}">
-   .input-group-text {
-      border-top-left-radius: 0px;
-      border-bottom-left-radius: 0px;
-      border-left: white;
+   .left-round-border {
+      border-top-left-radius: 0px !important;
+      border-bottom-left-radius: 0px !important;
+      border-left: white !important;
    }
 </style>
 <div class="container-fluid">
@@ -67,7 +67,7 @@
                                     <div class="input-group">
                                        <input type="password" name="password" class="form-control" id="password" 
                                           value="{{ !empty($wifiData) ? $wifiData[0]['wifi_password'] : '' }}" {{ empty($wifiData) ? 'disabled' : '' }}>
-                                       <span class="input-group-text">
+                                       <span class="input-group-text left-round-border">
                                            <a href="javascript:void(0)"
                                                class="link-secondary fe fe-eye field-icon toggle-password"
                                                toggle="#password">
@@ -133,9 +133,13 @@
       passwordInput.addEventListener('input', toggleSubmitButton);
       cancelButton.addEventListener('click', resetInputsAndToggleButton);
 
+
       // Qr Code Generation
-      let qr_text = 'WIFI:T:nopass;S:'+initialSSID+';P:'+initialPassword+';H:;;';
-      makeQRCode(qr_text, $(".wifi-qrcode"));
+      if (initialSSID) {
+         let qr_text = 'WIFI:T:nopass;S:'+initialSSID+';P:'+initialPassword+';H:;;';
+         makeQRCode(qr_text, $(".wifi-qrcode"));
+      } 
+
       function makeQRCode(qr_text, idClass) {
          let qrparams = {
                render: 'image',
@@ -175,18 +179,33 @@
       // Get SSID and Password accroding the Wifi Band
       wifiSelect.addEventListener('change', function () {
          const selectedBand = this.value;
-         const selectedWifi = wifiData.find(wifi => wifi.wifi_band === selectedBand);
 
-         if (selectedWifi) {
+         if (selectedBand === 'both') {
+            // Set ssidInput and passwordInput values to wifiData[0]'s values
+            if (wifiData.length > 0) {
+               ssidInput.value = wifiData[0]['ssid'];
+               passwordInput.value = wifiData[0]['wifi_password'];
+            }
+         } else {
+            const selectedWifi = wifiData.find(wifi => wifi.wifi_band === selectedBand);
+
+            if (selectedWifi) {
                ssidInput.value = selectedWifi.ssid;
                passwordInput.value = selectedWifi.wifi_password;
-
-               initialSSID = selectedWifi.ssid;
-               initialPassword = selectedWifi.wifi_password;
-               qr_text = 'WIFI:T:nopass;S:'+initialSSID+';P:'+initialPassword+';H:;;';
-               makeQRCode(qr_text, $(".wifi-qrcode"));
-               toggleSubmitButton();
+            }
          }
+
+         // Generate QR code
+         initialSSID = ssidInput.value;
+         initialPassword = passwordInput.value;
+
+         // Toggle submit button
+         if (initialSSID) {
+            qr_text = 'WIFI:T:nopass;S:' + initialSSID + ';P:' + initialPassword + ';H:;;';
+            makeQRCode(qr_text, $(".wifi-qrcode"));
+         }
+
+         toggleSubmitButton();
       });
    });
 </script>
