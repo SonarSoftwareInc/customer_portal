@@ -1,5 +1,18 @@
 @extends('layouts.root')
 @section('content')
+<style nonce="{{ csp_nonce() }}">
+   @media only screen and (max-width: 768px) {
+      .center-sm {
+         display: flex !important;
+         flex-direction: column !important;
+         justify-content: center !important;
+         align-items: center !important;
+      }
+   }
+   .mt-0 {
+      margin-top: 0px !important;
+   }
+</style>
 <body class="page-login">
    <div class="wrapper">
       <section id="main" class="section content animated fadeInDown delayed_02s">
@@ -20,7 +33,7 @@
             <label for="input-password">{{trans("root.password",[],$language)}}</label>
             {!! Form::password("password",['placeholder' => trans("root.password",[],$language), 'id' => 'password']) !!}
          </div>
-         <div class="half vcenter label">
+         <div class="half vcenter label center-sm">
             <div>
                <button type="submit">
                   {{trans("actions.login",[],$language)}}
@@ -28,8 +41,8 @@
             </div>
             <div class="right"><a href="/reset" class="forgot">{{trans("headers.forgotUsernameOrPassword",[],$language)}}</a></div>
          </div>
-         <small class="d-lg-none"><a href="{{action([\App\Http\Controllers\AuthenticationController::class, 'showRegistrationForm'])}}">{{trans("root.register",[],$language)}}</a></small>
-         <div class="half-two vcenter label" style="margin-top: 25px;">
+         <small class="right center-sm mt-0"><a href="{{action([\App\Http\Controllers\AuthenticationController::class, 'showRegistrationForm'])}}">{{trans("root.register",[],$language)}}</a></small>
+         <div class="half-two vcenter label center-sm" style="margin-top: 25px;">
             <div>
                <a href="https://www.directv.com/my-community" class="btn_tv">
                   DIRECTV for Sedona Residents
@@ -42,7 +55,7 @@
             </div>
          </div>
          {!! Form::close() !!}
-         <small class="d-sm-none"><a href="{{action([\App\Http\Controllers\AuthenticationController::class, 'showRegistrationForm'])}}">{{trans("root.register",[],$language)}}</a></small>
+         {{-- <small class="d-sm-none"><a href="{{action([\App\Http\Controllers\AuthenticationController::class, 'showRegistrationForm'])}}">{{trans("root.register",[],$language)}}</a></small> --}}
          <form class="form-group">
             <select id="language" name="language" class="form-control languageSelector">
             @foreach(getAvailableLanguages($language) as $key => $value)
