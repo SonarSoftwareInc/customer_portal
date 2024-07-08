@@ -125,6 +125,10 @@ Route::middleware('language')->group(function () {
         Route::prefix('wifi-management')->group(function () {
             Route::get('/', [BillingController::class, 'wifiIndex']);
         });
+
+        Route::prefix('service-upgrade')->group(function () {
+            Route::get('/', [BillingController::class, 'packageIndex']);
+        });
     });
 
     Route::get('/logout', [AuthenticationController::class, 'logout']);

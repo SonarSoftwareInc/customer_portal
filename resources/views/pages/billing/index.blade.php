@@ -22,6 +22,32 @@
       border-bottom-left-radius: 0px !important;
       border-left: white !important;
    }
+   .hr-text {
+      display: flex;
+      align-items: center;
+      margin: 1.5rem 0;
+      font-size: .825rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      line-height: 1rem;
+      color: #95aac9;
+      height: 1px;
+   }
+   .hr-text:after, .hr-text:before {
+      flex: 1 1 auto;
+      height: 1px;
+      background-color: #dce1e7;
+   }
+
+   .hr-text:before {
+      content: "";
+      margin-right: .5rem;
+   }
+   .hr-text:after {
+      content: "";
+      margin-left: .5rem;
+   }
 </style>
 <!-- HEADER -->
 <div class="header index-bg pb-5">
@@ -66,7 +92,7 @@
 <!-- / .header -->
 <div class="container-fluid mt--6">
    <div class="row">
-      <div class="col-12 col-xl-4">
+      <div class="col-12 col-xl-3">
          <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -124,7 +150,7 @@
             </div>
         </div>
       </div>
-      <div class="col-12 col-xl-4">
+      <div class="col-12 col-xl-3">
          <div class="row resposive-row">
             <div class="col-12 col-xl-12">
                <div class="card">
@@ -226,7 +252,35 @@
             @endif
          </div>
       </div>
-      <div class="col-12 col-xl-4">
+      <div class="col-12 col-xl-3">
+         <div class="card">
+            <div class="card-body">
+               <div class="row">
+                  <div class="col-12 col-xl-12">
+                      <!-- Title -->
+                       <div class="text-center">
+                          <h2>Service Information</h2>
+                       </div>
+                       <div class="d-flex flex-column justify-content-center align-items-center">
+                          <div class="text-center">
+                              <h4 class="mb-1">Basic</h4>
+                              <h1 class="mb-1 text-secondary">$24.00</h1>
+                              <p class="mb-1">Month</p>
+                          </div>
+                          <div class="hr-text col-lg-12">Bandwidth</div>
+                          <div class="text-center">
+                              <p class="mb-1">Upload speed : 30Mbps</p>
+                              <p class="mb-3">Download speed : 50Mbps</p>
+                              <a href="{{action([\App\Http\Controllers\BillingController::class, 'packageIndex'])}}" class="btn btn-success mt-2" >Upgrade</a>
+                          </div>
+                       </div>
+                   </div>
+               </div>
+               <!-- / .row -->
+           </div>
+        </div>
+      </div>
+      <div class="col-12 col-xl-3">
          @if($values['amount_due'] > 0)
          <div class="card">
             <div class="card-body text-center">
