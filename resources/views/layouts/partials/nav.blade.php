@@ -77,7 +77,8 @@
                
                <li class="nav-item">
                   <a class="nav-link" href="https://www.directv.com/affiliates/qflix/">
-                  <i class="fe fe-tv"></i> DIRECTV for Cambridge Residents</a>
+                     <i class="fe fe-tv"></i> DIRECTV for Cambridge Residents
+                  </a>
                </li>
             @endif
          </ul>
