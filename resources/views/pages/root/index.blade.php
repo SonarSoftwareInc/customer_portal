@@ -49,7 +49,7 @@
                </a>
             </div>
             <div>
-               <a href="https://mdu-services.com/qflix/shop/?utm_key=OYv7ejrodHSqE9D3" class="btn_tv">
+               <a href="https://www.directv.com/affiliates/qflix/" class="btn_tv">
                   DIRECTV for Cambridge Residents
                </a>
             </div>

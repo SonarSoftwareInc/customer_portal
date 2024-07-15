@@ -66,7 +66,7 @@
                </li>
             @elseif(isset($sidebarData) && $sidebarData['complex'] == 'Cambridge')
                <li class="nav-item">
-                  <a class="nav-link" href="https://mdu-services.com/qflix/shop/?utm_key=OYv7ejrodHSqE9D3">
+                  <a class="nav-link" href="https://www.directv.com/affiliates/qflix/">
                   <i class="fe fe-tv"></i> DIRECTV for Cambridge Residents</a>
                </li>
             @else
@@ -76,7 +76,7 @@
                </li>
                
                <li class="nav-item">
-                  <a class="nav-link" href="https://mdu-services.com/qflix/shop/?utm_key=OYv7ejrodHSqE9D3">
+                  <a class="nav-link" href="https://www.directv.com/affiliates/qflix/">
                   <i class="fe fe-tv"></i> DIRECTV for Cambridge Residents</a>
                </li>
             @endif
