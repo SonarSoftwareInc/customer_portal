@@ -20,6 +20,7 @@ return [
     'creditCardNumber' => 'Numéro de la carte de crédit',
     'nameOnCard' => 'Nom sur la carte',
     'expirationDate' => ' Date d’expiration ',
+    'expirationDate--placeholder' => 'MM/AA',
     'submitPayment' => 'Envoyer un paiement',
     'legalDisclaimer' => 'J\'autorise :business_name à envoyer des instructions à l\'institution financière qui a émis ma carte pour qu\'elle accepte les paiements de mon compte de carte conformément aux conditions de mon accord avec vous.',
     'saveAsAutoPayMethod' => 'Débiter cette carte automatiquement pour toutes les factures à venir',

@@ -10,11 +10,11 @@
                   <div class="col">
                      <!-- Pretitle -->
                      <h6 class="header-pretitle">
-                      {{utrans("billing.makePayment")}}
+                        {{utrans("billing.makePayment")}}
                      </h6>
                      <!-- Title -->
                      <h1 class="header-title">
-                      {{utrans("billing.billing")}}
+                        {{utrans("billing.billing")}}
                      </h1>
                   </div>
                   <div class="col-auto">
@@ -30,7 +30,7 @@
                <div class="form-group">
                   <!-- Label -->
                   <label>
-                  {{utrans("billing.paymentMethod")}}
+                     {{utrans("billing.paymentMethod")}}
                   </label>
                   <!-- Input -->
                   {!! Form::select("payment_method",$paymentMethods,'new_card',['id' => 'payment_method', 'class' => 'form-control']) !!}
@@ -41,10 +41,10 @@
                <div class="form-group new_card">
                   <!-- Label -->
                   <label>
-                  {{utrans("billing.nameOnCard")}}
+                     {{utrans("billing.nameOnCard")}}
                   </label>
                   <!-- Input -->
-                  {!! Form::text("name",null,['id' => 'name', 'class' => 'form-control', 'placeholder' => utrans("billing.nameOnCard")]) !!}
+                  {!! Form::text("name",null,['id' => 'name', 'class' => 'form-control', 'placeholder' => utrans("billing.nameOnCard--placeholder")]) !!}
                </div>
             </div>
             <div class="col-12">
@@ -52,10 +52,10 @@
                <div class="form-group new_card">
                   <!-- Label -->
                   <label class="mb-1">
-                  {{utrans("billing.creditCardNumber")}}
+                     {{utrans("billing.creditCardNumber")}}
                   </label>
                   <!-- Input -->
-                  {!! Form::tel("cc-number",null,['id' => 'cc-number', 'autocomplete' => 'cc-number', 'class' => 'cc-number form-control', 'placeholder' => utrans("billing.creditCardNumber")]) !!}
+                  {!! Form::tel("cc-number",null,['id' => 'cc-number', 'autocomplete' => 'cc-number', 'class' => 'cc-number form-control', 'placeholder' => utrans("billing.creditCardNumber--placeholder")]) !!}
                </div>
             </div>
             <div class="col-12 col-md-4">
@@ -63,10 +63,10 @@
                <div class="form-group new_card">
                   <!-- Label -->
                   <label>
-                  {{utrans("billing.expirationDate")}}
+                     {{utrans("billing.expirationDate")}}
                   </label>
                   <!-- Input -->
-                  {!! Form::tel("expirationDate",null,['id' => 'expirationDate', 'class' => 'form-control', 'placeholder' => utrans("billing.expirationDate")]) !!}
+                  {!! Form::tel("expirationDate",null,['id' => 'expirationDate', 'class' => 'form-control', 'placeholder' => utrans("billing.expirationDate--placeholder")]) !!}
                </div>
             </div>
             <div class="col-12 col-md-4">
@@ -74,10 +74,10 @@
                <div class="form-group new_card">
                   <!-- Label -->
                   <label>
-                  {{utrans("billing.cvc")}}
+                     {{utrans("billing.cvc")}}
                   </label>
                   <!-- Input -->
-                  {!! Form::tel("cvc",null,['id' => 'cvc', 'autocomplete' => 'cvc', 'class' => 'form-control', 'placeholder' => utrans("billing.cvc")]) !!}
+                  {!! Form::tel("cvc",null,['id' => 'cvc', 'autocomplete' => 'cvc', 'class' => 'form-control', 'placeholder' => utrans("billing.cvc--placeholder")]) !!}
                </div>
             </div>
             <div class="col-12 col-md-4">
@@ -85,10 +85,10 @@
                <div class="form-group new_card">
                   <!-- Label -->
                   <label>
-                  {{utrans("billing.zip")}}
+                     {{utrans("billing.zip")}}
                   </label>
                   <!-- Input -->
-                  {!! Form::text("zip",null,['id' => 'zip', 'class' => 'form-control', 'placeholder' => utrans("billing.zip"), 'required' => true]) !!}
+                  {!! Form::text("zip",null,['id' => 'zip', 'class' => 'form-control', 'placeholder' => utrans("billing.zip--placeholder"), 'required' => true]) !!}
                </div>
             </div>
             <div class="col-12 ">
@@ -96,7 +96,7 @@
                <div class="form-group new_card">
                   <!-- Label -->
                   <label>
-                  {{utrans("billing.country")}}
+                     {{utrans("billing.country")}}
                   </label>
                   <!-- Input -->
                   {!! Form::select("country",countries(),config("customer_portal.country"),['id' => 'country', 'class' => 'form-control', 'required' => true]) !!}
@@ -107,7 +107,7 @@
                <div class="form-group new_card">
                   <!-- Label -->
                   <label>
-                  {{utrans("billing.state")}}
+                     {{utrans("billing.state")}}
                   </label>
                   <!-- Input -->
                   {!! Form::select("state",subdivisions(config("customer_portal.country")),config("customer_portal.state"),['id' => 'state', 'class' => 'form-control', 'required' => true]) !!}
@@ -118,10 +118,10 @@
                <div class="form-group new_card">
                   <!-- Label -->
                   <label>
-                  {{utrans("billing.line1")}}
+                     {{utrans("billing.line1")}}
                   </label>
                   <!-- Input -->
-                  {!! Form::text("line1",null,['id' => 'line1', 'class' => 'form-control', 'placeholder' => utrans("billing.line1"), 'required' => true]) !!}
+                  {!! Form::text("line1",null,['id' => 'line1', 'class' => 'form-control', 'placeholder' => utrans("billing.line1--placeholder"), 'required' => true]) !!}
                </div>
             </div>
             <div class="col-12 ">
@@ -129,7 +129,7 @@
                <div class="form-group new_card">
                   <!-- Label -->
                   <label>
-                  {{utrans("billing.city")}}
+                     {{utrans("billing.city")}}
                   </label>
                   <!-- Input -->
                   {!! Form::text("city",null,['id' => 'city', 'class' => 'form-control', 'placeholder' => utrans("billing.city"), 'required' => true]) !!}
@@ -140,10 +140,10 @@
                <div class="form-group">
                   <!-- Label -->
                   <label>
-                  {{utrans("billing.amountToPay")}}
+                     {{utrans("billing.amountToPay")}}
                   </label>
                   <!-- Input -->
-                  {!! Form::number("amount",number_format($billingDetails->balance_due,2,".",""),['id' => 'amount', 'class' => 'form-control', 'placeholder' => utrans("billing.amountToPay"), 'step' => 'any', 'required' => true]) !!}
+                  {!! Form::number("amount",number_format($billingDetails->balance_due,2,".",""),['id' => 'amount', 'class' => 'form-control', 'placeholder' => utrans("billing.amountToPay--placeholder"), 'step' => 'any', 'required' => true]) !!}
                </div>
             </div>
             <div class="col-auto ">
@@ -156,7 +156,7 @@
             <div class="col mt-1">
                <!-- Help text -->
                <small class="text-muted new_card">
-               {{utrans("billing.saveAsAutoPayMethod")}} {{utrans("billing.autoPayDescription")}}
+                  {{utrans("billing.saveAsAutoPayMethod")}} {{utrans("billing.autoPayDescription")}}
                </small>
             </div>
             <div class="col-12 col-md-12 mt-5">
