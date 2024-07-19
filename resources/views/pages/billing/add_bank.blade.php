@@ -74,7 +74,7 @@
                 <div class="col-12 col-lg-4">
                     <div class="form-group">
                         <label for="city">{{utrans("billing.city")}}</label>
-                        {!! Form::text("city",null,['id' => 'city', 'class' => 'form-control', 'placeholder' => utrans("billing.city")]) !!}
+                        {!! Form::text("city",null,['id' => 'city', 'class' => 'form-control', 'placeholder' => utrans("billing.city--placeholder")]) !!}
                     </div>
                 </div>
                 <div class="col-12 col-lg-4">

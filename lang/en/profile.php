@@ -6,7 +6,7 @@ return [
     'name--placeholder' => 'John Doe',
     'role' => 'Role',
     'emailAddress' => 'Email Address',
-    'emailAddress--placeholder' => 'john.doe@fake.com',
+    'emailAddress--placeholder' => 'john.doe@company.com',
     'updateProfile' => 'Update Profile',
     'homePhone' => 'Home Phone Number',
     'homePhone--placeholder' => '123-456-7890',
