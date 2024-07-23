@@ -25,4 +25,5 @@ return [
     'passwordUpdated' => 'Password successfully updated.',
     'failedToUpdatePassword' => 'Failed to update password. Please try again later.',
     'emailUsedFor' => 'This email will be used to send billing alerts, service notifications and password resets.',
+    'passwordConfirm--helper' => 'Re-type new password',
 ];

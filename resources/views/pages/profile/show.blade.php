@@ -150,6 +150,9 @@
                      <label>
                         {{utrans("profile.newPasswordConfirmed")}}
                      </label>
+                     <small class="form-text text-muted">
+                        {{utrans("profile.passwordConfirm--helper")}}
+                     </small>
                      {!! Form::password("new_password_confirmation",['type' => 'password','id' => 'new_password_confirmation', 'class' => 'form-control']) !!}
                   </div>
                   <button type="submit" class="btn btn-outline-primary">
