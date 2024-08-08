@@ -12,7 +12,7 @@
                      </h6>
                      <!-- Title -->
                      <h1 class="header-title">
-                     {{utrans("headers.myDetails")}}
+                        {{utrans("headers.myDetails")}}
                      </h1>
                   </div>
                   <div class="col-auto">
@@ -32,10 +32,10 @@
                   <div class="form-group">
                      <!-- Label -->
                      <label>
-                     {{utrans("profile.name")}}
+                        {{utrans("profile.name")}}
                      </label>
                      <!-- Input -->
-                     {!! Form::text("name",$contact->getName(),['id' => 'name', 'class' => 'form-control', 'placeholder' => utrans("profile.name")]) !!}
+                     {!! Form::text("name",$contact->getName(),['id' => 'name', 'class' => 'form-control', 'placeholder' => utrans("profile.name--placeholder")]) !!}
                   </div>
                </div>
                <div class="col-12">
@@ -43,14 +43,14 @@
                   <div class="form-group">
                      <!-- Label -->
                      <label class="mb-1">
-                     {{utrans("profile.emailAddress")}}
+                        {{utrans("profile.emailAddress")}}
                      </label>
                      <!-- Form text -->
                      <small class="form-text text-muted">
-                     {{utrans("profile.emailUsedFor")}}
+                        {{utrans("profile.emailUsedFor")}}
                      </small>
                      <!-- Input -->
-                     {!! Form::email("email_address",$contact->getEmailAddress(),['id' => 'email_address', 'class' => 'form-control', 'placeholder' => utrans("profile.emailAddress")]) !!}
+                     {!! Form::email("email_address",$contact->getEmailAddress(),['id' => 'email_address', 'class' => 'form-control', 'placeholder' => utrans("profile.emailAddress--placeholder")]) !!}
                   </div>
                </div>
                <div class="col-12 col-md-6">
@@ -58,14 +58,14 @@
                   <div class="form-group">
                      <!-- Label -->
                      <label>
-                     {{utrans("profile.homePhone")}}
+                        {{utrans("profile.homePhone")}}
                      </label>
                      <!-- Input -->
-                      @if($country === 'US')
-                          {!! Form::tel("home_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::HOME],['id' => 'home_phone', 'class' => 'form-control mb-3', 'data-mask' => '(000) 000-0000', 'placeholder' => utrans("profile.homePhone")]) !!}
-                      @else
-                          {!! Form::tel("home_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::HOME],['id' => 'home_phone', 'class' => 'form-control mb-3', 'placeholder' => utrans("profile.homePhone")]) !!}
-                      @endif
+                     @if($country === 'US')
+                     {!! Form::tel("home_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::HOME],['id' => 'home_phone', 'class' => 'form-control mb-3', 'data-mask' => '(000) 000-0000', 'placeholder' => utrans("profile.homePhone--placeholder")]) !!}
+                     @else
+                     {!! Form::tel("home_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::HOME],['id' => 'home_phone', 'class' => 'form-control mb-3', 'placeholder' => utrans("profile.homePhone--placeholder")]) !!}
+                     @endif
                   </div>
                </div>
                <div class="col-12 col-md-6">
@@ -73,14 +73,14 @@
                   <div class="form-group">
                      <!-- Label -->
                      <label>
-                     {{utrans("profile.mobilePhone")}}
+                        {{utrans("profile.mobilePhone")}}
                      </label>
                      <!-- Input -->
-                      @if($country === 'US')
-                          {!! Form::tel("mobile_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::MOBILE],['id' => 'mobile_phone', 'class' => 'form-control mb-3','data-mask' => '(000) 000-0000', 'placeholder' => utrans("profile.mobilePhone")]) !!}
-                      @else
-                          {!! Form::tel("mobile_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::MOBILE],['id' => 'mobile_phone', 'class' => 'form-control mb-3','placeholder' => utrans("profile.mobilePhone")]) !!}
-                      @endif
+                     @if($country === 'US')
+                     {!! Form::tel("mobile_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::MOBILE],['id' => 'mobile_phone', 'class' => 'form-control mb-3','data-mask' => '(000) 000-0000', 'placeholder' => utrans("profile.mobilePhone--placeholder")]) !!}
+                     @else
+                     {!! Form::tel("mobile_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::MOBILE],['id' => 'mobile_phone', 'class' => 'form-control mb-3','placeholder' => utrans("profile.mobilePhone--placeholder")]) !!}
+                     @endif
                   </div>
                </div>
                <div class="col-12 col-md-6">
@@ -88,14 +88,14 @@
                   <div class="form-group">
                      <!-- Label -->
                      <label>
-                     {{utrans("profile.workPhone")}}
+                        {{utrans("profile.workPhone")}}
                      </label>
                      <!-- Input -->
-                      @if($country === 'US')
-                          {!! Form::tel("work_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::WORK],['id' => 'work_phone', 'class' => 'form-control mb-3', 'data-mask' => '(000) 000-0000', 'placeholder' => utrans("profile.workPhone")]) !!}
-                      @else
-                          {!! Form::tel("work_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::WORK],['id' => 'work_phone', 'class' => 'form-control mb-3', 'placeholder' => utrans("profile.workPhone")]) !!}
-                      @endif
+                     @if($country === 'US')
+                     {!! Form::tel("work_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::WORK],['id' => 'work_phone', 'class' => 'form-control mb-3', 'data-mask' => '(000) 000-0000', 'placeholder' => utrans("profile.workPhone--placeholder")]) !!}
+                     @else
+                     {!! Form::tel("work_phone",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::WORK],['id' => 'work_phone', 'class' => 'form-control mb-3', 'placeholder' => utrans("profile.workPhone--placeholder")]) !!}
+                     @endif
                   </div>
                </div>
                <div class="col-12 col-md-6">
@@ -103,19 +103,19 @@
                   <div class="form-group">
                      <!-- Label -->
                      <label>
-                     {{utrans("profile.fax")}}
+                        {{utrans("profile.fax")}}
                      </label>
                      <!-- Input -->
-                      @if($country === 'US')
-                          {!! Form::tel("fax",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::FAX],['id' => 'fax', 'class' => 'form-control mb-3','data-mask' => '(000) 000-0000', 'placeholder' => utrans("profile.fax")]) !!}
-                      @else
-                          {!! Form::tel("fax",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::FAX],['id' => 'fax', 'class' => 'form-control mb-3','placeholder' => utrans("profile.fax")]) !!}
-                      @endif
+                     @if($country === 'US')
+                     {!! Form::tel("fax",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::FAX],['id' => 'fax', 'class' => 'form-control mb-3','data-mask' => '(000) 000-0000', 'placeholder' => utrans("profile.fax--placeholder")]) !!}
+                     @else
+                     {!! Form::tel("fax",$phoneNumbers[\SonarSoftware\CustomerPortalFramework\Models\PhoneNumber::FAX],['id' => 'fax', 'class' => 'form-control mb-3','placeholder' => utrans("profile.fax--placeholder")]) !!}
+                     @endif
                   </div>
                </div>
                <div class="col-12 com-md-12">
                   <button type="submit" class="btn btn-outline-primary">
-                 {{utrans("profile.updateDetails")}}
+                     {{utrans("profile.updateDetails")}}
                   </button>
                </div>
                {!! Form::close() !!}
@@ -135,25 +135,28 @@
                   <div class="form-group">
                      <!-- Label -->
                      <label>
-                     {{utrans("profile.currentPassword")}}
+                        {{utrans("profile.currentPassword")}}
                      </label>
                      <!-- Input -->
-                     {!! Form::password("current_password",['type' => 'password','id' => 'current_password', 'class' => 'form-control', 'placeholder' => utrans("profile.currentPassword")]) !!}
+                     {!! Form::password("current_password",['type' => 'password','id' => 'current_password', 'class' => 'form-control']) !!}
                   </div>
                   <div class="form-group">
                      <label>
-                     {{utrans("profile.newPassword")}}
+                        {{utrans("profile.newPassword")}}
                      </label>
-                     {!! Form::password("new_password",['type' => 'password','id' => 'new_password', 'class' => 'form-control', 'placeholder' => utrans("profile.newPassword")]) !!}
+                     {!! Form::password("new_password",['type' => 'password','id' => 'new_password', 'class' => 'form-control']) !!}
                   </div>
                   <div class="form-group">
                      <label>
-                     {{utrans("profile.newPasswordConfirmed")}}
+                        {{utrans("profile.newPasswordConfirmed")}}
                      </label>
-                     {!! Form::password("new_password_confirmation",['type' => 'password','id' => 'new_password_confirmation', 'class' => 'form-control', 'placeholder' => utrans("profile.newPasswordConfirmed")]) !!}
+                     <small class="form-text text-muted">
+                        {{utrans("profile.passwordConfirm--helper")}}
+                     </small>
+                     {!! Form::password("new_password_confirmation",['type' => 'password','id' => 'new_password_confirmation', 'class' => 'form-control']) !!}
                   </div>
                   <button type="submit" class="btn btn-outline-primary">
-                  {{utrans("profile.changePassword")}}
+                     {{utrans("profile.changePassword")}}
                   </button>
                </div>
                {!! Form::close() !!}
@@ -171,9 +174,9 @@
       <div class="col-12 col-md-6 col-lg-2 col-xl-2">
          <form class="form-group">
             <select class="form-control languageSelector">
-            @foreach(getAvailableLanguages($language) as $key => $value)
-            <option value="{{$key}}" @if($language == $key) selected @endif>{{$value}}</option>
-            @endforeach
+               @foreach(getAvailableLanguages($language) as $key => $value)
+               <option value="{{$key}}" @if($language==$key) selected @endif>{{$value}}</option>
+               @endforeach
             </select>
          </form>
       </div>
