@@ -991,4 +991,10 @@ class BillingController extends Controller
 
         return view('pages.wifi.index',compact('wifiData'));
     }
+
+    public function packageIndex(): Factory|View
+    {
+        $paymentMethods = $this->getPaymentMethods();
+        return view('pages.package.index',compact('paymentMethods'));
+    }
 }

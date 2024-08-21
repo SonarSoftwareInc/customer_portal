@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: dev.Dockerfile
-    image: sonarsoftware/customerportal:next
+    image: qportalsonar
     container_name: sonar-customerportal
     restart: always
     tty: true
