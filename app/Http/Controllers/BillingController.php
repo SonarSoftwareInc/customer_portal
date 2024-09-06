@@ -143,11 +143,53 @@ class BillingController extends Controller
         } catch (Exception $e) {
 
             $wifiData = [];
-        } 
+        }
+
+        try {
+            $qcore_response = Http::timeout(10)->post($qcore_uri.'/api/v1/api-token-auth/', $qcore_data);
+        
+            if ($qcore_response->successful()) {
+                $response_data = $qcore_response->json();
+                $token = $response_data['token'];
+        
+                $response = Http::withHeaders([
+                    'Authorization' => 'Token ' . $token,
+                    'Accept' => 'application/json',
+                ])->timeout(10)->get($qcore_uri.'/api/v1/qportal/sonar-account-info/'.get_user()->account_id.'/');
+                
+                if ($response->successful()) {
+                    $acc_data = $response->json();
+                    $serviceId = $acc_data['service'] ?? null;
+                    $account_service_id = $acc_data['account_service_id'] ?? '';
+        
+                    if ($serviceId !== null) {
+                        $response = Http::withHeaders([
+                            'Authorization' => 'Token ' . $token,
+                            'Accept' => 'application/json',
+                        ])->timeout(10)->get($qcore_uri.'/api/v1/qportal/services/list/');
+        
+                        if ($response->successful()) {
+                            $services = $response->json();
+                            $serviceArray = [];
+        
+                            foreach ($services as $service) {
+                                if ($service['id'] == $serviceId) {
+                                    $serviceArray[] = $service;
+                                }
+                            }
+                            $service = $serviceArray;
+                        }
+                    }
+                }
+            }
+        } catch (Exception $e) {
+            $service = [];
+            $account_service_id = '';
+        }
 
         return view(
             'pages.billing.index',
-            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting', 'svg', 'svgDisplay', 'wifiData')
+            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting', 'svg', 'svgDisplay', 'wifiData', 'service', 'account_service_id')
         );
     }
 
@@ -994,7 +1036,94 @@ class BillingController extends Controller
 
     public function packageIndex(): Factory|View
     {
+        $qcore_username = config('services.qcore.username');
+        $qcore_password = config('services.qcore.password');
+        $qcore_uri = config('services.qcore.qcore_uri');
+
+        $qcore_data = [
+            'username' => $qcore_username,
+            'password' => $qcore_password,
+        ];
+
+        try {
+            $qcore_response = Http::timeout(10)->post($qcore_uri.'/api/v1/api-token-auth/', $qcore_data);
+        
+            if ($qcore_response->successful()) {
+                $response_data = $qcore_response->json();
+                $token = $response_data['token'];
+        
+                $response = Http::withHeaders([
+                    'Authorization' => 'Token ' . $token,
+                    'Accept' => 'application/json',
+                ])->timeout(10)->get($qcore_uri.'/api/v1/qportal/services/'.get_user()->account_id.'/upgradable/list/');
+
+                if ($response->successful()) {
+                    $services = $response->json();
+
+                }
+
+                $response_account_info = Http::withHeaders([
+                    'Authorization' => 'Token ' . $token,
+                    'Accept' => 'application/json',
+                ])->timeout(10)->get($qcore_uri.'/api/v1/qportal/sonar-account-info/'.get_user()->account_id.'/');
+                
+                if ($response_account_info->successful()) {
+                    $acc_data = $response_account_info->json();
+                    $account_service_id = $acc_data['account_service_id'] ?? '';
+                }
+            }
+        } catch (Exception $e) {
+            $services = [];
+            $account_service_id = '';
+        }
+        if(empty($account_service_id)) {
+            abort(404);
+        }
         $paymentMethods = $this->getPaymentMethods();
-        return view('pages.package.index',compact('paymentMethods'));
+        return view('pages.package.index',compact('paymentMethods', 'services', 'account_service_id'));
+    }
+
+    public function packageSubscription(Request $request): RedirectResponse
+    {
+        $account_id = $request->input('account_service_id');
+        $new_service_id = $request->input('new_service_id');
+    
+        $qcore_username = config('services.qcore.username');
+        $qcore_password = config('services.qcore.password');
+        $qcore_uri = config('services.qcore.qcore_uri');
+        
+        $qcore_data = [
+            'username' => $qcore_username,
+            'password' => $qcore_password,
+        ];
+    
+        try {
+            $qcore_response = Http::timeout(10)->post($qcore_uri.'/api/v1/api-token-auth/', $qcore_data);
+            if ($qcore_response->successful()) {
+                $response_data = $qcore_response->json();
+                $token = $response_data['token'];
+            } else {
+                return redirect()->back()->with('error', 'Failed to upgrade service.');
+            }
+    
+            $data = [
+                'new_service_id' => $new_service_id,
+                'account_service_id' => $account_id,
+            ];
+        
+            $response = Http::withHeaders([
+                'Authorization' => 'Token ' . $token,
+                'Accept' => 'application/json',
+            ])->put($qcore_uri.'/api/v1/qportal/services/'.get_user()->account_id.'/upgrade/', $data);
+    
+            if ($response->successful()) {
+                return redirect()->route('portal.billing.index')->with('success', 'Service upgraded successfully.');
+            } else {
+                return redirect()->back()->with('error', 'Failed to upgrade service.');
+            }
+        } catch (Exception $e) {
+            // dd($e);
+            return redirect()->back()->with('error', 'Failed to upgrade service.');
+        }
     }
 }

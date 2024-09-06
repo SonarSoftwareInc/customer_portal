@@ -34,62 +34,31 @@
 </style>
 <div class="container-fluid">
    <div class="text-center mt-100"><h2>Services</h2></div>
+   @if(count($services) > 0)
    <div class="mt-5">
       <div class="pricing owl-carousel owl-theme mb-3">
-         <div class="card card-pricing text-center px-3 mb-4">
-             <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Basic</span>
-             <div class="bg-transparent card-header pt-4 border-0">
-                 <h1 class="h1 font-weight-normal text-primary text-center mb-0" data-pricing-value="15">$<span class="price">30</span><span class="h6 text-muted ml-2">/ per month</span></h1>
-             </div>
-             <div class="card-body pt-0">
-                 <ul class="list-unstyled mb-4">
-                     <li>Upload speed: 40Mbps</li>
-                     <li>Download speed: 60Mbps</li>
-                 </ul>
-                 <button type="button" class="btn btn-outline-secondary mb-3" data-bs-toggle="modal" data-bs-target="#purchaseModal">Buy</button>
-             </div>
-         </div>
-         <div class="card card-pricing text-center px-3 mb-4">
-             <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Premium</span>
-             <div class="bg-transparent card-header pt-4 border-0">
-                 <h1 class="h1 font-weight-normal text-primary text-center mb-0" data-pricing-value="30">$<span class="price">40</span><span class="h6 text-muted ml-2">/ per month</span></h1>
-             </div>
-             <div class="card-body pt-0">
-                 <ul class="list-unstyled mb-4">
-                     <li>Upload speed: 50Mbps</li>
-                     <li>Download speed: 70Mbps</li>
-                 </ul>
-                 <button type="button" class="btn btn-outline-secondary mb-3" data-bs-toggle="modal" data-bs-target="#purchaseModal">Buy</button>
-             </div>
-         </div>
-         <div class="card card-pricing text-center px-3 mb-4">
-             <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Platinum</span>
-             <div class="bg-transparent card-header pt-4 border-0">
-                 <h1 class="h1 font-weight-normal text-primary text-center mb-0" data-pricing-value="45">$<span class="price">50</span><span class="h6 text-muted ml-2">/ per month</span></h1>
-             </div>
-             <div class="card-body pt-0">
-                 <ul class="list-unstyled mb-4">
-                     <li>Upload speed: 60Mbps</li>
-                     <li>Download speed: 80Mbps</li>
-                 </ul>
-                 <button type="button" class="btn btn-outline-secondary mb-3" data-bs-toggle="modal" data-bs-target="#purchaseModal">Buy</button>
-             </div>
-         </div>
-         <div class="card card-pricing text-center px-3 mb-4">
-             <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Elite</span>
-             <div class="bg-transparent card-header pt-4 border-0">
-                 <h1 class="h1 font-weight-normal text-primary text-center mb-0" data-pricing-value="60">$<span class="price">60</span><span class="h6 text-muted ml-2">/ per month</span></h1>
-             </div>
-             <div class="card-body pt-0">
-                 <ul class="list-unstyled mb-4">
-                     <li>Upload speed: 70Mbps</li>
-                     <li>Download speed: 90Mbps</li>
-                 </ul>
-                 <button type="button" class="btn btn-outline-secondary mb-3" data-bs-toggle="modal" data-bs-target="#purchaseModal">Buy</button>
-             </div>
-         </div>
+        @foreach($services as $service)
+            <div class="card card-pricing text-center px-3 mb-4">
+                <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">{{ $service['name'] }}</span>
+                <div class="bg-transparent card-header pt-4 border-0">
+                    <h1 class="h1 font-weight-normal text-primary text-center mb-0" data-pricing-value="15">$<span class="price">{{ number_format(($service['amount']/100),2) }}</span><span class="h6 text-muted ml-2">/ per month</span></h1>
+                </div>
+                <div class="card-body pt-0">
+                    <ul class="list-unstyled mb-4">
+                        <li>Upload speed: {{ number_format($service['upload_speed'] / 1000, 2) }}Mbps</li>
+                        <li>Download speed: {{ number_format($service['download_speed'] / 1000, 2) }}Mbps</li>
+                    </ul>
+                    <button type="button" class="btn btn-outline-secondary mb-3" data-bs-toggle="modal" data-bs-target="#purchaseModal" data-service-id="{{ $service['id'] }}">Upgrade</button>
+                </div>
+            </div>
+        @endforeach
      </div>
    </div>
+   @else 
+   <div class="mt-5 text-center">
+        <h2 class="text-danger">No service available</h2>
+   </div>
+   @endif 
 </div>
 
 <!-- Modal -->
@@ -97,38 +66,43 @@
    <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header align-items-center">
-            <h5 class="modal-title" id="purchaseModalLabel">{{ count($paymentMethods) > 0 ? 'Package Purchase' : 'Package Purchase' }}</h5>
+            <h5 class="modal-title" id="purchaseModalLabel">Service Upgrade</h5>
             <button type="button" class="btn-close btn btn-outline-danger btn-sm" data-bs-dismiss="modal" aria-label="Close">x</button>
          </div>
-         <form action="#" method="post">
+         {!! Form::open(['action' => ['\App\Http\Controllers\BillingController@packageSubscription'], 'id' => 'packageForm', 'method' => 'put']) !!}
             @csrf
             <div class="modal-body">
-               @if(count($paymentMethods) > 0)
-               <div class="mb-3">
-                  <label for="paymentMethod" class="form-label">Choose your payment method</label>
-                  <select class="form-select form-control" id="paymentMethod" required>
-                     @foreach($paymentMethods as $method)
-                        <option value="{{ $method->id }}">
-                           {{ $method->type }} (A/C ****{{ $method->identifier }})
-                        </option>
-                     @endforeach
-                  </select>
-               </div>
-               @else
-                  <div class="text-center">
-                     <p class="fw-bold my-3">Kindly add a payment method before proceeding</p>
-                  </div>
-               @endif
+                <input type="hidden" name="new_service_id" id="new_service_id" value="">
+                <input type="hidden" name="account_service_id" id="account_service_id" value="{{$account_service_id}}">
+                <div class="text-center">
+                    <p class="fw-bold my-3">Are you sure you want to upgrade your service?</p>
+                </div>
+                {{-- @if(count($paymentMethods) > 0)
+                <div class="mb-3">
+                    <label for="paymentMethod" class="form-label">Choose your payment method</label>
+                    <select class="form-select form-control" id="paymentMethod" name="payment_method" required>
+                        @foreach($paymentMethods as $method)
+                            <option value="{{ $method->id }}">
+                            {{ $method->type }} (A/C ****{{ $method->identifier }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                @else
+                    <div class="text-center">
+                        <p class="fw-bold my-3">Kindly add a payment method before proceeding</p>
+                    </div>
+                @endif --}}
             </div>
             <div class="modal-footer">
-               @if(count($paymentMethods) > 0)
-                  <button type="submit" class="btn btn-primary">Submit</button>
-               @else
+               {{-- @if(count($paymentMethods) > 0) --}}
+                  <button type="submit" class="btn btn-primary">Confirm</button>
+               {{-- @else
                   <a href="{{action([\App\Http\Controllers\BillingController::class, 'createPaymentMethod'],['type' => 'credit_card'])}}" class="btn btn-primary">Add</a>
-               @endif
+               @endif --}}
                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             </div>
-         </form>
+            {!! Form::close() !!}
       </div>
    </div>
 </div>
@@ -137,6 +111,15 @@
 <script type="text/javascript" src="{{ asset('assets/js/jquery-qrcode.min.js') }}" nonce="{{ csp_nonce() }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/owlcarousel.min.js') }}" nonce="{{ csp_nonce() }}"></script>
 <script nonce="{{ csp_nonce() }}">
+    document.addEventListener('DOMContentLoaded', function () {
+        const purchaseModal = document.getElementById('purchaseModal');
+        purchaseModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const serviceId = button.getAttribute('data-service-id');
+            const serviceIdInput = purchaseModal.querySelector('input[name="new_service_id"]');
+            serviceIdInput.value = serviceId;
+        });
+    });
     $(document).ready(function() {
         var owl = $(".owl-carousel");
         owl.owlCarousel({
@@ -167,7 +150,7 @@
             }
         });
 
-        owl.trigger('to.owl.carousel', [2]);
+        owl.trigger('to.owl.carousel', [1]);
     });
 </script>
 @endsection

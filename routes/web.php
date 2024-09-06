@@ -56,7 +56,7 @@ Route::middleware('language')->group(function () {
          * Billing routes
          */
         Route::prefix('billing')->group(function () {
-            Route::get('/', [BillingController::class, 'index']);
+            Route::get('/', [BillingController::class, 'index'])->name('portal.billing.index');;
             Route::get('/transaction', [BillingController::class, 'index']);
             Route::get('/invoices', [BillingController::class, 'index']);
             Route::get('/invoices/{invoices}', [BillingController::class, 'getInvoicePdf']);
@@ -128,6 +128,7 @@ Route::middleware('language')->group(function () {
 
         Route::prefix('service-upgrade')->group(function () {
             Route::get('/', [BillingController::class, 'packageIndex']);
+            Route::put('/upgrade', [BillingController::class, 'packageSubscription']);
         });
     });
 
