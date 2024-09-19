@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'createNewTicket' => 'Crear un nuevo ticket',
+    'subject' => 'Asunto',
+    'subjectLong' => 'Por favor, proporciona una breve descripción del problema.',
+    'description' => 'Descripción',
+    'descriptionLong' => 'Por favor, describe el problema con el mayor detalle posible.',
+    'noTickets' => 'Actualmente no hay tickets disponibles para ver.',
+    'ticketCreated' => 'Ticket creado exitosamente.',
+    'noRepliesYet' => 'Aún no hay respuestas para este ticket. Por favor, revisa más tarde.',
+    'youWrote' => 'Escribiste:',
+    'ispWrote' => ':companyName escribió:',
+    'postAReply' => 'Escribir una Respuesta',
+    'postAReplyPlaceholder' => 'Ingresa tu respuesta al ticket aquí.',
+    'status' => 'Estado',
+    'waitingYourResponse' => 'Esperando tu respuesta',
+    'waitingIspResponse' => 'Esperando la respuesta de :companyName',
+    'closed' => 'Ticket cerrado',
+    'replyPosted' => 'Respuesta al ticket enviada exitosamente.',
+    'tips' => 'Consejos',
+    'whenCreatingTicket' => 'Al crear un nuevo ticket, por favor:',
+    'beAsDetailed' => 'Sé lo más detallado posible',
+    'includeRelevantInfo' => 'Incluye cualquier información relevante',
+    'neverAskForCredit' => 'Recuerda que nunca te pediremos tu contraseña o información de tarjeta de crédito',
+];
