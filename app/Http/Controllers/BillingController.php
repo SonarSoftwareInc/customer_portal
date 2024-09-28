@@ -161,7 +161,8 @@ class BillingController extends Controller
                     $acc_data = $response->json();
                     $serviceId = $acc_data['service'] ?? null;
                     $account_service_id = $acc_data['account_service_id'] ?? '';
-        
+                    $account_status_name = $acc_data['account_status_name'] ?? '';
+                    
                     if ($serviceId !== null) {
                         $response = Http::withHeaders([
                             'Authorization' => 'Token ' . $token,
@@ -185,11 +186,12 @@ class BillingController extends Controller
         } catch (Exception $e) {
             $service = [];
             $account_service_id = '';
+            $account_status_name = '';
         }
-
+        
         return view(
             'pages.billing.index',
-            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting', 'svg', 'svgDisplay', 'wifiData', 'service', 'account_service_id')
+            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting', 'svg', 'svgDisplay', 'wifiData', 'service', 'account_service_id', 'account_status_name')
         );
     }
 

@@ -270,12 +270,22 @@
                               </div>
                               <div class="hr-text col-lg-12">Bandwidth</div>
                               <div class="text-center"> 
-                                    <p class="mb-1">Upload speed : {{ number_format($service[0]['upload_speed'] / 1000, 2) }}Mbps</p>
                                     <p class="mb-3">Download speed : {{ number_format($service[0]['download_speed'] / 1000, 2) }}Mbps</p>
-                                    <a href="{{action([\App\Http\Controllers\BillingController::class, 'packageIndex'])}}" class="btn btn-success mt-2" >Upgrade</a>
+                                    <p class="mb-1">Upload speed : {{ number_format($service[0]['upload_speed'] / 1000, 2) }}Mbps</p>
+                                    @if($account_status_name == 'Active')
+                                       <a href="{{action([\App\Http\Controllers\BillingController::class, 'packageIndex'])}}" class="btn btn-success mt-2" >Upgrade</a>
+                                    @else
+                                       <a href="javascript:void(0)" class="btn btn-success my-2 disabled" disabled>Upgrade</a><br>
+                                       <small class="text-danger">You are not allowed to upgrade</small>
+                                    @endif
                               </div>
                               @else
-                                 <a href="{{action([\App\Http\Controllers\BillingController::class, 'packageIndex'])}}" class="btn btn-success mt-2" >Upgrade</a>
+                                 @if($account_status_name == 'Active')
+                                    <a href="{{action([\App\Http\Controllers\BillingController::class, 'packageIndex'])}}" class="btn btn-success mt-2" >Upgrade</a>
+                                 @else
+                                    <a href="javascript:void(0)" class="btn btn-success my-2 disabled" disabled>Upgrade</a><br>
+                                    <small class="text-danger">You are not allowed to upgrade</small>
+                                 @endif
                               @endif
                            </div>
                      </div>

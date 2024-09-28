@@ -51,8 +51,8 @@
                 </div>
                 <div class="card-body pt-0">
                     <ul class="list-unstyled mb-4">
-                        <li>Upload speed: {{ number_format($service['upload_speed'] / 1000, 2) }}Mbps</li>
                         <li>Download speed: {{ number_format($service['download_speed'] / 1000, 2) }}Mbps</li>
+                        <li>Upload speed: {{ number_format($service['upload_speed'] / 1000, 2) }}Mbps</li>
                     </ul>
                     <button type="button" class="btn btn-outline-secondary mb-3" data-bs-toggle="modal" data-bs-target="#purchaseModal" data-service-id="{{ $service['id'] }}">Upgrade</button>
                 </div>
