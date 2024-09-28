@@ -11,6 +11,9 @@
     padding: .5rem 0;
     color: #6c757d;
 }
+.mw-90 {
+    max-width: 90%;
+}
 .mt-100 {
    margin-top: 100px;
 }
@@ -31,6 +34,9 @@
     color: #b8b8b8 !important;
     font-size: 35px !important;
 }
+.fs-18 {
+    font-size: 18px;
+}
 </style>
 <div class="container-fluid">
    <div class="text-center mt-100"><h2>Services</h2></div>
@@ -39,9 +45,9 @@
       <div class="pricing owl-carousel owl-theme mb-3">
         @foreach($services as $service)
             <div class="card card-pricing text-center px-3 mb-4">
-                <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">{{ $service['name'] }}</span>
-                <div class="bg-transparent card-header pt-4 border-0">
-                    <h1 class="h1 font-weight-normal text-primary text-center mb-0" data-pricing-value="15">$<span class="price">{{ number_format(($service['amount']/100),2) }}</span><span class="h6 text-muted ml-2">/ per month</span></h1>
+                <span class="h6 w-60 mw-90 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm fs-18">{{ $service['name'] }}</span>
+                <div class="bg-transparent pt-4 border-0">
+                    {{-- <h1 class="h1 font-weight-normal text-primary text-center mb-0" data-pricing-value="15">$<span class="price">{{ number_format(($service['amount']/100),2) }}</span><span class="h6 text-muted ml-2">/ per month</span></h1> --}}
                 </div>
                 <div class="card-body pt-0">
                     <ul class="list-unstyled mb-4">
