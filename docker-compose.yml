@@ -16,6 +16,7 @@ services:
       - ./data/certbot/www:/var/www/certbot
       - ./public/assets/img/logo.png:/var/www/html/public/assets/img/logo.png
       - ./public/assets/img/cover.png:/var/www/html/public/assets/img/cover.png
+      - ./public/assets/fcclabels:/var/www/html/public/assets/fcclabels
       - storage:/var/www/html/storage
     env_file:
      - .env
