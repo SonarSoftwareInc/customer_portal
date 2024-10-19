@@ -130,6 +130,9 @@ Route::middleware('language')->group(function () {
             Route::get('/', [BillingController::class, 'packageIndex']);
             Route::put('/upgrade', [BillingController::class, 'packageSubscription']);
         });
+        Route::prefix('bundles')->group(function () {
+            Route::get('/', [BillingController::class, 'bundlesIndex']);
+        });
     });
 
     Route::get('/logout', [AuthenticationController::class, 'logout']);
