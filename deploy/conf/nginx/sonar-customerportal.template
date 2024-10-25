@@ -41,5 +41,6 @@ server {
         fastcgi_pass unix:/run/php/php8.2-fpm.sock;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        client_max_body_size 8M;
     }
 }
