@@ -1128,4 +1128,9 @@ class BillingController extends Controller
             return redirect()->back()->with('error', 'Failed to upgrade service.');
         }
     }
+
+    public function bundlesIndex(): Factory|View
+    {
+        return view('pages.bundles_warning');
+    }
 }
