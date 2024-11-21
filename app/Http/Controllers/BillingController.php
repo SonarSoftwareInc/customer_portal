@@ -82,7 +82,6 @@ class BillingController extends Controller
             'balance_minus_funds' => bcsub($billingDetails->total_balance, $billingDetails->available_funds, 2),
             'currentUsage' => $currentUsage,
             'account_id' => get_user()->account_id,
-            'account_name' => 'kevin',
         ];
 
         $systemSetting = SystemSetting::firstOrNew(['id' => 1]);
