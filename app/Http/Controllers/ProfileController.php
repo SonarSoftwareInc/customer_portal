@@ -6,6 +6,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\PasswordPolicy;
 use App\SystemSetting;
+use App\Services\ContactService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -15,16 +16,18 @@ use Illuminate\View\Factory;
 use Illuminate\View\View;
 use SonarSoftware\CustomerPortalFramework\Controllers\AccountAuthenticationController;
 use SonarSoftware\CustomerPortalFramework\Controllers\ContactController;
-use SonarSoftware\CustomerPortalFramework\Models\Contact;
 use SonarSoftware\CustomerPortalFramework\Models\PhoneNumber;
+use SonarSoftware\CustomerPortalFramework\Models\Contact;
 
 class ProfileController extends Controller
 {
     private $passwordPolicy;
+    protected $contactService;
 
-    public function __construct()
+    public function __construct(ContactService $contactService)
     {
         $this->passwordPolicy = new PasswordPolicy();
+        $this->contactService = $contactService;
     }
 
     public function show(): Factory|View
@@ -141,20 +144,9 @@ class ProfileController extends Controller
         Cache::tags('profile.details')->forget(get_user()->contact_id);
     }
 
-    /**
-     * Get info on the current user via the Sonar API.
-     *
-     * @throws \SonarSoftware\CustomerPortalFramework\Exceptions\ApiException
-     */
     private function getContact(): Contact
     {
-        if (! Cache::tags('profile.details')->has(get_user()->contact_id)) {
-            $contactController = new ContactController();
-            $contact = $contactController->getContact(get_user()->contact_id, get_user()->account_id);
-            Cache::tags('profile.details')->put(get_user()->contact_id, $contact, Carbon::now()->addMinutes(10));
-        }
-
-        return Cache::tags('profile.details')->get(get_user()->contact_id);
+        return $this->contactService->getContact();
     }
 
     private function convertErrorMessage(string $message)

@@ -22,6 +22,10 @@
                <h1 class="header-title text-white">
                   {{utrans("headers.dashboard")}}
                </h1>
+               <!-- User Info -->
+               <div class="text-white mb-0">
+                  <strong>{{utrans("headers.account")}}:</strong> {{$contact->getName()}} ( {{$values['account_id']}} )<br>
+               </div>
             </div>
             <div class="col-auto">
                <!-- Nav -->

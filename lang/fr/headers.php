@@ -32,4 +32,5 @@ return [
     'error' => 'Erreur!',
     'bankAccounts' => 'Comptes bancaires',
     'goCardLess' => 'sans gocard',
+    'account' => 'Compte',
 ];
