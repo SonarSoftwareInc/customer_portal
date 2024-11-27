@@ -43,15 +43,15 @@ class BillingController extends Controller
     private AccountBillingController $accountBillingController;
     private SystemController $systemController;
     private AccountController $accountController;
-    protected $contactService;
+    private ContactService $contactService;
 
-    public function __construct(ContactService $contactService)
+    public function __construct()
     {
         $this->accountBillingController = new AccountBillingController();
         $this->systemController = new SystemController();
         $this->accountController = new AccountController();
         $this->frameworkDataUsageController = new FrameworkDataUsageController();
-        $this->contactService = $contactService;
+        $this->contactService = new ContactService();
     }
 
     public function index(): Factory|View

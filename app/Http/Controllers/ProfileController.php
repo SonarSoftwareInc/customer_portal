@@ -22,12 +22,12 @@ use SonarSoftware\CustomerPortalFramework\Models\Contact;
 class ProfileController extends Controller
 {
     private $passwordPolicy;
-    protected $contactService;
+    private ContactService $contactService;
 
-    public function __construct(ContactService $contactService)
+    public function __construct()
     {
         $this->passwordPolicy = new PasswordPolicy();
-        $this->contactService = $contactService;
+        $this->contactService = new ContactService();
     }
 
     public function show(): Factory|View
