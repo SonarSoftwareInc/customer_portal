@@ -21,7 +21,12 @@ https://docs.sonar.expert/system/upgrading-your-ubuntu-os-customer-portal-upgrad
 	image: sonarsoftware/customerportal:next
 	```
 
-3. Start the customer portal
+3. Update the docker-compose.yml file so that the FCC labels directory is persisted.  In the `volumes` section under the `app` service, add the following line under the existing volumes listed.
+	```
+	- ./public/assets/fcclabels:/var/www/html/public/assets/fcclabels
+	```
+
+4. Start the customer portal
 	```
 	sudo docker-compose up -d
 	```
