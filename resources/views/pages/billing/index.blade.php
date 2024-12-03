@@ -24,7 +24,7 @@
                </h1>
                <!-- User Info -->
                <div class="text-white mb-0">
-                  <strong>{{utrans("headers.account")}}:</strong> {{$contact->getName()}} ( {{$values['account_id']}} )<br>
+                  <strong>{{utrans("headers.account")}}:</strong> {{$contact->getName()}} ( #{{$values['account_id']}} )<br>
                </div>
             </div>
             <div class="col-auto">
