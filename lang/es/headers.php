@@ -7,7 +7,7 @@ return [
     'invoices' => 'Facturas',
     'makeAPayment' => 'Realizar un Pago',
     'paymentSucceeded' => '¡Pago Realizado con Éxito!',
-    'myDetails' => 'Mis Detalles',
+    'myDetails' => 'Mi Información',
     'changePassword' => 'Cambiar Contraseña',
     'tickets' => 'Tickets',
     'createTicket' => 'Crear Ticket',

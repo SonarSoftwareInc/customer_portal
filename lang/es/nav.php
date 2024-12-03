@@ -4,7 +4,7 @@ return [
     'logOut' => 'Cerrar Sesión',
     'billing' => 'Facturación',
     'myAccount' => 'MI CUENTA',
-    'profile' => 'Mis Detalles',
+    'profile' => 'Perfil',
     'tickets' => 'Tickets de Soporte',
     'dataUsage' => 'Uso de Datos',
     'contracts' => 'Contratos',
