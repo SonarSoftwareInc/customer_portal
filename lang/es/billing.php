@@ -43,7 +43,7 @@ return [
     'paymentFailedTryAnother' => 'El pago falló, por favor intenta con otro método de pago.',
     'makePaypalPayment' => 'Pagar con PayPal',
     'last4' => 'Últimos 4 Dígitos',
-    'expiration' => 'Expiración',
+    'expiration' => 'Vencimiento',
     'noCreditCardsOnFile' => 'No hay tarjetas de crédito registradas.',
     'action' => 'Acción',
     'creditCardDeleted' => 'Método de pago eliminado exitosamente.',

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'changeYourDetails' => 'Cambiar tus detalles',
+    'changeYourDetails' => 'Cambiar tu Información',
     'name' => 'Nombre',
     'name--placeholder' => 'John Doe',
     'role' => 'Rol',
@@ -16,7 +16,7 @@ return [
     'workPhone--placeholder' => '123-456-7890',
     'fax' => 'Número de Fax',
     'fax--placeholder' => '123-456-7890',
-    'updateDetails' => 'Actualizar Detalles',
+    'updateDetails' => 'Actualizar Información',
     'profileUpdated' => 'Perfil actualizado.',
     'currentPassword' => 'Contraseña Actual',
     'newPassword' => 'Nueva Contraseña',
