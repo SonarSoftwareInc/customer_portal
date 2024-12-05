@@ -1,16 +1,17 @@
-name: customer-portal
-securityContext:
-  runAsUser: 33
-  runAsGroup: 33
-  fsGroup: 33
-resources:
-  limits:
-    cpu: 2
-    memory: 4Gi
-sync:
-  - .:/var/www/html/
-workdir: /var/www/html/
-remote: 22223
-reverse:
-  - 23517:23517 # spatie/ray
-command: bash /var/www/html/okteto.sh
+dev: 
+  customer-portal:
+    securityContext:
+      runAsUser: 33
+      runAsGroup: 33
+      fsGroup: 33
+    resources:
+      limits:
+        cpu: 2
+        memory: 4Gi
+    sync:
+      - .:/var/www/html/
+    workdir: /var/www/html/
+    remote: 22223
+    reverse:
+      - 23517:23517 # spatie/ray
+    command: bash /var/www/html/okteto.sh
