@@ -1,14 +1,14 @@
 build:
   base:
     context: .
-  customer-portal:
+  dev:
     context: .
     dockerfile: okteto.Dockerfile
     depends_on:
       - base
 
 deploy:
-  image: okteto.dev/customer_portal:okteto
+  image: okteto.dev/sonar-customer-portal-dev:okteto
   context: .
 
 dev:
