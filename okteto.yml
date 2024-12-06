@@ -8,7 +8,11 @@ build:
       - base
 
 deploy:
-  compose: docker-compose.yml
+  compose:
+    - file: docker-compose.yml
+      services:
+        - app
+        - redis
 
 dev:
   customer-portal:
