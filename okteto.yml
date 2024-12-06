@@ -8,7 +8,7 @@ build:
       - base
 
 deploy:
-  image: okteto.dev/customer_portal:develop
+  image: okteto.dev/customer_portal:okteto
   context: .
 
 dev:
