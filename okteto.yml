@@ -8,11 +8,8 @@ build:
       - base
 
 deploy:
-  compose:
-    - file: docker-compose.yml
-      services:
-        - app
-        - redis
+  image: okteto.dev/customer_portal:develop
+  context: .
 
 dev:
   customer-portal:
