@@ -14,7 +14,7 @@ deploy:
 dev:
   customer-portal:
     services:
-      app:
+      - name: app
         annotations:
           dev.okteto.com/auto-ingress: "private"
           dev.okteto.com/generate-host: "true"
