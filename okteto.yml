@@ -1,19 +1,7 @@
-build:
-  base:
-    context: .
-  dev:
-    context: .
-    dockerfile: okteto.Dockerfile
-    depends_on:
-      - base
-
 deploy:
-  image: okteto.dev/sonar-customer-portal-dev:okteto
-  context: .
-  endpoints:
-    - path: /
-      service: app
-      port: 80
+  - okteto build -t okteto.dev/customer_portal:latest -f Dockerfile --progress=plain
+  - okteto build -t okteto.dev/customer_portal:develop -f okteto.Dockerfile --progress=plain
+  - okteto stack deploy -f okteto-stack.yml
 
 dev:
   customer-portal:
