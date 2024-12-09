@@ -13,11 +13,6 @@ deploy:
 
 dev:
   customer-portal:
-    services:
-      - name: app
-        annotations:
-          dev.okteto.com/auto-ingress: "private"
-          dev.okteto.com/generate-host: "true"
     securityContext:
       runAsUser: 33
       runAsGroup: 33
@@ -44,3 +39,8 @@ dev:
       - NGINX_HOST=customer-portal-${OKTETO_NAMESPACE}.${OKTETO_DOMAIN}
       - SONAR_URL=http://web-${OKTETO_NAMESPACE}.${OKTETO_DOMAIN}:8080
       - OKTETO_SONAR_HOST=web-${OKTETO_NAMESPACE}.${OKTETO_DOMAIN}
+    endpoints:
+      rules:
+        - path: /
+          service: app
+          port: 80
