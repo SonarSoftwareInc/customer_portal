@@ -31,6 +31,8 @@ use SonarSoftware\CustomerPortalFramework\Helpers\CreditCardValidator;
 use SonarSoftware\CustomerPortalFramework\Models\BankAccount;
 use SonarSoftware\CustomerPortalFramework\Models\CreditCard;
 use SonarSoftware\CustomerPortalFramework\Models\TokenizedCreditCard;
+use App\Services\ContactService;
+use SonarSoftware\CustomerPortalFramework\Models\Contact;
 
 class BillingController extends Controller
 {
@@ -41,6 +43,7 @@ class BillingController extends Controller
     private AccountBillingController $accountBillingController;
     private SystemController $systemController;
     private AccountController $accountController;
+    private ContactService $contactService;
 
     public function __construct()
     {
@@ -48,10 +51,12 @@ class BillingController extends Controller
         $this->systemController = new SystemController();
         $this->accountController = new AccountController();
         $this->frameworkDataUsageController = new FrameworkDataUsageController();
+        $this->contactService = new ContactService();
     }
 
     public function index(): Factory|View
     {
+        $contact = $this->getContact();
         $accountDetails = $this->accountController->getAccountDetails(get_user()->account_id);
         $billingDetails = $this->getAccountBillingDetails();
         $invoices = $this->getInvoices();
@@ -76,6 +81,7 @@ class BillingController extends Controller
             'payment_past_due' => $this->isPaymentPastDue(),
             'balance_minus_funds' => bcsub($billingDetails->total_balance, $billingDetails->available_funds, 2),
             'currentUsage' => $currentUsage,
+            'account_id' => get_user()->account_id,
         ];
 
         $systemSetting = SystemSetting::firstOrNew(['id' => 1]);
@@ -110,7 +116,7 @@ class BillingController extends Controller
 
         return view(
             'pages.billing.index',
-            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting', 'svg', 'svgDisplay')
+            compact('values', 'invoices', 'transactions', 'paymentMethods', 'systemSetting', 'svg', 'svgDisplay', 'contact')
         );
     }
 
@@ -832,6 +838,11 @@ class BillingController extends Controller
         }
 
         return Cache::tags('historical_data_usage')->get(get_user()->account_id);
+    }
+
+    private function getContact(): Contact
+    {
+        return $this->contactService->getContact();
     }
 
     /**

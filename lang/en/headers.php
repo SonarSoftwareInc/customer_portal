@@ -33,4 +33,5 @@ return [
     'currentDataUsage' => 'Current Data Usage',
     'autopay' => 'Autopay',
     'goCardLess' => 'GoCardless',
+    'account' => 'Account',
 ];
