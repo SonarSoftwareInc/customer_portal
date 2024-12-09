@@ -1,7 +1,7 @@
 deploy:
   - okteto build -t okteto.dev/customer_portal:latest -f Dockerfile --progress=plain
   - okteto build -t okteto.dev/customer_portal:develop -f okteto.Dockerfile --progress=plain
-  - okteto stack deploy -f okteto-stack.yml
+  - okteto deploy -f okteto-stack.yml
 
 dev:
   customer-portal:
@@ -31,7 +31,3 @@ dev:
       - NGINX_HOST=customer-portal-${OKTETO_NAMESPACE}.${OKTETO_DOMAIN}
       - SONAR_URL=http://web-${OKTETO_NAMESPACE}.${OKTETO_DOMAIN}:8080
       - OKTETO_SONAR_HOST=web-${OKTETO_NAMESPACE}.${OKTETO_DOMAIN}
-    metadata:
-      annotations:
-        dev.okteto.com/auto-ingress: "private"
-        dev.okteto.com/generate-host: "true"
