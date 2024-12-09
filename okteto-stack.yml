@@ -21,7 +21,7 @@ services:
       - OKTETO_SONAR_HOST=web-${OKTETO_NAMESPACE}.${OKTETO_DOMAIN}
 
 endpoints:
-  web:
+  customer-portal:
     annotations:
       dev.okteto.com/auto-ingress: "private"
       dev.okteto.com/generate-host: "true"
