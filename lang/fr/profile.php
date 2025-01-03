@@ -19,4 +19,5 @@ return [
     'failedToUpdatePassword' => 'Impossible de mettre à jour le mot de passe. Veuillez réessayer plus tard.',
     'emailUsedFor' => 'Cette adresse de courriel sera utisée pour envoyer des alertes de facturation, des avis de service et pour réinitialiser le mot de passe.',
     'updateDetails' => 'Mettre à jour les détails',
+    'passwordConfirm--helper' => 'Retaper le nouveau mot de passe',
 ];

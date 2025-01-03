@@ -1,8 +1,7 @@
 version: 2.1
 
 references:
-  workspace_root: &workspace_root
-    /tmp/workspace
+  workspace_root: &workspace_root /tmp/workspace
   attach_workspace: &attach_workspace
     attach_workspace:
       at: *workspace_root
@@ -29,8 +28,7 @@ jobs:
           paths:
             - "/tmp/workspace/.git"
 
-      - setup_remote_docker:
-          version: 20.10.14
+      - setup_remote_docker
 
       - run:
           name: Build portal image

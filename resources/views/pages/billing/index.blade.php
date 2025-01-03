@@ -16,12 +16,16 @@
             <div class="col">
                <!-- Pretitle -->
                <h6 class="header-pretitle text-secondary-light">
-                {{utrans("headers.summary")}}
+                  {{utrans("headers.summary")}}
                </h6>
                <!-- Title -->
                <h1 class="header-title text-white">
-               {{utrans("headers.dashboard")}}
+                  {{utrans("headers.dashboard")}}
                </h1>
+               <!-- User Info -->
+               <div class="text-white mb-0">
+                  <strong>{{utrans("headers.account")}}:</strong> {{$contact->getName()}} ( #{{$values['account_id']}} )<br>
+               </div>
             </div>
             <div class="col-auto">
                <!-- Nav -->
@@ -29,7 +33,7 @@
                   <li class="nav-item">
                      <a class="nav-link text-right">
                         <h6 class="header-pretitle text-secondary-light">
-                         {{utrans("headers.amountDue")}}
+                           {{utrans("headers.amountDue")}}
                         </h6>
                         <h3 class="text-white mb-0">
                            {{Formatter::currency($values['amount_due'])}}
@@ -58,7 +62,7 @@
                   <div class="col-12 col-xl-10">
                      <!-- Image -->
                      <span class="badge badge-soft-danger">
-                     <i class="fe fe-alert-triangle cspfont1"></i>
+                        <i class="fe fe-alert-triangle cspfont1"></i>
                      </span>
                      <!-- Title -->
                      <h2 class="mb-2 mt-3">
@@ -70,7 +74,7 @@
                      </p>
                      <!-- Button -->
                      <a href="{{action([\App\Http\Controllers\BillingController::class, 'makePayment'])}}" class="btn btn-white">
-                     {{utrans("billing.makePayment")}}
+                        {{utrans("billing.makePayment")}}
                      </a>
                   </div>
                </div>
@@ -84,16 +88,16 @@
                   <div class="col-12 col-xl-10">
                      <!-- Image -->
                      <span class="badge badge-soft-success">
-                     <i class="fe fe-thumbs-up cspfont1"></i>
+                        <i class="fe fe-thumbs-up cspfont1"></i>
                      </span>
                      <!-- Title -->
                      <h2 class="mb-4 mt-4">
-                      {{utrans("headers.allPaid")}}
+                        {{utrans("headers.allPaid")}}
                      </h2>
-                      <!-- Button -->
-                      <a href="{{action([\App\Http\Controllers\BillingController::class, 'makePayment'])}}" class="btn btn-white">
-                          {{utrans("billing.makePayment")}}
-                      </a>
+                     <!-- Button -->
+                     <a href="{{action([\App\Http\Controllers\BillingController::class, 'makePayment'])}}" class="btn btn-white">
+                        {{utrans("billing.makePayment")}}
+                     </a>
                   </div>
                </div>
                <!-- / .row -->
@@ -112,7 +116,7 @@
                               {{utrans("billing.totalBalance")}}
                            </h6>
                            <span class="h2 mb-0">
-                           {{Formatter::currency($values['balance_minus_funds'])}}
+                              {{Formatter::currency($values['balance_minus_funds'])}}
                            </span>
                         </div>
                         <div class="col-auto">
@@ -153,11 +157,11 @@
                                     {{utrans("billing.nextBillAmount")}}
                                  </h6>
                                  <span class="h2 mb-0">
-                                 @if($values['next_bill_amount'] !== null)
-                                 {{Formatter::currency($values['next_bill_amount'])}}
-                                 @else
-                                 {{utrans("general.notAvailable")}}
-                                 @endif
+                                    @if($values['next_bill_amount'] !== null)
+                                    {{Formatter::currency($values['next_bill_amount'])}}
+                                    @else
+                                    {{utrans("general.notAvailable")}}
+                                    @endif
                                  </span>
                               </div>
                               <div class="col-auto">
@@ -176,13 +180,13 @@
                               <div class="col">
                                  <!-- Title -->
                                  <h6 class="card-title text-uppercase text-muted mb-2">
-                                  {{utrans("headers.currentDataUsage")}}
+                                    {{utrans("headers.currentDataUsage")}}
                                  </h6>
                                  <div class="row align-items-center no-gutters">
                                     <div class="col-auto">
                                        <!-- Heading -->
                                        <span class="h2 mr-2 mb-0">
-                                       {{$values["currentUsage"]["billable"]}}GB
+                                          {{$values["currentUsage"]["billable"]}}GB
                                        </span>
                                     </div>
                                     <div class="col">
@@ -243,8 +247,8 @@
                            @if(in_array($transaction['type'],['debit','discount']))
                            <span class="badge-lg pl-2">{{$transaction['description']}}</span>
                            @else
-                           <span class="@if($transaction['type'] != "debit") badge-lg rounded p-2 badge-soft-success @else badge-lg @endif">
-                           {{utrans("transaction_types." . $transaction['type'])}}
+                           <span class="@if($transaction['type'] != " debit") badge-lg rounded p-2 badge-soft-success @else badge-lg @endif">
+                              {{utrans("transaction_types." . $transaction['type'])}}
                            </span>
                            @endif
                         </td>
@@ -264,7 +268,7 @@
                   </tbody>
                   @endif
                </table>
-                {{ $transactions->links() }}
+               {{ $transactions->links() }}
             </div>
          </div>
       </div>
@@ -278,8 +282,8 @@
                </h4>
                <p class="text-right mt-3">
                   <a class="btn btn-secondary btn-sm" href="{{action([\App\Http\Controllers\BillingController::class, 'createPaymentMethod'],['type' => 'credit_card'])}}" role="button">
-                  <i class="fe fe-plus"></i>
-                  {{utrans("billing.addNewCard")}}
+                     <i class="fe fe-plus"></i>
+                     {{utrans("billing.addNewCard")}}
                   </a>
                </p>
             </div>
@@ -311,13 +315,13 @@
                            @if($paymentMethod->auto == 1)
                            {!! Form::open(['action' => ["\App\Http\Controllers\BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'enablePaymentMethodForm','method' => 'patch']) !!}
                            <button class="btn btn-sm btn-disable-with-msg-on-click" data-message="{{utrans("billing.disabling")}}">
-                           <i class="fe fe-minus-circle mr-2"></i> {{utrans("billing.disableAuto")}}
+                              <i class="fe fe-minus-circle mr-2"></i> {{utrans("billing.disableAuto")}}
                            </button>
                            {!! Form::close() !!}
                            @else
                            {!! Form::open(['action' => ["\App\Http\Controllers\BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'enablePaymentMethodForm','method' => 'patch']) !!}
                            <button class="btn btn-sm btn-disable-with-msg-on-click" data-message="{{utrans("billing.enabling")}}">
-                           <i class="fe fe-check-circle mr-2"></i> {{utrans("billing.enableAuto")}}
+                              <i class="fe fe-check-circle mr-2"></i> {{utrans("billing.enableAuto")}}
                            </button>
                            {!! Form::close() !!}
                            @endif
@@ -325,8 +329,8 @@
                         <TD class="text-right">
                            {!! Form::open(['action' => ["\App\Http\Controllers\BillingController@deletePaymentMethod",$paymentMethod->id],'id' => 'deletePaymentMethodForm','method' => 'delete']) !!}
                            <button class="btn btn-sm btn-disable-with-msg-on-click" data-message="{{utrans("billing.deleting")}}">
-                           <i class="fe fe-x-circle mr-2"></i>
-                           {{utrans("actions.delete")}}
+                              <i class="fe fe-x-circle mr-2"></i>
+                              {{utrans("actions.delete")}}
                            </button>
                            {!! Form::close() !!}
                         </TD>
@@ -360,29 +364,29 @@
                         </thead>
                         <tbody>
                            @if(count($paymentMethods) === 0)
-                              <TR>
-                                 <TD colspan="3">{{utrans("billing.noBankAccounts")}}</TD>
-                              </TR>
+                           <TR>
+                              <TD colspan="3">{{utrans("billing.noBankAccounts")}}</TD>
+                           </TR>
                            @else
                            @foreach($paymentMethods as $paymentMethod)
                            @if ($paymentMethod->type == "echeck" || $paymentMethod->type == "ach")
                            <TR>
                               <TD>
-                                  ****{{$paymentMethod->identifier}}@if($paymentMethod->auto == 1)<span class="badge badge-soft-success ml-3"><i class="fe fe-check-circle text-success mr-1"></i>{{utrans("headers.autopay")}}</span>@endif
+                                 ****{{$paymentMethod->identifier}}@if($paymentMethod->auto == 1)<span class="badge badge-soft-success ml-3"><i class="fe fe-check-circle text-success mr-1"></i>{{utrans("headers.autopay")}}</span>@endif
                               </TD>
                               <TD class="text-right">
                                  @if($paymentMethod->auto == 1)
                                  {!! Form::open(['action' => ["\App\Http\Controllers\BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm','method' => 'patch']) !!}
                                  <button class="btn btn-sm" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.disabling")}}'">
-                                 <i class="fe fe-minus-circle mr-2"></i>
-                                 {{utrans("billing.disableAuto")}}
+                                    <i class="fe fe-minus-circle mr-2"></i>
+                                    {{utrans("billing.disableAuto")}}
                                  </button>
                                  {!! Form::close() !!}
                                  @else
                                  {!! Form::open(['action' => ["\App\Http\Controllers\BillingController@toggleAutoPay",$paymentMethod->id],'id' => 'deletePaymentMethodForm','method' => 'patch']) !!}
                                  <button class="btn btn-sm" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.enabling")}}'">
-                                 <i class="fe fe-check-circle mr-2"></i>
-                                 {{utrans("billing.enableAuto")}}
+                                    <i class="fe fe-check-circle mr-2"></i>
+                                    {{utrans("billing.enableAuto")}}
                                  </button>
                                  {!! Form::close() !!}
                                  @endif
@@ -390,8 +394,8 @@
                               <TD class="text-right">
                                  {!! Form::open(['action' => ["\App\Http\Controllers\BillingController@deletePaymentMethod",$paymentMethod->id],'id' => 'deletePaymentMethodForm','method' => 'delete']) !!}
                                  <button class="btn btn-sm" onClick="submit(); this.disabled=true;this.innerHTML='<i class=&quot;fe fe-loader mt-2 mr-2 &quot;></i> {{utrans("billing.deleting")}}'">
-                                 <i class="fe fe-x-circle mr-2"></i>
-                                 {{utrans("actions.delete")}}
+                                    <i class="fe fe-x-circle mr-2"></i>
+                                    {{utrans("actions.delete")}}
                                  </button>
                                  {!! Form::close() !!}
                               </TD>
@@ -439,8 +443,8 @@
                         <TD>{{Formatter::date($invoice->due_date,false)}}</TD>
                         <TD>
                            <a class="btn btn-sm" href="{{action([\App\Http\Controllers\BillingController::class, 'getInvoicePdf'],['invoices' => $invoice->id])}}" role="button">
-                           <i class="fe fe-file-text mr-1"></i>
-                           {{utrans("billing.downloadInvoice")}}
+                              <i class="fe fe-file-text mr-1"></i>
+                              {{utrans("billing.downloadInvoice")}}
                            </a>
                         </TD>
                      </TR>
@@ -448,17 +452,19 @@
                      @endif
                   </tbody>
                </table>
-                {{ $invoices->links() }}
+               {{ $invoices->links() }}
             </div>
          </div>
       </div>
+      @if ($svgDisplay !== "none")
       <div class="col-12 col-sm-10 col-md-10 col-lg-6 col-xl-4">
          <div class="card">
-             <div style="display: {{ $svgDisplay }};">
-                 {!! $svg !!}
+            <div style="display: {{ $svgDisplay }};">
+               {!! $svg !!}
             </div>
          </div>
       </div>
+      @endif
    </div>
 </div>
 </div><!-- #main-content -->
