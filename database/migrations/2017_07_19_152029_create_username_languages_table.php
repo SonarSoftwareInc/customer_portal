@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('username_languages', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('username')->index();
+            $table->string('username')->index();
             $table->string('language')->index();
             $table->timestamps();
         });
