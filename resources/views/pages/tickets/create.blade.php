@@ -41,7 +41,7 @@
                   <label for="description">{{utrans("tickets.description")}}</label>
                   {!! Form::textarea("description",null,['class' => 'form-control', 'id' => 'description', 'placeholder' => utrans("tickets.descriptionLong")]) !!}
                </div>
-               <button type="submit" class="btn btn-outline-primary">{{utrans("actions.createTicket")}}</button>
+               <button type="submit" id="submitButton" class="btn btn-outline-primary">{{utrans("actions.createTicket")}}</button>
                {!! Form::close() !!}
             </div>
          </div>
@@ -52,6 +52,7 @@
 </div>
 @endsection
 @section('additionalJS')
+<script type="text/javascript" src="/assets/js/pages/tickets/create.js"></script>
 <script type="text/javascript" src="/assets/libs/js-validation/jsvalidation.min.js"></script>
 {!! JsValidator::formRequest('App\Http\Requests\TicketRequest','#ticketForm') !!}
 @endsection
