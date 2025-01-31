@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AddSecurityHeaders;
 use App\Http\Middleware\ContractMiddleware;
 use App\Http\Middleware\DataUsageMiddleware;
 use App\Http\Middleware\EncryptCookies;
@@ -47,6 +48,7 @@ class Kernel extends HttpKernel
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
+        AddSecurityHeaders::class,
     ];
 
     /**
