@@ -33,4 +33,5 @@ return [
     'currentDataUsage' => 'Uso Actual de Datos',
     'autopay' => 'Pago Automático',
     'goCardLess' => 'GoCardless',
+    'account' => 'Cuenta',
 ];
