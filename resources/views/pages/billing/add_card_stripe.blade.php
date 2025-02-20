@@ -14,7 +14,7 @@
                      </h6>
                      <!-- Title -->
                      <h1 class="header-title">
-		                  {{utrans("billing.billing")}}
+                        {{utrans("billing.billing")}}
                      </h1>
                   </div>
                   <div class="col-auto">
@@ -37,7 +37,7 @@
          <!-- Stripe Elements  -->
          <div class="row">
             <div class="col-lg-12 col-12">
-               <div class="form-group" id="stripe_container" data-secret="{{ $secret }}" data-key="{{ $key }}" >
+               <div class="form-group" id="stripe_container" data-secret="{{ $secret }}" data-key="{{ $key }}">
                   <label for="name">Card</label>
                   <div id="card-element"></div>
                   <label id="stripe_errors" class="help-block error-help-block"></label>
@@ -92,44 +92,44 @@
             </div>
             <div class="col-12 col-lg-4">
                <div class="form-group">
-                  <div id="stateWrapper" @if(count(subdivisions(config("customer_portal.country"))) === 0) class="csp_style1" @endif">
-                  <label for="state">{{utrans("billing.state")}}</label>
-                  {!! Form::select("state",subdivisions(config("customer_portal.country")),config("customer_portal.state"),['id' => 'state', 'class' => 'form-control']) !!}
+                  <div id="stateWrapper" @if(count(subdivisions(config("customer_portal.country")))===0) class="csp_style1" @endif">
+                     <label for="state">{{utrans("billing.state")}}</label>
+                     {!! Form::select("state",subdivisions(config("customer_portal.country")),config("customer_portal.state"),['id' => 'state', 'class' => 'form-control']) !!}
+                  </div>
+               </div>
+            </div>
+            <div class="col-12 col-lg-4">
+               <div class="form-group">
+                  <label for="zip">{{utrans("billing.zip")}}</label>
+                  {!! Form::text("zip",null,['id' => 'zip', 'class' => 'form-control', 'placeholder' => utrans("billing.zip")]) !!}
                </div>
             </div>
          </div>
-         <div class="col-12 col-lg-4">
-            <div class="form-group">
-               <label for="zip">{{utrans("billing.zip")}}</label>
-               {!! Form::text("zip",null,['id' => 'zip', 'class' => 'form-control', 'placeholder' => utrans("billing.zip")]) !!}
-            </div>
-         </div>
-      </div>
-      <div class="row">
-         <div class="col-auto">
-            <div class="form-group">
-               <div class="custom-control custom-checkbox-toggle mt-1">
+         <div class="row">
+            <div class="col-auto">
+               <div class="form-group">
+                  <div class="custom-control custom-checkbox-toggle mt-1">
 
-                  {!! Form::checkbox("auto",1,false,['id' => 'auto', 'class' => 'custom-control-input']) !!}
-                  <label class="custom-control-label" for="auto"></label>
+                     {!! Form::checkbox("auto",1,false,['id' => 'auto', 'class' => 'custom-control-input']) !!}
+                     <label class="custom-control-label" for="auto"></label>
+                  </div>
                </div>
             </div>
-         </div>
-         <div class="col mt-1">
-            <small class="text-muted">
-            {{utrans("billing.saveAsAutoPayMethod")}} {{utrans("billing.legalDisclaimer", ["business_name" => config("customer_portal.company_name")])}}
-            </small>
+            <div class="col mt-1">
+               <small class="text-muted">
+                  {{utrans("billing.saveAsAutoPayMethod")}} {{utrans("billing.autoPayDescription")}} {{utrans("billing.legalDisclaimer", ["business_name" => config("customer_portal.company_name")])}}
+               </small>
+            </div>
          </div>
       </div>
    </div>
-</div>
-<div class="row mt-5">
-   <div class="col-12 col-md-12">
-       <input type="hidden" name="payment_tracker_id" value="{{uniqid("", true)}}" />
-      <button type="submit" id="add_new_card" class="btn btn-primary">{{utrans("billing.addNewCard")}}</button>
-      {!! Form::close() !!}
+   <div class="row mt-5">
+      <div class="col-12 col-md-12">
+         <input type="hidden" name="payment_tracker_id" value="{{uniqid("", true)}}" />
+         <button type="submit" id="add_new_card" class="btn btn-primary">{{utrans("billing.addNewCard")}}</button>
+         {!! Form::close() !!}
+      </div>
    </div>
-</div>
 </div>
 </div>
 </div>
