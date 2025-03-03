@@ -97,11 +97,19 @@ function updateSubdivisions()
     var jqxhr = $.get("/portal/billing/subdivisions/" + country, function(data) {
         $("#state").empty();
         var show = false;
+        let initialValue = "";
         $.each(data.subdivisions, function (index, value) {
+            // When updating subdivisions there needs to be a default or we submit an invalid country / state combo
+            let selected = "";
+            if (show === false) {
+                selected = " selected=\"selected\"";
+                initialValue = index;
+            }
             show = true;
-           $("#state").append("<option value='" + index + "'>" + value + "</option>");
+           $("#state").append("<option value='" + index + "'" + selected + ">" + value + "</option>");
         });
         if (show === true) {
+            $("#state").val(initialValue);
             $("#stateWrapper").show();
         }
         else {
