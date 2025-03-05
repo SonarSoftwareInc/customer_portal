@@ -85,7 +85,7 @@ class BillingController extends Controller
         ];
 
         $systemSetting = SystemSetting::firstOrNew(['id' => 1]);
-        
+
         $services = $this->accountBillingController->getServices(get_user()->account_id);
         $dataServiceId = 0;
         if ($accountDetails->company_id) {
@@ -749,7 +749,7 @@ class BillingController extends Controller
             'name' => $request->input('name'),
             'number' => $card['number'],
             'expiration_month' => intval($month),
-            'expiration_year' => $year,
+            'expiration_year' => intval($year),
             'line1' => $request->input('line1'),
             'city' => $request->input('city'),
             'state' => $request->input('state'),
