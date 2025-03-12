@@ -165,6 +165,11 @@ a:not([href]):not([tabindex]):focus {
 a:not([href]):not([tabindex]):focus {
 	outline: 0;
 }
+/* External link with underline*/
+a.external {
+  text-decoration: underline;
+}
+
 pre,
 code,
 kbd,

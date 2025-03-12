@@ -7,10 +7,20 @@ $(document).ready(function(){
     ccNumberField.payment('formatCardNumber');
     expirationField.payment('formatCardExpiry');
 
-    updatePaymentForm();
+    updatePaymentForm(true);
 
     $("#country").change(function(){
         updateSubdivisions();
+    });
+
+    // Initially hide the table and show the "show-text"
+    $('.invoicesTable').hide();
+
+    // Click to toggle the table
+    $("#toggleInvoices").click(function(){
+        $('.invoicesTable').slideToggle();
+        $('.show-text').toggle();
+        $('.hide-text').toggle();
     });
 
     ccNumberField.keyup(function (e){
@@ -126,9 +136,16 @@ function updateSubdivisions()
     });
 }
 
-function updatePaymentForm()
-{
-    var selectedPaymentMethod = $("#payment_method").val();
+function updatePaymentForm(forceSelection = false) {
+    var paymentMethodSelect = $("#payment_method");
+    var savedCardOption = paymentMethodSelect.find("option[value!='paypal'][value!='new_card']").first();
+
+    // On first load, force selection of a saved card if one exists
+    if (forceSelection && savedCardOption.length > 0) {
+        savedCardOption.prop("selected", true);
+    }
+
+    var selectedPaymentMethod = paymentMethodSelect.val();
     switch (selectedPaymentMethod) {
         case "new_card":
             $(".new_card").show();
@@ -141,7 +158,7 @@ function updatePaymentForm()
             $(".paypal").show();
             break;
         default:
-            //Existing card
+            // Existing card
             $(".new_card").hide();
             $(".non_paypal").show();
             $(".paypal").hide();
