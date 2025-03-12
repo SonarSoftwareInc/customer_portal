@@ -150,19 +150,49 @@ class BillingController extends Controller
             return redirect()->back()->withErrors(utrans('errors.addAPaymentMethod'));
         }
 
+        $systemSettings = SystemSetting::first();
+        $additionalPaymentInformation = [
+            'isp_name' => $systemSettings->isp_name ?? '',
+            'return_refund_policy_link' => $systemSettings->return_refund_policy_link ?? '',
+            'privacy_policy_link' => $systemSettings->privacy_policy_link ?? '',
+            'customer_service_contact_info' => $systemSettings->customer_service_contact_info ?? '',
+            'company_address' => $systemSettings->company_address ?? '',
+            'transaction_currency' => $systemSettings->transaction_currency ?? 'USD',
+            'delivery_policy_link' => $systemSettings->delivery_policy_link ?? '',
+            'consumer_data_privacy_policy_link' => $systemSettings->consumer_data_privacy_policy_link ?? '',
+            'secure_checkout_policy_link' => $systemSettings->secure_checkout_policy_link ?? '',
+            'terms_and_conditions_link' => $systemSettings->terms_and_conditions_link ?? '',
+        ];
+
+        $invoices = $this->getOutstandingAccountInvoices();
+        $enabledPrimaryCreditCardProcessor = $this->systemController->getPrimaryEnabledCreditCardProcessor();
+
         if (config('customer_portal.stripe_enabled') == 1) {
             $stripe = new PortalStripe();
             $secret = $stripe->setupIntent();
-            $systemSettings = SystemSetting::first();
             $key = $systemSettings->stripe_public_api_key;
 
             return view(
                 'pages.billing.make_payment_stripe',
-                compact('billingDetails', 'paymentMethods', 'secret', 'key')
+                compact(
+                    'billingDetails',
+                    'paymentMethods',
+                    'secret',
+                    'key',
+                    'additionalPaymentInformation',
+                    'invoices',
+                    'enabledPrimaryCreditCardProcessor',
+                )
             );
         }
 
-        return view('pages.billing.make_payment', compact('billingDetails', 'paymentMethods'));
+        return view('pages.billing.make_payment', compact(
+            'billingDetails',
+            'paymentMethods',
+            'additionalPaymentInformation',
+            'invoices',
+            'enabledPrimaryCreditCardProcessor',
+        ));
     }
 
     /**
@@ -558,6 +588,41 @@ class BillingController extends Controller
         }
 
         return Cache::tags('billing.details')->get(get_user()->account_id);
+    }
+
+    /**
+     * Get credit card processor 
+     */
+    private function getCreditCardProcessor(): mixed
+    {
+        if (! Cache::tags('billing.credit_card_processor')->has(get_user()->account_id)) {
+            $creditCardProcessor = $this->systemController->getPrimaryEnabledCreditCardProcessor();
+            Cache::tags('billing.credit_card_processor')->put(
+                get_user()->account_id,
+                $creditCardProcessor,
+                Carbon::now()->addMinutes(10)
+            );
+        }
+
+        return Cache::tags('billing.credit_card_processor')->get(get_user()->account_id);
+    }
+
+    /** 
+     * Get outstanding account invoices
+     */
+    private function getOutstandingAccountInvoices(): mixed
+    {
+        if(!Cache::tags('billing.outstanding_invoices')->has(get_user()->account_id)) {
+            $invoices = $this->accountBillingController->getInvoicesOutstanding(get_user()->account_id);
+            return $invoices;
+            Cache::tags('billing.outstanding_invoices')->put(
+                get_user()->account_id,
+                $invoices,
+                Carbon::now()->addMinutes(10)
+            );
+        }
+
+        return Cache::tags('billing.outstanding_invoices')->get(get_user()->account_id);
     }
 
     /**

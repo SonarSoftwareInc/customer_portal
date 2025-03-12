@@ -44,7 +44,7 @@
             </div>
          </div>
       </div>
-     <div class="card">
+      <div class="card">
          <div class="card-header">
             <h4 class="card-header-title text-muted">
                <i class="fe fe-cast mr-3"></i> Design Settings
@@ -91,10 +91,11 @@
                {{--</div>--}}
             {{--</div>--}}
             {{--<div class="row">--}}
-            {{--<div class="col-3">--}}
-            {{--<input id="primaryColor" type="text" class="form-control" value="pink" />--}}
+               {{--<div class="col-3">--}}
+                  {{--<input id="primaryColor" type="text" class="form-control" value="pink" />--}}
+               {{--</div>--}}
             {{--</div>--}}
-            {{--</div>--}}
+         </div>
       </div>
 
 
@@ -626,6 +627,107 @@
                      Ticket Priority
                      </label>
                      {!! Form::select("ticket_priority",[1 => 'Critical', 2 => 'High', 3 => 'Medium', 4 => 'Low'],$systemSetting->ticket_priority, ['id' => 'ticket_priority', 'class' => 'form-control']) !!}
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="card">
+         <div class="card-header">
+            <h4 class="card-header-title text-muted">
+               <i class="fe fe-info mr-3"></i> Additional Payment Information
+            </h4>
+         </div>
+         <div class="card-body">
+            <div class="row mt-1">
+               <div class="col-12">
+                  <div class="form-group">
+                     <label>
+                     Customer Service Contact Info
+                     </label>
+                     {!! Form::text("customer_service_contact_info", $systemSetting->customer_service_contact_info, ['id' => 'customer_service_contact_info', 'class' => 'form-control', 'placeholder' => "Contact Info"]) !!}
+                  </div>
+               </div>
+            </div>
+            <div class="row mt-1">
+               <div class="col-12">
+                  <div class="form-group">
+                     <label>
+                     Company Address
+                     </label>
+                     {!! Form::text("company_address", $systemSetting->company_address, ['id' => 'company_address', 'class' => 'form-control', 'placeholder' => "Company Address"]) !!}
+                  </div>
+               </div>
+            </div>
+            <div class="row mt-1">
+               <div class="col-12">
+                  <div class="form-group">
+                     <label>
+                     Transaction Currency
+                     </label>
+                     <!-- Form select with system settings currency  -->
+                     {!! Form::select("transaction_currency", $currencies, $systemSetting->transaction_currency, ['id' => 'transaction_currency', 'class' => 'form-control']) !!}
+                  </div>
+               </div>
+            </div>
+            <div class="row mt-1">
+               <div class="col-12">
+               <div class="form-group">
+                  <label>
+                  Return & Refund Policy Link
+                  </label>
+                  {!! Form::text("return_refund_policy_link", $systemSetting->return_refund_policy_link, ['id' => 'return_refund_policy_link', 'class' => 'form-control', 'placeholder' => "https://example.com/return-refund-policy"]) !!}
+               </div>
+               </div>
+            </div>
+            <div class="row mt-1">
+               <div class="col-12">
+                  <div class="form-group">
+                     <label>
+                     Privacy Policy Link
+                     </label>
+                     {!! Form::text("privacy_policy_link", $systemSetting->privacy_policy_link, ['id' => 'privacy_policy_link', 'class' => 'form-control', 'placeholder' => "https://example.com/privacy-policy"]) !!}
+                  </div>
+               </div>
+            </div>
+            <div class="row mt-1">
+               <div class="col-12">
+                  <div class="form-group">
+                     <label>
+                     Delivery Policy Link
+                     </label>
+                     {!! Form::text("delivery_policy_link", $systemSetting->delivery_policy_link, ['id' => 'delivery_policy_link', 'class' => 'form-control', 'placeholder' => "https://example.com/delivery-policy"]) !!}
+                  </div>
+               </div>
+            </div>
+            <div class="row mt-1">
+               <div class="col-12">
+                  <div class="form-group">
+                     <label>
+                     Consumer Data Privacy Policy Link
+                     </label>
+                     {!! Form::text("consumer_data_privacy_policy_link", $systemSetting->consumer_data_privacy_policy_link, ['id' => 'consumer_data_privacy_policy_link', 'class' => 'form-control', 'placeholder' => "https://example.com/consumer-data-privacy-policy"]) !!}
+                  </div>
+               </div>
+            </div>
+            <div class="row mt-1">
+               <div class="col-12">
+                  <div class="form-group">
+                     <label>
+                     Secure Checkout Policy Link
+                     </label>
+                     {!! Form::text("secure_checkout_policy_link", $systemSetting->secure_checkout_policy_link, ['id' => 'secure_checkout_policy_link', 'class' => 'form-control', 'placeholder' => "https://example.com/secure-checkout-policy"]) !!}
+                  </div>
+               </div>
+            </div>
+            <div class="row mt-1">
+               <div class="col-12">
+                  <div class="form-group">
+                     <label>
+                     Terms and Conditions Link
+                     </label>
+                     {!! Form::text("terms_and_conditions_link", $systemSetting->terms_and_conditions_link, ['id' => 'terms_and_conditions_link', 'class' => 'form-control', 'placeholder' => "https://example.com/terms-and-conditions"]) !!}
                   </div>
                </div>
             </div>
