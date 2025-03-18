@@ -590,23 +590,6 @@ class BillingController extends Controller
         return Cache::tags('billing.details')->get(get_user()->account_id);
     }
 
-    /**
-     * Get credit card processor 
-     */
-    private function getCreditCardProcessor(): mixed
-    {
-        if (! Cache::tags('billing.credit_card_processor')->has(get_user()->account_id)) {
-            $creditCardProcessor = $this->systemController->getPrimaryEnabledCreditCardProcessor();
-            Cache::tags('billing.credit_card_processor')->put(
-                get_user()->account_id,
-                $creditCardProcessor,
-                Carbon::now()->addMinutes(10)
-            );
-        }
-
-        return Cache::tags('billing.credit_card_processor')->get(get_user()->account_id);
-    }
-
     /** 
      * Get outstanding account invoices
      */
