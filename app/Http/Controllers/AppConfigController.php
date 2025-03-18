@@ -209,6 +209,7 @@ class AppConfigController extends Controller
             'CAD' => 'CAD',
             'EUR' => 'EUR',
             'GBP' => 'GBP',
+            'AED' => 'AED',
             'AFN' => 'AFN',
             'ALL' => 'ALL',
             'AMD' => 'AMD',
