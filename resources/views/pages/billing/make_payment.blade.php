@@ -228,7 +228,7 @@
                   <label>
                      {{utrans("billing.amountToPay")}} {{ isset($additionalPaymentInformation['transaction_currency']) ? '(' . $additionalPaymentInformation['transaction_currency'] . ')' : '' }}
                   </label>
-                  {!! Form::currency("amount",['id' => 'amount', 'class' => 'form-control', 'step' => 'any', 'required' => true]) !!}
+                  {!! Form::number("amount",number_format($billingDetails->balance_due,2,".",""),['id' => 'amount', 'class' => 'form-control', 'step' => 'any', 'required' => true]) !!}
                </div>
             </div>
             <div class="col-auto ">
