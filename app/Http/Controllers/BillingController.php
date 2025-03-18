@@ -597,7 +597,6 @@ class BillingController extends Controller
     {
         if(!Cache::tags('billing.outstanding_invoices')->has(get_user()->account_id)) {
             $invoices = $this->accountBillingController->getInvoicesOutstanding(get_user()->account_id);
-            return $invoices;
             Cache::tags('billing.outstanding_invoices')->put(
                 get_user()->account_id,
                 $invoices,
