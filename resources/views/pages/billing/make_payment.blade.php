@@ -38,7 +38,7 @@
                         </thead>
                         <tbody>
                            <tr>
-                              <td>{{ Formatter::currency($billingDetails->balance_due,2,".","") }}</td>
+                              <td>{{ Formatter::currency($billingDetails->balance_due) }}</td>
                               <td>{{ Formatter::date($billingDetails->next_bill_date, false) }}</td>
                            </tr>
                         </tbody>
@@ -95,7 +95,7 @@
                                  {{ $invoice->id }}
                               </td>
                               <td>
-                                 {{ Formatter::currency($invoice->remaining_due,2,".","") }}
+                                 {{ Formatter::currency($invoice->remaining_due) }}
                               </td>
                               <td>
                                  {{ Formatter::date($invoice->due_date, false) }}
@@ -219,7 +219,7 @@
                      {{ utrans("billing.totalAmountDue") }} {{ isset($additionalPaymentInformation['transaction_currency']) ? '(' . $additionalPaymentInformation['transaction_currency'] . ')' : '' }}
                   </label>
                   <div style="font-size: 1.5em;">
-                     {{ Formatter::currency($billingDetails->balance_due,2,".","") }}
+                     {{ Formatter::currency($billingDetails->balance_due) }}
                   </div>
                </div>
             </div>
@@ -228,7 +228,7 @@
                   <label>
                      {{utrans("billing.amountToPay")}} {{ isset($additionalPaymentInformation['transaction_currency']) ? '(' . $additionalPaymentInformation['transaction_currency'] . ')' : '' }}
                   </label>
-                  {!! Form::number("amount",number_format($billingDetails->balance_due,2,".",""),['id' => 'amount', 'class' => 'form-control', 'step' => 'any', 'required' => true]) !!}
+                  {!! Form::currency("amount",['id' => 'amount', 'class' => 'form-control', 'step' => 'any', 'required' => true]) !!}
                </div>
             </div>
             <div class="col-auto ">
