@@ -724,19 +724,23 @@ class BillingController extends Controller
     {
         $paymentMethods = [];
         $validAccountMethods = $this->getPaymentMethods();
+
         foreach ($validAccountMethods as $validAccountMethod) {
             if (
                 $validAccountMethod->type == 'credit card'
                 && config('customer_portal.enable_credit_card_payments') == 1
             ) {
-                $paymentMethods[$validAccountMethod->id] = utrans(
-                    'billing.payUsingExistingCard',
-                    [
-                        'card' => '****'.$validAccountMethod->identifier.' ('
-                            .sprintf('%02d', $validAccountMethod->expiration_month).' / '
-                            .$validAccountMethod->expiration_year.')'
-                    ]
-                );
+                $paymentMethods[$validAccountMethod->id . '_credit_card'] = [
+                    'label' => utrans(
+                        'billing.payUsingExistingCard',
+                        [
+                            'card' => '****' . $validAccountMethod->identifier . ' ('
+                                . sprintf('%02d', $validAccountMethod->expiration_month) . ' / '
+                                . $validAccountMethod->expiration_year . ')'
+                        ]
+                    ),
+                    'type' => 'credit_card',
+                ];
             } elseif (
                 (
                     config('customer_portal.enable_bank_payments') == 1
@@ -744,21 +748,29 @@ class BillingController extends Controller
                 )
                 && $validAccountMethod->type != 'credit card'
             ) {
-                $paymentMethods[$validAccountMethod->id] = utrans(
-                    'billing.payUsingExistingBankAccount',
-                    ['accountNumber' => '**'.$validAccountMethod->identifier]
-                );
+                $paymentMethods[$validAccountMethod->id . '_bank_account'] = [
+                    'label' => utrans(
+                        'billing.payUsingExistingBankAccount',
+                        ['accountNumber' => '**' . $validAccountMethod->identifier]
+                    ),
+                    'type' => 'bank_account',
+                ];
             }
         }
 
         if (config('customer_portal.paypal_enabled') == 1) {
-            $paymentMethods['paypal'] = utrans('billing.payWithPaypal');
-        }
-        if (config('customer_portal.enable_credit_card_payments') == 1) {
-            $paymentMethods['new_card'] = utrans('billing.payWithNewCard');
+            $paymentMethods['paypal'] = [
+                'label' => utrans('billing.payWithPaypal'),
+                'type' => 'paypal',
+            ];
         }
 
-        $paymentMethods = array_reverse($paymentMethods, true);
+        if (config('customer_portal.enable_credit_card_payments') == 1) {
+            $paymentMethods['new_card'] = [
+                'label' => utrans('billing.payWithNewCard'),
+                'type' => 'new_card',
+            ];
+        }
 
         return $paymentMethods;
     }

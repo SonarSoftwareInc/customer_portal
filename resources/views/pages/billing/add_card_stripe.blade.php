@@ -109,7 +109,6 @@
             <div class="col-auto">
                <div class="form-group">
                   <div class="custom-control custom-checkbox-toggle mt-1">
-
                      {!! Form::checkbox("auto",1,false,['id' => 'auto', 'class' => 'custom-control-input']) !!}
                      <label class="custom-control-label" for="auto"></label>
                   </div>
@@ -117,7 +116,7 @@
             </div>
             <div class="col mt-1">
                <small class="text-muted">
-                  {{utrans("billing.saveAsAutoPayMethod")}} {{utrans("billing.autoPayDescription")}} {{utrans("billing.legalDisclaimer", ["business_name" => config("customer_portal.company_name")])}}
+                  {{utrans("billing.saveAsAutoPayMethod")}} {{utrans("billing.legalDisclaimer", ["business_name" => config("customer_portal.company_name")])}}
                </small>
             </div>
          </div>
