@@ -1,13 +1,12 @@
 $(document).ready(function(){
     var ccNumberField = $("#cc-number");
     var expirationField = $("#expirationDate");
-    var makeAuto = $("#makeAuto");
     var ccIcon = $("#ccIcon");
 
     ccNumberField.payment('formatCardNumber');
     expirationField.payment('formatCardExpiry');
 
-    updatePaymentForm(true);
+    updatePaymentForm();
 
     $("#country").change(function(){
         updateSubdivisions();
@@ -52,14 +51,33 @@ $(document).ready(function(){
         }
     });
 
-    makeAuto.change(function(){
-        if (makeAuto.is(":checked")) {
-            $("#autoPayDescription").show();
+    function handlePaymentMethodChange() {
+        var selectedOption = $('#payment_method').find(':selected');
+        var paymentType = selectedOption.data('type');
+
+        console.log('Selected Payment Type:', paymentType);
+
+        // Perform actions based on the payment type
+        if (paymentType === 'credit_card') {
+            $('.credit-card-autopay').hide();
+            $('.bank-account-payment').hide();
+        } else if (paymentType === 'bank_account') {
+            $('.credit-card-autopay').hide();
+            $('.bank-account-payment').show();
+        } else if (paymentType === 'paypal') {
+            $('.credit-card-autopay').hide();
+            $('.bank-account-payment').hide();
+        } else {
+            $('.credit-card-autopay').show();
+            $('.bank-account-payment').hide();
         }
-        else {
-            $("#autoPayDescription").hide();
-        }
+    }
+
+    $('#payment_method').change(function () {
+        handlePaymentMethodChange();
     });
+
+    handlePaymentMethodChange();
 
     $("#payment_method").change(function(){
         updatePaymentForm();
@@ -144,14 +162,8 @@ function updateSubdivisions()
     });
 }
 
-function updatePaymentForm(forceSelection = false) {
+function updatePaymentForm() {
     var paymentMethodSelect = $("#payment_method");
-    var savedCardOption = paymentMethodSelect.find("option[value!='paypal'][value!='new_card']").first();
-
-    // On first load, force selection of a saved card if one exists
-    if (forceSelection && savedCardOption.length > 0) {
-        savedCardOption.prop("selected", true);
-    }
 
     var selectedPaymentMethod = paymentMethodSelect.val();
     switch (selectedPaymentMethod) {

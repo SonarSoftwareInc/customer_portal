@@ -105,7 +105,7 @@
                 </div>
                 <div class="col mt-1">
                     <small class="text-muted">
-                        {{utrans("billing.saveAsAutoPayMethodAccount")}} {{utrans("billing.autoPayDescription")}}
+                        {{utrans("billing.saveAsAutoPayMethodAccount", ["business_name" => config("customer_portal.company_name")])}}
                     </small>
                 </div>
             </div>

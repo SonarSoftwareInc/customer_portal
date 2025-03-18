@@ -124,7 +124,7 @@
             <div class="col mt-1">
                <!-- Help text -->
                <small class="text-muted new_card">
-                  {{utrans("billing.saveAsAutoPayMethod")}} {{utrans("billing.autoPayDescription")}} {{utrans("billing.legalDisclaimer", ["business_name" => config("customer_portal.company_name")])}}
+                  {{utrans("billing.saveAsAutoPayMethod")}} {{utrans("billing.legalDisclaimer", ["business_name" => config("customer_portal.company_name")])}}
                </small>
             </div>
             <div class="col-12 col-md-12 mt-5">
