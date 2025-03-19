@@ -55,8 +55,6 @@ $(document).ready(function(){
         var selectedOption = $('#payment_method').find(':selected');
         var paymentType = selectedOption.data('type');
 
-        console.log('Selected Payment Type:', paymentType);
-
         // Perform actions based on the payment type
         if (paymentType === 'credit_card') {
             $('.credit-card-autopay').hide();
