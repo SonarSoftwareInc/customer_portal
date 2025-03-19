@@ -123,7 +123,17 @@
                   <label>
                      {{utrans("billing.paymentMethod")}}
                   </label>
-                  {!! Form::select("payment_method",$paymentMethods,'new_card',['id' => 'payment_method', 'class' => 'form-control']) !!}
+                  <select id="payment_method" name="payment_method" class="form-control">
+                     @php
+                     // Get the first key of the $paymentMethods array
+                     $selectedPaymentMethod = array_key_first($paymentMethods);
+                     @endphp
+                     @foreach($paymentMethods as $id => $method)
+                     <option value="{{ $id }}" data-type="{{ $method['type'] }}" {{ $id == $selectedPaymentMethod ? 'selected' : '' }}>
+                        {{ $method['label'] }}
+                     </option>
+                     @endforeach
+                  </select>
                </div>
             </div>
             <div class="col-12 ">
@@ -137,16 +147,16 @@
             </div>
             <div class="col-12 ">
                @if($enabledPrimaryCreditCardProcessor->visa)
-                  <img src="/assets/svg/creditcards/visa.svg" alt="Visa" class="credit-card-image" style="width: 35px;">
+               <img src="/assets/svg/creditcards/visa.svg" alt="Visa" class="credit-card-image" style="width: 35px;">
                @endif
                @if($enabledPrimaryCreditCardProcessor->mastercard)
-                  <img src="/assets/svg/creditcards/mastercard.svg" alt="MasterCard" class="credit-card-image" style="width: 35px;">
+               <img src="/assets/svg/creditcards/mastercard.svg" alt="MasterCard" class="credit-card-image" style="width: 35px;">
                @endif
                @if($enabledPrimaryCreditCardProcessor->amex)
-                  <img src="/assets/svg/creditcards/amex.svg" alt="American Express" class="credit-card-image" style="width: 35px;">
+               <img src="/assets/svg/creditcards/amex.svg" alt="American Express" class="credit-card-image" style="width: 35px;">
                @endif
                @if($enabledPrimaryCreditCardProcessor->discover)
-                  <img src="/assets/svg/creditcards/discover.svg" alt="Discover" class="credit-card-image" style="width: 35px;">
+               <img src="/assets/svg/creditcards/discover.svg" alt="Discover" class="credit-card-image" style="width: 35px;">
                @endif
             </div>
             <div class="col-12 col-md-4">
@@ -231,15 +241,20 @@
                   {!! Form::number("amount",number_format($billingDetails->balance_due,2,".",""),['id' => 'amount', 'class' => 'form-control', 'step' => 'any', 'required' => true]) !!}
                </div>
             </div>
-            <div class="col-auto ">
-               <div class="custom-control custom-checkbox-toggle mt-1 new_card">
+            <div class="col-auto new_card">
+               <div class="custom-control custom-checkbox-toggle mt-1">
                   {!! Form::checkbox("makeAuto",1,false,['id' => 'makeAuto', 'class' => 'custom-control-input']) !!}
                   <label class="custom-control-label" for="makeAuto"></label>
                </div>
             </div>
-            <div class="col mt-1">
-               <small class="text-muted new_card">
-                  {{utrans("billing.saveAsAutoPayMethod")}} {{utrans("billing.autoPayDescription")}}
+            <div class="col mt-1 credit-card-autopay">
+               <small class="text-muted">
+                  {{utrans("billing.saveAsAutoPayMethod")}}
+               </small>
+            </div>
+            <div class="col mt-1 bank-account-payment">
+               <small class="text-muted">
+                  {{utrans("billing.authorizePaymentAccount", ["business_name" => config("customer_portal.company_name")])}}
                </small>
             </div>
 

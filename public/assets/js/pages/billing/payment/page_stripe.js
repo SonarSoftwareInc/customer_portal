@@ -172,15 +172,6 @@ $(document).ready(function(){
         updateSubdivisions();
     });
 
-    makeAuto.change(function(){
-        if (makeAuto.is(":checked")) {
-            $("#autoPayDescription").show();
-        }
-        else {
-            $("#autoPayDescription").hide();
-        }
-    });
-
     $("#payment_method").change(function(){
         updatePaymentForm();
     });
