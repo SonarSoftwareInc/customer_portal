@@ -166,7 +166,7 @@ class BillingController extends Controller
         ];
 
         $invoices = $this->getOutstandingAccountInvoices();
-        $enabledPrimaryCreditCardProcessor = $this->systemController->getPrimaryEnabledCreditCardProcessor();
+        $enabledPrimaryCreditCardProcessor = $this->accountController->getEnabledCreditCardProcessor(get_user()->account_id)[0] ?? null;
 
         if (config('customer_portal.stripe_enabled') == 1) {
             $stripe = new PortalStripe();
