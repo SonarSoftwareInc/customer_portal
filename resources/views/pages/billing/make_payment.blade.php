@@ -137,7 +137,6 @@
                </div>
             </div>
             <div class="col-12 ">
-
                <div class="form-group new_card">
                   <label>
                      {{utrans("billing.nameOnCard")}}
@@ -146,17 +145,19 @@
                </div>
             </div>
             <div class="col-12 ">
-               @if($enabledPrimaryCreditCardProcessor->visa)
-               <img src="/assets/svg/creditcards/visa.svg" alt="Visa" class="credit-card-image" style="width: 35px;">
-               @endif
-               @if($enabledPrimaryCreditCardProcessor->mastercard)
-               <img src="/assets/svg/creditcards/mastercard.svg" alt="MasterCard" class="credit-card-image" style="width: 35px;">
-               @endif
-               @if($enabledPrimaryCreditCardProcessor->amex)
-               <img src="/assets/svg/creditcards/amex.svg" alt="American Express" class="credit-card-image" style="width: 35px;">
-               @endif
-               @if($enabledPrimaryCreditCardProcessor->discover)
-               <img src="/assets/svg/creditcards/discover.svg" alt="Discover" class="credit-card-image" style="width: 35px;">
+               @if(!empty($enabledPrimaryCreditCardProcessor))
+                  @if($enabledPrimaryCreditCardProcessor->visa)
+                  <img src="/assets/svg/creditcards/visa.svg" alt="Visa" class="credit-card-image" style="width: 35px;">
+                  @endif
+                  @if($enabledPrimaryCreditCardProcessor->mastercard)
+                  <img src="/assets/svg/creditcards/mastercard.svg" alt="MasterCard" class="credit-card-image" style="width: 35px;">
+                  @endif
+                  @if($enabledPrimaryCreditCardProcessor->amex)
+                  <img src="/assets/svg/creditcards/amex.svg" alt="American Express" class="credit-card-image" style="width: 35px;">
+                  @endif
+                  @if($enabledPrimaryCreditCardProcessor->discover)
+                  <img src="/assets/svg/creditcards/discover.svg" alt="Discover" class="credit-card-image" style="width: 35px;">
+                  @endif
                @endif
             </div>
             <div class="col-12 col-md-4">
@@ -191,7 +192,7 @@
                   {!! Form::text("line1",null,['id' => 'line1', 'class' => 'form-control', 'placeholder' => utrans("billing.line1--placeholder"), 'required' => true]) !!}
                </div>
             </div>
-            <div class="col-12 md-6">
+            <div class="col-12 col-md-6">
                <div class="form-group new_card">
                   <label>
                      {{utrans("billing.country")}}
@@ -199,7 +200,7 @@
                   {!! Form::select("country",countries(),config("customer_portal.country"),['id' => 'country', 'class' => 'form-control', 'required' => true]) !!}
                </div>
             </div>
-            <div id="stateWrapper" class="col-12 md-6">
+            <div id="stateWrapper" class="col-12 col-md-6">
                <div class="form-group new_card">
                   <label>
                      {{utrans("billing.state")}}
@@ -262,13 +263,22 @@
             <div class="col-12">
                <br>
                <!-- Policy Links -->
-               @if($additionalPaymentInformation['privacy_policy_link'] != '' || $additionalPaymentInformation['return_refund_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')
+               @if($additionalPaymentInformation['privacy_policy_link'] != '' || $additionalPaymentInformation['return_refund_policy_link'] != '' || $additionalPaymentInformation['delivery_policy_link'] != '' || $additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')
                <p>
                   @if($additionalPaymentInformation['privacy_policy_link'] != '')
-                  <a class="external" href="{{ $additionalPaymentInformation['privacy_policy_link'] }}">{{utrans("billing.privacy_policy")}}</a>@if(($additionalPaymentInformation['return_refund_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
+                  <a class="external" href="{{ $additionalPaymentInformation['privacy_policy_link'] }}">{{utrans("billing.privacy_policy")}}</a>@if(($additionalPaymentInformation['return_refund_policy_link'] != '' || $additionalPaymentInformation['delivery_policy_link'] != '' || $additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
                   @endif
                   @if($additionalPaymentInformation['return_refund_policy_link'] != '')
-                  <a class="external" href="{{ $additionalPaymentInformation['return_refund_policy_link'] }}">{{utrans("billing.refund_return_policy")}}</a>@if($additionalPaymentInformation['terms_and_conditions_link'] != ''), @endif
+                  <a class="external" href="{{ $additionalPaymentInformation['return_refund_policy_link'] }}">{{utrans("billing.refund_return_policy")}}</a>@if(($additionalPaymentInformation['delivery_policy_link'] != '' || $additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
+                  @endif
+                  @if($additionalPaymentInformation['delivery_policy_link'] != '')
+                  <a class="external" href="{{ $additionalPaymentInformation['delivery_policy_link'] }}">{{utrans("billing.delivery_policy")}}</a>@if(($additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
+                  @endif
+                  @if($additionalPaymentInformation['consumer_data_privacy_policy_link'] != '')
+                  <a class="external" href="{{ $additionalPaymentInformation['consumer_data_privacy_policy_link'] }}">{{utrans("billing.consumer_data_privacy_policy")}}</a>@if(($additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
+                  @endif
+                  @if($additionalPaymentInformation['secure_checkout_policy_link'] != '')
+                  <a class="external" href="{{ $additionalPaymentInformation['secure_checkout_policy_link'] }}">{{utrans("billing.secure_checkout_policy")}}</a>@if($additionalPaymentInformation['terms_and_conditions_link'] != ''), @endif
                   @endif
                   @if($additionalPaymentInformation['terms_and_conditions_link'] != '')
                   <a class="external" href="{{ $additionalPaymentInformation['terms_and_conditions_link'] }}">{{utrans("billing.terms_of_service")}}</a>
@@ -279,10 +289,19 @@
                <!-- Company Info -->
                <p>
                   {{ $additionalPaymentInformation['isp_name'] ?? '' }}{{ $additionalPaymentInformation['isp_name'] != '' ? ':' : '' }} {{ $additionalPaymentInformation['company_address'] }}
-                  {{utrans("billing.contact_us")}}
-                  <a class="external" href=" tel:{{ $additionalPaymentInformation['customer_service_contact_info'] }}">
-                     {{ $additionalPaymentInformation['customer_service_contact_info']}}
+                  @if($additionalPaymentInformation['customer_service_contact_phone'] != '')
+                  {{ utrans("billing.contact_us") }}:
+                  <a class="external" href="tel:{{ $additionalPaymentInformation['customer_service_contact_phone'] }}">
+                     {{ $additionalPaymentInformation['customer_service_contact_phone'] }}
                   </a>
+                  @endif
+                  @if($additionalPaymentInformation['customer_service_contact_email'] != '')
+                  <br>
+                  {{ utrans("billing.email_us") }}:
+                  <a class="external" href="mailto:{{ $additionalPaymentInformation['customer_service_contact_email'] }}">
+                     {{ $additionalPaymentInformation['customer_service_contact_email'] }}
+                  </a>
+                  @endif
                </p>
             </div>
             <div class="col-12 col-md-12 mt-5">
