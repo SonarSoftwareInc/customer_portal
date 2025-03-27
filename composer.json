@@ -20,7 +20,7 @@
         "gocardless/gocardless-pro": "^4.8",
         "doctrine/dbal": "^3.5",
         "stripe/stripe-php": "^7",
-        "sonarsoftwareinc/customer_portal_framework": "^2.0.3",
+        "sonarsoftwareinc/customer_portal_framework": "^2.0.4",
         "spatie/laravel-csp": "^2.8",
         "laravel/ui": "^4.2",
         "guzzlehttp/guzzle": "^7.2",
