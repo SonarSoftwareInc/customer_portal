@@ -56,6 +56,16 @@ class AppConfigRequest extends FormRequest
             'inbound_email_account_id' => 'integer|min:1|required_if:ticketing_enabled,1',
             'ticket_group_id' => 'integer|min:1|required_if:ticketing_enabled,1',
             'ticket_priority' => 'integer|between:1,4|required_if:ticketing_enabled,1',
+            'return_refund_policy_link' => 'nullable|url',
+            'privacy_policy_link' => 'nullable|url',
+            'customer_service_contact_email' => 'nullable|email',
+            'customer_service_contact_phone' => 'nullable|string',
+            'company_address' => 'nullable|string',
+            'transaction_currency' => 'nullable|string',
+            'delivery_policy_link' => 'nullable|url',
+            'consumer_data_privacy_policy_link' => 'nullable|url',
+            'secure_checkout_policy_link' => 'nullable|url',
+            'terms_and_conditions_link' => 'nullable|url',
         ];
     }
 }
