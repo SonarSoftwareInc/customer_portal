@@ -785,6 +785,7 @@ class BillingController extends Controller
         Cache::tags('billing.invoices')->forget(get_user()->account_id);
         Cache::tags('billing.transactions')->forget(get_user()->account_id);
         Cache::tags('billing.payment_methods')->forget(get_user()->account_id);
+        Cache::tags('billing.outstanding_invoices')->forget(get_user()->account_id);
     }
 
     /**
