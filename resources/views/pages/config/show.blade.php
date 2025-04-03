@@ -656,7 +656,7 @@
                         <label>
                            Customer Service Email Address
                         </label>
-                        {!! Form::email("customer_service_contact_email", $systemSetting->customer_service_contact_email, ['id' => 'customer_service_contact_email', 'class' => 'form-control', 'placeholder' => "" ]) !!}
+                        {!! Form::email("customer_service_contact_email", $systemSetting->customer_service_contact_email, ['id' => 'customer_service_contact_email', 'class' => 'form-control', 'placeholder' => "test@example.com" ]) !!}
                      </div>
                   </div>
                </div>
