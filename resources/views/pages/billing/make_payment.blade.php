@@ -296,11 +296,12 @@
                   </a>
                   @endif
                   @if($additionalPaymentInformation['customer_service_contact_email'] != '')
-                  <br>
-                  {{ utrans("billing.email_us") }}:
-                  <a class="external" href="mailto:{{ $additionalPaymentInformation['customer_service_contact_email'] }}">
-                     {{ $additionalPaymentInformation['customer_service_contact_email'] }}
-                  </a>
+                     @if($additionalPaymentInformation['customer_service_contact_phone'] != '')
+                        ,
+                     @endif
+                     <a class="external" href="mailto:{{ $additionalPaymentInformation['customer_service_contact_email'] }}">
+                        {{ $additionalPaymentInformation['customer_service_contact_email'] }}
+                     </a>
                   @endif
                </p>
             </div>
