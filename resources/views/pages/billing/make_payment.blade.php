@@ -266,22 +266,22 @@
                @if($additionalPaymentInformation['privacy_policy_link'] != '' || $additionalPaymentInformation['return_refund_policy_link'] != '' || $additionalPaymentInformation['delivery_policy_link'] != '' || $additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')
                <p>
                   @if($additionalPaymentInformation['privacy_policy_link'] != '')
-                  <a class="external" href="{{ $additionalPaymentInformation['privacy_policy_link'] }}">{{utrans("billing.privacy_policy")}}</a>@if(($additionalPaymentInformation['return_refund_policy_link'] != '' || $additionalPaymentInformation['delivery_policy_link'] != '' || $additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
+                  <a class="external" target="_blank" href="{{ $additionalPaymentInformation['privacy_policy_link'] }}">{{utrans("billing.privacy_policy")}}</a>@if(($additionalPaymentInformation['return_refund_policy_link'] != '' || $additionalPaymentInformation['delivery_policy_link'] != '' || $additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
                   @endif
                   @if($additionalPaymentInformation['return_refund_policy_link'] != '')
-                  <a class="external" href="{{ $additionalPaymentInformation['return_refund_policy_link'] }}">{{utrans("billing.refund_return_policy")}}</a>@if(($additionalPaymentInformation['delivery_policy_link'] != '' || $additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
+                  <a class="external" target="_blank" href="{{ $additionalPaymentInformation['return_refund_policy_link'] }}">{{utrans("billing.refund_return_policy")}}</a>@if(($additionalPaymentInformation['delivery_policy_link'] != '' || $additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
                   @endif
                   @if($additionalPaymentInformation['delivery_policy_link'] != '')
-                  <a class="external" href="{{ $additionalPaymentInformation['delivery_policy_link'] }}">{{utrans("billing.delivery_policy")}}</a>@if(($additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
+                  <a class="external" target="_blank" href="{{ $additionalPaymentInformation['delivery_policy_link'] }}">{{utrans("billing.delivery_policy")}}</a>@if(($additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
                   @endif
                   @if($additionalPaymentInformation['consumer_data_privacy_policy_link'] != '')
-                  <a class="external" href="{{ $additionalPaymentInformation['consumer_data_privacy_policy_link'] }}">{{utrans("billing.consumer_data_privacy_policy")}}</a>@if(($additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
+                  <a class="external" target="_blank" href="{{ $additionalPaymentInformation['consumer_data_privacy_policy_link'] }}">{{utrans("billing.consumer_data_privacy_policy")}}</a>@if(($additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
                   @endif
                   @if($additionalPaymentInformation['secure_checkout_policy_link'] != '')
-                  <a class="external" href="{{ $additionalPaymentInformation['secure_checkout_policy_link'] }}">{{utrans("billing.secure_checkout_policy")}}</a>@if($additionalPaymentInformation['terms_and_conditions_link'] != ''), @endif
+                  <a class="external" target="_blank" href="{{ $additionalPaymentInformation['secure_checkout_policy_link'] }}">{{utrans("billing.secure_checkout_policy")}}</a>@if($additionalPaymentInformation['terms_and_conditions_link'] != ''), @endif
                   @endif
                   @if($additionalPaymentInformation['terms_and_conditions_link'] != '')
-                  <a class="external" href="{{ $additionalPaymentInformation['terms_and_conditions_link'] }}">{{utrans("billing.terms_of_service")}}</a>
+                  <a class="external" target="_blank" href="{{ $additionalPaymentInformation['terms_and_conditions_link'] }}">{{utrans("billing.terms_of_service")}}</a>
                   @endif
                </p>
                @endif
