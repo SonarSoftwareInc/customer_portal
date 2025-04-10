@@ -56,18 +56,22 @@ $(document).ready(function(){
         var paymentType = selectedOption.data('type');
 
         // Perform actions based on the payment type
-        if (paymentType === 'credit_card') {
-            $('.credit-card-autopay').hide();
-            $('.bank-account-payment').hide();
-        } else if (paymentType === 'bank_account') {
+        if (paymentType === 'bank_account') {
             $('.credit-card-autopay').hide();
             $('.bank-account-payment').show();
+            $('.credit-card-images').hide();
         } else if (paymentType === 'paypal') {
             $('.credit-card-autopay').hide();
             $('.bank-account-payment').hide();
-        } else {
+            $('.credit-card-images').hide();
+        } else if (paymentType === 'new_card') {
             $('.credit-card-autopay').show();
             $('.bank-account-payment').hide();
+            $('.credit-card-images').show();
+        } else {
+            $('.credit-card-autopay').hide();
+            $('.bank-account-payment').hide();
+            $('.credit-card-images').hide();
         }
     }
 
