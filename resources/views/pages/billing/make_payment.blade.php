@@ -249,9 +249,8 @@
                </div>
             </div>
             <div class="col mt-1 credit-card-autopay">
-               <small class="text-muted">
-                  {{utrans("billing.saveAsAutoPayMethod")}}
-               </small>
+               <strong>{{utrans("billing.enableAutomaticPayments")}}</strong>
+               {{utrans("billing.saveAsAutoPayMethod")}}
             </div>
             <div class="col mt-1 bank-account-payment">
                <small class="text-muted">
