@@ -155,7 +155,8 @@ class BillingController extends Controller
             'isp_name' => $systemSettings->isp_name ?? '',
             'return_refund_policy_link' => $systemSettings->return_refund_policy_link ?? '',
             'privacy_policy_link' => $systemSettings->privacy_policy_link ?? '',
-            'customer_service_contact_info' => $systemSettings->customer_service_contact_info ?? '',
+            'customer_service_contact_phone' => $systemSettings->customer_service_contact_phone ?? '',
+            'customer_service_contact_email' => $systemSettings->customer_service_contact_email ?? '',
             'company_address' => $systemSettings->company_address ?? '',
             'transaction_currency' => $systemSettings->transaction_currency ?? 'USD',
             'delivery_policy_link' => $systemSettings->delivery_policy_link ?? '',
@@ -165,7 +166,7 @@ class BillingController extends Controller
         ];
 
         $invoices = $this->getOutstandingAccountInvoices();
-        $enabledPrimaryCreditCardProcessor = $this->systemController->getPrimaryEnabledCreditCardProcessor();
+        $enabledPrimaryCreditCardProcessor = $this->accountController->getEnabledCreditCardProcessor(get_user()->account_id)[0] ?? null;
 
         if (config('customer_portal.stripe_enabled') == 1) {
             $stripe = new PortalStripe();
@@ -724,19 +725,23 @@ class BillingController extends Controller
     {
         $paymentMethods = [];
         $validAccountMethods = $this->getPaymentMethods();
+
         foreach ($validAccountMethods as $validAccountMethod) {
             if (
                 $validAccountMethod->type == 'credit card'
                 && config('customer_portal.enable_credit_card_payments') == 1
             ) {
-                $paymentMethods[$validAccountMethod->id] = utrans(
-                    'billing.payUsingExistingCard',
-                    [
-                        'card' => '****'.$validAccountMethod->identifier.' ('
-                            .sprintf('%02d', $validAccountMethod->expiration_month).' / '
-                            .$validAccountMethod->expiration_year.')'
-                    ]
-                );
+                $paymentMethods[$validAccountMethod->id . '_credit_card'] = [
+                    'label' => utrans(
+                        'billing.payUsingExistingCard',
+                        [
+                            'card' => '****' . $validAccountMethod->identifier . ' ('
+                                . sprintf('%02d', $validAccountMethod->expiration_month) . ' / '
+                                . $validAccountMethod->expiration_year . ')'
+                        ]
+                    ),
+                    'type' => 'credit_card',
+                ];
             } elseif (
                 (
                     config('customer_portal.enable_bank_payments') == 1
@@ -744,21 +749,29 @@ class BillingController extends Controller
                 )
                 && $validAccountMethod->type != 'credit card'
             ) {
-                $paymentMethods[$validAccountMethod->id] = utrans(
-                    'billing.payUsingExistingBankAccount',
-                    ['accountNumber' => '**'.$validAccountMethod->identifier]
-                );
+                $paymentMethods[$validAccountMethod->id . '_bank_account'] = [
+                    'label' => utrans(
+                        'billing.payUsingExistingBankAccount',
+                        ['accountNumber' => '**' . $validAccountMethod->identifier]
+                    ),
+                    'type' => 'bank_account',
+                ];
             }
         }
 
         if (config('customer_portal.paypal_enabled') == 1) {
-            $paymentMethods['paypal'] = utrans('billing.payWithPaypal');
-        }
-        if (config('customer_portal.enable_credit_card_payments') == 1) {
-            $paymentMethods['new_card'] = utrans('billing.payWithNewCard');
+            $paymentMethods['paypal'] = [
+                'label' => utrans('billing.payWithPaypal'),
+                'type' => 'paypal',
+            ];
         }
 
-        $paymentMethods = array_reverse($paymentMethods, true);
+        if (config('customer_portal.enable_credit_card_payments') == 1) {
+            $paymentMethods['new_card'] = [
+                'label' => utrans('billing.payWithNewCard'),
+                'type' => 'new_card',
+            ];
+        }
 
         return $paymentMethods;
     }
@@ -772,6 +785,7 @@ class BillingController extends Controller
         Cache::tags('billing.invoices')->forget(get_user()->account_id);
         Cache::tags('billing.transactions')->forget(get_user()->account_id);
         Cache::tags('billing.payment_methods')->forget(get_user()->account_id);
+        Cache::tags('billing.outstanding_invoices')->forget(get_user()->account_id);
     }
 
     /**
