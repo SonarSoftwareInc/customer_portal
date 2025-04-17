@@ -144,7 +144,7 @@
                   {!! Form::text("name",null,['id' => 'name', 'class' => 'form-control', 'placeholder' => utrans("billing.nameOnCard--placeholder")]) !!}
                </div>
             </div>
-            <div class="col-12 ">
+            <div class="col-12 credit-card-images">
                @if(!empty($enabledPrimaryCreditCardProcessor))
                   @if($enabledPrimaryCreditCardProcessor->visa)
                   <img src="/assets/svg/creditcards/visa.svg" alt="Visa" class="credit-card-image" style="width: 35px;">
