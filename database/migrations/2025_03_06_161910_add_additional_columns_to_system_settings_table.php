@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::table('system_settings', function (Blueprint $table) {
             $table->string('return_refund_policy_link')->nullable();
             $table->string('privacy_policy_link')->nullable();
-            $table->string('customer_service_contact_info')->nullable();
+            $table->string('customer_service_contact_email')->nullable();
+            $table->string('customer_service_contact_phone')->nullable();
             $table->string('company_address')->nullable();
             $table->string('transaction_currency')->nullable();
             $table->string('delivery_policy_link')->nullable();
@@ -33,7 +34,8 @@ return new class extends Migration
             $table->dropColumn([
                 'return_refund_policy_link',
                 'privacy_policy_link',
-                'customer_service_contact_info',
+                'customer_service_contact_email',
+                'customer_service_contact_phone',
                 'company_address',
                 'transaction_currency',
                 'delivery_policy_link',

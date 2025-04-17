@@ -155,7 +155,8 @@ class BillingController extends Controller
             'isp_name' => $systemSettings->isp_name ?? '',
             'return_refund_policy_link' => $systemSettings->return_refund_policy_link ?? '',
             'privacy_policy_link' => $systemSettings->privacy_policy_link ?? '',
-            'customer_service_contact_info' => $systemSettings->customer_service_contact_info ?? '',
+            'customer_service_contact_phone' => $systemSettings->customer_service_contact_phone ?? '',
+            'customer_service_contact_email' => $systemSettings->customer_service_contact_email ?? '',
             'company_address' => $systemSettings->company_address ?? '',
             'transaction_currency' => $systemSettings->transaction_currency ?? 'USD',
             'delivery_policy_link' => $systemSettings->delivery_policy_link ?? '',
@@ -165,7 +166,7 @@ class BillingController extends Controller
         ];
 
         $invoices = $this->getOutstandingAccountInvoices();
-        $enabledPrimaryCreditCardProcessor = $this->systemController->getPrimaryEnabledCreditCardProcessor();
+        $enabledPrimaryCreditCardProcessor = $this->accountController->getEnabledCreditCardProcessor(get_user()->account_id)[0] ?? null;
 
         if (config('customer_portal.stripe_enabled') == 1) {
             $stripe = new PortalStripe();
@@ -784,6 +785,7 @@ class BillingController extends Controller
         Cache::tags('billing.invoices')->forget(get_user()->account_id);
         Cache::tags('billing.transactions')->forget(get_user()->account_id);
         Cache::tags('billing.payment_methods')->forget(get_user()->account_id);
+        Cache::tags('billing.outstanding_invoices')->forget(get_user()->account_id);
     }
 
     /**
