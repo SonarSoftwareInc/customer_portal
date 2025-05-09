@@ -38,7 +38,7 @@ return [
     'paymentMethod' => 'Mode de paiement',
     'payWithNewCard' => 'Payer avec une nouvelle carte de crédit',
     'payWithPaypal' => 'Payer avec PayPal',
-    'payUsingExistingCard' => 'Payer avec carte existante :carte',
+    'payUsingExistingCard' => 'Payer avec carte existante carte',
     'payUsingExistingBankAccount' => 'Payer avec un compte bancaire :accountNumber',
     'invalidSubmission' => 'Paiement invalide, veuillez réessayer.',
     'paymentFailedTryAnother' => 'Le paiement a échoué, essayer un autre paiement.',
