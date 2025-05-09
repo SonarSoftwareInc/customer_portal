@@ -1,6 +1,4 @@
 $(document).ready(function(){
-    var makeAuto = $("#makeAuto");
-
     var cardholderName = document.getElementById('name');
     var cardContainer = document.getElementById('stripe_container');
     var paymentMethod = document.getElementById('payment_method');
@@ -12,6 +10,16 @@ $(document).ready(function(){
     var elements = stripe.elements();
     var cardElement = elements.create('card');
     cardElement.mount('#card-element');
+
+    // Initially hide the table and show the "show-text"
+    $('.invoicesTable').hide();
+
+    // Click to toggle the table
+    $("#toggleInvoices").click(function(){
+        $('.invoicesTable').slideToggle();
+        $('.show-text').toggle();
+        $('.hide-text').toggle();
+    });
 
     //Payment Submit form
     $('#paymentForm').submit(async function(event) {
@@ -176,6 +184,11 @@ $(document).ready(function(){
         updatePaymentForm();
     });
 
+    // Enable the submit button when the payment method or amount to pay field changes
+    $('#payment_method, #amount').change(function () {
+        $('#submit_payment').prop('disabled', false);
+    });
+
 });
 
 function updateSubdivisions()
@@ -222,25 +235,30 @@ function updateSubdivisions()
     });
 }
 
-function updatePaymentForm()
-{
-    var selectedPaymentMethod = $("#payment_method").val();
-    switch (selectedPaymentMethod) {
-        case "new_card":
-            $(".new_card").show();
-            $(".non_paypal").show();
-            $(".paypal").hide();
-            break;
-        case "paypal":
-            $(".new_card").hide();
-            $(".non_paypal").hide();
-            $(".paypal").show();
-            break;
-        default:
-            //Existing card
-            $(".new_card").hide();
-            $(".non_paypal").show();
-            $(".paypal").hide();
-            break;
+function updatePaymentForm() {
+    var selectedOption = $('#payment_method').find(':selected');
+    var paymentType = selectedOption.data('type');
+
+    // Perform actions based on the payment type
+    if (paymentType === 'bank_account') {
+        $('.credit-card-autopay').hide();
+        $('.bank-account-payment').show();
+        $('.credit-card-images').hide();
+        $('.new_card').hide();
+    } else if (paymentType === 'paypal') {
+        $('.credit-card-autopay').hide();
+        $('.bank-account-payment').hide();
+        $('.credit-card-images').hide();
+        $('.new_card').hide();
+    } else if (paymentType === 'new_card') {
+        $('.credit-card-autopay').show();
+        $('.bank-account-payment').hide();
+        $('.credit-card-images').show();
+        $('.new_card').show();
+    } else {
+        $('.credit-card-autopay').hide();
+        $('.bank-account-payment').hide();
+        $('.credit-card-images').hide();
+        $('.new_card').hide();
     }
 }
