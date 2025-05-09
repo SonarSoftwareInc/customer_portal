@@ -23,6 +23,38 @@
                     <!-- / .row -->
                 </div>
             </div>
+
+            <!-- Bill Summary -->
+            <div class="row">
+                <div class="col-12 col-md-6">
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="table table-sm card-table">
+                            <thead>
+                                <tr>
+                                    <th>{{ utrans('billing.nextBillAmount') }} {{ isset($transaction_currency) ? '(' . $transaction_currency . ')' : '' }}</th>
+                                    <th>{{ utrans('billing.nextBillDate') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @if($next_bill_amount !== null)
+                                        {{Formatter::currency($next_bill_amount)}}
+                                        @else
+                                        {{utrans("general.notAvailable")}}
+                                        @endif
+                                    </span>
+                                    </td>
+                                    <td>{{ Formatter::date($next_bill_date, false) }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+            </div>
+
             {!! Form::open(['action' => '\App\Http\Controllers\BillingController@storeBank','id' => 'createPaymentMethodForm']) !!}
             <div class="row">
                 <div class="col-lg-12 col-12">
@@ -110,6 +142,7 @@
             </div>
         </div>
     </div>
+    <br>
     <div class="row">
         <div class="col-12 col-md-12">
             <input type="hidden" name="payment_tracker_id" value="{{uniqid("", true)}}" />
