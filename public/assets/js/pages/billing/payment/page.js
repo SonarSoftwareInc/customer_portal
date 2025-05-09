@@ -6,8 +6,6 @@ $(document).ready(function(){
     ccNumberField.payment('formatCardNumber');
     expirationField.payment('formatCardExpiry');
 
-    updatePaymentForm();
-
     $("#country").change(function(){
         updateSubdivisions();
     });
@@ -60,18 +58,22 @@ $(document).ready(function(){
             $('.credit-card-autopay').hide();
             $('.bank-account-payment').show();
             $('.credit-card-images').hide();
+            $('.new_card').hide();
         } else if (paymentType === 'paypal') {
             $('.credit-card-autopay').hide();
             $('.bank-account-payment').hide();
             $('.credit-card-images').hide();
+            $('.new_card').hide();
         } else if (paymentType === 'new_card') {
             $('.credit-card-autopay').show();
             $('.bank-account-payment').hide();
             $('.credit-card-images').show();
+            $('.new_card').show();
         } else {
             $('.credit-card-autopay').hide();
             $('.bank-account-payment').hide();
             $('.credit-card-images').hide();
+            $('.new_card').hide();
         }
     }
 
@@ -80,10 +82,6 @@ $(document).ready(function(){
     });
 
     handlePaymentMethodChange();
-
-    $("#payment_method").change(function(){
-        updatePaymentForm();
-    });
 
     $("#paymentForm").submit(function () {
         var selectedPaymentMethod = $("#payment_method").val();
@@ -116,6 +114,11 @@ $(document).ready(function(){
             }
         }
         $("#submit_payment").prop('disabled', allClear);
+    });
+
+    // Enable the submit button when the payment method or amount to pay field changes
+    $('#payment_method, #amount').change(function () {
+        $('#submit_payment').prop('disabled', false);
     });
 
 });
@@ -162,28 +165,4 @@ function updateSubdivisions()
     .always(function() {
         $("#state").prop('disabled',false);
     });
-}
-
-function updatePaymentForm() {
-    var paymentMethodSelect = $("#payment_method");
-
-    var selectedPaymentMethod = paymentMethodSelect.val();
-    switch (selectedPaymentMethod) {
-        case "new_card":
-            $(".new_card").show();
-            $(".non_paypal").show();
-            $(".paypal").hide();
-            break;
-        case "paypal":
-            $(".new_card").hide();
-            $(".non_paypal").hide();
-            $(".paypal").show();
-            break;
-        default:
-            // Existing card
-            $(".new_card").hide();
-            $(".non_paypal").show();
-            $(".paypal").hide();
-            break;
-    }
 }
