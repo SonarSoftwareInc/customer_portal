@@ -3,17 +3,22 @@
 <div class="container-fluid">
    <div class="row justify-content-center">
       <div class="col-lg-8 col-md-8 col-12">
-         <div class="header mt-md-5">
+          <div class="header mt-md-5">
             <div class="header-body">
                <div class="row align-items-center">
-                  <div class="col">
-                     <h1 class="header-title">
-                        App Configuration
-                     </h1>
-                  </div>
+                 <div class="col">
+                   <h1 class="header-title">
+                     App Configuration
+                   </h1>
+                 </div>
+                 <div class="col-auto">
+                   <a href="{{ url('/') }}" class="btn btn-sm btn-primary">
+                     Back to Dashboard
+                   </a>
+                 </div>
                </div>
             </div>
-         </div>
+          </div>
          <div class="card">
             <div class="card-header">
                <h4 class="card-header-title text-muted">
