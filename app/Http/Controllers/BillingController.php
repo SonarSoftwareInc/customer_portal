@@ -164,6 +164,7 @@ class BillingController extends Controller
             'secure_checkout_policy_link' => $systemSettings->secure_checkout_policy_link ?? '',
             'terms_and_conditions_link' => $systemSettings->terms_and_conditions_link ?? '',
         ];
+        $dateToday = Carbon::now(config('app.timezone'))->format('F j, Y');
 
         $invoices = $this->getOutstandingAccountInvoices();
         $enabledPrimaryCreditCardProcessor = $this->accountController->getEnabledCreditCardProcessor(get_user()->account_id)[0] ?? null;
@@ -183,6 +184,7 @@ class BillingController extends Controller
                     'additionalPaymentInformation',
                     'invoices',
                     'enabledPrimaryCreditCardProcessor',
+                    'dateToday'
                 )
             );
         }
@@ -193,6 +195,7 @@ class BillingController extends Controller
             'additionalPaymentInformation',
             'invoices',
             'enabledPrimaryCreditCardProcessor',
+            'dateToday'
         ));
     }
 
@@ -344,18 +347,33 @@ class BillingController extends Controller
      */
     public function createPaymentMethod($type): Factory|View|RedirectResponse
     {
+        $billingDetails = $this->getAccountBillingDetails();
+        $systemSettings = SystemSetting::first();
+        $date = Carbon::now(config('app.timezone'))->format('F j, Y');
+        
         switch ($type) {
             case 'credit_card':
                 if (config('customer_portal.stripe_enabled') == 1) {
                     $stripe = new PortalStripe();
-                    $systemSettings = SystemSetting::first();
-
+                   
                     return view('pages.billing.add_card_stripe', [
                         'secret' => $stripe->setupIntent(),
                         'key' => $systemSettings->stripe_public_api_key,
+                        'next_bill_amount' => $billingDetails->next_recurring_charge_amount,
+                        'next_bill_date' => $billingDetails->next_bill_date,
+                        'transaction_currency' => $systemSettings->transaction_currency ?? 'USD',
+                        'date' => $date,
                     ]);
                 } else {
-                    return view('pages.billing.add_card');
+                    return view(
+                        'pages.billing.add_card',
+                        [
+                            'next_bill_amount' => $billingDetails->next_recurring_charge_amount,
+                            'next_bill_date' => $billingDetails->next_bill_date,
+                            'transaction_currency' => $systemSettings->transaction_currency ?? 'USD',
+                            'date' => $date,
+                        ]
+                    );
                 }
 
             case 'bank':
@@ -364,7 +382,15 @@ class BillingController extends Controller
 
                     return Redirect::away($gocardless->createRedirect());
                 } else {
-                    return view('pages.billing.add_bank');
+                    return view(
+                        'pages.billing.add_bank',
+                        [
+                            'next_bill_amount' => $billingDetails->next_recurring_charge_amount,
+                            'next_bill_date' => $billingDetails->next_bill_date,
+                            'transaction_currency' => $systemSettings->transaction_currency ?? 'USD',
+                            'date' => $date,
+                        ]
+                    );
                 }
 
             default:

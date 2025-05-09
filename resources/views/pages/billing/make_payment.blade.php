@@ -253,57 +253,68 @@
                {{utrans("billing.saveAsAutoPayMethod")}}
             </div>
             <div class="col mt-1 bank-account-payment">
-               <small class="text-muted">
-                  {{utrans("billing.authorizePaymentAccount", ["business_name" => config("customer_portal.company_name")])}}
-               </small>
+               {{utrans("billing.authorizePaymentAccount", ["business_name" => config("customer_portal.company_name"), "dateToday" => $dateToday])}}
             </div>
 
             <!-- Additional payment Information -->
+            @if(
+               $additionalPaymentInformation['privacy_policy_link'] != '' || 
+               $additionalPaymentInformation['return_refund_policy_link'] != '' || 
+               $additionalPaymentInformation['delivery_policy_link'] != '' || 
+               $additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || 
+               $additionalPaymentInformation['secure_checkout_policy_link'] != '' || 
+               $additionalPaymentInformation['terms_and_conditions_link'] != '' || 
+               $additionalPaymentInformation['isp_name'] != '' || 
+               $additionalPaymentInformation['company_address'] != '' || 
+               $additionalPaymentInformation['customer_service_contact_phone'] != '' || 
+               $additionalPaymentInformation['customer_service_contact_email'] != ''
+            )
             <div class="col-12">
                <br>
                <!-- Policy Links -->
                @if($additionalPaymentInformation['privacy_policy_link'] != '' || $additionalPaymentInformation['return_refund_policy_link'] != '' || $additionalPaymentInformation['delivery_policy_link'] != '' || $additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')
                <p>
-                  @if($additionalPaymentInformation['privacy_policy_link'] != '')
-                  <a class="external" target="_blank" href="{{ $additionalPaymentInformation['privacy_policy_link'] }}">{{utrans("billing.privacy_policy")}}</a>@if(($additionalPaymentInformation['return_refund_policy_link'] != '' || $additionalPaymentInformation['delivery_policy_link'] != '' || $additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
-                  @endif
-                  @if($additionalPaymentInformation['return_refund_policy_link'] != '')
-                  <a class="external" target="_blank" href="{{ $additionalPaymentInformation['return_refund_policy_link'] }}">{{utrans("billing.refund_return_policy")}}</a>@if(($additionalPaymentInformation['delivery_policy_link'] != '' || $additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
-                  @endif
-                  @if($additionalPaymentInformation['delivery_policy_link'] != '')
-                  <a class="external" target="_blank" href="{{ $additionalPaymentInformation['delivery_policy_link'] }}">{{utrans("billing.delivery_policy")}}</a>@if(($additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
-                  @endif
-                  @if($additionalPaymentInformation['consumer_data_privacy_policy_link'] != '')
-                  <a class="external" target="_blank" href="{{ $additionalPaymentInformation['consumer_data_privacy_policy_link'] }}">{{utrans("billing.consumer_data_privacy_policy")}}</a>@if(($additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
-                  @endif
-                  @if($additionalPaymentInformation['secure_checkout_policy_link'] != '')
-                  <a class="external" target="_blank" href="{{ $additionalPaymentInformation['secure_checkout_policy_link'] }}">{{utrans("billing.secure_checkout_policy")}}</a>@if($additionalPaymentInformation['terms_and_conditions_link'] != ''), @endif
-                  @endif
-                  @if($additionalPaymentInformation['terms_and_conditions_link'] != '')
-                  <a class="external" target="_blank" href="{{ $additionalPaymentInformation['terms_and_conditions_link'] }}">{{utrans("billing.terms_of_service")}}</a>
-                  @endif
+                 @if($additionalPaymentInformation['privacy_policy_link'] != '')
+                 <a class="external" target="_blank" href="{{ $additionalPaymentInformation['privacy_policy_link'] }}">{{utrans("billing.privacy_policy")}}</a>@if(($additionalPaymentInformation['return_refund_policy_link'] != '' || $additionalPaymentInformation['delivery_policy_link'] != '' || $additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
+                 @endif
+                 @if($additionalPaymentInformation['return_refund_policy_link'] != '')
+                 <a class="external" target="_blank" href="{{ $additionalPaymentInformation['return_refund_policy_link'] }}">{{utrans("billing.refund_return_policy")}}</a>@if(($additionalPaymentInformation['delivery_policy_link'] != '' || $additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
+                 @endif
+                 @if($additionalPaymentInformation['delivery_policy_link'] != '')
+                 <a class="external" target="_blank" href="{{ $additionalPaymentInformation['delivery_policy_link'] }}">{{utrans("billing.delivery_policy")}}</a>@if(($additionalPaymentInformation['consumer_data_privacy_policy_link'] != '' || $additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
+                 @endif
+                 @if($additionalPaymentInformation['consumer_data_privacy_policy_link'] != '')
+                 <a class="external" target="_blank" href="{{ $additionalPaymentInformation['consumer_data_privacy_policy_link'] }}">{{utrans("billing.consumer_data_privacy_policy")}}</a>@if(($additionalPaymentInformation['secure_checkout_policy_link'] != '' || $additionalPaymentInformation['terms_and_conditions_link'] != '')), @endif
+                 @endif
+                 @if($additionalPaymentInformation['secure_checkout_policy_link'] != '')
+                 <a class="external" target="_blank" href="{{ $additionalPaymentInformation['secure_checkout_policy_link'] }}">{{utrans("billing.secure_checkout_policy")}}</a>@if($additionalPaymentInformation['terms_and_conditions_link'] != ''), @endif
+                 @endif
+                 @if($additionalPaymentInformation['terms_and_conditions_link'] != '')
+                 <a class="external" target="_blank" href="{{ $additionalPaymentInformation['terms_and_conditions_link'] }}">{{utrans("billing.terms_of_service")}}</a>
+                 @endif
                </p>
                @endif
 
                <!-- Company Info -->
                <p>
-                  {{ $additionalPaymentInformation['isp_name'] ?? '' }}{{ $additionalPaymentInformation['isp_name'] != '' ? ':' : '' }} {{ $additionalPaymentInformation['company_address'] }}
-                  @if($additionalPaymentInformation['customer_service_contact_phone'] != '')
-                  {{ utrans("billing.contact_us") }}:
-                  <a class="external" href="tel:{{ $additionalPaymentInformation['customer_service_contact_phone'] }}">
-                     {{ $additionalPaymentInformation['customer_service_contact_phone'] }}
-                  </a>
-                  @endif
-                  @if($additionalPaymentInformation['customer_service_contact_email'] != '')
-                     @if($additionalPaymentInformation['customer_service_contact_phone'] != '')
-                        ,
-                     @endif
-                     <a class="external" href="mailto:{{ $additionalPaymentInformation['customer_service_contact_email'] }}">
-                        {{ $additionalPaymentInformation['customer_service_contact_email'] }}
-                     </a>
-                  @endif
+                 {{ $additionalPaymentInformation['isp_name'] ?? '' }}{{ $additionalPaymentInformation['isp_name'] != '' ? ':' : '' }} {{ $additionalPaymentInformation['company_address'] }}
+                 @if($additionalPaymentInformation['customer_service_contact_phone'] != '')
+                 {{ utrans("billing.contact_us") }}:
+                 <a class="external" href="tel:{{ $additionalPaymentInformation['customer_service_contact_phone'] }}">
+                   {{ $additionalPaymentInformation['customer_service_contact_phone'] }}
+                 </a>
+                 @endif
+                 @if($additionalPaymentInformation['customer_service_contact_email'] != '')
+                   @if($additionalPaymentInformation['customer_service_contact_phone'] != '')
+                     ,
+                   @endif
+                   <a class="external" href="mailto:{{ $additionalPaymentInformation['customer_service_contact_email'] }}">
+                     {{ $additionalPaymentInformation['customer_service_contact_email'] }}
+                   </a>
+                 @endif
                </p>
             </div>
+            @endif
             <div class="col-12 col-md-12 mt-5">
                <input type="hidden" name="payment_tracker_id" value="{{uniqid("", true)}}" />
                <button id="submit_payment" type="submit" class="btn btn-primary">{{utrans("billing.submitPayment")}}</button>
