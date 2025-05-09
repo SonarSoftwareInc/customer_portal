@@ -164,7 +164,8 @@ class BillingController extends Controller
             'secure_checkout_policy_link' => $systemSettings->secure_checkout_policy_link ?? '',
             'terms_and_conditions_link' => $systemSettings->terms_and_conditions_link ?? '',
         ];
-        $dateToday = Carbon::now(config('app.timezone'))->format('F j, Y');
+
+        $dateToday = Carbon::now(config('app.timezone'))->format('Y-m-d');
 
         $invoices = $this->getOutstandingAccountInvoices();
         $enabledPrimaryCreditCardProcessor = $this->accountController->getEnabledCreditCardProcessor(get_user()->account_id)[0] ?? null;
@@ -349,7 +350,7 @@ class BillingController extends Controller
     {
         $billingDetails = $this->getAccountBillingDetails();
         $systemSettings = SystemSetting::first();
-        $date = Carbon::now(config('app.timezone'))->format('F j, Y');
+        $date = Carbon::now(config('app.timezone'))->format('Y-m-d');
         
         switch ($type) {
             case 'credit_card':
