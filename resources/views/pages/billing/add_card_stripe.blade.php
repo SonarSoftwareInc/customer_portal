@@ -123,8 +123,8 @@
                </div>
             </div>
             <div class="col mt-1">
-               <strong>{{utrans("billing.enableAutomaticPayments")}}</strong>
-               {{utrans("billing.saveAsAutoPayMethod")}} {{utrans("billing.legalDisclaimer", ["business_name" => config("customer_portal.company_name")])}}
+               {!! utrans("billing.saveAsAutoPayMethod") !!}
+               {{utrans("billing.legalDisclaimer", ["business_name" => config("customer_portal.company_name")])}}
             </div>
          </div>
       </div>
