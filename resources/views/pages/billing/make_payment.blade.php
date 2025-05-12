@@ -249,8 +249,7 @@
                </div>
             </div>
             <div class="col mt-1 credit-card-autopay">
-               <strong>{{utrans("billing.enableAutomaticPayments")}}</strong>
-               {{utrans("billing.saveAsAutoPayMethod")}}
+               {!! utrans("billing.saveAsAutoPayMethod") !!}
             </div>
             <div class="col mt-1 bank-account-payment">
                {{utrans("billing.authorizePaymentAccount", ["business_name" => config("customer_portal.company_name"), "dateToday" => $dateToday])}}
