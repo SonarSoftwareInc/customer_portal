@@ -136,8 +136,7 @@
                </div>
             </div>
             <div class="col mt-1">
-               <strong>{{utrans("billing.enableAutomaticPayments")}}</strong>
-               {{utrans("billing.saveAsAutoPayMethod")}}
+               {!! utrans("billing.saveAsAutoPayMethod") !!}
             </div>
          </div>
       </div>
