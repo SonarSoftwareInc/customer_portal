@@ -456,15 +456,15 @@
             </div>
          </div>
       </div>
-      @if ($svgDisplay !== "none")
-      <div class="col-12 col-sm-10 col-md-10 col-lg-6 col-xl-4">
-         <div class="card">
-            <div style="display: {{ $svgDisplay }};">
-               {!! $svg !!}
+      @foreach($svgs as $svg)
+         <div class="col-12 col-sm-10 col-md-10 col-lg-6 col-xl-4">
+            <div class="card">
+               <div style="display: {{ $svg['display'] }};">
+                  <img src="{{ $svg['path'] }}" alt="FCC Broadband Facts">
+               </div>
             </div>
          </div>
-      </div>
-      @endif
+      @endforeach
    </div>
 </div>
 </div><!-- #main-content -->
