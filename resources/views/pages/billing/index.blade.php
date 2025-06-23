@@ -459,9 +459,7 @@
       @foreach($svgs as $svg)
          <div class="col-12 col-sm-10 col-md-10 col-lg-6 col-xl-4">
             <div class="card">
-               <div style="display: {{ $svg['display'] }};">
-                  <img src="{{ $svg['path'] }}" alt="FCC Broadband Facts">
-               </div>
+               <img src="{{ $svg }}" alt="FCC Broadband Facts">
             </div>
          </div>
       @endforeach
