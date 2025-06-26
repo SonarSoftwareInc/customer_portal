@@ -459,7 +459,7 @@
       @foreach($svgs as $svg)
          <div class="col-12 col-sm-10 col-md-10 col-lg-6 col-xl-4">
             <div class="card">
-               <img src="{{ $svg }}" alt="FCC Broadband Facts">
+               <img src="{{ $svg }}" alt="{{utrans("billing.fccBroadbandFacts")}}">
             </div>
          </div>
       @endforeach

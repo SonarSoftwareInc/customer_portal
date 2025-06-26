@@ -17,6 +17,7 @@ return [
     'downloadInvoice' => 'PDF',
     'transactionType' => 'Type',
     'dueDate' => 'Due Date',
+    'fccBroadbandFacts' => 'FCC Broadband Facts',
     'creditCardNumber' => 'Credit Card Number',
     'creditCardNumber--placeholder' => '1234 5678 9012 3456',
     'nameOnCard' => 'Name on Card',
