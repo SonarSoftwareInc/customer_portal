@@ -5,7 +5,7 @@ ENV LC_ALL C.UTF-8
 ARG PHP_VERSION=8.2
 
 RUN add-apt-repository ppa:ondrej/php \
- && add-apt-repository ppa:ondrej/nginx-mainline \
+ && add-apt-repository ppa:ondrej/nginx \
  && install_clean \
       gettext \
       nginx \
