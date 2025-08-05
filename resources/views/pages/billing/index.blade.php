@@ -456,15 +456,13 @@
             </div>
          </div>
       </div>
-      @if ($svgDisplay !== "none")
-      <div class="col-12 col-sm-10 col-md-10 col-lg-6 col-xl-4">
-         <div class="card">
-            <div style="display: {{ $svgDisplay }};">
-               {!! $svg !!}
+      @foreach($svgs as $svg)
+         <div class="col-12 col-sm-10 col-md-10 col-lg-6 col-xl-4">
+            <div class="card">
+               <img src="{{ $svg }}" alt="{{utrans("billing.fccBroadbandFacts")}}">
             </div>
          </div>
-      </div>
-      @endif
+      @endforeach
    </div>
 </div>
 </div><!-- #main-content -->
