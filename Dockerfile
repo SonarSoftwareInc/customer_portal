@@ -19,6 +19,11 @@ RUN add-apt-repository ppa:ondrej/php \
       php${PHP_VERSION}-dom \
       unzip
 
+# Ensure security certificates are up to date
+RUN apt-get update \
+ && apt-get install -y --reinstall ca-certificates\ 
+ && update-ca-certificates
+
 WORKDIR /var/www/html
 
 COPY --chown=www-data --from=composer:2.5.8 /usr/bin/composer /tmp/composer
