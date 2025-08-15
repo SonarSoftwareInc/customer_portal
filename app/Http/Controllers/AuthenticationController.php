@@ -342,7 +342,7 @@ class AuthenticationController extends Controller
                 ->withErrors(utrans('errors.invalidToken', [], $request));
         }
 
-        if ($passwordReset->email != $request->input('email')) {
+        if (strcasecmp($passwordReset->email, $request->input('email')) !== 0) {
             $this->incrementThrottleValue('password_update', hash('sha256', $token.$request->getClientIp()));
 
             return redirect()->back()->withErrors(utrans('errors.invalidEmailAddress', [], $request));
