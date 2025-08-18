@@ -10162,7 +10162,6 @@ a.text-body:focus {
 .navbar-brand-img,
 .navbar-brand > img {
 	max-width: 100%;
-	max-height: 1.1rem;
 }
 .navbar-collapse {
 	margin-right: -1rem;
@@ -10548,7 +10547,6 @@ a.text-body:focus {
 	text-align: center;
 }
 .navbar-vertical.navbar-expand-xs .navbar-brand-img {
-	max-height: 2.0rem;
 }
 .navbar-vertical.navbar-expand-xs .navbar-user {
 	margin-right: -1.5rem;
@@ -10641,7 +10639,6 @@ a.text-body:focus {
 		text-align: center;
 	}
 	.navbar-vertical.navbar-expand-sm .navbar-brand-img {
-		max-height: 2.1rem;
 	}
 	.navbar-vertical.navbar-expand-sm .navbar-user {
 		margin-right: -1.5rem;
@@ -10735,7 +10732,6 @@ a.text-body:focus {
 		text-align: center;
 	}
 	.navbar-vertical.navbar-expand-md .navbar-brand-img {
-		max-height: 1.8rem;
 	}
 	.navbar-vertical.navbar-expand-md .navbar-user {
 		margin-right: -1.5rem;
@@ -10829,7 +10825,6 @@ a.text-body:focus {
 		text-align: center;
 	}
 	.navbar-vertical.navbar-expand-lg .navbar-brand-img {
-		max-height: 2.5rem;
 	}
 	.navbar-vertical.navbar-expand-lg .navbar-user {
 		margin-right: -1.5rem;
@@ -10923,7 +10918,6 @@ a.text-body:focus {
 		text-align: center;
 	}
 	.navbar-vertical.navbar-expand-xl .navbar-brand-img {
-		max-height: 2.5rem;
 	}
 	.navbar-vertical.navbar-expand-xl .navbar-user {
 		margin-right: -1.5rem;
