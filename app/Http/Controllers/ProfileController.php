@@ -42,12 +42,16 @@ class ProfileController extends Controller
             PhoneNumber::FAX => null,
         ];
 
+        $country = SystemSetting::first()->country;
+
         foreach ($contact->getPhoneNumbers() as $phoneNumber) {
             if ($phoneNumber != null) {
-                $phoneNumbers[$phoneNumber->getType()] = $phoneNumber->getNumber();
+                $phoneNumbers[$phoneNumber->getType()] = $this->formatPhoneForDisplay(
+                    $phoneNumber->getNumber(),
+                    $country
+                );
             }
         }
-        $country = SystemSetting::first()->country;
 
         return view('pages.profile.show', compact('user', 'contact', 'phoneNumbers', 'country'));
     }
@@ -158,5 +162,19 @@ class ProfileController extends Controller
         }
 
         return utrans("errors.failedToUpdateProfile");
+    }
+
+    private function formatPhoneForDisplay(string $phoneNumber, string $country): string
+    {
+        if ($country !== 'US') return $phoneNumber;
+
+        $cleanNumber = preg_replace('/\D/', '', $phoneNumber);
+
+        //For US numbers, remove leading "1" if present
+        if (strlen($cleanNumber) === 11 && substr($cleanNumber, 0, 1) === '1') {
+            return substr($cleanNumber, 1);
+        }
+
+        return $cleanNumber;
     }
 }

@@ -197,7 +197,7 @@
                   <label>
                      {{utrans("billing.country")}}
                   </label>
-                  {!! Form::select("country",countries(),config("customer_portal.country"),['id' => 'country', 'class' => 'form-control', 'required' => true]) !!}
+                  {!! Form::select("country", countries(), old('country', config("customer_portal.country")), ['id' => 'country', 'class' => 'form-control', 'required' => true]) !!}
                </div>
             </div>
             <div id="stateWrapper" class="col-12 col-md-6">
@@ -205,7 +205,7 @@
                   <label>
                      {{utrans("billing.state")}}
                   </label>
-                  {!! Form::select("state",subdivisions(config("customer_portal.country")),config("customer_portal.state"),['id' => 'state', 'class' => 'form-control', 'required' => true]) !!}
+                  {!! Form::select("state", subdivisions(old('country', config("customer_portal.country"))), old('state', config("customer_portal.state")), ['id' => 'state', 'class' => 'form-control', 'required' => true]) !!}
                </div>
             </div>
             <div class="col-12 col-md-6">
