@@ -83,6 +83,18 @@ $(document).ready(function(){
 
     handlePaymentMethodChange();
 
+    $('#createPaymentMethodForm').on('submit', function() {
+        const $submitBtn = $('#createPaymentMethodSubmitButton');
+        $submitBtn.prop('disabled', true);
+
+        setTimeout(() => {
+            //Re-enable if there are inline validation errors
+            if ($('.has-error').length > 0) {
+                $submitBtn.prop('disabled', false);
+            }
+        }, 100);
+    });
+
     $("#paymentForm").submit(function () {
         var selectedPaymentMethod = $("#payment_method").val();
         switch (selectedPaymentMethod) {
