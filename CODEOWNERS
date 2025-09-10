@@ -3,10 +3,10 @@
 # Each line is a file pattern followed by one or more owners.
 
 # Automatically tag the frontend team for changes in the public directory
-public/ @SonarSoftwareInc/frontend-team
+public/ @SonarSoftwareInc/front-end-developers
 
 # Automatically tag the backend team for changes in the app directory
-app/ @SonarSoftwareInc/backend-team
+app/ @SonarSoftwareInc/back-end-developers
 
 # Default owners for all other changes
-* @SonarSoftwareInc/backend-team
+* @SonarSoftwareInc/back-end-developers
