@@ -1,0 +1,26 @@
+name: PR Notifications
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send to Slack
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": ":sparkles: New PR opened!",
+              "attachments": [
+                {
+                  "title": "${{ github.event.pull_request.title }}",
+                  "title_link": "${{ github.event.pull_request.html_url }}",
+                  "text": "Opened by ${{ github.event.pull_request.user.login }}"
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

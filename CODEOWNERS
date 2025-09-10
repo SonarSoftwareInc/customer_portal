@@ -1,0 +1,12 @@
+# This is a CODEOWNERS file.
+# Lines starting with '#' are comments.
+# Each line is a file pattern followed by one or more owners.
+
+# Automatically tag the frontend team for changes in the public directory
+public/ @SonarSoftwareInc/frontend-team
+
+# Automatically tag the backend team for changes in the app directory
+app/ @SonarSoftwareInc/backend-team
+
+# Default owners for all other changes
+* @SonarSoftwareInc/backend-team
