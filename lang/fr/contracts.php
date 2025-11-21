@@ -8,5 +8,5 @@ return [
     'signed' => 'Signé',
     'pendingSignature' => 'En attente d’une signature.',
     'sign' => 'Signer un accord',
-    'download' => 'Télécharger le accord',
+    'download' => 'Télécharger l\'accord',
 ];

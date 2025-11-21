@@ -4,7 +4,7 @@ return [
     'name' => 'Agreement Name',
     'status' => 'Status',
     'action' => 'Action',
-    'noContracts' => 'There are currently no agreement available.',
+    'noContracts' => 'There are currently no agreements available.',
     'signed' => 'Signed',
     'pendingSignature' => 'Pending Signature',
     'sign' => 'Sign Agreement',
