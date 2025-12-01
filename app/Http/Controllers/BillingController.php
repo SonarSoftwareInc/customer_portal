@@ -484,7 +484,6 @@ class BillingController extends Controller
             );
         } catch (Exception $e) {
             Log::error($e);
-
             return redirect()->back()->withErrors(utrans('errors.failedToCreateBankAccount'))->withInput();
         }
 
@@ -869,12 +868,41 @@ class BillingController extends Controller
 
     private function createBankAccountObjectFromRequest(CreateBankAccountRequest $request): BankAccount
     {
+        $routingNumber = $this->getRoutingNumber($request);
+
         return new BankAccount([
             'name' => trim($request->input('name')),
             'type' => trim($request->input('account_type')),
             'account_number' => trim($request->input('account_number')),
-            'routing_number' => trim($request->input('routing_number')),
+            'routing_number' => $routingNumber,
         ]);
+    }
+
+    /**
+     * Get the routing number based on country format.
+     * For Canadian accounts, combines institution and transit numbers.
+     * For other countries, uses the standard routing number.
+     */
+    private function getRoutingNumber(CreateBankAccountRequest $request): string
+    {
+        if ($request->input('country') === 'CA') {
+            // Check if they provided a standard routing number (for US banks from Canada)
+            $standardRouting = trim($request->input('routing_number', ''));
+            if (!empty($standardRouting) && strlen($standardRouting) === 9) {
+                return $standardRouting;
+            }
+            
+            // Canadian format: 0 + transit number (5 digits) + institution number (3 digits)
+            $institutionNumber = str_pad($request->input('institution_number'), 3, '0', STR_PAD_LEFT);
+            $transitNumber = str_pad($request->input('transit_number'), 5, '0', STR_PAD_LEFT);
+            
+
+            // Payrix format it wants 
+            // Routing number format: 0 + Institution Number + Transit Number
+            return '0' . $institutionNumber . $transitNumber;
+        }
+        
+        return trim($request->input('routing_number'));
     }
 
     /**
