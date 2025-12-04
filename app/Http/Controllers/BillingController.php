@@ -892,13 +892,12 @@ class BillingController extends Controller
                 return $standardRouting;
             }
             
-            // Canadian format: 0 + transit number (5 digits) + institution number (3 digits)
+            // Canadian format: 0 + institution number (3 digits) + transit number (5 digits)
             $institutionNumber = str_pad($request->input('institution_number'), 3, '0', STR_PAD_LEFT);
             $transitNumber = str_pad($request->input('transit_number'), 5, '0', STR_PAD_LEFT);
             
 
-            // Payrix format it wants 
-            // Routing number format: 0 + Institution Number + Transit Number
+            // Routing number format: 0 + Institution Number (YYY) + Transit Number (XXXXX)
             return '0' . $institutionNumber . $transitNumber;
         }
         

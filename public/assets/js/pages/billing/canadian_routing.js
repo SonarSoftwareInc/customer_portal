@@ -139,8 +139,8 @@ $(document).ready(function() {
                 var transit = transitRaw.padStart(5, '0');
                 
                 if (institution.length === 3 && transit.length === 5) {
-                    // Canadian format: 0 + transit number (5 digits) + institution number (3 digits)
-                    var combinedRouting = '0' + transit + institution;
+                    // Canadian format: 0 + institution number (3 digits) + transit number (5 digits)
+                    var combinedRouting = '0' + institution + transit;
                     $('#routing_number_canadian').val(combinedRouting);
                     
                     // Provide visual feedback
@@ -158,7 +158,7 @@ $(document).ready(function() {
         var displayElement = $('#routing-display');
         
         if (combined) {
-            var displayText = 'Routing Number: ' + combined + ' (Format: 0 + ' + transit + ' + ' + institution + ')';
+            var displayText = 'Routing Number: ' + combined + ' (Format: 0 + ' + institution + ' + ' + transit + ')';
             
             if (displayElement.length === 0) {
                 $('<small id="routing-display" class="form-text text-success mt-2"><i class="fa fa-check-circle"></i> <span id="routing-text"></span></small>')
