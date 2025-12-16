@@ -30,7 +30,7 @@ $(document).ready(function() {
                 var standardRouting = $('#routing_number').val().trim();
                 if (standardRouting.length !== 9) {
                     e.preventDefault();
-                    showError('Please enter a valid 9-digit routing number.');
+                    showError(Lang.get('billing.routingStandardInvalid'));
                     return false;
                 }
             } else {
@@ -42,7 +42,7 @@ $(document).ready(function() {
                 
                 if (institution.length !== 3 || transit.length !== 5) {
                     e.preventDefault();
-                    showError('Please enter a valid 3-digit institution number and 5-digit transit number.');
+                    showError(Lang.get('billing.routingCanadianInvalid'));
                     return false;
                 }
                 
@@ -140,11 +140,12 @@ $(document).ready(function() {
                 
                 if (institution.length === 3 && transit.length === 5) {
                     // Canadian format: 0 + institution number (3 digits) + transit number (5 digits)
-                    var combinedRouting = '0' + institution + transit;
+                    var combinedRouting = '0' + institution + transit; // backend expects leading 0
+                    var displayRouting = institution + transit; // UI should hide the leading 0
                     $('#routing_number_canadian').val(combinedRouting);
-                    
-                    // Provide visual feedback
-                    updateRoutingDisplay(institution, transit, combinedRouting);
+
+                    // Provide visual feedback (without leading 0)
+                    updateRoutingDisplay(institution, transit, displayRouting);
                     return;
                 }
             }
@@ -158,7 +159,8 @@ $(document).ready(function() {
         var displayElement = $('#routing-display');
         
         if (combined) {
-            var displayText = 'Routing Number: ' + combined + ' (Format: 0 + ' + institution + ' + ' + transit + ')';
+            // 'combined' passed here is display-only (without leading 0)
+            var displayText = Lang.get('billing.routingDisplayLabel', {routing: combined, institution: institution, transit: transit});
             
             if (displayElement.length === 0) {
                 $('<small id="routing-display" class="form-text text-success mt-2"><i class="fa fa-check-circle"></i> <span id="routing-text"></span></small>')
@@ -169,7 +171,7 @@ $(document).ready(function() {
         } else {
             if (displayElement.length > 0) {
                 if ($('#institution_number').val().length > 0 || $('#transit_number').val().length > 0) {
-                    $('#routing-text').text('Please complete both institution and transit numbers');
+                    $('#routing-text').text(Lang.get('billing.routingIncomplete'));
                     displayElement.removeClass('text-success').addClass('text-warning');
                 } else {
                     displayElement.remove();
@@ -218,7 +220,7 @@ $(document).ready(function() {
     function showError(message) {
         // You can customize this to match your error display method
         if (typeof swal !== 'undefined') {
-            swal('Error', message, 'error');
+            swal(Lang.get('headers.error'), message, 'error');
         } else {
             alert(message);
         }

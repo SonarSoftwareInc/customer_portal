@@ -484,6 +484,7 @@ class BillingController extends Controller
             );
         } catch (Exception $e) {
             Log::error($e);
+            dd($e->getMessage());
             return redirect()->back()->withErrors(utrans('errors.failedToCreateBankAccount'))->withInput();
         }
 

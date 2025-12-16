@@ -8,6 +8,12 @@ close=document.getElementById("close");close.addEventListener('click',function()
 </script>
 <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="/assets/lang.dist.js"></script>
+<script nonce="{{ csp_nonce() }}">
+   // Set the current user's selected language for Lang.js
+   if (typeof Lang !== 'undefined') {
+       Lang.setLocale('{{$language ?? config("app.locale")}}');
+   }
+</script>
 <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/assets/libs/chart.js/dist/Chart.min.js"></script>
 <script src="/assets/libs/highlight/highlight.pack.min.js"></script>
