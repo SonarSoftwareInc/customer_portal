@@ -24,7 +24,7 @@ return [
     'dataUsage' => 'Uso de Datos',
     'currentUsage' => 'Uso Actual',
     'purchaseAdditionalData' => 'Comprar Datos Adicionales',
-    'contracts' => 'Contratos',
+    'contracts' => 'Acuerdos',
     'error' => '¡Vaya!',
     'bankAccounts' => 'Cuentas Bancarias',
     'summary' => 'Resumen',

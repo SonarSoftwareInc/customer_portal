@@ -45,7 +45,7 @@
             @endif
             @if(config("customer_portal.contracts_enabled") === true)
             <li class="nav-item">
-               <a @if(str_contains(Route::getCurrentRoute()->uri(),"contracts")) class="nav-link selected" @else class="nav-link" @endif href="{{action([\App\Http\Controllers\ContractController::class, 'index'])}}">
+               <a @if(str_contains(Route::getCurrentRoute()->uri(),"agreements")) class="nav-link selected" @else class="nav-link" @endif href="{{action([\App\Http\Controllers\ContractController::class, 'index'])}}">
                   <i class="fe fe-package"></i> {{utrans("nav.contracts")}}</a>
             </li>
             @endif

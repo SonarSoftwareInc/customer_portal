@@ -305,7 +305,7 @@
                   </div>
                   <div class="col-auto mt-2">
                      <label>
-                        Enable Contracts
+                        Enable Agreements
                      </label>
                   </div>
                </div>

@@ -1,12 +1,12 @@
 <?php
 
 return [
-    'name' => 'Contract Name',
+    'name' => 'Agreement Name',
     'status' => 'Status',
     'action' => 'Action',
-    'noContracts' => 'There are currently no contracts available.',
+    'noContracts' => 'There are currently no agreements available.',
     'signed' => 'Signed',
     'pendingSignature' => 'Pending Signature',
-    'sign' => 'Sign Contract',
-    'download' => 'Download Contract',
+    'sign' => 'Sign Agreement',
+    'download' => 'Download Agreement',
 ];

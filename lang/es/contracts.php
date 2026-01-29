@@ -1,12 +1,12 @@
 <?php
 
 return [
-    'name' => 'Nombre del Contrato',
+    'name' => 'Nombre del Acuerdo',
     'status' => 'Estado',
     'action' => 'Acción',
-    'noContracts' => 'Actualmente no hay contratos disponibles.',
+    'noContracts' => 'Actualmente no hay acuerdos disponibles.',
     'signed' => 'Firmado',
     'pendingSignature' => 'Pendiente de Firma',
-    'sign' => 'Firmar Contrato',
-    'download' => 'Descargar Contrato',
+    'sign' => 'Firmar Acuerdo',
+    'download' => 'Descargar Acuerdo',
 ];
