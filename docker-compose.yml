@@ -24,6 +24,7 @@ services:
       REDIS_HOST: redis
     labels:
       - wud.watch=true
+      - wud.watch.digest=true
     depends_on:
       - redis
 
