@@ -22,6 +22,8 @@ services:
      - .env
     environment:
       REDIS_HOST: redis
+    labels:
+      - wud.watch=true
     depends_on:
       - redis
 
@@ -37,12 +39,17 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
 
-  watchtower:
-    image: v2tec/watchtower
+  wud:
+    image: getwud/wud
+    container_name: wud
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: sonar-customerportal
+      - ./docker-compose.yml:/wud/docker-compose.yml
+    environment:
+      - WUD_WATCHER_LOCAL_WATCHBYDEFAULT=false
+      - WUD_TRIGGER_DOCKERCOMPOSE_LOCAL_FILE=/wud/docker-compose.yml
+      - WUD_TRIGGER_DOCKERCOMPOSE_LOCAL_PRUNE=true
 
 volumes:
   storage:
