@@ -361,6 +361,7 @@ class AuthenticationController extends Controller
         try {
             $contactController->updateContactPassword($contact, $request->input('password'));
         } catch (Exception $e) {
+            report($e);
             return redirect()->back()->withErrors(utrans('errors.failedToResetPassword', [], $request));
         }
 
