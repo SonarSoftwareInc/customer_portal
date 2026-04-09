@@ -40,9 +40,10 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
 
-  wud:
+
+  selfupdater:
     image: getwud/wud
-    container_name: wud
+    container_name: selfupdater
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -51,6 +52,7 @@ services:
       - WUD_WATCHER_LOCAL_WATCHBYDEFAULT=false
       - WUD_TRIGGER_DOCKERCOMPOSE_LOCAL_FILE=/wud/docker-compose.yml
       - WUD_TRIGGER_DOCKERCOMPOSE_LOCAL_PRUNE=true
+      - WUD_WATCHER_LOCAL_CRON=5 * * * *
 
 volumes:
   storage:
