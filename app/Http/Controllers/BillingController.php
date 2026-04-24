@@ -272,7 +272,7 @@ class BillingController extends Controller
                 ->action([BillingController::class, 'index'])
                 ->with('success', utrans('billing.paymentWasSuccessful'));
         } else {
-            return redirect()->back()->withErrors(utrans('errors.paymentFailed'));
+            return redirect()->back()->withErrors($result->message)->withInput();
         }
     }
 
@@ -549,6 +549,12 @@ class BillingController extends Controller
         }
 
         if ($result->success !== true) {
+            // Check if card was saved despite payment failure
+            if (strpos($result->message, 'Card saved but') !== false) {
+                // Card saved but payment failed - return result so it can be communicated
+                return $result;
+            }
+            // Otherwise card save failed - throw exception (status quo)
             throw new InvalidArgumentException(utrans('errors.paymentFailed'));
         }
 
