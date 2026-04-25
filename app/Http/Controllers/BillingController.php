@@ -549,9 +549,7 @@ class BillingController extends Controller
         }
 
         if ($result->success !== true) {
-            // Check if card was saved despite payment failure
-            if (strpos($result->message, 'Card saved but') !== false) {
-                // Card saved but payment failed - return result so it can be communicated
+            if ($result->message !== '') {
                 return $result;
             }
             // Otherwise card save failed - throw exception (status quo)
