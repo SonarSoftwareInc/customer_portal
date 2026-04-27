@@ -27,7 +27,7 @@ return [
     'tooManyFailedPasswordResets' => 'Vous avez tenté de réinitialiser votre mot de passe trop souvent en peu de temps. Veuillez attendre quelques minutes et réessayer.',
     'couldNotFindAccount' => 'Désolé mais votre compte est introuvable. Veuillez réessayer plus tard ou essayez d’enregistrer un nouveau compte.',
     'failedToLookupSubdivision' => 'Nous n’étions pas en mesure de chercher les États pour ce pays. S’il vous plaît rafraîchir et essayez à nouveau.',
-    'failedToResetPassword' => 'La réinitialisation du mot de passe a échoué. Veuillez réessayer plus tard.',
+    'failedToResetPassword' => 'Échec de la réinitialisation du compte. Veuillez contacter le support.',
     'tokenMismatch' => 'Période d’inactivité trop longue. Veuillez réessayer.',
     'failedToPostReply' => 'Impossible d’afficher la réponse. Veuillez réessayer plus tard.',
     'paymentMethodNotFound' => 'Cette méthode de paiement est introuvable. Elle a peut-être déjà été supprimée.',
