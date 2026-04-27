@@ -28,7 +28,7 @@ return [
     'tooManyFailedCreationAttempts' => 'Has fallado demasiadas veces al crear una cuenta en un corto período de tiempo. Por favor espera unos minutos e inténtalo de nuevo.',
     'tooManyFailedPasswordResets' => 'Has fallado demasiadas veces al restablecer tu contraseña en un corto período de tiempo. Por favor espera unos minutos e inténtalo de nuevo.',
     'couldNotFindAccount' => 'Lo sentimos, no se pudo encontrar tu cuenta. Por favor, inténtalo de nuevo más tarde o intenta registrar una nueva cuenta.',
-    'failedToResetPassword' => 'Tu contraseña es demasiado simple. Por favor, intenta una contraseña más larga y compleja.',
+    'failedToResetPassword' => 'Ocurrió un error al restablecer la cuenta. Por favor, contacta a soporte técnico.',
     'tokenMismatch' => 'Parece que has estado inactivo demasiado tiempo. Por favor, inténtalo de nuevo.',
     'failedToPostReply' => 'Error al publicar la respuesta. Por favor, inténtalo más tarde.',
     'paymentMethodNotFound' => 'Ese método de pago no se pudo encontrar. Quizás ya fue eliminado.',
