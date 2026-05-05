@@ -272,7 +272,7 @@ class BillingController extends Controller
                 ->action([BillingController::class, 'index'])
                 ->with('success', utrans('billing.paymentWasSuccessful'));
         } else {
-            return redirect()->back()->withErrors($result->message)->withInput();
+            return redirect()->back()->withErrors(utrans('errors.paymentFailed', ['error' => $result->message], $request))->withInput();
         }
     }
 
