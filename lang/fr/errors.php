@@ -5,7 +5,7 @@ return [
     'loginFailed' => 'Nom d’utilisateur ou mot de passe invalide.',
     'invalidCreditCardNumber' => 'Ce numéro de carte bancaire n’est pas valide.',
     'invalidExpirationDate' => 'Cette carte de crédit est expirée.',
-    'paymentFailed' => 'Le paiement a échoué. Veuillez vérifier la carte et réessayer. ',
+    'paymentFailed' => 'Le paiement a échoué. Veuillez vérifier vos informations, le message suivant du processeur et réessayer. {error}',
     'failedToUpdateProfile' => 'Impossible de mettre à jour ce profil. Veuillez réessayer plus tard.',
     'currentPasswordInvalid' => 'Mot de passe actuel est incorrect.',
     'failedToDownloadInvoice' => 'Impossible de télécharger la facture. Veuillez réessayer plus tard.',
