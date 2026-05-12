@@ -48,7 +48,7 @@ class AppConfigController extends Controller
             foreach ($inboundEmailAccountResult as $inboundEmailAccountDatum) {
                 $inboundEmailAccounts[$inboundEmailAccountDatum->id] = $inboundEmailAccountDatum->name;
             }
-            $ticketGroupResult = $httpHelper->getAll('/system/tickets/ticket_groups');
+            $ticketGroupResult = $this->getAllPaginatedResults($httpHelper, '/system/tickets/ticket_groups');
             $ticketGroups = [];
             foreach ($ticketGroupResult as $ticketGroupDatum) {
                 $ticketGroups[$ticketGroupDatum->id] = $ticketGroupDatum->name;
@@ -201,6 +201,24 @@ class AppConfigController extends Controller
             'THB' => 'THB',
             'XCD' => 'XCD',
         ];
+    }
+
+    private function getAllPaginatedResults(HttpHelper $httpHelper, string $endpoint): array
+    {
+        $results = [];
+        $page = 1;
+        $pageResults = $httpHelper->get($endpoint, $page);
+
+        while (! empty($pageResults)) {
+            foreach ($pageResults as $pageResult) {
+                $results[] = $pageResult;
+            }
+
+            $page++;
+            $pageResults = $httpHelper->get($endpoint, $page);
+        }
+
+        return $results;
     }
 
     private function allCurrencies(): array
