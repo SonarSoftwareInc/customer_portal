@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5925958de96b4a86395217776428081",
+    "content-hash": "2cb998da4f96a7b0118bf561be7535af",
     "packages": [
         {
             "name": "bjeavons/zxcvbn-php",
@@ -4234,16 +4234,16 @@
         },
         {
             "name": "sonarsoftwareinc/customer_portal_framework",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SonarSoftwareInc/customer_portal_framework.git",
-                "reference": "7c1bc1f33f9bea0d230cca3d4d65a4fd88abec5a"
+                "reference": "3b08a7747913023ab1298a8eb65b25c35c46fc92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SonarSoftwareInc/customer_portal_framework/zipball/7c1bc1f33f9bea0d230cca3d4d65a4fd88abec5a",
-                "reference": "7c1bc1f33f9bea0d230cca3d4d65a4fd88abec5a",
+                "url": "https://api.github.com/repos/SonarSoftwareInc/customer_portal_framework/zipball/3b08a7747913023ab1298a8eb65b25c35c46fc92",
+                "reference": "3b08a7747913023ab1298a8eb65b25c35c46fc92",
                 "shasum": ""
             },
             "require": {
@@ -4285,9 +4285,9 @@
             "support": {
                 "email": "support@sonar.software",
                 "forum": "https://sonar.community",
-                "source": "https://github.com/SonarSoftwareInc/customer_portal_framework/tree/2.0.4"
+                "source": "https://github.com/SonarSoftwareInc/customer_portal_framework/tree/2.0.5"
             },
-            "time": "2025-03-27T18:44:30+00:00"
+            "time": "2026-05-07T18:27:15+00:00"
         },
         {
             "name": "spatie/backtrace",
@@ -10070,6 +10070,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
 }
