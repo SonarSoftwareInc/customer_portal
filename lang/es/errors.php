@@ -5,7 +5,7 @@ return [
     'loginFailed' => 'Usuario o contraseña inválidos.',
     'invalidCreditCardNumber' => 'Ese número de tarjeta de crédito es inválido.',
     'invalidExpirationDate' => 'Esa tarjeta de crédito ha expirado.',
-    'paymentFailed' => 'El pago falló. Por favor verifica tus datos, el siguiente mensaje del procesador e inténtalo de nuevo. {error}',
+    'paymentFailed' => 'El pago falló: {error}. Por favor verifica tus datos e inténtalo de nuevo.',
     'failedToUpdateProfile' => 'Error al actualizar el perfil. Por favor, inténtalo más tarde.',
     'currentPasswordInvalid' => 'La contraseña actual es incorrecta.',
     'passwordIsTooWeak' => 'La contraseña es demasiado débil o contiene palabras comunes del diccionario.',

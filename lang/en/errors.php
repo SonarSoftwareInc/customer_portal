@@ -5,7 +5,7 @@ return [
     'loginFailed' => 'Invalid username or password.',
     'invalidCreditCardNumber' => 'That credit card number is invalid.',
     'invalidExpirationDate' => 'That credit card has expired.',
-    'paymentFailed' => 'Payment failed. Please check your details, following processor message and try again. {error}',
+    'paymentFailed' => 'Payment failed: {error}. Please check your details and try again.',
     'failedToUpdateProfile' => 'Failed to update profile. Please try again later.',
     'currentPasswordInvalid' => 'Current password is incorrect.',
     'passwordIsTooWeak' => 'Password is generally too weak or contains simple dictionary words.',
