@@ -6,7 +6,7 @@ This is a prebuilt and self-hosted customer portal for [Sonar](https://sonar.sof
 
 ## Quick start
 
-These instructions will get you set up and running with SSL through [LetsEncrypt](https://letsencrypt.org) as well as automatic updates provided by [Watchtower](https://github.com/v2tec/watchtower).
+These instructions will get you set up and running with SSL through [LetsEncrypt](https://letsencrypt.org) as well as automatic updates provided by [WUD (What's Up Docker)](https://github.com/getwud/wud).
 
 **_If you are a current Sonar customer, and you need assistance with any part of this process, please don't hesitate to reach out to support@sonar.software for help. We are more than happy to help you get your portal setup!_**
 
@@ -80,7 +80,7 @@ From the `customer_portal` directory, you can execute `sudo docker-compose exec 
 
 ## Upgrading
 
-Upgrades for the customer portal are done automatically and require no interaction on your part! The customer portal will automatically check for updates every 5 minutes and update itself. For further customization such as setting an update window or configuring email and/or Slack notifications, please see https://github.com/v2tec/watchtower
+Upgrades for the customer portal are done automatically and require no interaction on your part! The customer portal will automatically check for updates and update itself. For further customization such as configuring notifications, please see https://github.com/getwud/wud
 
 ## Troubleshooting
 
