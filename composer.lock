@@ -4234,16 +4234,16 @@
         },
         {
             "name": "sonarsoftwareinc/customer_portal_framework",
-            "version": "2.0.5",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SonarSoftwareInc/customer_portal_framework.git",
-                "reference": "3b08a7747913023ab1298a8eb65b25c35c46fc92"
+                "reference": "9af185499aed5bfc2566e16522b7456c04e58820"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SonarSoftwareInc/customer_portal_framework/zipball/3b08a7747913023ab1298a8eb65b25c35c46fc92",
-                "reference": "3b08a7747913023ab1298a8eb65b25c35c46fc92",
+                "url": "https://api.github.com/repos/SonarSoftwareInc/customer_portal_framework/zipball/9af185499aed5bfc2566e16522b7456c04e58820",
+                "reference": "9af185499aed5bfc2566e16522b7456c04e58820",
                 "shasum": ""
             },
             "require": {
@@ -4285,9 +4285,9 @@
             "support": {
                 "email": "support@sonar.software",
                 "forum": "https://sonar.community",
-                "source": "https://github.com/SonarSoftwareInc/customer_portal_framework/tree/2.0.5"
+                "source": "https://github.com/SonarSoftwareInc/customer_portal_framework/tree/2.0.6"
             },
-            "time": "2026-05-07T18:27:15+00:00"
+            "time": "2026-06-11T18:41:19+00:00"
         },
         {
             "name": "spatie/backtrace",
