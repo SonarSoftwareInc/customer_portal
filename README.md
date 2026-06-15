@@ -19,7 +19,7 @@ It will need a public facing IP address and a valid domain name pointing to it (
 SSH into your VM.
 
 Install required packages:
-`sudo apt-get -y update && sudo apt-get -y upgrade && sudo apt-get -y install git unzip`
+`sudo apt-get -y update && sudo apt-get -y upgrade && sudo apt-get -y install git unzip && curl https://get.docker.com/ | bash -`
 
 Clone the repository:
 `git clone https://github.com/SonarSoftwareInc/customer_portal.git`
