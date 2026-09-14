@@ -62,17 +62,17 @@ After the setup process is complete, your instance should be up and running. You
 ## Common tasks
 
 Starting the customer portal:
-`sudo docker-compose start`
+`sudo docker compose start`
 
 Stopping the customer portal:
-`sudo docker-compose stop`
+`sudo docker compose stop`
 
 Viewing the logs:
-`sudo docker-compose logs`
+`sudo docker compose logs`
 
 ## Commands you can use after setup
 
-From the `customer_portal` directory, you can execute `sudo docker-compose exec app /bin/bash` to access the docker container that the portal is running in. After doing this, you can execute the commands below.
+From the `customer_portal` directory, you can execute `sudo docker compose exec app /bin/bash` to access the docker container that the portal is running in. After doing this, you can execute the commands below.
 
 * `php artisan sonar:settingskey` will generate a new key for the `/settings` page if you forget the one you had.
 * `php artisan sonar:test:smtp {email}` will test your email configuration. Replace `{email}` with your email address, and the portal will attempt to send you a test email.
@@ -81,6 +81,40 @@ From the `customer_portal` directory, you can execute `sudo docker-compose exec 
 ## Upgrading
 
 Upgrades for the customer portal are done automatically and require no interaction on your part! The customer portal will automatically check for updates and update itself. For further customization such as configuring notifications, please see https://github.com/getwud/wud
+
+### Migrating an existing installation
+
+Installations created before the move to WUD need a one-time manual migration. Symptoms that you need this: `docker-compose` fails with `client version 1.36 is too old` or with `Supported filenames: docker-compose.yml, docker-compose.yaml`, or the `selfupdater` container restarts in a loop.
+
+From the `customer_portal` directory:
+
+1. **Install Docker Compose v2.** The installer used to pin the standalone `docker-compose` v1 binary, which speaks an API version that Docker Engine 29 and newer reject. This is what blocks installs and restarts.
+
+   ```
+   sudo apt-get update && sudo apt-get install -y docker-compose-plugin
+   ```
+
+   Use `docker compose` (a space, no hyphen) from here on. You can remove the old binary with `sudo rm -f /usr/local/bin/docker-compose`.
+
+2. **Pull the latest repository changes.**
+
+   ```
+   git pull
+   ```
+
+3. **Add a self-updater password to your `.env`.** WUD requires an administrator account and will not start without one. Any value works; it is not used to log into the portal.
+
+   ```
+   echo "WUD_ADMIN_PASSWORD=$(head -c24 /dev/urandom | base64 | tr -d '/+=')" >> .env
+   ```
+
+4. **Restart the stack.** `--remove-orphans` deletes the old `watchtower` container, which would otherwise keep running alongside the new self-updater.
+
+   ```
+   sudo docker compose up -d --remove-orphans
+   ```
+
+If you previously configured Watchtower update notifications, those settings do not carry over. See https://github.com/getwud/wud for the equivalent WUD configuration, or contact support@sonar.software for help.
 
 ## Troubleshooting
 
