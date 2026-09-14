@@ -5,7 +5,6 @@ ENV LC_ALL C.UTF-8
 ARG PHP_VERSION=8.2
 
 RUN add-apt-repository ppa:ondrej/php \
- && add-apt-repository ppa:ondrej/nginx \
  && install_clean \
       gettext \
       nginx \
@@ -21,7 +20,7 @@ RUN add-apt-repository ppa:ondrej/php \
 
 # Ensure security certificates are up to date
 RUN apt-get update \
- && apt-get install -y --reinstall ca-certificates\ 
+ && apt-get install -y --reinstall ca-certificates \
  && update-ca-certificates
 
 WORKDIR /var/www/html

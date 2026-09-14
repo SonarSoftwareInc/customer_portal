@@ -48,7 +48,7 @@ class AppConfigController extends Controller
             foreach ($inboundEmailAccountResult as $inboundEmailAccountDatum) {
                 $inboundEmailAccounts[$inboundEmailAccountDatum->id] = $inboundEmailAccountDatum->name;
             }
-            $ticketGroupResult = $httpHelper->get('/system/tickets/ticket_groups');
+            $ticketGroupResult = $httpHelper->getAll('/system/tickets/ticket_groups');
             $ticketGroups = [];
             foreach ($ticketGroupResult as $ticketGroupDatum) {
                 $ticketGroups[$ticketGroupDatum->id] = $ticketGroupDatum->name;
