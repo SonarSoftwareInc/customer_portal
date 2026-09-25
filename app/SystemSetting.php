@@ -30,6 +30,17 @@ class SystemSetting extends Model
         'go_cardless_currency_code' => 'EUR',
         'paypal_currency_code' => 'USD',
         'stripe_enabled' => false,
+        'return_refund_policy_link' => '',
+        'privacy_policy_link' => '',
+        'customer_service_contact_email' => '',
+        'customer_service_contact_phone' => '',
+        'company_address' => '',
+        'transaction_currency' => 'USD',
+        'delivery_policy_link' => '',
+        'consumer_data_privacy_policy_link' => '',
+        'secure_checkout_policy_link' => '',
+        'terms_and_conditions_link' => '',
+
     ];
 
     protected $casts = [

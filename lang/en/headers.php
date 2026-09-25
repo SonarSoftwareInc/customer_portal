@@ -24,7 +24,7 @@ return [
     'dataUsage' => 'Data Usage',
     'currentUsage' => 'Current Usage',
     'purchaseAdditionalData' => 'Purchase Additional Data',
-    'contracts' => 'Contracts',
+    'contracts' => 'Agreements',
     'error' => 'Whoops!',
     'bankAccounts' => 'Bank Accounts',
     'summary' => 'Summary',

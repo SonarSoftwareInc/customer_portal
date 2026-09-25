@@ -116,7 +116,7 @@ Route::middleware('language')->group(function () {
         /**
          * Contract routes
          */
-        Route::prefix('contracts')->middleware('contracts')->group(function () {
+        Route::prefix('agreements')->middleware('contracts')->group(function () {
             Route::get('/', [ContractController::class, 'index']);
             Route::get('/{contracts}', [ContractController::class, 'downloadContractPdf']);
         });

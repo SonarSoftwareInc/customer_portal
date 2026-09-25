@@ -1,16 +1,23 @@
 $(document).ready(function(){
     var ccNumberField = $("#cc-number");
     var expirationField = $("#expirationDate");
-    var makeAuto = $("#makeAuto");
     var ccIcon = $("#ccIcon");
 
     ccNumberField.payment('formatCardNumber');
     expirationField.payment('formatCardExpiry');
 
-    updatePaymentForm();
-
     $("#country").change(function(){
         updateSubdivisions();
+    });
+
+    // Initially hide the table and show the "show-text"
+    $('.invoicesTable').hide();
+
+    // Click to toggle the table
+    $("#toggleInvoices").click(function(){
+        $('.invoicesTable').slideToggle();
+        $('.show-text').toggle();
+        $('.hide-text').toggle();
     });
 
     ccNumberField.keyup(function (e){
@@ -42,17 +49,50 @@ $(document).ready(function(){
         }
     });
 
-    makeAuto.change(function(){
-        if (makeAuto.is(":checked")) {
-            $("#autoPayDescription").show();
+    function handlePaymentMethodChange() {
+        var selectedOption = $('#payment_method').find(':selected');
+        var paymentType = selectedOption.data('type');
+
+        // Perform actions based on the payment type
+        if (paymentType === 'bank_account') {
+            $('.credit-card-autopay').hide();
+            $('.bank-account-payment').show();
+            $('.credit-card-images').hide();
+            $('.new_card').hide();
+        } else if (paymentType === 'paypal') {
+            $('.credit-card-autopay').hide();
+            $('.bank-account-payment').hide();
+            $('.credit-card-images').hide();
+            $('.new_card').hide();
+        } else if (paymentType === 'new_card') {
+            $('.credit-card-autopay').show();
+            $('.bank-account-payment').hide();
+            $('.credit-card-images').show();
+            $('.new_card').show();
+        } else {
+            $('.credit-card-autopay').hide();
+            $('.bank-account-payment').hide();
+            $('.credit-card-images').hide();
+            $('.new_card').hide();
         }
-        else {
-            $("#autoPayDescription").hide();
-        }
+    }
+
+    $('#payment_method').change(function () {
+        handlePaymentMethodChange();
     });
 
-    $("#payment_method").change(function(){
-        updatePaymentForm();
+    handlePaymentMethodChange();
+
+    $('#createPaymentMethodForm').on('submit', function() {
+        const $submitBtn = $('#createPaymentMethodSubmitButton');
+        $submitBtn.prop('disabled', true);
+
+        setTimeout(() => {
+            //Re-enable if there are inline validation errors
+            if ($('.has-error').length > 0) {
+                $submitBtn.prop('disabled', false);
+            }
+        }, 100);
     });
 
     $("#paymentForm").submit(function () {
@@ -88,6 +128,11 @@ $(document).ready(function(){
         $("#submit_payment").prop('disabled', allClear);
     });
 
+    // Enable the submit button when the payment method or amount to pay field changes
+    $('#payment_method, #amount').change(function () {
+        $('#submit_payment').prop('disabled', false);
+    });
+
 });
 
 function updateSubdivisions()
@@ -97,11 +142,19 @@ function updateSubdivisions()
     var jqxhr = $.get("/portal/billing/subdivisions/" + country, function(data) {
         $("#state").empty();
         var show = false;
+        let initialValue = "";
         $.each(data.subdivisions, function (index, value) {
+            // When updating subdivisions there needs to be a default or we submit an invalid country / state combo
+            let selected = "";
+            if (show === false) {
+                selected = " selected=\"selected\"";
+                initialValue = index;
+            }
             show = true;
-           $("#state").append("<option value='" + index + "'>" + value + "</option>");
+           $("#state").append("<option value='" + index + "'" + selected + ">" + value + "</option>");
         });
         if (show === true) {
+            $("#state").val(initialValue);
             $("#stateWrapper").show();
         }
         else {
@@ -124,27 +177,4 @@ function updateSubdivisions()
     .always(function() {
         $("#state").prop('disabled',false);
     });
-}
-
-function updatePaymentForm()
-{
-    var selectedPaymentMethod = $("#payment_method").val();
-    switch (selectedPaymentMethod) {
-        case "new_card":
-            $(".new_card").show();
-            $(".non_paypal").show();
-            $(".paypal").hide();
-            break;
-        case "paypal":
-            $(".new_card").hide();
-            $(".non_paypal").hide();
-            $(".paypal").show();
-            break;
-        default:
-            //Existing card
-            $(".new_card").hide();
-            $(".non_paypal").show();
-            $(".paypal").hide();
-            break;
-    }
 }

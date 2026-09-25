@@ -7,6 +7,6 @@ return [
     'profile' => 'My Details',
     'tickets' => 'Support Tickets',
     'dataUsage' => 'Data Usage',
-    'contracts' => 'Contracts',
+    'contracts' => 'Agreements',
     'myService' => 'MY SERVICE',
 ];

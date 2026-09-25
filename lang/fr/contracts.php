@@ -4,9 +4,9 @@ return [
     'name' => 'Nom',
     'status' => 'État',
     'action' => 'Action',
-    'noContracts' => 'Aucun contrat disponible.',
+    'noContracts' => 'Aucun accord disponible.',
     'signed' => 'Signé',
     'pendingSignature' => 'En attente d’une signature.',
-    'sign' => 'Signer un contrat',
-    'download' => 'Télécharger le contrat',
+    'sign' => 'Signer un accord',
+    'download' => 'Télécharger l\'accord',
 ];

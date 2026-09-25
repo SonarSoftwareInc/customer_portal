@@ -66,7 +66,7 @@
          <div class="form-group">
             {!! Form::textarea("reply",null,['class' => 'form-control', 'id' => 'reply', 'placeholder' => utrans("tickets.postAReplyPlaceholder")]) !!}
          </div>
-         <button type="submit" class="btn btn-outline-primary">{{utrans("actions.postReply")}}</button>
+         <button type="submit" id="submitButton" class="btn btn-outline-primary">{{utrans("actions.postReply")}}</button>
          {!! Form::close() !!}
       </div>
    </div>
@@ -75,6 +75,7 @@
 @section('additionalCSS')
 @endsection
 @section('additionalJS')
+<script type="text/javascript" src="/assets/js/pages/tickets/show.js"></script>
 <script type="text/javascript" src="/assets/libs/js-validation/jsvalidation.min.js"></script>
 {!! JsValidator::formRequest('App\Http\Requests\TicketReplyRequest','#replyForm') !!}
 @endsection
