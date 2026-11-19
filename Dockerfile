@@ -1,4 +1,4 @@
-FROM phusion/baseimage:jammy-1.0.1 AS base
+FROM phusion/baseimage:jammy-1.0.5 AS base
 
 ENV LC_ALL C.UTF-8
 
