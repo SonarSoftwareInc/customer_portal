@@ -4,7 +4,10 @@ ENV LC_ALL C.UTF-8
 
 ARG PHP_VERSION=8.2
 
-RUN add-apt-repository ppa:ondrej/php \
+RUN curl -fsSLo /tmp/debsuryorg-archive-keyring.deb https://packages.sury.org/debsuryorg-archive-keyring.deb \
+ && dpkg -i /tmp/debsuryorg-archive-keyring.deb \
+ && rm /tmp/debsuryorg-archive-keyring.deb \
+ && echo "deb [signed-by=/usr/share/keyrings/debsuryorg-archive-keyring.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list \
  && install_clean \
       gettext \
       nginx \
