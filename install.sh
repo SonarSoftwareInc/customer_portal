@@ -21,21 +21,25 @@ if ! [ -x "$(command -v docker)" ]; then
        $(lsb_release -cs) \
        stable"
     apt-get update
-    apt-get install -y docker-ce docker-ce-cli containerd.io
+    apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 fi
 
-if ! [ -x "$(command -v docker-compose)" ]; then
-    echo "### docker-compose is not installed, installing it now..."
-    curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
+# Docker Compose v2 is required. The legacy standalone docker-compose v1 binary
+# negotiates Docker API 1.36, which Docker Engine 29 and newer reject with
+# "client version 1.36 is too old", blocking installs and restarts.
+if ! docker compose version >/dev/null 2>&1; then
+    echo "### Docker Compose v2 is not available, installing it now..."
+    apt-get update
+    apt-get install -y docker-compose-plugin
 fi
+COMPOSE="docker compose"
 
 if [ -f .env ]; then
     read -p "### WARNING: Your environment appears to already be set up. Set it up again? [y/N] " -i n -n 1 -r
     echo
     [[ ! $REPLY =~ ^[Yy]$ ]] && exit 1;
 
-    docker-compose stop
+    $COMPOSE stop
     sed -i '/API_PASSWORD=/d' .env
 
     source .env
@@ -48,6 +52,7 @@ if lsof -Pi -sTCP:LISTEN | grep -P ':(80|443)[^0-9]' >/dev/null ; then
 fi
 
 APP_KEY="base64:$(head -c32 /dev/urandom | base64)";
+WUD_ADMIN_PASSWORD="${WUD_ADMIN_PASSWORD:-$(head -c24 /dev/urandom | base64 | tr -d '/+=')}";
 read -ep "Enter your portal domain name (such as portal.example.com): " -i "${NGINX_HOST:-}" NGINX_HOST
 read -ep "Enter Your API Username: " -i "${API_USERNAME:-}" API_USERNAME
 read -esp "Enter Your API Password (output will not be displayed): " API_PASSWORD
@@ -64,6 +69,7 @@ cat <<- EOF > ".env"
         API_PASSWORD=$API_PASSWORD
         SONAR_URL=$TRIMMED_SONAR_URL
         EMAIL_ADDRESS=$EMAIL_ADDRESS
+        WUD_ADMIN_PASSWORD=$WUD_ADMIN_PASSWORD
 EOF
 
 export APP_KEY
@@ -72,8 +78,9 @@ export API_USERNAME
 export API_PASSWORD
 export SONAR_URL
 export EMAIL_ADDRESS
+export WUD_ADMIN_PASSWORD
 
-docker pull sonarsoftware/customerportal:stable
+docker pull sonarsoftware/customerportal:next
 
 echo "### Deleting old certificate for $NGINX_HOST ..."
 rm -rf ./data/certbot/conf/live/$NGINX_HOST && \
@@ -88,7 +95,7 @@ case "$EMAIL_ADDRESS" in
   *) email_arg="--email $EMAIL_ADDRESS" ;;
 esac
 
-docker-compose run --rm \
+$COMPOSE run --rm \
     -p 80:80 \
     -p 443:443 \
     --entrypoint "\
@@ -100,7 +107,7 @@ docker-compose run --rm \
         --force-renewal" certbot
 echo
 
-docker-compose up -d
+$COMPOSE up -d --remove-orphans
 
 until [ "`docker inspect -f {{.State.Running}} sonar-customerportal`"=="true" ]; do
     sleep 0.1;
@@ -108,7 +115,7 @@ done;
 
 echo "### Reconfiguring renewal method to webroot..."
 
-docker-compose run --rm \
+$COMPOSE run --rm \
     --entrypoint "\
       certbot certonly --webroot \
         -d $NGINX_HOST \
